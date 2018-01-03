@@ -7,7 +7,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/dashboard',
     home: true,
   },
-  {
+  /*{
     title: 'FEATURES',
     group: true,
   },
@@ -152,6 +152,66 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'Reset Password',
         link: '/auth/reset-password',
+      },
+    ],
+  },
+  */{
+    title: 'MÓDULO CATÁLOGOS',
+    group: true,
+  },
+  {
+    title: 'Grupos',
+    icon: 'nb-compose',
+    children: [
+      {
+        title: 'Crear Grupos',
+        link: '/pages/grupos/crear',
+      },
+      {
+        title: 'Gestionar Grupos',
+        link: '/pages/grupos/gestionar',
+      },
+    ],
+  },
+  {
+    title: 'Subgrupos',
+    icon: 'nb-compose',
+    children: [
+      {
+        title: 'Crear Subgrupos',
+        link: '/pages/subgrupos/crear',
+      },
+      {
+        title: 'Gestionar Subgrupos',
+        link: '/pages/subgrupos/gestionar',
+      },
+    ],
+  },
+  {
+    title: 'Catalogo',
+    icon: 'nb-compose',
+    children: [
+      {
+        title: 'Gestionar Catalogo',
+        link: '/pages/catalogo/gestionar',
+      },
+    ],
+  },
+  {
+    title: 'MÓDULO ACTA INICIO',
+    group: true,
+  },
+  {
+    title: 'Acta Inicio',
+    icon: 'nb-compose',
+    children: [
+      {
+        title: 'Registrar Acta Inicio',
+        link: '/pages/acta/crear',
+      },
+      {
+        title: 'Gestionar Acta Inicio',
+        link: '/pages/acta/gestionar',
       },
     ],
   },
