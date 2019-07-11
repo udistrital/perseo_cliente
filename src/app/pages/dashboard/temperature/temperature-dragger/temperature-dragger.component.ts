@@ -22,7 +22,7 @@ export class TemperatureDraggerComponent implements AfterViewInit, OnChanges {
   @Input() maxLeap = 0.4;
 
   value = 50;
-  @Output('valueChange') valueChange = new EventEmitter<Number>();
+  @Output() valueChange = new EventEmitter<Number>();
   @Input('value') set setValue(value) {
     this.value = value;
   }
@@ -119,15 +119,19 @@ export class TemperatureDraggerComponent implements AfterViewInit, OnChanges {
     this.calculateVars();
 
     this.invalidateClipPathStr();
-    this.invalidateGradientArcs();
     this.invalidatePinPosition();
+
+    // Chrome fix, temporary solution
+    // TODO: review set data to styles object
+    setTimeout(() => {
+      this.invalidateGradientArcs();
+    });
   }
 
   private calculateVars() {
     this.bottomAngleRad = TemperatureDraggerComponent.toRad(this.bottomAngle);
     this.colors = (typeof this.fillColors === 'string') ? [this.fillColors] : this.fillColors;
 
-    const baseRadius: number = VIEW_BOX_SIZE / 2;
     const halfAngle = this.bottomAngleRad / 2;
 
     const svgBoundingRect = this.svgRoot.nativeElement.getBoundingClientRect();

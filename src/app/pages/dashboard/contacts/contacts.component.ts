@@ -1,47 +1,46 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { NbThemeService, NbMediaBreakpoint, NbMediaBreakpointsService } from '@nebular/theme';
+import { takeWhile } from 'rxjs/operators';
+import { forkJoin } from 'rxjs';
 
-import { UserService } from '../../../@core/data/users.service';
+import { Contacts, RecentUsers, UserData } from '../../../@core/data/users';
 
 @Component({
   selector: 'ngx-contacts',
   styleUrls: ['./contacts.component.scss'],
   templateUrl: './contacts.component.html',
 })
-export class ContactsComponent implements OnInit, OnDestroy {
+export class ContactsComponent implements OnDestroy {
+
+  private alive = true;
 
   contacts: any[];
   recent: any[];
   breakpoint: NbMediaBreakpoint;
   breakpoints: any;
-  themeSubscription: any;
 
-  constructor(private userService: UserService,
+  constructor(private userService: UserData,
               private themeService: NbThemeService,
               private breakpointService: NbMediaBreakpointsService) {
-
-    this.breakpoints = breakpointService.getBreakpointsMap();
-    this.themeSubscription = themeService.onMediaQueryChange()
+    this.breakpoints = this.breakpointService.getBreakpointsMap();
+    this.themeService.onMediaQueryChange()
+      .pipe(takeWhile(() => this.alive))
       .subscribe(([oldValue, newValue]) => {
         this.breakpoint = newValue;
       });
-  }
 
-  ngOnInit() {
-
-    this.userService.getUsers()
-      .subscribe((users: any) => {
-        this.contacts = [
-          {user: users.camilo, type: 'mobile'},
-        ];
-
-        this.recent = [
-          {user: users.camilo, type: 'mobile', time: '5:29 pm'},
-        ];
+    forkJoin(
+      this.userService.getContacts(),
+      this.userService.getRecentUsers(),
+    )
+      .pipe(takeWhile(() => this.alive))
+      .subscribe(([contacts, recent]: [Contacts[], RecentUsers[]]) => {
+        this.contacts = contacts;
+        this.recent = recent;
       });
   }
 
   ngOnDestroy() {
-    this.themeSubscription.unsubscribe();
+    this.alive = false;
   }
 }
