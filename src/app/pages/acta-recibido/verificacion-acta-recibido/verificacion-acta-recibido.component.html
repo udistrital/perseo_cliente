@@ -100,6 +100,7 @@
                             <th scope="col">Tipo de Bien</th>
                             <th scope="col">Subgrupo</th>
                             <th scope="col">Descripcion</th>
+                            <th scope="col">Usuario Asociado</th>
                             <th scope="col">Cantidad</th>
                             <th scope="col">Marca</th>
                             <th scope="col">Serie</th>
@@ -110,7 +111,7 @@
                             <th scope="col"> % IVA</th>
                             <th scope="col">Valor IVA</th>
                             <th scope="col">Valor Total</th>
-                            <th scope="col">Acciónes</th>
+                            <th scope="col">Verificar</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -125,6 +126,7 @@
                             </td>
                             <td>235-Equipo y Maquinaria</td>
                             <td>Computador HP</td>
+                            <td>Usuario 1</td>
                             <td>1</td>
                             <td>Compaq</td>
                             <td>1212-2017</td>
@@ -143,11 +145,11 @@
                             <td>200.000</td>
                             <td>4'200.000</td>
                             <td>
-                              <i class="fas fa-check"></i>
+                              <nb-checkbox status="success"></nb-checkbox>
                             </td>
                           </tr>
                           <tr>
-                            <th scope="row">1</th>
+                            <th scope="row">2</th>
                             <td>
                               <select class="form-control">
                                 <option>Consumo</option>
@@ -157,6 +159,7 @@
                             </td>
                             <td>235-Equipo y Maquinaria</td>
                             <td>Computador HP</td>
+                            <td>Usuario 1</td>
                             <td>1</td>
                             <td>Compaq</td>
                             <td>1212-2017</td>
@@ -175,11 +178,11 @@
                             <td>200.000</td>
                             <td>4'200.000</td>
                             <td>
-                              <i class="fas fa-check"></i>
+                              <nb-checkbox status="success"></nb-checkbox>
                             </td>
                           </tr>
                           <tr>
-                            <th scope="row">1</th>
+                            <th scope="row">3</th>
                             <td>
                               <select class="form-control">
                                 <option>Consumo</option>
@@ -189,6 +192,7 @@
                             </td>
                             <td>235-Equipo y Maquinaria</td>
                             <td>Computador HP</td>
+                            <td>Usuario 1</td>
                             <td>1</td>
                             <td>Compaq</td>
                             <td>1212-2017</td>
@@ -207,11 +211,11 @@
                             <td>200.000</td>
                             <td>4'200.000</td>
                             <td>
-                              <i class="fas fa-check"></i>
+                              <nb-checkbox status="success"></nb-checkbox>
                             </td>
                           </tr>
                           <tr>
-                            <th scope="row">1</th>
+                            <th scope="row">4</th>
                             <td>
                               <select class="form-control">
                                 <option>Consumo</option>
@@ -221,6 +225,7 @@
                             </td>
                             <td>235-Equipo y Maquinaria</td>
                             <td>Computador HP</td>
+                            <td>Usuario 1</td>
                             <td>1</td>
                             <td>Compaq</td>
                             <td>1212-2017</td>
@@ -239,11 +244,12 @@
                             <td>200.000</td>
                             <td>4'200.000</td>
                             <td>
-                              <i class="fas fa-check"></i>
+                              <nb-checkbox status="success"></nb-checkbox>
                             </td>
                           </tr>
                           <tr>
                             <th scope="row"></th>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -272,12 +278,32 @@
                             <td></td>
                             <td></td>
                             <td></td>
+                            <td></td>
+                            <td>Descuentos</td>
+                            <td>0</td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <th scope="row"></th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td>IVA</td>
                             <td>1'080.000</td>
                             <td></td>
                           </tr>
                           <tr>
                             <th scope="row"></th>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -348,7 +374,10 @@
 
       <div class="justify-content-center">
         <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
-          Verificar Acta de Recibido
+          Guardar Acta de Recibido
+        </button>
+        <button type="button" class="btn btn-primary float-right" data-toggle="button" aria-pressed="false" autocomplete="off">
+          Aceptar Acta de Recibido
         </button>
       </div>
 
