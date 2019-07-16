@@ -28,20 +28,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
   {
-    title: 'Movimientos',
-    icon: 'nb-shuffle',
-    children: [
-      {
-        title: 'Solicitud de Baja de Bien',
-        link: '/pages/movimientos/solicitud_baja_bien',
-      },
-      {
-        title: 'Aprobación de Baja de Bien',
-        link: '/pages/movimientos/aprobacion_baja_bien',
-      },
-    ],
-  },
-  {
     title: 'Entradas',
     icon: 'nb-compose',
     children: [
@@ -56,8 +42,26 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'nb-paper-plane',
     children: [
       {
+        title: 'Consultar Salida',
+        link: '/pages/salidas/consulta_salidas',
+      },
+      {
         title: 'Registrar Salida',
-        link: '/pages/salidas/registro',
+        link: '/pages/salidas/registro_salidas',
+      },
+    ],
+  },
+  {
+    title: 'Movimientos',
+    icon: 'nb-shuffle',
+    children: [
+      {
+        title: 'Solicitud de Baja de Bien',
+        link: '/pages/movimientos/solicitud_baja_bien',
+      },
+      {
+        title: 'Aprobación de Baja de Bien',
+        link: '/pages/movimientos/aprobacion_baja_bien',
       },
     ],
   },
