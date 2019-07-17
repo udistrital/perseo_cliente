@@ -9,7 +9,12 @@ import { AprobacionBajaBienComponent } from './aprobacion-baja-bien/aprobacion-b
 import { ConsultaBajaBienComponent } from './consulta-baja-bien/consulta-baja-bien.component';
 
 @NgModule({
-  declarations: [MovimientosComponent, SolicitudBajaBienComponent, AprobacionBajaBienComponent, ConsultaBajaBienComponent],
+  declarations: [
+    MovimientosComponent,
+    SolicitudBajaBienComponent,
+    AprobacionBajaBienComponent,
+    ConsultaBajaBienComponent,
+  ],
   imports: [
     CommonModule,
     MovimientosRoutingModule,
