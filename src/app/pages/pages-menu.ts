@@ -32,7 +32,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'nb-compose',
     children: [
       {
-        title: 'Registrar',
+        title: 'Consultar Entradas',
+        link: '/pages/entradas/consulta_entrada',
+      },
+      {
+        title: 'Registrar Entrada',
         link: '/pages/entradas/registro',
       },
     ],
@@ -55,6 +59,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
     title: 'Movimientos',
     icon: 'nb-shuffle',
     children: [
+      {
+        title: 'Consultar Baja de Bien',
+        link: '/pages/movimientos/consulta_baja_bien',
+      },
       {
         title: 'Solicitud de Baja de Bien',
         link: '/pages/movimientos/solicitud_baja_bien',

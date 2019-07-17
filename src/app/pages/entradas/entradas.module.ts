@@ -11,6 +11,7 @@ import { AdquisicionComponent } from './adquisicion/adquisicion.component';
 import { SobranteComponent } from './sobrante/sobrante.component';
 import { RegistroComponent } from './registro/registro.component';
 import { TercerosComponent } from './terceros/terceros.component';
+import { ConsultaEntradaComponent } from './consulta-entrada/consulta-entrada.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { TercerosComponent } from './terceros/terceros.component';
     SobranteComponent,
     RegistroComponent,
     TercerosComponent,
+    ConsultaEntradaComponent,
   ],
   imports: [
     CommonModule,
