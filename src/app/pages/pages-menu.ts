@@ -6,10 +6,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
     group: true,
   },
   {
-    title: 'MENÚ',
-    icon: 'nb-star',
-  },
-  {
     title: 'Acta de Recibido',
     icon: 'nb-compose',
     children: [
