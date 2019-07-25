@@ -6,9 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./registro.component.scss'],
 })
 export class RegistroComponent implements OnInit {
+
   opcionEntrada: string;
+
   constructor() { }
-  
 
   ngOnInit() {
   }
