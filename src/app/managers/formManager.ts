@@ -3,7 +3,7 @@ export class FormManager {
         for (let index = 0; index < form.campos.length; index++) {
             const element = form.campos[index];
             if (element.nombre === field) {
-                return index
+                return index;
             }
         }
         return -1;

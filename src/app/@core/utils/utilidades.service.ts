@@ -18,14 +18,14 @@ export class UtilidadesService {
         });
         return sum;
     }
-    
+
     translateTree(tree: any) {
         const trans = tree.map((n: any) => {
             let node = {};
             node = {
                 id: n.Id,
                 name: n.Nombre,
-            }
+            };
             if (n.hasOwnProperty('Opciones')) {
                 if (n.Opciones !== null) {
                     const children = this.translateTree(n.Opciones);

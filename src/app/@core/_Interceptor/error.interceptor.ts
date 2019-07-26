@@ -18,5 +18,5 @@ export class HttpErrorInterceptor {
           status: error.status,
           message: 'Something bad happened; please try again later.',
         });
-      };
+      }
 }

@@ -25,7 +25,7 @@ export class ImplicitAutenticationService {
                 'Accept': 'application/json',
                 'authorization': 'Bearer ' + window.localStorage.getItem('access_token'),
             }),
-        }
+        };
         auth.setGeneral(environment.TOKEN);
         this.logOut = '';
         // auth.timer();

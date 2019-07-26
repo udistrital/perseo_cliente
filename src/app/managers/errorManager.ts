@@ -28,5 +28,5 @@ export class HttpErrorManager {
       status: error.status,
       message: 'Something bad happened; please try again later.',
     });
-  };
+  }
 }

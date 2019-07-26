@@ -4,7 +4,7 @@ import { environment } from '../../environments/environment';
 import { throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
-import { HttpErrorManager } from './errorManager'
+import { HttpErrorManager } from './errorManager';
 
 /**
  * This class manage the http connections with internal REST services. Use the response format {
@@ -24,7 +24,7 @@ export class RequestManager {
       headers: new HttpHeaders({
         'Accept': 'application/json',
       }),
-    }
+    };
   }
 
 
@@ -33,7 +33,7 @@ export class RequestManager {
    * @param service: string
    */
   public setPath(service: string) {
-    this.path = environment[service]
+    this.path = environment[service];
   }
 
 
@@ -94,4 +94,4 @@ export class RequestManager {
       catchError(this.errManager.handleError),
     );
   }
-};
+}

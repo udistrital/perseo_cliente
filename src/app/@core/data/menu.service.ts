@@ -3,13 +3,13 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
-import { environment } from './../../../environments/environment'
+import { environment } from './../../../environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({
     'Accept': 'application/json',
   }),
-}
+};
 
 const path = environment.CONF_MENU_SERVICE;
 
@@ -59,5 +59,5 @@ export class MenuService {
       status: error.status,
       message: 'Something bad happened; please try again later.',
     });
-  };
+  }
 }
