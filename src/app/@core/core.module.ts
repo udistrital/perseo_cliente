@@ -1,18 +1,28 @@
+import { HttpErrorInterceptor } from './_Interceptor/error.interceptor';
+import { AuthInterceptor } from './_Interceptor/auth.Interceptor';
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
 import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 import { of as observableOf } from 'rxjs';
-
 import { throwIfAlreadyLoaded } from './module-import-guard';
+import { DataModule } from './data/data.module';
+import { AnalyticsService } from './utils/analytics.service';
+import { NotificacionesService } from './utils/notificaciones.service';
+import { WebsocketService } from './utils/websocket.service';
+import { AuthGuard } from './_guards/auth.guard';
+
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import {
-  AnalyticsService,
   LayoutService,
   PlayerService,
   StateService,
+  ImplicitAutenticationService,
+  LoaderService,
+  UtilidadesService
 } from './utils';
 
-import { DataModule } from './data/data.module';
 
 const socialLinks = [
   {
@@ -76,10 +86,14 @@ export const NB_CORE_PROVIDERS = [
   {
     provide: NbRoleProvider, useClass: NbSimpleRoleProvider,
   },
-  AnalyticsService,
   LayoutService,
+  AnalyticsService,
   PlayerService,
   StateService,
+  ImplicitAutenticationService,
+  LoaderService,
+  NotificacionesService,
+  UtilidadesService
 ];
 
 @NgModule({
@@ -90,6 +104,15 @@ export const NB_CORE_PROVIDERS = [
     NbAuthModule,
   ],
   declarations: [],
+  providers: [
+    AuthGuard,
+
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
 })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

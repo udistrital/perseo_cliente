@@ -5,6 +5,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { ThemeModule } from '../@theme/theme.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 const PAGES_COMPONENTS = [
   PagesComponent,
@@ -16,6 +17,7 @@ const PAGES_COMPONENTS = [
     ThemeModule,
     DashboardModule,
     MiscellaneousModule,
+    TranslateModule,
   ],
   declarations: [
     ...PAGES_COMPONENTS,

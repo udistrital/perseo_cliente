@@ -7,6 +7,7 @@ import { ActaRecibidoComponent } from './acta-recibido.component';
 import { RegistroActaRecibidoComponent } from './registro-acta-recibido/registro-acta-recibido.component';
 import { VerificacionActaRecibidoComponent } from './verificacion-acta-recibido/verificacion-acta-recibido.component';
 import { ConsultaActaRecibidoComponent } from './consulta-acta-recibido/consulta-acta-recibido.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { ConsultaActaRecibidoComponent } from './consulta-acta-recibido/consulta
     CommonModule,
     ActaRecibidoRoutingModule,
     ThemeModule,
+    TranslateModule,
   ],
 })
 export class ActaRecibidoModule { }

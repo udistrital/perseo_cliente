@@ -107,7 +107,7 @@ export class NotificacionesService {
     }
 
     changeStateToView(id) {
-        let notificacion = this.getNotificacionEstadoUsuario(id);
+        const notificacion = this.getNotificacionEstadoUsuario(id);
         notificacion[0].Activo = false;
         this.confService.put('notificacion_estado_usuario', notificacion[0])
                 .subscribe(res => {
