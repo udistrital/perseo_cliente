@@ -113,7 +113,6 @@ const NB_MODULES = [
   NbTooltipModule,
   NbCalendarKitModule,
   TranslateModule,
-  
 ];
 
 const COMPONENTS = [

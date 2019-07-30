@@ -21,7 +21,7 @@ export class AutenticationService {
                 ),
                 'cache-control': 'no-cache',
             }),
-        }
+        };
         this.logOut = '';
         this.timer();
     }
@@ -32,7 +32,7 @@ export class AutenticationService {
 
     public post(url, data, header) {
         const body = JSON.stringify(data);
-        return this.http.post(url, body, header)
+        return this.http.post(url, body, header);
     }
 
     public getToken() {
@@ -75,7 +75,7 @@ export class AutenticationService {
         } else {
             while (!!(m = regex.exec(queryString))) {
                 if (window.sessionStorage.getItem(decodeURIComponent(m[1])) !== undefined) {
-                    window.sessionStorage.setItem(decodeURIComponent(m[1]), decodeURIComponent(m[2]))
+                    window.sessionStorage.setItem(decodeURIComponent(m[1]), decodeURIComponent(m[2]));
                 }
             }
             if (!this.live()) {
