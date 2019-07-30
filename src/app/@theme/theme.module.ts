@@ -74,6 +74,7 @@ import { ImplicitAutenticationService } from '../@core/utils/implicit_autenticat
 import { NotificacionesService } from '../@core/utils/notificaciones.service';
 import { ConfiguracionService } from '../@core/data/configuracion.service';
 import { DocumentoService } from '../@core/data/documento.service';
+import { TranslatePipe, TranslateModule } from '@ngx-translate/core';
 
 const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
 
@@ -111,6 +112,8 @@ const NB_MODULES = [
   NbChatModule,
   NbTooltipModule,
   NbCalendarKitModule,
+  TranslateModule,
+  
 ];
 
 const COMPONENTS = [

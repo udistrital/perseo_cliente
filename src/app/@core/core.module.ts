@@ -22,6 +22,7 @@ import {
   LoaderService,
   UtilidadesService,
 } from './utils';
+import { AutenticationService } from './utils/authentication.service';
 
 
 const socialLinks = [
@@ -94,6 +95,7 @@ export const NB_CORE_PROVIDERS = [
   LoaderService,
   NotificacionesService,
   UtilidadesService,
+  AutenticationService,
 ];
 
 @NgModule({

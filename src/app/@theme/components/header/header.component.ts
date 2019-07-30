@@ -80,7 +80,8 @@ export class HeaderComponent implements OnInit {
     this.notificacionService.changeStateNoView(this.username);
   }
   login(): void {
-    window.location.replace(this.autenticacion.getAuthorizationUrl(true));
+
+    console.log(this.autenticacion.getAuthorizationUrl(false));
   }
   logout() {
     this.autenticacion.logout();
@@ -92,7 +93,11 @@ export class HeaderComponent implements OnInit {
 
     return false;
   }
-
+  toggleNotifications(): boolean {
+    this.sidebarService.toggle(false, 'notifications-sidebar');
+    this.changeStateNoView()
+    return false;
+  }
   goToHome() {
     this.menuService.navigateHome();
   }
