@@ -30,7 +30,7 @@ export class WebsocketService {
                     ws.send(JSON.stringify(data));
                 }
             },
-        }
+        };
         return Rx.Subject.create(observer, observable);
     }
 

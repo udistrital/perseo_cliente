@@ -20,7 +20,7 @@ import {
   StateService,
   ImplicitAutenticationService,
   LoaderService,
-  UtilidadesService
+  UtilidadesService,
 } from './utils';
 
 
@@ -93,7 +93,7 @@ export const NB_CORE_PROVIDERS = [
   ImplicitAutenticationService,
   LoaderService,
   NotificacionesService,
-  UtilidadesService
+  UtilidadesService,
 ];
 
 @NgModule({

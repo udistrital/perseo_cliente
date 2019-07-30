@@ -16,7 +16,7 @@ import { MENU_ITEMS } from './pages-menu';
 export class PagesComponent {
 
   constructor(private translate: TranslateService,
-    ){
+    ) {
       this.translate.onLangChange.subscribe((event: LangChangeEvent) => { // Live reload
       });
     }

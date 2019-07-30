@@ -8,7 +8,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 })
 export class ConsultaActaRecibidoComponent implements OnInit {
 
-  constructor(private translate: TranslateService) { 
+  constructor(private translate: TranslateService) {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => { // Live reload
     });
   }

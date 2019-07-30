@@ -22,11 +22,9 @@ export class HeaderComponent implements OnInit {
 
   itemClick: Subscription;
   liveTokenValue: boolean = false;
-  
   username = '';
   userMenu = [{ title: 'ver todas', icon: 'fa fa-list' }];
   public noNotify: any = '0';
-  
   private autenticacion = new ImplicitAutenticationService;
 
   constructor(private sidebarService: NbSidebarService,
@@ -46,7 +44,7 @@ export class HeaderComponent implements OnInit {
     this.notificacionService.arrayMessages$
       .subscribe((notification: any) => {
         const temp = notification.map((notify: any) => {
-          return { title: notify.Content.Message, icon: 'fa fa-commenting-o' }
+          return { title: notify.Content.Message, icon: 'fa fa-commenting-o' };
         });
         this.userMenu = [...temp.slice(0, 7), ...[{ title: 'ver todas', icon: 'fa fa-list' }]];
       });
@@ -79,9 +77,9 @@ export class HeaderComponent implements OnInit {
   }
 
   changeStateNoView(): void {
-    this.notificacionService.changeStateNoView(this.username)
+    this.notificacionService.changeStateNoView(this.username);
   }
-  login() {
+  login(): void {
     window.location.replace(this.autenticacion.getAuthorizationUrl(true));
   }
   logout() {

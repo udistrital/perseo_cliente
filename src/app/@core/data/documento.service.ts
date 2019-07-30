@@ -9,7 +9,7 @@ const httpOptions = {
     headers: new HttpHeaders({
         'Accept': 'application/json',
     }),
-}
+};
 
 const path = environment;
 
@@ -58,5 +58,5 @@ export class DocumentoService {
             status: error.status,
             message: 'Something bad happened; please try again later.',
         });
-    };
+    }
 }

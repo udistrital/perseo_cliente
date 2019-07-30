@@ -39,7 +39,7 @@ export class NuxeoComponent implements OnChanges {
                                         nuxeo.batchUpload()
                                             .upload(nuxeoBlob)
                                             .then(function (response) {
-                                                element.uid = doc.uid
+                                                element.uid = doc.uid;
                                                 return nuxeo.operation('Blob.AttachOnDocument')
                                                     .param('document', doc.uid)
                                                     .input(response.blob)
@@ -49,12 +49,12 @@ export class NuxeoComponent implements OnChanges {
                                                             Enlace: doc.uid,
                                                             Nombre: element.nombre,
                                                             TipoDocumento: { Id: element.IdDocumento },
-                                                        }
+                                                        };
                                                         documentoservice.post('documento', documentoPost)
                                                             .subscribe(resuestaPost => {
                                                                 console.info(resuestaPost);
                                                                 saveApi.emit(resuestaPost);
-                                                            })
+                                                            });
                                                     });
                                             })
                                             .catch(function (error) {
@@ -65,11 +65,11 @@ export class NuxeoComponent implements OnChanges {
                                     .catch(function (error) {
                                         console.info(error);
                                         throw error;
-                                    })
+                                    });
 
                             }
                         });
-                })
+                });
             });
     }
 
@@ -94,14 +94,14 @@ export class NuxeoComponent implements OnChanges {
                     console.info(response);
                 })
                 .catch(function (response) {
-                    error = response
+                    error = response;
                 });
             if (error !== null) {
                 console.info(error);
             } else {
                 console.info(url);
             }
-        };
+        }
     }
 
     ngOnChanges(changes) {

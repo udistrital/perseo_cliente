@@ -15,6 +15,6 @@ export {
   ImplicitAutenticationService,
   LoaderService,
   NotificacionesService,
-  UtilidadesService
+  UtilidadesService,
 
 };

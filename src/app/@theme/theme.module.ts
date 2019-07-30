@@ -175,7 +175,7 @@ export class ThemeModule {
         ImplicitAutenticationService,
         NotificacionesService,
         ConfiguracionService,
-        DocumentoService
+        DocumentoService,
       ],
     };
   }
