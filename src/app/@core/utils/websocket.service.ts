@@ -33,5 +33,4 @@ export class WebsocketService {
         };
         return Rx.Subject.create(observer, observable);
     }
-
 }
