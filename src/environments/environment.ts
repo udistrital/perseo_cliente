@@ -13,7 +13,7 @@ export const environment = {
   NUXEO: {
     PATH: 'https://documental.udistrital.edu.co/nuxeo/',
   },
-  CONFIGURACION_SERVICE: 'http://10.20.0.254/configuracion_api/v1/',
+  CONFIGURACION_SERVICE: 'https://autenticacion.udistrital.edu.co/apioas/configuracion_crud_api/v1/',
   NOTIFICACION_SERVICE: 'ws://10.20.0.254:8199/ws/join',
   CONF_MENU_SERVICE: 'http://10.20.0.254/configuracion_api/v1/menu_opcion_padre/ArbolMenus/',
   TOKEN: {
@@ -21,9 +21,9 @@ export const environment = {
     CLIENTE_ID: '3Idp5LUlnZY7cOV10NaLuyRfzooa',
     RESPONSE_TYPE: 'id_token token',
     SCOPE: 'openid email role documento',
-    REDIRECT_URL: 'http://localhost:5000/',
+    REDIRECT_URL: 'http://localhost:4200/',
     SIGN_OUT_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oidc/logout',
-    SIGN_OUT_REDIRECT_URL: 'http://localhost:5000/',
+    SIGN_OUT_REDIRECT_URL: 'http://localhost:4200/',
   },
 
 };
