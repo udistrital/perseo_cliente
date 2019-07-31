@@ -1,6 +1,4 @@
-<div class="header-container"
-     [class.left]="position === 'normal'"
-     [class.right]="position === 'inverse'">
+<div class="header-container" [class.left]="position === 'normal'" [class.right]="position === 'inverse'">
   <div class="logo-containter">
     <a (click)="toggleSidebar()" href="#" class="navigation"><i class="nb-menu"></i></a>
     <div class="logo" (click)="goToHome()"><span>ARKA II</span></div>
@@ -10,10 +8,7 @@
 
 <div class="header-container">
   <ngx-layout-direction-switcher></ngx-layout-direction-switcher>
-  <nb-actions
-    size="medium"
-    [class.right]="position === 'normal'"
-    [class.left]="position === 'inverse'">
+  <nb-actions size="medium" [class.right]="position === 'normal'" [class.left]="position === 'inverse'">
     <nb-action [hidden]="!liveTokenValue">
       <div class="dropdown ghost-dropdown" ngbDropdown>
         <button type="button" class="btn btn-success user" type="button" ngbDropdownToggle>
@@ -29,7 +24,7 @@
     <nb-action [hidden]="liveTokenValue">
       <div class="dropdown ghost-dropdown">
         <div class="btn-with-icon-example">
-          <button type="button" class="btn btn-success btn-with-icon login " (click)="login()">
+          <button type="button" nbButton status="primary" (click)="login()">
             <i class="nb-user"></i>
             <span>{{ 'HOME.LOGIN' | translate }}</span>
           </button>
@@ -37,13 +32,13 @@
       </div>
     </nb-action>
     <nb-action class="control-item idioma">
-      <select #langSelect (change)="translate.use(langSelect.value)" class="form-control">
-        <option *ngFor="let lang of translate.getLangs()" class="form-control" [value]="lang"
-          [selected]="lang === translate.currentLang">{{ lang }}</option>
-      </select>
-    </nb-action>
-    <nb-action class="control-item idioma">
-      <i class="icono control-icon ion-earth"></i>
+      <i class="control-icon ion-earth" nbPopoverTrigger="click" [nbPopover]="templateRef"
+        nbPopoverPlacement="bottom"></i>
+      <ng-template #templateRef>
+        <div *ngFor="let lang of translate.getLangs()">
+          <button nbButton status="primary" [value]="lang" (click)="useLanguage(lang)">{{ lang }}</button>
+        </div>
+      </ng-template>
     </nb-action>
     <nb-action class="control-item" icon="nb-email"></nb-action>
     <nb-action class="control-item">

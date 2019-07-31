@@ -26,6 +26,8 @@ export class HeaderComponent implements OnInit {
   userMenu = [{ title: 'ver todas', icon: 'fa fa-list' }];
   public noNotify: any = '0';
   private autenticacion = new ImplicitAutenticationService;
+  public activeLang = 'es';
+
 
   constructor(private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
@@ -56,7 +58,6 @@ export class HeaderComponent implements OnInit {
     // this.userService.getUsers()
     //   .subscribe((users: any) => this.user = users.nick);
   }
-
 
   useLanguage(language: string) {
     this.translate.use(language);
