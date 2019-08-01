@@ -8,6 +8,7 @@ import { RegistroActaRecibidoComponent } from './registro-acta-recibido/registro
 import { VerificacionActaRecibidoComponent } from './verificacion-acta-recibido/verificacion-acta-recibido.component';
 import { ConsultaActaRecibidoComponent } from './consulta-acta-recibido/consulta-acta-recibido.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { TranslateModule } from '@ngx-translate/core';
     CommonModule,
     ActaRecibidoRoutingModule,
     ThemeModule,
+    Ng2SmartTableModule,
     TranslateModule,
   ],
 })
