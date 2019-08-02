@@ -8,6 +8,7 @@ import { RegistroActaRecibidoComponent } from './registro-acta-recibido/registro
 import { VerificacionActaRecibidoComponent } from './verificacion-acta-recibido/verificacion-acta-recibido.component';
 import { ConsultaActaRecibidoComponent } from './consulta-acta-recibido/consulta-acta-recibido.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,8 @@ import { TranslateModule } from '@ngx-translate/core';
     ActaRecibidoRoutingModule,
     ThemeModule,
     TranslateModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
   ],
 })
 export class ActaRecibidoModule { }

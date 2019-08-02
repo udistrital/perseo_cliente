@@ -4,6 +4,37 @@
     <nb-card-body>
 
       <nb-card>
+        <nb-card-header>Consultar Acta de Recibido</nb-card-header>
+        <nb-card-body>
+
+          <div class="row">
+            <div class="form-group col-sm">
+              <label>Número de Acta</label>
+              <select class="form-control">
+                <option>1234</option>
+                <option>5678</option>
+                <option>9012</option>
+              </select>
+            </div>
+            <div class="form-group col-sm">
+              <label>NIT y/o Proveedor</label>
+              <div class="input-group">
+                <input type="text" placeholder="NIT y/o Proveedor" class="form-control" />
+              </div>
+            </div>
+            <div class="form-group col-sm">
+              <label>Fecha de Registro</label>
+              <div class="input-group">
+                <input nbInput placeholder="Selecciona la Fecha" class="form-control" [nbDatepicker]="formpicker">
+                <nb-datepicker #formpicker></nb-datepicker>
+              </div>
+            </div>
+          </div>
+
+        </nb-card-body>
+      </nb-card>
+
+      <nb-card>
         <nb-card-header>Tipo Entrada</nb-card-header>
         <nb-card-body>
 
@@ -21,12 +52,12 @@
         </nb-card-body>
       </nb-card>
 
-      <ngx-adquisicion *ngIf="opcionEntrada==='Adquisición'"></ngx-adquisicion>
-      <ngx-reposicion *ngIf="opcionEntrada==='Reposición'"></ngx-reposicion>
-      <ngx-elaboracion-propia *ngIf="opcionEntrada==='Elaboración Propia'"></ngx-elaboracion-propia>
-      <ngx-donacion *ngIf="opcionEntrada==='Donación'"></ngx-donacion>
-      <ngx-sobrante *ngIf="opcionEntrada==='Sobrante de Inventario'"></ngx-sobrante>
-      <ngx-terceros *ngIf="opcionEntrada==='Terceros'"></ngx-terceros>
+      <ngx-adquisicion *ngIf="opcionEntrada === 'Adquisición'"></ngx-adquisicion>
+      <ngx-reposicion *ngIf="opcionEntrada === 'Reposición'"></ngx-reposicion>
+      <ngx-elaboracion-propia *ngIf="opcionEntrada === 'Elaboración Propia'"></ngx-elaboracion-propia>
+      <ngx-donacion *ngIf="opcionEntrada === 'Donación'"></ngx-donacion>
+      <ngx-sobrante *ngIf="opcionEntrada === 'Sobrante de Inventario'"></ngx-sobrante>
+      <ngx-terceros *ngIf="opcionEntrada === 'Terceros'"></ngx-terceros>
 
     </nb-card-body>
   </nb-card>
