@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Router } from '@angular/router';
+import { NbDatepicker } from '@nebular/theme';
+
 
 @Component({
   selector: 'ngx-consulta-acta-recibido',
@@ -52,6 +54,14 @@ export class ConsultaActaRecibidoComponent implements OnInit {
       },
       fecha_creacion: {
         title: 'Fecha de Creacion',
+        filter: {
+          type: 'daterange',
+          config: {
+            daterange: {
+              format: 'mm/dd/yyyy',
+            },
+          },
+        },
       },
       fecha_visto_bueno: {
         title: 'Fecha Visto Bueno',
@@ -61,6 +71,17 @@ export class ConsultaActaRecibidoComponent implements OnInit {
       },
       estado: {
         title: 'Estado',
+        filter: {
+          type: 'list',
+          config: {
+            selectText: 'Select...',
+            list: [
+              { value: 'adfasd', title: 'Glenna Reichert' },
+              { value: 'Kurtis Weissnat', title: 'Kurtis Weissnat' },
+              { value: 'Chelsey Dietrich', title: 'Chelsey Dietrich' },
+            ],
+          },
+        },
       },
       ubicacion: {
         title: 'Ubicacion',
@@ -157,13 +178,13 @@ export class ConsultaActaRecibidoComponent implements OnInit {
   }
 
   onCustom(event: any) {
-    alert(`Custom event '${event.action}' fired on row №: ${event.data.consecutivo}`)
+    alert(`Custom event '${event.action}' fired on row №: ${event.data.consecutivo}`);
     if (event !== null) {
-      this.router.navigate(['/pages/acta_recibido/registro_acta_recibido', { id: event.data.consecutivo }])
+      this.router.navigate(['/pages/acta_recibido/registro_acta_recibido', { id: event.data.consecutivo }]);
     }
   }
   onRegister() {
-    this.router.navigate(['/pages/acta_recibido/registro_acta_recibido'])
+    this.router.navigate(['/pages/acta_recibido/registro_acta_recibido']);
   }
 
 }

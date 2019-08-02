@@ -76,7 +76,6 @@ export class RegistroActaRecibidoComponent implements OnInit {
     },
   };
 
-  
   private sub: Subscription;
 
   bandera: boolean = false;
@@ -84,25 +83,22 @@ export class RegistroActaRecibidoComponent implements OnInit {
   errMess: any;
 
   constructor(private router: Router, private route: ActivatedRoute ) {
-    
   }
 
   ngOnInit() {
-    //this.source.load(this.data);
+    // this.source.load(this.data);
   }
   ver() {
-    //this.source.getAll().then((data) => { console.log(data); this.foo = data; this.bandera = true; });
+    // this.source.getAll().then((data) => { console.log(data); this.foo = data; this.bandera = true; });
   }
 
   ver2() {
-    console.log(this.foo);
   }
   ver3() {
     this.datos = this.source.getAll();
-    console.log(this.datos);
   }
 
   onCustom(event: any) {
-    alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`)
+    alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`);
   }
 }
