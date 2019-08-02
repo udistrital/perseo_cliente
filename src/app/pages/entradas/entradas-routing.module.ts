@@ -5,9 +5,8 @@ import { RegistroComponent } from './registro/registro.component';
 import { ConsultaEntradaComponent } from './consulta-entrada/consulta-entrada.component';
 import {
   SmartTableDatepickerComponent,
-  SmartTableDatepickerRenderComponent
-}
-  from './consulta-entrada/smart-table-datepicker/smart-table-datepicker.component'
+  SmartTableDatepickerRenderComponent,
+} from './consulta-entrada/smart-table-datepicker/smart-table-datepicker.component';
 
 const routes: Routes = [{
   path: '',
@@ -27,7 +26,7 @@ const routes: Routes = [{
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  entryComponents: [SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent]
+  entryComponents: [SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent],
 })
 export class EntradasRoutingModule { }
 
