@@ -1,56 +1,22 @@
 <div class="col-lg-12">
   <nb-card>
-    <nb-card-header>Registrar Entrada</nb-card-header>
+    <nb-card-header>
+      <h1>Registrar Entrada</h1>
+    </nb-card-header>
     <nb-card-body>
 
-      <nb-card>
-        <nb-card-header>Consultar Acta de Recibido</nb-card-header>
-        <nb-card-body>
+      <h5>Consultar Acta de Recibido</h5>
+      <ngx-tabla-actas></ngx-tabla-actas>
 
-          <div class="row">
-            <div class="form-group col-sm">
-              <label>Número de Acta</label>
-              <select class="form-control">
-                <option>1234</option>
-                <option>5678</option>
-                <option>9012</option>
-              </select>
-            </div>
-            <div class="form-group col-sm">
-              <label>NIT y/o Proveedor</label>
-              <div class="input-group">
-                <input type="text" placeholder="NIT y/o Proveedor" class="form-control" />
-              </div>
-            </div>
-            <div class="form-group col-sm">
-              <label>Fecha de Registro</label>
-              <div class="input-group">
-                <input nbInput placeholder="Selecciona la Fecha" class="form-control" [nbDatepicker]="formpicker">
-                <nb-datepicker #formpicker></nb-datepicker>
-              </div>
-            </div>
-          </div>
-
-        </nb-card-body>
-      </nb-card>
-
-      <nb-card>
-        <nb-card-header>Tipo Entrada</nb-card-header>
-        <nb-card-body>
-
-          <div class="form-group col-sm">
-            <select class="form-control" [(ngModel)]="opcionEntrada">
-              <option>Adquisición</option>
-              <option>Reposición</option>
-              <option>Elaboración Propia</option>
-              <option>Donación</option>
-              <option>Sobrante de Inventario</option>
-              <option>Terceros</option>
-            </select>
-          </div>
-
-        </nb-card-body>
-      </nb-card>
+      <h5 class="pt-4">Tipo Entrada</h5>
+      <select class="form-control" [(ngModel)]="opcionEntrada">
+        <option>Adquisición</option>
+        <option>Reposición</option>
+        <option>Elaboración Propia</option>
+        <option>Donación</option>
+        <option>Sobrante de Inventario</option>
+        <option>Terceros</option>
+      </select>
 
       <ngx-adquisicion *ngIf="opcionEntrada === 'Adquisición'"></ngx-adquisicion>
       <ngx-reposicion *ngIf="opcionEntrada === 'Reposición'"></ngx-reposicion>
