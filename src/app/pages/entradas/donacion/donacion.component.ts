@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'ngx-donacion',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DonacionComponent implements OnInit {
 
-  constructor() { }
+  contratoForm: FormGroup;
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.contratoForm = this.fb.group({
+      contratoCtrl: ['', Validators.required],
+    });
+  }
+
+  // Métodos para validar campos requeridos en el formulario
+  onContratoSubmit() {
+    this.contratoForm.markAsDirty();
   }
 
 }

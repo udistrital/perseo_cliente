@@ -4,7 +4,7 @@ import { LocalDataSource } from 'ng2-smart-table';
 @Component({
   selector: 'ngx-tabla-entradas',
   templateUrl: './tabla-entradas.component.html',
-  styleUrls: ['./tabla-entradas.component.scss']
+  styleUrls: ['./tabla-entradas.component.scss'],
 })
 export class TablaEntradasComponent implements OnInit {
 

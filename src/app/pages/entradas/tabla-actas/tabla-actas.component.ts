@@ -4,7 +4,7 @@ import { LocalDataSource } from 'ng2-smart-table';
 @Component({
   selector: 'ngx-tabla-actas',
   templateUrl: './tabla-actas.component.html',
-  styleUrls: ['./tabla-actas.component.scss']
+  styleUrls: ['./tabla-actas.component.scss'],
 })
 export class TablaActasComponent implements OnInit {
 

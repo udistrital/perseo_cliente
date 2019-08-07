@@ -8,7 +8,7 @@ describe('TablaActasComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TablaActasComponent ]
+      declarations: [ TablaActasComponent ],
     })
     .compileComponents();
   }));
