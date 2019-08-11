@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { LocalDataSource } from 'ng2-smart-table';
+import { LocalDataSource } from 'ngx-smart-table';
 import { Router } from '@angular/router';
-import { NbDatepicker } from '@nebular/theme';
-
 
 @Component({
   selector: 'ngx-consulta-acta-recibido',
@@ -65,6 +63,14 @@ export class ConsultaActaRecibidoComponent implements OnInit {
       },
       fecha_visto_bueno: {
         title: 'Fecha Visto Bueno',
+        filter: {
+          type: 'daterange',
+          config: {
+            daterange: {
+              format: 'mm/dd/yyyy',
+            },
+          }
+        },
       },
       revisor: {
         title: 'Revisor',
@@ -76,9 +82,13 @@ export class ConsultaActaRecibidoComponent implements OnInit {
           config: {
             selectText: 'Select...',
             list: [
-              { value: 'adfasd', title: 'Glenna Reichert' },
-              { value: 'Kurtis Weissnat', title: 'Kurtis Weissnat' },
-              { value: 'Chelsey Dietrich', title: 'Chelsey Dietrich' },
+              { value: '1', title: 'Registrada' },
+              { value: '2', title: 'En Elaboracion' },
+              { value: '3', title: 'En Revision' },
+              { value: '4', title: 'En Verificacion' },
+              { value: '5', title: 'Aceptada' },
+              { value: '6', title: 'Anulada' },
+
             ],
           },
         },
@@ -91,6 +101,14 @@ export class ConsultaActaRecibidoComponent implements OnInit {
       },
       fecha_factura: {
         title: 'Fecha de Factura',
+        filter: {
+          type: 'daterange',
+          config: {
+            daterange: {
+              format: 'mm/dd/yyyy',
+            },
+          }
+        },
       },
       proveedor: {
         title: 'Proveedor',
@@ -104,65 +122,78 @@ export class ConsultaActaRecibidoComponent implements OnInit {
     {
       id: '00-123',
       consecutivo: '00-123',
-      fecha_creacion: '03/06/2019',
-      fecha_visto_bueno: '07/06/2019',
+      fecha_creacion: '2019-08-11T22:37:36.760Z',
+      fecha_visto_bueno: '2019-06-11T22:37:36.760Z',
       revisor: 'Revisor 1',
-      estado: 'Estado 2',
+      estado: 'Aprobada',
       ubicacion: 'Laboratorios Ingenieria',
       numero_factura: 'QW-124324-1234',
-      fecha_factura: '03/06/2019',
+      fecha_factura: '2019-08-11T22:37:36.760Z',
       proveedor: 'Dell',
       observaciones: 'lorem ipsum lorem ipsum lorem',
     },
     {
       id: '00-123',
       consecutivo: '00-123',
-      fecha_creacion: '03/06/2019',
-      fecha_visto_bueno: '07/06/2019',
+      fecha_creacion: '2019-08-11T22:37:36.760Z',
+      fecha_visto_bueno: '2019-06-11T22:37:36.760Z',
       revisor: 'Revisor 1',
-      estado: 'Estado 2',
+      estado: 'Aprobada',
       ubicacion: 'Laboratorios Ingenieria',
       numero_factura: 'QW-124324-1234',
-      fecha_factura: '03/06/2019',
+      fecha_factura: '2019-08-11T22:37:36.760Z',
       proveedor: 'Dell',
       observaciones: 'lorem ipsum lorem ipsum lorem',
     },
     {
       id: '00-123',
       consecutivo: '00-123',
-      fecha_creacion: '03/06/2019',
-      fecha_visto_bueno: '07/06/2019',
+      fecha_creacion: '2019-08-11T22:37:36.760Z',
+      fecha_visto_bueno: '2019-06-11T22:37:36.760Z',
       revisor: 'Revisor 1',
-      estado: 'Estado 2',
+      estado: 'Aprobada',
       ubicacion: 'Laboratorios Ingenieria',
       numero_factura: 'QW-124324-1234',
-      fecha_factura: '03/06/2019',
+      fecha_factura: '2019-08-11T22:37:36.760Z',
       proveedor: 'Dell',
       observaciones: 'lorem ipsum lorem ipsum lorem',
     },
     {
       id: '00-123',
       consecutivo: '00-123',
-      fecha_creacion: '03/06/2019',
-      fecha_visto_bueno: '07/06/2019',
+      fecha_creacion: '2019-08-11T22:37:36.760Z',
+      fecha_visto_bueno: '2019-06-11T22:37:36.760Z',
       revisor: 'Revisor 1',
-      estado: 'Estado 2',
+      estado: 'Aprobada',
       ubicacion: 'Laboratorios Ingenieria',
       numero_factura: 'QW-124324-1234',
-      fecha_factura: '03/06/2019',
+      fecha_factura: '2019-08-11T22:37:36.760Z',
       proveedor: 'Dell',
       observaciones: 'lorem ipsum lorem ipsum lorem',
     },
     {
       id: '00-123',
       consecutivo: '00-123',
-      fecha_creacion: '03/06/2019',
-      fecha_visto_bueno: '07/06/2019',
+      fecha_creacion: '2019-08-11T22:37:36.760Z',
+      fecha_visto_bueno: '2019-06-11T22:37:36.760Z',
       revisor: 'Revisor 1',
-      estado: 'Estado 2',
+      estado: 'Aprobada',
       ubicacion: 'Laboratorios Ingenieria',
       numero_factura: 'QW-124324-1234',
-      fecha_factura: '03/06/2019',
+      fecha_factura: '2019-08-11T22:37:36.760Z',
+      proveedor: 'Dell',
+      observaciones: 'lorem ipsum lorem ipsum lorem',
+    },
+    {
+      id: '00-123',
+      consecutivo: '00-123',
+      fecha_creacion: '2019-08-11T22:37:36.760Z',
+      fecha_visto_bueno: '2019-06-11T22:37:36.760Z',
+      revisor: 'Revisor 1',
+      estado: 'Aprobada',
+      ubicacion: 'Laboratorios Ingenieria',
+      numero_factura: 'QW-124324-1234',
+      fecha_factura: '2019-08-11T22:37:36.760Z',
       proveedor: 'Dell',
       observaciones: 'lorem ipsum lorem ipsum lorem',
     },

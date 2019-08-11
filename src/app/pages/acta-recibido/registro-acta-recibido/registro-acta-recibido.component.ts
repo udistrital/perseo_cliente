@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LocalDataSource } from 'ng2-smart-table';
+import { LocalDataSource } from 'ngx-smart-table';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -34,44 +34,105 @@ export class RegistroActaRecibidoComponent implements OnInit {
       deleteButtonContent: '<i class="nb-trash"></i>',
     },
     columns: {
-      tipo_bien: {
+      tipo_bien_id: {
         title: 'Tipo de Bien',
+        valuePrepareFunction: (value: any) => {
+          return value;
+        },
+        filter: {
+          type: 'list',
+          config: {
+            selectText: 'Select...',
+            list: [
+              { value: '1', title: 'Devolutivo' },
+              { value: '2', title: 'Consumo' },
+              { value: '3', title: 'Consumo Controlado' },
+            ],
+          },
+        },
+        editor: {
+          type: 'list',
+          config: {
+            selectText: 'Select...',
+            list: [
+              { value: '1', title: 'Devolutivo' },
+              { value: '2', title: 'Consumo' },
+              { value: '3', title: 'Consumo Controlado' },
+            ],
+          },
+        },
       },
-      subgrupo: {
+      subgrupo_id: {
         title: 'Subgrupo',
+        valuePrepareFunction: (value) => {
+          return value;
+        },
       },
       descripcion: {
         title: 'Descripcion',
+        valuePrepareFunction: (value) => {
+          return value;
+        },
       },
       cantidad: {
         title: 'Cantidad',
+        valuePrepareFunction: (value) => {
+          return value;
+        },
       },
       marca: {
         title: 'Marca',
+        valuePrepareFunction: (value) => {
+          return value;
+        },
       },
       serie: {
         title: 'Serie',
+        valuePrepareFunction: (value) => {
+          return value;
+        },
       },
       unidad_medida: {
         title: 'Unidad de Medida',
+        valuePrepareFunction: (value) => {
+          return value;
+        },
       },
       valor_unitario: {
         title: 'Valor Unitario',
+        valuePrepareFunction: (value) => {
+          return value;
+        },
       },
       valor_cantidad: {
         title: 'Valor por Cantidad',
+        valuePrepareFunction: (value) => {
+          return value;
+        },
       },
       descuento: {
         title: 'Descuento',
+        valuePrepareFunction: (value) => {
+          return value;
+        },
       },
       porcentaje_iva: {
         title: '% IVA',
+        valuePrepareFunction: (value) => {
+          return value;
+        },
       },
       valor_iva: {
         title: 'Valor IVA',
+        valuePrepareFunction: (value) => {
+          return value;
+        },
       },
       valor_total: {
         title: 'Valor Total',
+        valuePrepareFunction: (value) => {
+          return value;
+        },
       },
     },
   };
