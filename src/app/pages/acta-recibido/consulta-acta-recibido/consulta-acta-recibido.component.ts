@@ -69,7 +69,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
             daterange: {
               format: 'mm/dd/yyyy',
             },
-          }
+          },
         },
       },
       revisor: {
@@ -107,7 +107,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
             daterange: {
               format: 'mm/dd/yyyy',
             },
-          }
+          },
         },
       },
       proveedor: {
