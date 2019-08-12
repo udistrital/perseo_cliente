@@ -49,9 +49,17 @@ export class ConsultaActaRecibidoComponent implements OnInit {
     columns: {
       consecutivo: {
         title: 'Consecutivo',
+        valuePrepareFunction: (value: any) => {
+          return value;
+        },
       },
       fecha_creacion: {
         title: 'Fecha de Creacion',
+        width: '70px',
+        valuePrepareFunction: (value: any) => {
+          var date = value.split('T');
+          return date[0];
+        },
         filter: {
           type: 'daterange',
           config: {
@@ -63,6 +71,11 @@ export class ConsultaActaRecibidoComponent implements OnInit {
       },
       fecha_visto_bueno: {
         title: 'Fecha Visto Bueno',
+        width: '70px',
+        valuePrepareFunction: (value: any) => {
+          var date = value.split('T');
+          return date[0];
+        },
         filter: {
           type: 'daterange',
           config: {
@@ -74,9 +87,15 @@ export class ConsultaActaRecibidoComponent implements OnInit {
       },
       revisor: {
         title: 'Revisor',
+        valuePrepareFunction: (value: any) => {
+          return value;
+        },
       },
       estado: {
         title: 'Estado',
+        valuePrepareFunction: (value: any) => {
+          return value;
+        },
         filter: {
           type: 'list',
           config: {
@@ -95,12 +114,23 @@ export class ConsultaActaRecibidoComponent implements OnInit {
       },
       ubicacion: {
         title: 'Ubicacion',
+        valuePrepareFunction: (value: any) => {
+          return value;
+        },
       },
       numero_factura: {
         title: 'Numero Factura',
+        valuePrepareFunction: (value: any) => {
+          return value;
+        },
       },
       fecha_factura: {
         title: 'Fecha de Factura',
+        width: '70px',
+        valuePrepareFunction: (value: any) => {
+          var date = value.split('T');
+          return date[0];
+        },
         filter: {
           type: 'daterange',
           config: {
@@ -112,9 +142,15 @@ export class ConsultaActaRecibidoComponent implements OnInit {
       },
       proveedor: {
         title: 'Proveedor',
+        valuePrepareFunction: (value: any) => {
+          return value;
+        },
       },
       observaciones: {
         title: 'Observaciones',
+        valuePrepareFunction: (value: any) => {
+          return value;
+        },
       },
     },
   };
