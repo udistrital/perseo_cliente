@@ -2,211 +2,235 @@
   <nb-card>
     <nb-card-header>Registrar Acta Recibido</nb-card-header>
     <nb-card-body>
-
-      <nb-card>
-        <nb-card-header>Datos Iniciales de Recibido</nb-card-header>
-        <nb-card-body>
-          <div class="row">
-            <div class="form-group col-sm">
-              <label>Sede</label>
-              <select class="form-control">
-                <option>Sede 1</option>
-                <option>Sede 2</option>
-                <option>Sede 3</option>
-                <option>Sede 4</option>
-                <option>Sede 5</option>
-              </select>
+      <nb-stepper #stepper>
+        <nb-step [stepControl]="firstForm" label="First step">
+          <form [formGroup]="firstForm" (ngSubmit)="onFirstSubmit()" class="step-container">
+            <nb-card>
+              <nb-card-header>Datos Iniciales de Recibido</nb-card-header>
+              <nb-card-body>
+                <div class="row">
+                  <div class="form-group col-sm">
+                    <label>Sede</label>
+                    <select class="form-control" formControlName="firstCtrl"
+                      [ngClass]="{'form-control-danger': firstForm.invalid && (firstForm.dirty || firstForm.touched)}">
+                      <option>Sede 1</option>
+                      <option>Sede 2</option>
+                      <option>Sede 3</option>
+                      <option>Sede 4</option>
+                      <option>Sede 5</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-sm">
+                    <label>Dependencia</label>
+                    <select class="form-control" formControlName="firstCtrl"
+                      [ngClass]="{'form-control-danger': firstForm.invalid && (firstForm.dirty || firstForm.touched)}">
+                      <option>Dependencia 1</option>
+                      <option>Dependencia 2</option>
+                      <option>Dependencia 3</option>
+                      <option>Dependencia 4</option>
+                      <option>Dependencia 5</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-sm">
+                    <label>Ubicación</label>
+                    <select class="form-control" formControlName="firstCtrl"
+                      [ngClass]="{'form-control-danger': firstForm.invalid && (firstForm.dirty || firstForm.touched)}">
+                      <option>Ubicación 1</option>
+                      <option>Ubicación 2</option>
+                      <option>Ubicación 3</option>
+                      <option>Ubicación 4</option>
+                      <option>Ubicación 5</option>
+                    </select>
+                  </div>
+                </div>
+              </nb-card-body>
+            </nb-card>
+            <button nbButton nbStepperNext>next</button>
+          </form>
+        </nb-step>
+        <nb-step [stepControl]="secondForm" label="Second step">
+          <form [formGroup]="secondForm" (ngSubmit)="onSecondSubmit()" class="step-container">
+            <nb-card>
+              <nb-card-header>Datos de Soporte</nb-card-header>
+              <nb-card-body>
+                <div class="row">
+                  <div class="form-group col-sm">
+                    <label>Proveedor</label>
+                    <div class="input-group">
+                      <input type="text" placeholder="NIT o Razón social" class="form-control"
+                        formControlName="secondCtrl"
+                        [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}" />
+                    </div>
+                  </div>
+                  <div class="form-group col-sm">
+                    <label>Consecutivo de Factura o de Soporte</label>
+                    <div class="input-group">
+                      <input nbInput type="text" placeholder="Consecutivo" class="form-control"
+                        formControlName="secondCtrl"
+                        [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-sm">
+                    <label>Fecha de Factura o de Soporte</label>
+                    <div class="input-group">
+                      <input nbInput placeholder="Selecciona la Fecha" class="form-control" [nbDatepicker]="formpicker"
+                        formControlName="secondCtrl"
+                        [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}">
+                      <nb-datepicker #formpicker></nb-datepicker>
+                    </div>
+                  </div>
+                  <div class="form-group col-sm">
+                    <label>Factura o Soporte a Relacionar</label>
+                    <input nbInput type="file" class="form-control-file" id="factura" formControlName="secondCtrl"
+                      [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}">
+                  </div>
+                </div>
+              </nb-card-body>
+            </nb-card>
+            <nb-card>
+              <nb-card-header>Carga Masiva</nb-card-header>
+              <nb-card-body>
+                <div class="form-group col-sm">
+                  <label>Archivo</label>
+                  <input nbInput type="file" class="form-control-file" id="factura">
+                </div>
+              </nb-card-body>
+            </nb-card>
+            <nb-card>
+              <nb-card-header>Articulos Relacionados</nb-card-header>
+              <nb-card-body>
+                <ng2-smart-table [settings]="settings" [source]="source" (custom)="onCustom($event)"></ng2-smart-table>
+                <table class="table text-center">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col"></th>
+                      <th scope="col"></th>
+                      <th scope="col"></th>
+                      <th scope="col"></th>
+                      <th scope="col"></th>
+                      <th scope="col"></th>
+                      <th scope="col"></th>
+                      <th scope="col"></th>
+                      <th scope="col"></th>
+                      <th scope="col"></th>
+                      <th scope="col"></th>
+                      <th scope="col"></th>
+                      <th scope="col"></th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row"></th>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>Subtotal</td>
+                      <td>14'400.000</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th scope="row"></th>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>Descuentos</td>
+                      <td>0</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th scope="row"></th>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>IVA</td>
+                      <td>1'080.000</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th scope="row"></th>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>Total</td>
+                      <td>15'480.000</td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </nb-card-body>
+            </nb-card>
+            <button nbButton nbStepperPrevious>prev</button>
+            <button nbButton nbStepperNext>next</button>
+          </form>
+        </nb-step>
+        <nb-step [stepControl]="thirdForm" label="Third step">
+          <form [formGroup]="thirdForm" (ngSubmit)="onThirdSubmit()" class="step-container">
+            <p class="lorem">
+              Things boom shackalack rhoncus yo. In fo shizzle my nizzle gangsta platea dictumst. Check it out pot.
+            </p>
+            <div class="input-group">
+              <input nbInput type="text" placeholder="Enter something" class="form-control" formControlName="thirdCtrl"
+                [ngClass]="{'form-control-danger': thirdForm.invalid && (thirdForm.dirty || thirdForm.touched)}">
             </div>
-            <div class="form-group col-sm">
-              <label>Dependencia</label>
-              <select class="form-control">
-                <option>Dependencia 1</option>
-                <option>Dependencia 2</option>
-                <option>Dependencia 3</option>
-                <option>Dependencia 4</option>
-                <option>Dependencia 5</option>
-              </select>
-            </div>
-            <div class="form-group col-sm">
-              <label>Ubicación</label>
-              <select class="form-control">
-                <option>Ubicación 1</option>
-                <option>Ubicación 2</option>
-                <option>Ubicación 3</option>
-                <option>Ubicación 4</option>
-                <option>Ubicación 5</option>
-              </select>
-            </div>
+            <button nbButton nbStepperPrevious>prev</button>
+            <button nbButton nbStepperNext>Confirm</button>
+          </form>
+        </nb-step>
+        <nb-step [stepControl]="thirdForm" [hidden]="true" label="Third step">
+          <div class="step-container">
+            <h3>Wizard completed!</h3>
+            <button nbButton (click)="stepper.reset()">Try again</button>
           </div>
-
-        </nb-card-body>
-      </nb-card>
-
+        </nb-step>
+      </nb-stepper>
+    </nb-card-body>
+  </nb-card>
+  <nb-card>
+    <nb-card-header>Registrar Acta Recibido</nb-card-header>
+    <nb-card-body>
       <nb-tabset>
-        <nb-tab tabTitle="Soporte 1">
-
+        <nb-tab tabTitle="Soporte 1" *ngFor="let comp of components">
           <nb-card>
             <nb-card-body>
-
-
-              <nb-card>
-                <nb-card-header>Datos de Soporte</nb-card-header>
-                <nb-card-body>
-                  <div class="row">
-                    <div class="form-group col-sm">
-                      <label>Proveedor</label>
-                      <div class="input-group">
-                        <input type="text" placeholder="NIT o Razón social" class="form-control" />
-                      </div>
-                    </div>
-                    <div class="form-group col-sm">
-                      <label>Consecutivo de Factura o de Soporte</label>
-                      <div class="input-group">
-                        <input nbInput type="text" placeholder="Consecutivo" class="form-control" />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="form-group col-sm">
-                      <label>Fecha de Factura o de Soporte</label>
-                      <div class="input-group">
-                        <input nbInput placeholder="Selecciona la Fecha" class="form-control"
-                          [nbDatepicker]="formpicker">
-                        <nb-datepicker #formpicker></nb-datepicker>
-                      </div>
-                    </div>
-                    <div class="form-group col-sm">
-                      <label>Factura o Soporte a Relacionar</label>
-                      <input nbInput type="file" class="form-control-file" id="factura">
-                    </div>
-                  </div>
-                </nb-card-body>
-              </nb-card>
-              <nb-card>
-                <nb-card-header>Carga Masiva</nb-card-header>
-                <nb-card-body>
-                  <div class="form-group col-sm">
-                    <label>Archivo</label>
-                    <input nbInput type="file" class="form-control-file" id="factura">
-                  </div>
-
-                </nb-card-body>
-              </nb-card>
-              <nb-card>
-                <nb-card-header>Articulos Relacionados</nb-card-header>
-                <nb-card-body>
-
-                    <ng2-smart-table [settings]="settings" [source]="source" (custom)="onCustom($event)"></ng2-smart-table>
-
-
-                  <table class="table text-center">
-                    <thead class="thead-dark">
-                      <tr>
-
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row"></th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>Subtotal</td>
-                        <td>14'400.000</td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"></th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>Descuentos</td>
-                        <td>0</td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"></th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>IVA</td>
-                        <td>1'080.000</td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"></th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>Total</td>
-                        <td>15'480.000</td>
-                        <td></td>
-                      </tr>
-                    </tbody>
-                  </table>
-
-                  <div class="justify-content-center">
-                    <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false"
-                      autocomplete="off">
-                      Registrar Nuevo Elemento
-                    </button>
-                  </div>
-
-                </nb-card-body>
-              </nb-card>
             </nb-card-body>
           </nb-card>
-
         </nb-tab>
         <nb-tab tabTitle="+">
-
         </nb-tab>
       </nb-tabset>
       <nb-card>

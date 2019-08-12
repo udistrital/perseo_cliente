@@ -57,7 +57,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
         title: 'Fecha de Creacion',
         width: '70px',
         valuePrepareFunction: (value: any) => {
-          var date = value.split('T');
+          const date = value.split('T');
           return date[0];
         },
         filter: {
@@ -73,7 +73,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
         title: 'Fecha Visto Bueno',
         width: '70px',
         valuePrepareFunction: (value: any) => {
-          var date = value.split('T');
+          const date = value.split('T');
           return date[0];
         },
         filter: {
@@ -128,7 +128,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
         title: 'Fecha de Factura',
         width: '70px',
         valuePrepareFunction: (value: any) => {
-          var date = value.split('T');
+          const date = value.split('T');
           return date[0];
         },
         filter: {

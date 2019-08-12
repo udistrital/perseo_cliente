@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ngx-smart-table';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'ngx-registro-acta-recibido',
@@ -11,8 +12,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class RegistroActaRecibidoComponent implements OnInit {
 
   source: LocalDataSource;
-  foo: any;
+  foo: number;
   datos: any;
+  firstForm: FormGroup;
+  secondForm: FormGroup;
+  thirdForm: FormGroup;
+  components: Number[];
+
 
   settings = {
     actions: {
@@ -143,17 +149,45 @@ export class RegistroActaRecibidoComponent implements OnInit {
   id: any;
   errMess: any;
 
-  constructor(private router: Router, private route: ActivatedRoute ) {
+  constructor(
+    private router: Router, 
+    private route: ActivatedRoute,
+    private fb: FormBuilder, 
+    ) {
   }
 
   ngOnInit() {
     // this.source.load(this.data);
+    this.firstForm = this.fb.group({
+      firstCtrl: ['', Validators.required],
+    });
+
+    this.secondForm = this.fb.group({
+      secondCtrl: ['', Validators.required],
+    });
+
+    this.thirdForm = this.fb.group({
+      thirdCtrl: ['', Validators.required],
+    });
   }
   ver() {
     // this.source.getAll().then((data) => { console.log(data); this.foo = data; this.bandera = true; });
   }
+  onFirstSubmit() {
+    this.firstForm.markAsDirty();
+  }
 
+  onSecondSubmit() {
+    this.secondForm.markAsDirty();
+  }
+
+  onThirdSubmit() {
+    this.thirdForm.markAsDirty();
+  }
   ver2() {
+  }
+  addTab(){
+    this.components.push(this.foo + 1);
   }
   ver3() {
     this.datos = this.source.getAll();

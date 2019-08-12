@@ -9,6 +9,7 @@ import { VerificacionActaRecibidoComponent } from './verificacion-acta-recibido/
 import { ConsultaActaRecibidoComponent } from './consulta-acta-recibido/consulta-acta-recibido.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { Ng2SmartTableModule } from 'ngx-smart-table';
+import { NbStepperModule } from '@nebular/theme';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { Ng2SmartTableModule } from 'ngx-smart-table';
     ThemeModule,
     Ng2SmartTableModule,
     TranslateModule,
+    NbStepperModule,
   ],
 })
 export class ActaRecibidoModule { }
