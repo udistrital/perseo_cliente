@@ -43,7 +43,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
       ],
       position: 'right',
       add: false,
-      edit: false,
+      edit: true,
       delete: false,
     },
     columns: {
@@ -64,7 +64,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
           type: 'daterange',
           config: {
             daterange: {
-              format: 'mm/dd/yyyy',
+              format: 'yyyy/mm/dd',
             },
           },
         },
@@ -80,7 +80,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
           type: 'daterange',
           config: {
             daterange: {
-              format: 'mm/dd/yyyy',
+              format: 'yyyy/mm/dd',
             },
           },
         },
@@ -135,7 +135,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
           type: 'daterange',
           config: {
             daterange: {
-              format: 'mm/dd/yyyy',
+              format: 'yyyy/mm/dd',
             },
           },
         },

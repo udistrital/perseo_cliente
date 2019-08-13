@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ngx-smart-table';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
+
 
 @Component({
   selector: 'ngx-registro-acta-recibido',
@@ -15,7 +16,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
   foo: number;
   datos: any;
   firstForm: FormGroup;
-  secondForm: FormGroup;
+  secondForm: FormArray;
   thirdForm: FormGroup;
   components: Number[];
 
@@ -148,6 +149,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
   bandera: boolean = false;
   id: any;
   errMess: any;
+  carga_agregada: boolean = false;
 
   constructor(
     private router: Router, 
@@ -161,10 +163,15 @@ export class RegistroActaRecibidoComponent implements OnInit {
     this.firstForm = this.fb.group({
       firstCtrl: ['', Validators.required],
     });
-
-    this.secondForm = this.fb.group({
+    this.secondForm = this.fb.array([]); 
+    
+    this.carga_agregada = true;
+    const Carga = this.fb.group({
       secondCtrl: ['', Validators.required],
     });
+    
+    this.secondForm.push(Carga);
+
 
     this.thirdForm = this.fb.group({
       thirdCtrl: ['', Validators.required],
@@ -184,16 +191,36 @@ export class RegistroActaRecibidoComponent implements OnInit {
   onThirdSubmit() {
     this.thirdForm.markAsDirty();
   }
-  ver2() {
-  }
-  addTab(){
-    this.components.push(this.foo + 1);
-  }
-  ver3() {
-    this.datos = this.source.getAll();
-  }
-
   onCustom(event: any) {
     alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`);
+  }
+
+  tabs = ['Soporte 1'];
+  selected = new FormControl(0);
+
+  addTab() {
+    this.tabs.push('Soporte '+(this.tabs.length + 1));
+    this.selected.setValue(this.tabs.length - 1);
+    this.carga_agregada = true;
+    const Carga = this.fb.group({
+      secondCtrl: ['', Validators.required],
+    });
+    
+    this.secondForm.push(Carga);
+
+  }
+  checked = false;
+
+  toggle(checked: boolean) {
+    this.checked = checked;
+  }
+
+  removeTab(index: number) {
+    this.tabs.splice(index, 1);
+    this.secondForm.removeAt(index)
+    if (index == 0) {
+      this.carga_agregada = false;
+    }
+
   }
 }

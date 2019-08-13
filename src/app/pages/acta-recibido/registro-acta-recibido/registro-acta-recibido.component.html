@@ -3,7 +3,7 @@
     <nb-card-header>Registrar Acta Recibido</nb-card-header>
     <nb-card-body>
       <nb-stepper #stepper>
-        <nb-step [stepControl]="firstForm" label="First step">
+        <nb-step [stepControl]="firstForm" label="Datos Iniciales">
           <form [formGroup]="firstForm" (ngSubmit)="onFirstSubmit()" class="step-container">
             <nb-card>
               <nb-card-header>Datos Iniciales de Recibido</nb-card-header>
@@ -48,164 +48,232 @@
             <button nbButton nbStepperNext>next</button>
           </form>
         </nb-step>
-        <nb-step [stepControl]="secondForm" label="Second step">
+        <nb-step [stepControl]="secondForm" label="Datos de Soporte">
           <form [formGroup]="secondForm" (ngSubmit)="onSecondSubmit()" class="step-container">
             <nb-card>
-              <nb-card-header>Datos de Soporte</nb-card-header>
+              <nb-card-header></nb-card-header>
               <nb-card-body>
-                <div class="row">
-                  <div class="form-group col-sm">
-                    <label>Proveedor</label>
-                    <div class="input-group">
-                      <input type="text" placeholder="NIT o Razón social" class="form-control"
-                        formControlName="secondCtrl"
-                        [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}" />
-                    </div>
-                  </div>
-                  <div class="form-group col-sm">
-                    <label>Consecutivo de Factura o de Soporte</label>
-                    <div class="input-group">
-                      <input nbInput type="text" placeholder="Consecutivo" class="form-control"
-                        formControlName="secondCtrl"
-                        [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}" />
-                    </div>
-                  </div>
+                <div>
+                  <button nbButton (click)="addTab()">
+                    Agregar Pestaña
+                  </button>
                 </div>
-                <div class="row">
-                  <div class="form-group col-sm">
-                    <label>Fecha de Factura o de Soporte</label>
-                    <div class="input-group">
-                      <input nbInput placeholder="Selecciona la Fecha" class="form-control" [nbDatepicker]="formpicker"
-                        formControlName="secondCtrl"
-                        [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}">
-                      <nb-datepicker #formpicker></nb-datepicker>
+                <mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event)">
+                  <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab" [formGroupName]="index">
+
+                    <nb-card>
+                      <nb-card-header>Datos de Soporte</nb-card-header>
+                      <nb-card-body>
+                        <div class="row">
+                          <div class="form-group col-sm">
+                            <label>Proveedor</label>
+                            <div class="input-group">
+                              <input type="text" placeholder="NIT o Razón social" class="form-control"
+                                formControlName="secondCtrl"
+                                [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}" />
+                            </div>
+                          </div>
+                          <div class="form-group col-sm">
+                            <label>Consecutivo de Factura o de Soporte</label>
+                            <div class="input-group">
+                              <input nbInput type="text" placeholder="Consecutivo" class="form-control"
+                                formControlName="secondCtrl"
+                                [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}" />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="form-group col-sm">
+                            <label>Fecha de Factura o de Soporte</label>
+                            <div class="input-group">
+                              <input nbInput placeholder="Selecciona la Fecha" class="form-control"
+                                [nbDatepicker]="formpicker" formControlName="secondCtrl"
+                                [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}">
+                              <nb-datepicker #formpicker></nb-datepicker>
+                            </div>
+                          </div>
+                          <div class="form-group col-sm">
+                            <label>Factura o Soporte a Relacionar</label>
+                            <input nbInput type="file" class="form-control-file" id="factura"
+                              formControlName="secondCtrl"
+                              [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}">
+                          </div>
+                        </div>
+                      </nb-card-body>
+                    </nb-card>
+                    <nb-card>
+                      <nb-card-header>Carga Masiva</nb-card-header>
+                      <nb-card-body>
+                        <div class="form-group col-sm">
+                          <label>Archivo</label>
+                          <input nbInput type="file" class="form-control-file" id="factura">
+                        </div>
+                      </nb-card-body>
+                    </nb-card>
+                    <nb-card>
+                      <nb-card-header>Articulos Relacionados</nb-card-header>
+                      <nb-card-body>
+                        <ng2-smart-table [settings]="settings" [source]="source" (custom)="onCustom($event)">
+                        </ng2-smart-table>
+                        <table class="table text-center">
+                          <thead class="thead-dark">
+                            <tr>
+                              <th scope="col"></th>
+                              <th scope="col"></th>
+                              <th scope="col"></th>
+                              <th scope="col"></th>
+                              <th scope="col"></th>
+                              <th scope="col"></th>
+                              <th scope="col"></th>
+                              <th scope="col"></th>
+                              <th scope="col"></th>
+                              <th scope="col"></th>
+                              <th scope="col"></th>
+                              <th scope="col"></th>
+                              <th scope="col"></th>
+                              <th scope="col"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th scope="row"></th>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td>Subtotal</td>
+                              <td>14'400.000</td>
+                              <td></td>
+                            </tr>
+                            <tr>
+                              <th scope="row"></th>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td>Descuentos</td>
+                              <td>0</td>
+                              <td></td>
+                            </tr>
+                            <tr>
+                              <th scope="row"></th>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td>IVA</td>
+                              <td>1'080.000</td>
+                              <td></td>
+                            </tr>
+                            <tr>
+                              <th scope="row"></th>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td>Total</td>
+                              <td>15'480.000</td>
+                              <td></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </nb-card-body>
+                    </nb-card>
+                    <div class="row">
+                      <div class="form-group col-sm">
+                        {{tab}}
+                      </div>
+                      <div class="form-group col-sm">
+                        <button nbButton class="example-delete-tab-button" [disabled]="tabs.length === 1"
+                          (click)="removeTab(index)">
+                          Borrar Pestaña
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                  <div class="form-group col-sm">
-                    <label>Factura o Soporte a Relacionar</label>
-                    <input nbInput type="file" class="form-control-file" id="factura" formControlName="secondCtrl"
-                      [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}">
-                  </div>
-                </div>
+                    <button nbButton nbStepperPrevious>prev</button>
+                    <button nbButton nbStepperNext>next</button>
+                  </mat-tab>
+                </mat-tab-group>
               </nb-card-body>
             </nb-card>
+          </form>
+        </nb-step>
+        <nb-step [stepControl]="thirdForm" label="Datos Adicionales">
+          <form [formGroup]="thirdForm" (ngSubmit)="onThirdSubmit()" class="step-container">
             <nb-card>
-              <nb-card-header>Carga Masiva</nb-card-header>
+              <nb-card-header>Gran Consolidado</nb-card-header>
               <nb-card-body>
-                <div class="form-group col-sm">
-                  <label>Archivo</label>
-                  <input nbInput type="file" class="form-control-file" id="factura">
-                </div>
-              </nb-card-body>
-            </nb-card>
-            <nb-card>
-              <nb-card-header>Articulos Relacionados</nb-card-header>
-              <nb-card-body>
-                <ng2-smart-table [settings]="settings" [source]="source" (custom)="onCustom($event)"></ng2-smart-table>
                 <table class="table text-center">
-                  <thead class="thead-dark">
-                    <tr>
-                      <th scope="col"></th>
-                      <th scope="col"></th>
-                      <th scope="col"></th>
-                      <th scope="col"></th>
-                      <th scope="col"></th>
-                      <th scope="col"></th>
-                      <th scope="col"></th>
-                      <th scope="col"></th>
-                      <th scope="col"></th>
-                      <th scope="col"></th>
-                      <th scope="col"></th>
-                      <th scope="col"></th>
-                      <th scope="col"></th>
-                      <th scope="col"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row"></th>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>Subtotal</td>
-                      <td>14'400.000</td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <th scope="row"></th>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>Descuentos</td>
-                      <td>0</td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <th scope="row"></th>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>IVA</td>
-                      <td>1'080.000</td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <th scope="row"></th>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>Total</td>
-                      <td>15'480.000</td>
-                      <td></td>
-                    </tr>
-                  </tbody>
+                  <tr>
+                    <td class="thead-dark">Gran Subtotal</td>
+                    <td>14'000.000</td>
+                  </tr>
+                  <tr>
+                    <td class="thead-dark">Gran Descuentos</td>
+                    <td>0</td>
+                  </tr>
+                  <tr>
+                    <td class="thead-dark">Gran IVA</td>
+                    <td>1'900.000</td>
+                  </tr>
+                  <tr>
+                    <td class="thead-dark">Gran Total</td>
+                    <td>15'900.000</td>
+                  </tr>
                 </table>
               </nb-card-body>
             </nb-card>
-            <button nbButton nbStepperPrevious>prev</button>
-            <button nbButton nbStepperNext>next</button>
-          </form>
-        </nb-step>
-        <nb-step [stepControl]="thirdForm" label="Third step">
-          <form [formGroup]="thirdForm" (ngSubmit)="onThirdSubmit()" class="step-container">
-            <p class="lorem">
-              Things boom shackalack rhoncus yo. In fo shizzle my nizzle gangsta platea dictumst. Check it out pot.
-            </p>
-            <div class="input-group">
-              <input nbInput type="text" placeholder="Enter something" class="form-control" formControlName="thirdCtrl"
-                [ngClass]="{'form-control-danger': thirdForm.invalid && (thirdForm.dirty || thirdForm.touched)}">
+            <nb-card>
+              <nb-card-header>Datos Adicionales</nb-card-header>
+              <nb-card-body>
+                <div class="form-group  col-lg-12">
+                  <label>Observaciones</label>
+                  <div class="input-group">
+                    <textarea rows="5"
+                      placeholder="Proporciona datos adicionales que no se pueden expresar en el formulario"
+                      class="form-control" formControlName="thirdCtrl"
+                      [ngClass]="{'form-control-danger': thirdForm.invalid && (thirdForm.dirty || thirdForm.touched)}"></textarea>
+                  </div>
+                </div>
+              </nb-card-body>
+            </nb-card>
+            <div class="justify-content-center">
+              <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false"
+                autocomplete="off">
+                Guardar Acta de Recibido
+              </button>
+              <button type="button" class="btn btn-primary float-right" data-toggle="button" aria-pressed="false"
+                autocomplete="off">
+                Enviar para Verificacion
+              </button>
             </div>
             <button nbButton nbStepperPrevious>prev</button>
             <button nbButton nbStepperNext>Confirm</button>
@@ -220,72 +288,5 @@
       </nb-stepper>
     </nb-card-body>
   </nb-card>
-  <nb-card>
-    <nb-card-header>Registrar Acta Recibido</nb-card-header>
-    <nb-card-body>
-      <nb-tabset>
-        <nb-tab tabTitle="Soporte 1" *ngFor="let comp of components">
-          <nb-card>
-            <nb-card-body>
-            </nb-card-body>
-          </nb-card>
-        </nb-tab>
-        <nb-tab tabTitle="+">
-        </nb-tab>
-      </nb-tabset>
-      <nb-card>
-        <nb-card-header>Gran Consolidado</nb-card-header>
-        <nb-card-body>
-          <table class="table text-center">
-            <tr>
-              <td class="thead-dark">Gran Subtotal</td>
-              <td>14'000.000</td>
-            </tr>
-            <tr>
-              <td class="thead-dark">Gran Descuentos</td>
-              <td>0</td>
-            </tr>
-            <tr>
-              <td class="thead-dark">Gran IVA</td>
-              <td>1'900.000</td>
-            </tr>
-            <tr>
-              <td class="thead-dark">Gran Total</td>
-              <td>15'900.000</td>
-            </tr>
-          </table>
 
-        </nb-card-body>
-      </nb-card>
-
-
-
-
-
-      <nb-card>
-        <nb-card-header>Datos Adicionales</nb-card-header>
-        <nb-card-body>
-
-          <div class="form-group  col-lg-12">
-            <label>Observaciones</label>
-            <div class="input-group">
-              <textarea rows="5" placeholder="Proporciona datos adicionales que no se pueden expresar en el formulario"
-                class="form-control"></textarea>
-            </div>
-          </div>
-
-        </nb-card-body>
-      </nb-card>
-
-      <div class="justify-content-center">
-        <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
-          Guardar Acta de Recibido
-        </button>
-        <button type="button" class="btn btn-primary float-right" data-toggle="button" aria-pressed="false"
-          autocomplete="off">
-          Enviar para Verificacion
-        </button>
-      </div>
-    </nb-card-body>
-  </nb-card>
 </div>
