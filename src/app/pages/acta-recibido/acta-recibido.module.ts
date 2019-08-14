@@ -11,6 +11,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Ng2SmartTableModule } from 'ngx-smart-table';
 import { NbStepperModule } from '@nebular/theme';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatStepperModule } from '@angular/material/stepper';
+import {MatTableModule} from '@angular/material/table';
 
 
 @NgModule({
@@ -28,6 +30,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     TranslateModule,
     NbStepperModule,
     MatTabsModule,
+    MatStepperModule,
+    MatTableModule,
   ],
 })
 export class ActaRecibidoModule { }

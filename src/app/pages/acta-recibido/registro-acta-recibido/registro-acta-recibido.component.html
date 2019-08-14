@@ -2,17 +2,16 @@
   <nb-card>
     <nb-card-header>Registrar Acta Recibido</nb-card-header>
     <nb-card-body>
-      <nb-stepper #stepper>
-        <nb-step [stepControl]="firstForm" label="Datos Iniciales">
-          <form [formGroup]="firstForm" (ngSubmit)="onFirstSubmit()" class="step-container">
+      <mat-vertical-stepper [linear]="true" #stepper>
+        <mat-step [stepControl]="firstForm" label="Datos Iniciales">
+          <form [formGroup]="firstForm" (ngSubmit)="onFirstSubmit()" #fform="ngForm" class="step-container">
             <nb-card>
               <nb-card-header>Datos Iniciales de Recibido</nb-card-header>
               <nb-card-body>
                 <div class="row">
                   <div class="form-group col-sm">
                     <label>Sede</label>
-                    <select class="form-control" formControlName="firstCtrl"
-                      [ngClass]="{'form-control-danger': firstForm.invalid && (firstForm.dirty || firstForm.touched)}">
+                    <select class="form-control" formControlName="Sede" required>
                       <option>Sede 1</option>
                       <option>Sede 2</option>
                       <option>Sede 3</option>
@@ -22,8 +21,7 @@
                   </div>
                   <div class="form-group col-sm">
                     <label>Dependencia</label>
-                    <select class="form-control" formControlName="firstCtrl"
-                      [ngClass]="{'form-control-danger': firstForm.invalid && (firstForm.dirty || firstForm.touched)}">
+                    <select class="form-control" formControlName="Dependencia" required>
                       <option>Dependencia 1</option>
                       <option>Dependencia 2</option>
                       <option>Dependencia 3</option>
@@ -33,8 +31,7 @@
                   </div>
                   <div class="form-group col-sm">
                     <label>Ubicación</label>
-                    <select class="form-control" formControlName="firstCtrl"
-                      [ngClass]="{'form-control-danger': firstForm.invalid && (firstForm.dirty || firstForm.touched)}">
+                    <select class="form-control" formControlName="Ubicacion" required>
                       <option>Ubicación 1</option>
                       <option>Ubicación 2</option>
                       <option>Ubicación 3</option>
@@ -45,22 +42,19 @@
                 </div>
               </nb-card-body>
             </nb-card>
-            <button nbButton nbStepperNext>next</button>
+            <button nbButton matStepperNext [disabled]="!firstForm.valid" class="float-right">Siguiente</button>
           </form>
-        </nb-step>
-        <nb-step [stepControl]="secondForm" label="Datos de Soporte">
-          <form [formGroup]="secondForm" (ngSubmit)="onSecondSubmit()" class="step-container">
+        </mat-step>
+        <mat-step [stepControl]="secondForm" label="Datos de Soporte">
+          <form [formGroup]="secondForm" (ngSubmit)="onSecondSubmit()" #fform2="ngForm" class="step-container">
             <nb-card>
               <nb-card-header></nb-card-header>
               <nb-card-body>
-                <div>
-                  <button nbButton (click)="addTab()">
-                    Agregar Pestaña
-                  </button>
-                </div>
                 <mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event)">
-                  <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab" [formGroupName]="index">
-
+                  <mat-tab *ngFor="let tab of tabs; let i = index" [formGroupName]="i">
+                    <ng-template mat-tab-label>
+                      {{tab}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<i class="fas fa-window-close" (click)="removeTab(i)"></i>
+                    </ng-template>
                     <nb-card>
                       <nb-card-header>Datos de Soporte</nb-card-header>
                       <nb-card-body>
@@ -69,16 +63,14 @@
                             <label>Proveedor</label>
                             <div class="input-group">
                               <input type="text" placeholder="NIT o Razón social" class="form-control"
-                                formControlName="secondCtrl"
-                                [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}" />
+                                formControlName="Proveedor" required>
                             </div>
                           </div>
                           <div class="form-group col-sm">
                             <label>Consecutivo de Factura o de Soporte</label>
                             <div class="input-group">
                               <input nbInput type="text" placeholder="Consecutivo" class="form-control"
-                                formControlName="secondCtrl"
-                                [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}" />
+                                formControlName="Consecutivo" required>
                             </div>
                           </div>
                         </div>
@@ -87,147 +79,71 @@
                             <label>Fecha de Factura o de Soporte</label>
                             <div class="input-group">
                               <input nbInput placeholder="Selecciona la Fecha" class="form-control"
-                                [nbDatepicker]="formpicker" formControlName="secondCtrl"
-                                [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}">
+                                [nbDatepicker]="formpicker" formControlName="Fecha_Factura" required>
                               <nb-datepicker #formpicker></nb-datepicker>
                             </div>
                           </div>
                           <div class="form-group col-sm">
                             <label>Factura o Soporte a Relacionar</label>
-                            <input nbInput type="file" class="form-control-file" id="factura"
-                              formControlName="secondCtrl"
-                              [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}">
+                            <input nbInput type="file" class="form-control-file" id="factura" formControlName="Soporte"
+                              required>
                           </div>
-                        </div>
-                      </nb-card-body>
-                    </nb-card>
-                    <nb-card>
-                      <nb-card-header>Carga Masiva</nb-card-header>
-                      <nb-card-body>
-                        <div class="form-group col-sm">
-                          <label>Archivo</label>
-                          <input nbInput type="file" class="form-control-file" id="factura">
                         </div>
                       </nb-card-body>
                     </nb-card>
                     <nb-card>
                       <nb-card-header>Articulos Relacionados</nb-card-header>
                       <nb-card-body>
-                        <ng2-smart-table [settings]="settings" [source]="source" (custom)="onCustom($event)">
-                        </ng2-smart-table>
-                        <table class="table text-center">
-                          <thead class="thead-dark">
-                            <tr>
-                              <th scope="col"></th>
-                              <th scope="col"></th>
-                              <th scope="col"></th>
-                              <th scope="col"></th>
-                              <th scope="col"></th>
-                              <th scope="col"></th>
-                              <th scope="col"></th>
-                              <th scope="col"></th>
-                              <th scope="col"></th>
-                              <th scope="col"></th>
-                              <th scope="col"></th>
-                              <th scope="col"></th>
-                              <th scope="col"></th>
-                              <th scope="col"></th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <th scope="row"></th>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td>Subtotal</td>
-                              <td>14'400.000</td>
-                              <td></td>
-                            </tr>
-                            <tr>
-                              <th scope="row"></th>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td>Descuentos</td>
-                              <td>0</td>
-                              <td></td>
-                            </tr>
-                            <tr>
-                              <th scope="row"></th>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td>IVA</td>
-                              <td>1'080.000</td>
-                              <td></td>
-                            </tr>
-                            <tr>
-                              <th scope="row"></th>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td>Total</td>
-                              <td>15'480.000</td>
-                              <td></td>
-                            </tr>
-                          </tbody>
-                        </table>
+                        <div class="example-container mat-elevation-z8">
+                          <table mat-table [dataSource]="dataSource">
+                        
+                            <!-- Position Column -->
+                            <ng-container matColumnDef="position">
+                              <th mat-header-cell *matHeaderCellDef> No. </th>
+                              <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                            </ng-container>
+                        
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="name">
+                              <th mat-header-cell *matHeaderCellDef> Name </th>
+                              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                            </ng-container>
+                        
+                            <!-- Weight Column -->
+                            <ng-container matColumnDef="weight">
+                              <th mat-header-cell *matHeaderCellDef> Weight </th>
+                              <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+                            </ng-container>
+                        
+                            <!-- Symbol Column -->
+                            <ng-container matColumnDef="symbol">
+                              <th mat-header-cell *matHeaderCellDef> Symbol </th>
+                              <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+                            </ng-container>
+                        
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                          </table>
+                        </div>
                       </nb-card-body>
                     </nb-card>
-                    <div class="row">
-                      <div class="form-group col-sm">
-                        {{tab}}
-                      </div>
-                      <div class="form-group col-sm">
-                        <button nbButton class="example-delete-tab-button" [disabled]="tabs.length === 1"
-                          (click)="removeTab(index)">
-                          Borrar Pestaña
-                        </button>
-                      </div>
-                    </div>
-                    <button nbButton nbStepperPrevious>prev</button>
-                    <button nbButton nbStepperNext>next</button>
+                  </mat-tab>
+                  <mat-tab [disabled]="true">
+                    <ng-template mat-tab-label>
+                      <i class="fas fa-plus-square fa-2x" (click)="addTab()"></i>
+                    </ng-template>
                   </mat-tab>
                 </mat-tab-group>
               </nb-card-body>
             </nb-card>
+            <div class="justify-content-center">
+              <button nbButton matStepperPrevious>Anterior</button>
+              <button nbButton matStepperNext [disabled]="!secondForm.valid" class="float-right">Siguiente</button>
+            </div>
           </form>
-        </nb-step>
-        <nb-step [stepControl]="thirdForm" label="Datos Adicionales">
-          <form [formGroup]="thirdForm" (ngSubmit)="onThirdSubmit()" class="step-container">
+        </mat-step>
+        <mat-step [stepControl]="thirdForm" label="Datos Adicionales">
+          <form [formGroup]="thirdForm" (ngSubmit)="onThirdSubmit()" #fform3="ngForm" class="step-container">
             <nb-card>
               <nb-card-header>Gran Consolidado</nb-card-header>
               <nb-card-body>
@@ -259,34 +175,24 @@
                   <div class="input-group">
                     <textarea rows="5"
                       placeholder="Proporciona datos adicionales que no se pueden expresar en el formulario"
-                      class="form-control" formControlName="thirdCtrl"
-                      [ngClass]="{'form-control-danger': thirdForm.invalid && (thirdForm.dirty || thirdForm.touched)}"></textarea>
+                      class="form-control" formControlName="Datos_Adicionales" required></textarea>
                   </div>
                 </div>
               </nb-card-body>
             </nb-card>
             <div class="justify-content-center">
-              <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false"
-                autocomplete="off">
-                Guardar Acta de Recibido
-              </button>
-              <button type="button" class="btn btn-primary float-right" data-toggle="button" aria-pressed="false"
-                autocomplete="off">
-                Enviar para Verificacion
-              </button>
+              <button nbButton matStepperPrevious>Anterior</button>
+              <button nbButton matStepperNext [disabled]="!thirdForm.valid" class="float-right">Siguiente</button>
             </div>
-            <button nbButton nbStepperPrevious>prev</button>
-            <button nbButton nbStepperNext>Confirm</button>
           </form>
-        </nb-step>
-        <nb-step [stepControl]="thirdForm" [hidden]="true" label="Third step">
+        </mat-step>
+        <mat-step [hidden]="true" label="Registro Completado">
           <div class="step-container">
-            <h3>Wizard completed!</h3>
+            <h3>Registro Completado!</h3>
             <button nbButton (click)="stepper.reset()">Try again</button>
           </div>
-        </nb-step>
-      </nb-stepper>
+        </mat-step>
+      </mat-vertical-stepper>
     </nb-card-body>
   </nb-card>
-
 </div>

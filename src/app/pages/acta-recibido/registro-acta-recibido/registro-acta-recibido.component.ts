@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { LocalDataSource } from 'ngx-smart-table';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -10,16 +10,54 @@ import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@ang
   templateUrl: './registro-acta-recibido.component.html',
   styleUrls: ['./registro-acta-recibido.component.scss'],
 })
+
+
 export class RegistroActaRecibidoComponent implements OnInit {
 
+  // Datos de Tabla
   source: LocalDataSource;
-  foo: number;
-  datos: any;
-  firstForm: FormGroup;
-  secondForm: FormArray;
-  thirdForm: FormGroup;
-  components: Number[];
 
+  ELEMENT_DATA: any[] = [
+    {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
+    {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
+    {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
+    {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
+    {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
+    {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
+    {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
+    {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
+    {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
+    {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
+  ];
+
+  // Mensaje de Error
+  errMess: any;
+  private sub: Subscription;
+
+  // Formularios para registro
+  // - Datos Iniciales
+
+  firstForm: FormGroup;
+  @ViewChild('fform') firstFormDirective;
+  Datos_Iniciales: any;
+
+  // - Datos de Soporte
+
+  secondForm: FormArray;
+  @ViewChild('fform2') secondFormDirective;
+  Datos_Soporte: any;
+
+  //   * Variables de Tabs para Facturas
+
+  carga_agregada: boolean = false;
+  tabs = ['Soporte 1'];
+  selected = new FormControl(0);
+
+  // - Datos Adicionales
+
+  thirdForm: FormGroup;
+  @ViewChild('fform3') thirdFormDirective;
+  Datos_Adicionales: any;
 
   settings = {
     actions: {
@@ -144,83 +182,104 @@ export class RegistroActaRecibidoComponent implements OnInit {
     },
   };
 
-  private sub: Subscription;
-
-  bandera: boolean = false;
-  id: any;
-  errMess: any;
-  carga_agregada: boolean = false;
-
   constructor(
-    private router: Router, 
+    private router: Router,
     private route: ActivatedRoute,
-    private fb: FormBuilder, 
-    ) {
+    private fb: FormBuilder,
+  ) {
+    this.Cargar_Formularios();
   }
 
   ngOnInit() {
-    // this.source.load(this.data);
+    // this.source.load(this.data); 
+  }
+
+  Cargar_Formularios() {
+
     this.firstForm = this.fb.group({
-      firstCtrl: ['', Validators.required],
+      Sede: ['', Validators.required],
+      Dependencia: ['', Validators.required],
+      Ubicacion: ['', Validators.required],
     });
-    this.secondForm = this.fb.array([]); 
-    
-    this.carga_agregada = true;
+
+    this.secondForm = this.fb.array([]);
     const Carga = this.fb.group({
-      secondCtrl: ['', Validators.required],
+      Proveedor: ['', Validators.required],
+      Consecutivo: ['', Validators.required],
+      Fecha_Factura: ['', Validators.required],
+      Soporte: ['', Validators.required],
     });
-    
     this.secondForm.push(Carga);
 
-
     this.thirdForm = this.fb.group({
-      thirdCtrl: ['', Validators.required],
+      Datos_Adicionales: ['', Validators.required],
     });
+
+    this.carga_agregada = true;
   }
   ver() {
     // this.source.getAll().then((data) => { console.log(data); this.foo = data; this.bandera = true; });
   }
   onFirstSubmit() {
-    this.firstForm.markAsDirty();
+    console.log(this.firstForm.value);
+    this.Datos_Iniciales = this.firstForm.value;
   }
-
   onSecondSubmit() {
-    this.secondForm.markAsDirty();
+    console.log(this.secondForm.value);
+    this.Datos_Soporte = this.secondForm.value;
   }
-
   onThirdSubmit() {
-    this.thirdForm.markAsDirty();
-  }
-  onCustom(event: any) {
-    alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`);
+    console.log(this.thirdForm.value);
+    this.Datos_Adicionales = this.thirdForm.value;
   }
 
-  tabs = ['Soporte 1'];
-  selected = new FormControl(0);
+  // Accciones para Tabs Facturas
 
   addTab() {
-    this.tabs.push('Soporte '+(this.tabs.length + 1));
+    this.tabs.push('Soporte ' + (this.tabs.length + 1));
     this.selected.setValue(this.tabs.length - 1);
     this.carga_agregada = true;
     const Carga = this.fb.group({
-      secondCtrl: ['', Validators.required],
+      Proveedor: ['', Validators.required],
+      Consecutivo: ['', Validators.required],
+      Fecha_Factura: ['', Validators.required],
+      Soporte: ['', Validators.required],
     });
-    
     this.secondForm.push(Carga);
-
   }
-  checked = false;
+  removeTab(i: number) {
 
-  toggle(checked: boolean) {
-    this.checked = checked;
-  }
-
-  removeTab(index: number) {
-    this.tabs.splice(index, 1);
-    this.secondForm.removeAt(index)
-    if (index == 0) {
+    console.log(i);
+    this.tabs.splice(i, 1);
+    this.secondForm.removeAt(i);
+    this.onSecondSubmit();
+    if (this.tabs.length == 1) {
       this.carga_agregada = false;
+      this.tabs = ['Soporte 1'];
+      this.selected.setValue(i - 1);
     }
+    else {
+      this.selected.setValue(i - 1);
+      this.secondForm = this.fb.array([]);
+      for (var i = 0; i < this.tabs.length; i++) {
+        this.tabs[i] = "Soporte " + (i + 1).toString();
 
+        const Carga = this.fb.group({
+          Proveedor: [this.Datos_Soporte[i].Proveedor, Validators.required],
+          Consecutivo: [this.Datos_Soporte[i].Consecutivo, Validators.required],
+          Fecha_Factura: [this.Datos_Soporte[i].Fecha_Factura, Validators.required],
+          Soporte: [this.Datos_Soporte[i].Soporte, Validators.required],
+        });
+        this.secondForm.push(Carga);
+      }
+    }
   }
+// Acciones para elementos
+
+  displayedColumns = ['position', 'name', 'weight', 'symbol'];
+  dataSource = this.ELEMENT_DATA;
+
+  
+  
+  
 }
