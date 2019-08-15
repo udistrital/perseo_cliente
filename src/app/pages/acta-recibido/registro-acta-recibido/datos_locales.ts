@@ -1,4 +1,4 @@
-export const DatosLocales : any [] =[
+export const DatosLocales: any [] = [
     {
         'Id': 1,
         'Nombre': 'string',
@@ -23,7 +23,7 @@ export const DatosLocales : any [] =[
             'Activo': true,
             'NumeroOrden': 1,
             'FechaCreacion': '2019-07-24T09:12:39.03906-05:00',
-            'FechaModificacion': '2019-07-24T09:12:39.03906-05:00'
+            'FechaModificacion': '2019-07-24T09:12:39.03906-05:00',
         },
         'EstadoElementoId': {
             'Id': 1,
@@ -33,7 +33,7 @@ export const DatosLocales : any [] =[
             'Activo': true,
             'NumeroOrden': 2,
             'FechaCreacion': '2019-07-24T09:12:39.037655-05:00',
-            'FechaModificacion': '2019-07-24T09:12:39.037655-05:00'
+            'FechaModificacion': '2019-07-24T09:12:39.037655-05:00',
         },
         'SoporteActaId': {
             'Id': 4,
@@ -48,15 +48,15 @@ export const DatosLocales : any [] =[
                 'Observaciones': 'Segunda acta de prueba',
                 'Activo': true,
                 'FechaCreacion': '2006-01-02T05:04:05-05:00',
-                'FechaModificacion': '2006-01-02T05:04:05-05:00'
+                'FechaModificacion': '2006-01-02T05:04:05-05:00',
             },
             'Activo': true,
             'FechaCreacion': '2019-07-24T04:12:39.02968-05:00',
-            'FechaModificacion': '2019-07-24T04:12:39.02968-05:00'
+            'FechaModificacion': '2019-07-24T04:12:39.02968-05:00',
         },
         'Activo': true,
         'FechaCreacion': '2019-06-23T14:00:00-05:00',
-        'FechaModificacion': '2019-06-23T14:00:00-05:00'
+        'FechaModificacion': '2019-06-23T14:00:00-05:00',
     },
     {
         'Id': 1,
@@ -82,7 +82,7 @@ export const DatosLocales : any [] =[
             'Activo': true,
             'NumeroOrden': 1,
             'FechaCreacion': '2019-07-24T09:12:39.03906-05:00',
-            'FechaModificacion': '2019-07-24T09:12:39.03906-05:00'
+            'FechaModificacion': '2019-07-24T09:12:39.03906-05:00',
         },
         'EstadoElementoId': {
             'Id': 1,
@@ -92,7 +92,7 @@ export const DatosLocales : any [] =[
             'Activo': true,
             'NumeroOrden': 2,
             'FechaCreacion': '2019-07-24T09:12:39.037655-05:00',
-            'FechaModificacion': '2019-07-24T09:12:39.037655-05:00'
+            'FechaModificacion': '2019-07-24T09:12:39.037655-05:00',
         },
         'SoporteActaId': {
             'Id': 4,
@@ -107,15 +107,15 @@ export const DatosLocales : any [] =[
                 'Observaciones': 'Segunda acta de prueba',
                 'Activo': true,
                 'FechaCreacion': '2006-01-02T05:04:05-05:00',
-                'FechaModificacion': '2006-01-02T05:04:05-05:00'
+                'FechaModificacion': '2006-01-02T05:04:05-05:00',
             },
             'Activo': true,
             'FechaCreacion': '2019-07-24T04:12:39.02968-05:00',
-            'FechaModificacion': '2019-07-24T04:12:39.02968-05:00'
+            'FechaModificacion': '2019-07-24T04:12:39.02968-05:00',
         },
         'Activo': true,
         'FechaCreacion': '2019-06-23T14:00:00-05:00',
-        'FechaModificacion': '2019-06-23T14:00:00-05:00'
+        'FechaModificacion': '2019-06-23T14:00:00-05:00',
     },
     {
         'Id': 1,
@@ -235,4 +235,4 @@ export const DatosLocales : any [] =[
         'FechaCreacion': '2019-06-23T14:00:00-05:00',
         'FechaModificacion': '2019-06-23T14:00:00-05:00',
     },
-]
+];
