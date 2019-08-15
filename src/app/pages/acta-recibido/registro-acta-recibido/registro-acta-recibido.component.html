@@ -53,7 +53,8 @@
                 <mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event)">
                   <mat-tab *ngFor="let tab of tabs; let i = index" [formGroupName]="i">
                     <ng-template mat-tab-label>
-                      {{tab}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<i class="fas fa-window-close" (click)="removeTab(i)"></i>
+                      {{tab}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<i class="fas fa-window-close"
+                        (click)="removeTab(i)"></i>
                     </ng-template>
                     <nb-card>
                       <nb-card-header>Datos de Soporte</nb-card-header>
@@ -96,31 +97,110 @@
                       <nb-card-body>
                         <div class="example-container mat-elevation-z8">
                           <table mat-table [dataSource]="dataSource">
-                        
-                            <!-- Position Column -->
-                            <ng-container matColumnDef="position">
-                              <th mat-header-cell *matHeaderCellDef> No. </th>
-                              <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+
+                            <!-- Tipo de Bien -->
+                            <ng-container matColumnDef="TipoBienId">
+                              <th mat-header-cell *matHeaderCellDef> Tipo de Bien </th>
+                              <td mat-cell *matCellDef="let element"> {{element.TipoBienId.Nombre}} </td>
                             </ng-container>
-                        
-                            <!-- Name Column -->
-                            <ng-container matColumnDef="name">
-                              <th mat-header-cell *matHeaderCellDef> Name </th>
-                              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+
+                            <!-- Subgrupo Catalogo -->
+                            <ng-container matColumnDef="SubgrupoCatalogoId">
+                              <th mat-header-cell *matHeaderCellDef> Subgrupo</th>
+                              <td mat-cell *matCellDef="let element"> {{element.SubgrupoCatalogoId}} </td>
                             </ng-container>
-                        
-                            <!-- Weight Column -->
-                            <ng-container matColumnDef="weight">
-                              <th mat-header-cell *matHeaderCellDef> Weight </th>
-                              <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+
+                            <!-- Nombre Catalogo -->
+                            <ng-container matColumnDef="Nombre">
+                              <th mat-header-cell *matHeaderCellDef> Nombre</th>
+                              <td mat-cell *matCellDef="let element"> {{element.Nombre}} </td>
                             </ng-container>
-                        
-                            <!-- Symbol Column -->
-                            <ng-container matColumnDef="symbol">
-                              <th mat-header-cell *matHeaderCellDef> Symbol </th>
-                              <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+
+                            <!-- RevisorId Column -->
+                            <ng-container matColumnDef="RevisorId">
+                              <th mat-header-cell *matHeaderCellDef> Revisor </th>
+                              <td mat-cell *matCellDef="let element"> {{element.SoporteActaId.ActaRecibidoId.RevisorId}}
+                              </td>
                             </ng-container>
-                        
+
+                            <!-- Cantidad Column -->
+                            <ng-container matColumnDef="Cantidad">
+                              <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+                              <td mat-cell *matCellDef="let element"> {{element.Cantidad}} </td>
+                            </ng-container>
+
+                            <!-- Marca Column -->
+                            <ng-container matColumnDef="Marca">
+                              <th mat-header-cell *matHeaderCellDef> Marca </th>
+                              <td mat-cell *matCellDef="let element"> {{element.Marca}} </td>
+                            </ng-container>
+
+                            <!-- Serie Column -->
+                            <ng-container matColumnDef="Serie">
+                              <th mat-header-cell *matHeaderCellDef> Serie </th>
+                              <td mat-cell *matCellDef="let element"> {{element.Serie}} </td>
+                            </ng-container>
+
+                            <!-- UnidadMedida Column -->
+                            <ng-container matColumnDef="UnidadMedida">
+                              <th mat-header-cell *matHeaderCellDef> Unidad de Medida </th>
+                              <td mat-cell *matCellDef="let element"> {{element.UnidadMedida}} </td>
+                            </ng-container>
+
+                            <!-- ValorUnitario Column -->
+                            <ng-container matColumnDef="ValorUnitario">
+                              <th mat-header-cell *matHeaderCellDef> Valor Unitario </th>
+                              <td mat-cell *matCellDef="let element"> {{element.ValorUnitario}} </td>
+                            </ng-container>
+
+                            <!-- Subtotal Column -->
+                            <ng-container matColumnDef="Subtotal">
+                              <th mat-header-cell *matHeaderCellDef> Subtotal </th>
+                              <td mat-cell *matCellDef="let element"> {{element.Subtotal | currency}} </td>
+                            </ng-container>
+
+                            <!-- Descuento Column -->
+                            <ng-container matColumnDef="Descuento">
+                              <th mat-header-cell *matHeaderCellDef> Descuento </th>
+                              <td mat-cell *matCellDef="let element"> {{element.Descuento}} </td>
+                            </ng-container>
+
+                            <!-- PorcentajeIvaId Column -->
+                            <ng-container matColumnDef="PorcentajeIvaId">
+                              <th mat-header-cell *matHeaderCellDef> PorcentajeIvaId </th>
+                              <td mat-cell *matCellDef="let element"> 
+                                  <input nbInput type="text" [value]="element.PorcentajeIvaId" placeholder="Valor Total" required> 
+                              </td>
+                            </ng-container>
+
+                            <!-- ValorIva Column -->
+                            <ng-container matColumnDef="ValorIva">
+                              <th mat-header-cell *matHeaderCellDef> ValorIva </th>
+                              <td mat-cell *matCellDef="let element"> 
+                                <input nbInput type="text" [value]="element.ValorIva | currency" placeholder="Valor Total" required>
+                              </td>
+                            </ng-container>
+
+                            <!-- ValorTotal Column -->
+                            <ng-container matColumnDef="ValorTotal">
+                              <th mat-header-cell *matHeaderCellDef> ValorTotal </th>
+                              <td mat-cell *matCellDef="let element">
+                                <input nbInput style="width: 70%" type="text" [value]="element.ValorTotal | currency" placeholder="Valor Total" required>
+                              </td>
+                            </ng-container>
+
+                            <!-- Acciones Column -->
+                            <ng-container matColumnDef="Acciones">
+                              <th mat-header-cell *matHeaderCellDef>
+                                <i class="fas fa-plus-square"></i>
+                              </th>
+                              <td mat-cell *matCellDef="let element">
+                                <i class="far fa-check-square"></i> &nbsp;
+                                <i class="far fa-edit"></i>&nbsp;
+                                <i class="far fa-window-close"></i>
+                              </td>
+                            </ng-container>
+
                             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
                             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                           </table>
