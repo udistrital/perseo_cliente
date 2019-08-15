@@ -191,7 +191,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.source.load(this.data); 
+    // this.source.load(this.data);
   }
 
   Cargar_Formularios() {
@@ -221,15 +221,15 @@ export class RegistroActaRecibidoComponent implements OnInit {
     // this.source.getAll().then((data) => { console.log(data); this.foo = data; this.bandera = true; });
   }
   onFirstSubmit() {
-    console.log(this.firstForm.value);
+
     this.Datos_Iniciales = this.firstForm.value;
   }
   onSecondSubmit() {
-    console.log(this.secondForm.value);
+
     this.Datos_Soporte = this.secondForm.value;
   }
   onThirdSubmit() {
-    console.log(this.thirdForm.value);
+
     this.Datos_Adicionales = this.thirdForm.value;
   }
 
@@ -249,26 +249,36 @@ export class RegistroActaRecibidoComponent implements OnInit {
   }
   removeTab(i: number) {
 
-    console.log(i);
+
     this.tabs.splice(i, 1);
     this.secondForm.removeAt(i);
     this.onSecondSubmit();
-    if (this.tabs.length == 1) {
+    if (this.tabs.length === 1) {
       this.carga_agregada = false;
       this.tabs = ['Soporte 1'];
       this.selected.setValue(i - 1);
-    }
-    else {
+      this.secondForm = this.fb.array([]);
+      for (let j = 0; j < this.tabs.length; j++) {
+        this.tabs[j] = 'Soporte ' + (j + 1).toString();
+        const Carga = this.fb.group({
+          Proveedor: [this.Datos_Soporte[j].Proveedor, Validators.required],
+          Consecutivo: [this.Datos_Soporte[j].Consecutivo, Validators.required],
+          Fecha_Factura: [this.Datos_Soporte[j].Fecha_Factura, Validators.required],
+          Soporte: [this.Datos_Soporte[j].Soporte, Validators.required],
+        });
+        this.secondForm.push(Carga);
+      }
+    } else if (this.tabs.length === 0) {
+    } else {
       this.selected.setValue(i - 1);
       this.secondForm = this.fb.array([]);
-      for (var i = 0; i < this.tabs.length; i++) {
-        this.tabs[i] = "Soporte " + (i + 1).toString();
-
+      for (let j = 0; j < this.tabs.length; j++) {
+        this.tabs[j] = 'Soporte ' + (j + 1).toString();
         const Carga = this.fb.group({
-          Proveedor: [this.Datos_Soporte[i].Proveedor, Validators.required],
-          Consecutivo: [this.Datos_Soporte[i].Consecutivo, Validators.required],
-          Fecha_Factura: [this.Datos_Soporte[i].Fecha_Factura, Validators.required],
-          Soporte: [this.Datos_Soporte[i].Soporte, Validators.required],
+          Proveedor: [this.Datos_Soporte[j].Proveedor, Validators.required],
+          Consecutivo: [this.Datos_Soporte[j].Consecutivo, Validators.required],
+          Fecha_Factura: [this.Datos_Soporte[j].Fecha_Factura, Validators.required],
+          Soporte: [this.Datos_Soporte[j].Soporte, Validators.required],
         });
         this.secondForm.push(Carga);
       }
@@ -278,8 +288,4 @@ export class RegistroActaRecibidoComponent implements OnInit {
 
   displayedColumns = ['position', 'name', 'weight', 'symbol'];
   dataSource = this.ELEMENT_DATA;
-
-  
-  
-  
 }
