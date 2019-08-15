@@ -144,7 +144,6 @@ export class RegistroActaRecibidoComponent implements OnInit {
       Elementos: this.fb.array([Elementos]),
     });
     this.secondForm.push(Carga);
-    console.log(this.secondForm.get('Elementos.Nombre'));
   }
   removeTab(i: number) {
 
@@ -200,7 +199,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
     'PorcentajeIvaId',
     'ValorIva',
     'ValorTotal',
-    'Acciones'
+    'Acciones',
   ];
   dataSource = this.ELEMENT_DATA;
 }
