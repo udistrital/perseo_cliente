@@ -93,16 +93,16 @@ export class RegistroActaRecibidoComponent implements OnInit {
     });
   }
   addSoportes() {
-    (this.firstForm.get("Formulario2") as FormArray).push(this.Formulario_2);
+    (this.firstForm.get('Formulario2') as FormArray).push(this.Formulario_2);
   }
   deleteSoportes(index: number) {
-    (this.firstForm.get("Formulario2") as FormArray).removeAt(index);
+    (this.firstForm.get('Formulario2') as FormArray).removeAt(index);
   }
   addElementos(Soporte) {
-    Soporte.get("Elementos").push(this.Elementos);
+    Soporte.get('Elementos').push(this.Elementos);
   }
   deletePlayer(Soporte, index: number) {
-    Soporte.get("Elementos").removeAt(index);
+    Soporte.get('Elementos').removeAt(index);
   }
   onFirstSubmit() {
     this.Datos = this.firstForm.value;
