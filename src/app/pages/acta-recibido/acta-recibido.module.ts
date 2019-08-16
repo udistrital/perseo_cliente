@@ -13,6 +13,7 @@ import { NbStepperModule } from '@nebular/theme';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatStepperModule } from '@angular/material/stepper';
 import {MatTableModule} from '@angular/material/table';
+import { MatPaginatorModule, MatSortModule } from '@angular/material';
 
 
 @NgModule({
@@ -32,6 +33,8 @@ import {MatTableModule} from '@angular/material/table';
     MatTabsModule,
     MatStepperModule,
     MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
   ],
 })
 export class ActaRecibidoModule { }

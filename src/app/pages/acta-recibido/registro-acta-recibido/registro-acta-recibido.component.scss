@@ -20,7 +20,18 @@
     height: 400px;
     overflow: auto;
   }
-  
+  .cell-tipo-bien{
+    height: 40px;
+    width: 120px
+  }
   table {
     width: 100%;
+    table-layout: fixed;
   }
+  th, td {
+    overflow: hidden;
+    width: 150px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  

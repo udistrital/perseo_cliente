@@ -4,6 +4,8 @@ import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { DatosLocales } from './datos_locales';
+import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import 'hammerjs';
 
 
 @Component({
@@ -15,17 +17,11 @@ import { DatosLocales } from './datos_locales';
 
 export class RegistroActaRecibidoComponent implements OnInit {
 
-  // Datos de Tabla
-  source: LocalDataSource;
+  ELEMENT_DATA: any[] = DatosLocales;
+  dataSource =  new MatTableDataSource<any>(this.ELEMENT_DATA);
 
-  ELEMENT_DATA: any[];
-
-  // Mensaje de Error
   errMess: any;
   private sub: Subscription;
-
-  // Formularios para registro
-  // - Datos Iniciales
 
   firstForm: FormGroup;
   @ViewChild('fform') firstFormDirective;
@@ -33,6 +29,9 @@ export class RegistroActaRecibidoComponent implements OnInit {
   carga_agregada: boolean;
   tabs = ['Soporte 1'];
   selected = new FormControl(0);
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private router: Router,
@@ -42,6 +41,8 @@ export class RegistroActaRecibidoComponent implements OnInit {
   }
   ngOnInit() {
     // this.source.load(this.data);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
     this.Cargar_Formularios();
   }
   Cargar_Formularios() {
@@ -133,5 +134,4 @@ export class RegistroActaRecibidoComponent implements OnInit {
     'ValorTotal',
     'Acciones',
   ];
-  dataSource = this.ELEMENT_DATA;
 }
