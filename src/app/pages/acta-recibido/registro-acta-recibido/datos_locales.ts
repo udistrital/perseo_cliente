@@ -141,7 +141,7 @@ export const DatosLocales: any [] = [
             'Activo': true,
             'NumeroOrden': 1,
             'FechaCreacion': '2019-07-24T09:12:39.03906-05:00',
-            'FechaModificacion': '2019-07-24T09:12:39.03906-05:00'
+            'FechaModificacion': '2019-07-24T09:12:39.03906-05:00',
         },
         'EstadoElementoId': {
             'Id': 1,

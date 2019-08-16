@@ -1,10 +1,10 @@
 <div class="col-lg-12">
-  <nb-card>
-    <nb-card-header>Registrar Acta Recibido</nb-card-header>
-    <nb-card-body>
-      <mat-vertical-stepper [linear]="true" #stepper>
-        <mat-step [stepControl]="firstForm" label="Datos Iniciales">
-          <form [formGroup]="firstForm" (ngSubmit)="onFirstSubmit()" #fform="ngForm" class="step-container">
+  <form [formGroup]="firstForm" (ngSubmit)="onFirstSubmit()" #fform="ngForm" class="step-container">
+    <nb-card>
+      <nb-card-header>Registrar Acta Recibido</nb-card-header>
+      <nb-card-body *ngIf="firstForm">
+        <mat-vertical-stepper [linear]="true" #stepper>
+          <mat-step label="Datos Iniciales" formGroupName="Formulario1">
             <nb-card>
               <nb-card-header>Datos Iniciales de Recibido</nb-card-header>
               <nb-card-body>
@@ -42,171 +42,212 @@
                 </div>
               </nb-card-body>
             </nb-card>
-            <button nbButton matStepperNext [disabled]="!firstForm.valid" class="float-right">Siguiente</button>
-          </form>
-        </mat-step>
-        <mat-step [stepControl]="secondForm" label="Datos de Soporte">
-          <form [formGroup]="secondForm" (ngSubmit)="onSecondSubmit()" #fform2="ngForm" class="step-container">
+            <button nbButton matStepperNext [disabled]="!firstForm.get('Formulario1').valid"
+              class="float-right">Siguiente</button>
+          </mat-step>
+          <mat-step label="Datos de Soporte" formArrayName="Formulario2">
             <nb-card>
               <nb-card-header></nb-card-header>
               <nb-card-body>
                 <mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event)">
-                  <mat-tab *ngFor="let tab of tabs; let i = index" [formGroupName]="i">
+                  <mat-tab *ngFor="let soporte of firstForm.get('Formulario2').controls; let i = index"
+                    [formGroupName]="i">
                     <ng-template mat-tab-label>
-                      {{tab}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<i class="fas fa-window-close"
+                      Soporte &nbsp; {{i + 1}} &nbsp; &nbsp; &nbsp; &nbsp;<i class="fas fa-window-close"
                         (click)="removeTab(i)"></i>
                     </ng-template>
-                    <nb-card>
-                      <nb-card-header>Datos de Soporte</nb-card-header>
-                      <nb-card-body>
-                        <div class="row">
-                          <div class="form-group col-sm">
-                            <label>Proveedor</label>
-                            <div class="input-group">
-                              <input type="text" placeholder="NIT o Razón social" class="form-control"
-                                formControlName="Proveedor" required>
+                    <div>
+                      <nb-card>
+                        <nb-card-header>Datos de Soporte</nb-card-header>
+                        <nb-card-body>
+                          <div class="row">
+                            <div class="form-group col-sm">
+                              <label>Proveedor</label>
+                              <div class="input-group">
+                                <input type="text" placeholder="NIT o Razón social" class="form-control"
+                                  formControlName="Proveedor" required>
+                              </div>
+                            </div>
+                            <div class="form-group col-sm">
+                              <label>Consecutivo de Factura o de Soporte</label>
+                              <div class="input-group">
+                                <input nbInput type="text" placeholder="Consecutivo" class="form-control"
+                                  formControlName="Consecutivo" required>
+                              </div>
                             </div>
                           </div>
-                          <div class="form-group col-sm">
-                            <label>Consecutivo de Factura o de Soporte</label>
-                            <div class="input-group">
-                              <input nbInput type="text" placeholder="Consecutivo" class="form-control"
-                                formControlName="Consecutivo" required>
+                          <div class="row">
+                            <div class="form-group col-sm">
+                              <label>Fecha de Factura o de Soporte</label>
+                              <div class="input-group">
+                                <input nbInput placeholder="Selecciona la Fecha" class="form-control"
+                                  [nbDatepicker]="formpicker" formControlName="Fecha_Factura" required>
+                                <nb-datepicker #formpicker></nb-datepicker>
+                              </div>
+                            </div>
+                            <div class="form-group col-sm">
+                              <label>Factura o Soporte a Relacionar</label>
+                              <input nbInput type="file" class="form-control-file" id="factura"
+                                formControlName="Soporte" required>
                             </div>
                           </div>
-                        </div>
-                        <div class="row">
-                          <div class="form-group col-sm">
-                            <label>Fecha de Factura o de Soporte</label>
-                            <div class="input-group">
-                              <input nbInput placeholder="Selecciona la Fecha" class="form-control"
-                                [nbDatepicker]="formpicker" formControlName="Fecha_Factura" required>
-                              <nb-datepicker #formpicker></nb-datepicker>
-                            </div>
+                        </nb-card-body>
+                      </nb-card>
+                      <nb-card>
+                        <nb-card-header>Articulos Relacionados</nb-card-header>
+                        <nb-card-body>
+                          <div class="example-container mat-elevation-z8">
+
+                            <table mat-table formArrayName="Elementos" [dataSource]="dataSource">
+
+                              <!-- Tipo de Bien -->
+                              <ng-container matColumnDef="TipoBienId">
+                                <th mat-header-cell *matHeaderCellDef> Tipo de Bien </th>
+                                <td mat-cell *matCellDef="let element; let rowIndex = index" [formGroupName]="rowIndex">
+                                  <input nbInput type="text" [value]="element.TipoBienId" formGroupName="TipoBienId"
+                                    placeholder="Valor Total" required>
+
+                                </td>
+                              </ng-container>
+
+                              <!-- Subgrupo Catalogo -->
+                              <ng-container matColumnDef="SubgrupoCatalogoId">
+                                <th mat-header-cell *matHeaderCellDef> Subgrupo</th>
+                                <td mat-cell *matCellDef="let element; let rowIndex = index" [formGroupName]="rowIndex">
+                                  <input nbInput type="text" [value]="element.SubgrupoCatalogoId"
+                                    formGroupName="SubgrupoCatalogoId" placeholder="Valor Total" required>
+
+                                </td>
+                              </ng-container>
+
+                              <!-- Nombre Catalogo -->
+                              <ng-container matColumnDef="Nombre">
+                                <th mat-header-cell *matHeaderCellDef> Nombre</th>
+                                <td mat-cell *matCellDef="let element; let rowIndex = index" [formGroupName]="rowIndex">
+                                  <input nbInput type="text" [value]="element.Nombre" formGroupName="Nombre"
+                                    placeholder="Valor Total" required>
+
+                                </td>
+                              </ng-container>
+
+                              <!-- RevisorId Column -->
+                              <ng-container matColumnDef="RevisorId">
+                                <th mat-header-cell *matHeaderCellDef> Revisor </th>
+                                <td mat-cell *matCellDef="let element; let rowIndex = index" [formGroupName]="rowIndex">
+                                  <input nbInput type="text" [value]="element.SoporteActaId.ActaRecibidoId.RevisorId"
+                                    formGroupName="RevisorId" placeholder="Valor Total" required>
+                                </td>
+                              </ng-container>
+
+                              <!-- Cantidad Column -->
+                              <ng-container matColumnDef="Cantidad">
+                                <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+                                <td mat-cell *matCellDef="let element; let rowIndex = index" [formGroupName]="rowIndex">
+                                  <input nbInput type="text" [value]="element.Cantidad" formGroupName="Cantidad"
+                                    placeholder="Valor Total" required>
+                                </td>
+                              </ng-container>
+
+                              <!-- Marca Column -->
+                              <ng-container matColumnDef="Marca">
+                                <th mat-header-cell *matHeaderCellDef> Marca </th>
+                                <td mat-cell *matCellDef="let element; let rowIndex = index" [formGroupName]="rowIndex">
+                                  <input nbInput type="text" [value]="element.Marca" formGroupName="Marca"
+                                    placeholder="Valor Total" required>
+                                </td>
+                              </ng-container>
+
+                              <!-- Serie Column -->
+                              <ng-container matColumnDef="Serie">
+                                <th mat-header-cell *matHeaderCellDef> Serie </th>
+                                <td mat-cell *matCellDef="let element; let rowIndex = index" [formGroupName]="rowIndex">
+                                  <input nbInput type="text" [value]="element.Serie" formGroupName="Serie"
+                                    placeholder="Valor Total" required>
+                                </td>
+                              </ng-container>
+
+                              <!-- UnidadMedida Column -->
+                              <ng-container matColumnDef="UnidadMedida">
+                                <th mat-header-cell *matHeaderCellDef> Unidad de Medida </th>
+                                <td mat-cell *matCellDef="let element; let rowIndex = index" [formGroupName]="rowIndex">
+                                  <input nbInput type="text" [value]="element.UnidadMedida" formGroupName="UnidadMedida"
+                                    placeholder="Valor Total" required>
+                                </td>
+                              </ng-container>
+
+                              <!-- ValorUnitario Column -->
+                              <ng-container matColumnDef="ValorUnitario">
+                                <th mat-header-cell *matHeaderCellDef> Valor Unitario </th>
+                                <td mat-cell *matCellDef="let element; let rowIndex = index" [formGroupName]="rowIndex">
+                                  <input nbInput type="text" [value]="ValorUnitario" formGroupName="ValorUnitario"
+                                    placeholder="Valor Total" required>
+                                </td>
+                              </ng-container>
+
+                              <!-- Subtotal Column -->
+                              <ng-container matColumnDef="Subtotal">
+                                <th mat-header-cell *matHeaderCellDef> Subtotal </th>
+                                <td mat-cell *matCellDef="let element; let rowIndex = index" [formGroupName]="rowIndex">
+                                  <input nbInput type="text" [value]="element.Subtotal" formGroupName="Subtotal"
+                                    placeholder="Valor Total" required>
+                                </td>
+                              </ng-container>
+
+                              <!-- Descuento Column -->
+                              <ng-container matColumnDef="Descuento">
+                                <th mat-header-cell *matHeaderCellDef> Descuento </th>
+                                <td mat-cell *matCellDef="let element; let rowIndex = index" [formGroupName]="rowIndex">
+                                  <input nbInput type="text" [value]="element.Descuento" formGroupName="Descuento"
+                                    placeholder="Valor Total" required>
+                                </td>
+                              </ng-container>
+
+                              <!-- PorcentajeIvaId Column -->
+                              <ng-container matColumnDef="PorcentajeIvaId">
+                                <th mat-header-cell *matHeaderCellDef> PorcentajeIvaId </th>
+                                <td mat-cell *matCellDef="let element; let rowIndex = index" [formGroupName]="rowIndex">
+                                  <input nbInput type="text" [value]="element.PorcentajeIvaId"
+                                    formGroupName="PorcentajeIvaId" placeholder="Valor Total" required>
+                                </td>
+                              </ng-container>
+
+                              <!-- ValorIva Column -->
+                              <ng-container matColumnDef="ValorIva">
+                                <th mat-header-cell *matHeaderCellDef> ValorIva </th>
+                                <td mat-cell *matCellDef="let element; let rowIndex = index" [formGroupName]="rowIndex">
+                                  <input nbInput type="text" [value]="element.ValorIva | currency"
+                                    placeholder="Valor Total" required>
+                                </td>
+                              </ng-container>
+
+                              <!-- ValorTotal Column -->
+                              <ng-container matColumnDef="ValorTotal">
+                                <th mat-header-cell *matHeaderCellDef> ValorTotal </th>
+                                <td mat-cell *matCellDef="let element; let rowIndex = index" [formGroupName]="rowIndex">
+                                  <input nbInput style="width: 70%" type="text" [value]="element.ValorTotal | currency"
+                                    placeholder="Valor Total" required>
+                                </td>
+                              </ng-container>
+
+                              <!-- Acciones Column -->
+                              <ng-container matColumnDef="Acciones">
+                                <th mat-header-cell *matHeaderCellDef>
+                                  <i class="fas fa-plus-square"></i>
+                                </th>
+                                <td mat-cell *matCellDef="let element; let rowIndex = index" [formGroupName]="rowIndex">
+                                  <i class="far fa-check-square"></i> &nbsp;
+                                  <i class="far fa-edit"></i>&nbsp;
+                                  <i class="far fa-window-close"></i>
+                                </td>
+                              </ng-container>
+
+                              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
                           </div>
-                          <div class="form-group col-sm">
-                            <label>Factura o Soporte a Relacionar</label>
-                            <input nbInput type="file" class="form-control-file" id="factura" formControlName="Soporte"
-                              required>
-                          </div>
-                        </div>
-                      </nb-card-body>
-                    </nb-card>
-                    <nb-card>
-                      <nb-card-header>Articulos Relacionados</nb-card-header>
-                      <nb-card-body>
-                        <div class="example-container mat-elevation-z8">
-                          <table mat-table [dataSource]="dataSource">
-
-                            <!-- Tipo de Bien -->
-                            <ng-container matColumnDef="TipoBienId">
-                              <th mat-header-cell *matHeaderCellDef> Tipo de Bien </th>
-                              <td mat-cell *matCellDef="let element"> {{element.TipoBienId.Nombre}} </td>
-                            </ng-container>
-
-                            <!-- Subgrupo Catalogo -->
-                            <ng-container matColumnDef="SubgrupoCatalogoId">
-                              <th mat-header-cell *matHeaderCellDef> Subgrupo</th>
-                              <td mat-cell *matCellDef="let element"> {{element.SubgrupoCatalogoId}} </td>
-                            </ng-container>
-
-                            <!-- Nombre Catalogo -->
-                            <ng-container matColumnDef="Nombre">
-                              <th mat-header-cell *matHeaderCellDef> Nombre</th>
-                              <td mat-cell *matCellDef="let element"> {{element.Nombre}} </td>
-                            </ng-container>
-
-                            <!-- RevisorId Column -->
-                            <ng-container matColumnDef="RevisorId">
-                              <th mat-header-cell *matHeaderCellDef> Revisor </th>
-                              <td mat-cell *matCellDef="let element"> {{element.SoporteActaId.ActaRecibidoId.RevisorId}}
-                              </td>
-                            </ng-container>
-
-                            <!-- Cantidad Column -->
-                            <ng-container matColumnDef="Cantidad">
-                              <th mat-header-cell *matHeaderCellDef> Cantidad </th>
-                              <td mat-cell *matCellDef="let element"> {{element.Cantidad}} </td>
-                            </ng-container>
-
-                            <!-- Marca Column -->
-                            <ng-container matColumnDef="Marca">
-                              <th mat-header-cell *matHeaderCellDef> Marca </th>
-                              <td mat-cell *matCellDef="let element"> {{element.Marca}} </td>
-                            </ng-container>
-
-                            <!-- Serie Column -->
-                            <ng-container matColumnDef="Serie">
-                              <th mat-header-cell *matHeaderCellDef> Serie </th>
-                              <td mat-cell *matCellDef="let element"> {{element.Serie}} </td>
-                            </ng-container>
-
-                            <!-- UnidadMedida Column -->
-                            <ng-container matColumnDef="UnidadMedida">
-                              <th mat-header-cell *matHeaderCellDef> Unidad de Medida </th>
-                              <td mat-cell *matCellDef="let element"> {{element.UnidadMedida}} </td>
-                            </ng-container>
-
-                            <!-- ValorUnitario Column -->
-                            <ng-container matColumnDef="ValorUnitario">
-                              <th mat-header-cell *matHeaderCellDef> Valor Unitario </th>
-                              <td mat-cell *matCellDef="let element"> {{element.ValorUnitario}} </td>
-                            </ng-container>
-
-                            <!-- Subtotal Column -->
-                            <ng-container matColumnDef="Subtotal">
-                              <th mat-header-cell *matHeaderCellDef> Subtotal </th>
-                              <td mat-cell *matCellDef="let element"> {{element.Subtotal | currency}} </td>
-                            </ng-container>
-
-                            <!-- Descuento Column -->
-                            <ng-container matColumnDef="Descuento">
-                              <th mat-header-cell *matHeaderCellDef> Descuento </th>
-                              <td mat-cell *matCellDef="let element"> {{element.Descuento}} </td>
-                            </ng-container>
-
-                            <!-- PorcentajeIvaId Column -->
-                            <ng-container matColumnDef="PorcentajeIvaId">
-                              <th mat-header-cell *matHeaderCellDef> PorcentajeIvaId </th>
-                              <td mat-cell *matCellDef="let element"> 
-                                  <input nbInput type="text" [value]="element.PorcentajeIvaId" placeholder="Valor Total" required> 
-                              </td>
-                            </ng-container>
-
-                            <!-- ValorIva Column -->
-                            <ng-container matColumnDef="ValorIva">
-                              <th mat-header-cell *matHeaderCellDef> ValorIva </th>
-                              <td mat-cell *matCellDef="let element"> 
-                                <input nbInput type="text" [value]="element.ValorIva | currency" placeholder="Valor Total" required>
-                              </td>
-                            </ng-container>
-
-                            <!-- ValorTotal Column -->
-                            <ng-container matColumnDef="ValorTotal">
-                              <th mat-header-cell *matHeaderCellDef> ValorTotal </th>
-                              <td mat-cell *matCellDef="let element">
-                                <input nbInput style="width: 70%" type="text" [value]="element.ValorTotal | currency" placeholder="Valor Total" required>
-                              </td>
-                            </ng-container>
-
-                            <!-- Acciones Column -->
-                            <ng-container matColumnDef="Acciones">
-                              <th mat-header-cell *matHeaderCellDef>
-                                <i class="fas fa-plus-square"></i>
-                              </th>
-                              <td mat-cell *matCellDef="let element">
-                                <i class="far fa-check-square"></i> &nbsp;
-                                <i class="far fa-edit"></i>&nbsp;
-                                <i class="far fa-window-close"></i>
-                              </td>
-                            </ng-container>
-
-                            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                          </table>
-                        </div>
-                      </nb-card-body>
-                    </nb-card>
+                        </nb-card-body>
+                      </nb-card>
+                    </div>
                   </mat-tab>
                   <mat-tab [disabled]="true">
                     <ng-template mat-tab-label>
@@ -218,12 +259,11 @@
             </nb-card>
             <div class="justify-content-center">
               <button nbButton matStepperPrevious>Anterior</button>
-              <button nbButton matStepperNext [disabled]="!secondForm.valid" class="float-right">Siguiente</button>
+              <button nbButton matStepperNext [disabled]="!firstForm.get('Formulario2').valid"
+                class="float-right">Siguiente</button>
             </div>
-          </form>
-        </mat-step>
-        <mat-step [stepControl]="thirdForm" label="Datos Adicionales">
-          <form [formGroup]="thirdForm" (ngSubmit)="onThirdSubmit()" #fform3="ngForm" class="step-container">
+          </mat-step>
+          <mat-step label="Datos Adicionales" formGroupName="Formulario3">
             <nb-card>
               <nb-card-header>Gran Consolidado</nb-card-header>
               <nb-card-body>
@@ -262,17 +302,23 @@
             </nb-card>
             <div class="justify-content-center">
               <button nbButton matStepperPrevious>Anterior</button>
-              <button nbButton matStepperNext [disabled]="!thirdForm.valid" class="float-right">Siguiente</button>
+              <button nbButton matStepperNext [disabled]="!firstForm.get('Formulario3').valid"
+                class="float-right">Siguiente</button>
             </div>
-          </form>
-        </mat-step>
-        <mat-step [hidden]="true" label="Registro Completado">
-          <div class="step-container">
-            <h3>Registro Completado!</h3>
-            <button nbButton (click)="stepper.reset()">Try again</button>
-          </div>
-        </mat-step>
-      </mat-vertical-stepper>
-    </nb-card-body>
-  </nb-card>
+          </mat-step>
+          <mat-step [hidden]="true" label="Registro Completado">
+            <div class="step-container">
+              <h3>Registro Completado!</h3>
+              <button nbButton (click)="stepper.reset()">Try again</button>
+            </div>
+          </mat-step>
+        </mat-vertical-stepper>
+      </nb-card-body>
+    </nb-card>
+  </form>
+</div>
+<div >
+    <code>
+        <pre>{{ firstForm.value | json }}</pre>
+    </code>
 </div>
