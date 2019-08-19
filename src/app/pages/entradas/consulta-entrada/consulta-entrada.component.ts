@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Router } from '@angular/router';
+import { EntradaHelper } from '../../../helpers/entradas/entradaHelper';
 // import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from './smart-table-datepicker/smart-table-datepicker.component'
 
 @Component({
@@ -137,7 +138,7 @@ export class ConsultaEntradaComponent implements OnInit {
     },
   ];
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private entradasHelper: EntradaHelper) {
     this.source = new LocalDataSource();
     this.source.load(this.data);
     this.detalle = false;

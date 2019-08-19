@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { throwError } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
-import { HttpErrorManager } from './errorManager';
+import { HttpErrorManager } from './errorManager'
 
 /**
  * This class manage the http connections with internal REST services. Use the response format {
@@ -24,18 +22,17 @@ export class RequestManager {
       headers: new HttpHeaders({
         'Accept': 'application/json',
       }),
-    };
+    }
   }
 
 
   /**
-   * Use for set the source path of the service (service's name must be present at src/environment/environment.ts)
+   * Use for set the source path of the service (service's name must be present at src/app/app-config.ts)
    * @param service: string
    */
-  public setPath(service: string) {
-    this.path = environment[service];
+  setPath(service: string) {
+    this.path = environment[service]
   }
-
 
   /**
    * Perform a GET http request
@@ -43,8 +40,15 @@ export class RequestManager {
    * @param params (an Key, Value object with que query params for the request)
    * @returns Observable<any>
    */
-  get(endpoint) {
+  get(endpoint, params?) {
+    const queryParams = new HttpParams();
+    if (params) {
+      for (const [key, value] of Object.entries(params)) {
+        queryParams.append(key, value + '');
+      }
 
+    }
+    this.httpOptions.params = queryParams;
     return this.http.get<any>(`${this.path}${endpoint}`, this.httpOptions).pipe(
       map(
         (res) => {
@@ -77,8 +81,8 @@ export class RequestManager {
    * @param element data to send as JSON, With the id to UPDATE
    * @returns Observable<any>
    */
-  put(endpoint, element) {
-    return this.http.put<any>(`${this.path}${endpoint}/${element.Id}`, element, this.httpOptions).pipe(
+  put(endpoint, element, id) {
+    return this.http.put<any>(`${this.path}${endpoint}${id}`, element, this.httpOptions).pipe(
       catchError(this.errManager.handleError),
     );
   }
@@ -94,4 +98,4 @@ export class RequestManager {
       catchError(this.errManager.handleError),
     );
   }
-}
+};

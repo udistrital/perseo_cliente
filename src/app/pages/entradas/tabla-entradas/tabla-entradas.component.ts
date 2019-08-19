@@ -1,5 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
+import { EntradaHelper } from '../../../helpers/entradas/entradaHelper';
+import { PopUpManager } from '../../../managers/popUpManager';
+import { Elemento } from '../../../@core/data/models/acta_recibido/elemento';
+import { TipoBien } from '../../../@core/data/models/acta_recibido/tipo_bien';
+import { SoporteActa } from '../../../@core/data/models/acta_recibido/soporte_acta';
+import { never } from 'rxjs';
+import { ActaRecibidoHelper } from '../../../helpers/acta_recibido/actaRecibidoHelper';
 
 @Component({
   selector: 'ngx-tabla-entradas',
@@ -9,184 +16,109 @@ import { LocalDataSource } from 'ng2-smart-table';
 export class TablaEntradasComponent implements OnInit {
 
   source: LocalDataSource;
+  elementos: Array<Elemento>;
+
+  @Input() actaRecibidoId: string;
 
   settings = {
     hideSubHeader: true,
     noDataMessage: 'No se encontraron elementos asociados.',
     actions: {
-      columnTitle: 'Detalle',
+      columnTitle: 'Seleccionar',
       position: 'right',
       add: false,
       edit: false,
       delete: false,
     },
     columns: {
-      consecutivo: {
-        title: 'Consecutivo',
+      SoporteActa: {
+        title: 'Factira',
       },
-      tipo_bien: {
+      TipoBien: {
         title: 'Tipo de Bien',
       },
-      subgrupo: {
+      SubgrupoCatalogoId: {
         title: 'Subgrupo',
       },
-      descripcion: {
+      Descripcion: {
         title: 'Descripcion',
       },
-      cantidad: {
+      Cantidad: {
         title: 'Cantidad',
       },
-      marca: {
+      Marca: {
         title: 'Marca',
       },
-      serie: {
+      Serie: {
         title: 'Serie',
       },
-      unidad_medida: {
+      UnidadMedida: {
         title: 'Unidad de Medida',
       },
-      valor_unitario: {
+      ValorUnitario: {
         title: 'Valor Unitario',
       },
-      valor_cantidad: {
+      ValorCantidad: {
         title: 'Valor por Cantidad',
       },
-      descuento: {
+      Descuento: {
         title: 'Descuento',
       },
-      iva: {
+      PorcentajeIvaId: {
         title: '%IVA',
       },
-      valor_iva: {
+      ValorIva: {
         title: 'Valor IVA',
       },
-      valor_total: {
+      ValorTotal: {
         title: 'Valor Total',
       },
     },
   };
 
-  data = [
-    {
-      consecutivo: '1',
-      tipo_bien: 'Consumo Controlado',
-      subgrupo: '235-Equipo y Maquinaria',
-      descripcion: 'Computador HP',
-      cantidad: '1',
-      marca: 'Compaq',
-      serie: '1212-2017',
-      unidad_medida: 'Unidades',
-      valor_unitario: '4.000.000',
-      valor_cantidad: '4.000.000',
-      descuento: '0',
-      iva: '10%',
-      valor_iva: '200.000',
-      valor_total: '4.200.000',
-    },
-    {
-      consecutivo: '1',
-      tipo_bien: 'Consumo Controlado',
-      subgrupo: '235-Equipo y Maquinaria',
-      descripcion: 'Computador HP',
-      cantidad: '1',
-      marca: 'Compaq',
-      serie: '1212-2017',
-      unidad_medida: 'Unidades',
-      valor_unitario: '4.000.000',
-      valor_cantidad: '4.000.000',
-      descuento: '0',
-      iva: '10%',
-      valor_iva: '200.000',
-      valor_total: '4.200.000',
-    },
-    {
-      consecutivo: '1',
-      tipo_bien: 'Consumo Controlado',
-      subgrupo: '235-Equipo y Maquinaria',
-      descripcion: 'Computador HP',
-      cantidad: '1',
-      marca: 'Compaq',
-      serie: '1212-2017',
-      unidad_medida: 'Unidades',
-      valor_unitario: '4.000.000',
-      valor_cantidad: '4.000.000',
-      descuento: '0',
-      iva: '10%',
-      valor_iva: '200.000',
-      valor_total: '4.200.000',
-    },
-    {
-      consecutivo: '1',
-      tipo_bien: 'Consumo Controlado',
-      subgrupo: '235-Equipo y Maquinaria',
-      descripcion: 'Computador HP',
-      cantidad: '1',
-      marca: 'Compaq',
-      serie: '1212-2017',
-      unidad_medida: 'Unidades',
-      valor_unitario: '4.000.000',
-      valor_cantidad: '4.000.000',
-      descuento: '0',
-      iva: '10%',
-      valor_iva: '200.000',
-      valor_total: '4.200.000',
-    },
-    {
-      consecutivo: '1',
-      tipo_bien: 'Consumo Controlado',
-      subgrupo: '235-Equipo y Maquinaria',
-      descripcion: 'Computador HP',
-      cantidad: '1',
-      marca: 'Compaq',
-      serie: '1212-2017',
-      unidad_medida: 'Unidades',
-      valor_unitario: '4.000.000',
-      valor_cantidad: '4.000.000',
-      descuento: '0',
-      iva: '10%',
-      valor_iva: '200.000',
-      valor_total: '4.200.000',
-    },
-    {
-      consecutivo: '1',
-      tipo_bien: 'Consumo Controlado',
-      subgrupo: '235-Equipo y Maquinaria',
-      descripcion: 'Computador HP',
-      cantidad: '1',
-      marca: 'Compaq',
-      serie: '1212-2017',
-      unidad_medida: 'Unidades',
-      valor_unitario: '4.000.000',
-      valor_cantidad: '4.000.000',
-      descuento: '0',
-      iva: '10%',
-      valor_iva: '200.000',
-      valor_total: '4.200.000',
-    },
-    {
-      valor_iva: 'Subtotal',
-      valor_total: '14.400.000',
-    },
-    {
-      valor_iva: 'Descuento',
-      valor_total: '0',
-    },
-    {
-      valor_iva: 'IVA',
-      valor_total: '1.080.000',
-    },
-    {
-      valor_iva: 'Total',
-      valor_total: '15.480.000',
-    },
-  ];
-
-  constructor() {
+  constructor(private actaRecibidoHelper: ActaRecibidoHelper, private pUpManager: PopUpManager) {
     this.source = new LocalDataSource();
-    this.source.load(this.data);
+    this.elementos = new Array<Elemento>();
+  }
+
+  loadElementos(): void {
+    this.actaRecibidoHelper.getElementosActa(this.actaRecibidoId).subscribe(res => {
+      if (res !== null) {
+        const data = <Array<any>>res;
+        for (let datos in data) {
+          const elemento = new Elemento;
+          const tipoBien = new TipoBien;
+          const soporteActa = new SoporteActa;
+          elemento.Nombre = data[datos].Nombre;
+          elemento.Cantidad = data[datos].Cantidad;
+          elemento.Marca = data[datos].Marca;
+          elemento.Serie = data[datos].Serie;
+          elemento.UnidadMedida = data[datos].UnidadMedida;
+          elemento.ValorUnitario = data[datos].ValorUnitario;
+          elemento.ValorCantidad = data[datos].ValorUnitario * data[datos].Cantidad;
+          elemento.Subtotal = data[datos].Subtotal;
+          elemento.Descuento = data[datos].Descuento;
+          elemento.ValorTotal = data[datos].ValorTotal;
+          elemento.PorcentajeIvaId = data[datos].PorcentajeIvaId;
+          elemento.ValorIva = data[datos].ValorIva;
+          elemento.ValorFinal = data[datos].ValorFinal;
+          elemento.Descuento = data[datos].Descuento;
+          elemento.Verificado = data[datos].Verificado;
+          tipoBien.Id = data[datos].TipoBienId.Id;
+          tipoBien.Nombre = data[datos].TipoBienId.Nombre;
+          elemento.TipoBien = tipoBien;
+          soporteActa.Consecutivo = data[datos].SoporteActaId.Consecutivo;
+          elemento.SoporteActa = soporteActa;
+          elemento.SubgrupoCatalogoId = data[datos].SubgrupoCatalogoId;
+          this.elementos.push(elemento);
+        }
+        this.source.load(this.elementos);
+      }
+    });
   }
 
   ngOnInit() {
+    this.loadElementos();
   }
 
 }

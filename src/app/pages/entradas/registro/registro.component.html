@@ -5,11 +5,11 @@
     </nb-card-header>
     <nb-card-body>
 
-      <h5>Consultar Acta de Recibido</h5>
-      <ngx-tabla-actas></ngx-tabla-actas>
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)="onCustom($event)"
+        *ngIf="actaSeleccionada === ''"></ng2-smart-table>
 
-      <h5 class="pt-4">Tipo Entrada</h5>
-      <select class="form-control" [(ngModel)]="opcionEntrada">
+      <h5 *ngIf="actaSeleccionada != ''">Tipo Entrada</h5>
+      <select class="form-control mb-4" [(ngModel)]="opcionEntrada" *ngIf="actaSeleccionada != ''">
         <option>Adquisición</option>
         <option>Reposición</option>
         <option>Elaboración Propia</option>
@@ -17,13 +17,19 @@
         <option>Sobrante de Inventario</option>
         <option>Terceros</option>
       </select>
+      <!-- 
+      <h5 class="pt-4" *ngIf="opcionEntrada != null">Consultar Acta de Recibido</h5>
+      <ngx-tabla-actas *ngIf="opcionEntrada != null"></ngx-tabla-actas> -->
 
-      <ngx-adquisicion *ngIf="opcionEntrada === 'Adquisición'"></ngx-adquisicion>
+      <ngx-adquisicion *ngIf="opcionEntrada === 'Adquisición'" [actaRecibidoId]="actaSeleccionada"></ngx-adquisicion>
       <ngx-reposicion *ngIf="opcionEntrada === 'Reposición'"></ngx-reposicion>
       <ngx-elaboracion-propia *ngIf="opcionEntrada === 'Elaboración Propia'"></ngx-elaboracion-propia>
       <ngx-donacion *ngIf="opcionEntrada === 'Donación'"></ngx-donacion>
       <ngx-sobrante *ngIf="opcionEntrada === 'Sobrante de Inventario'"></ngx-sobrante>
       <ngx-terceros *ngIf="opcionEntrada === 'Terceros'"></ngx-terceros>
+      <!-- 
+      <h5 class="pt-4" *ngIf="opcionEntrada != null">Elementos de Entrada</h5>
+      <ngx-tabla-entradas *ngIf="opcionEntrada != null"></ngx-tabla-entradas> -->
 
     </nb-card-body>
   </nb-card>
