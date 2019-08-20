@@ -66,7 +66,7 @@ export class EntradaHelper {
             map(
                 (res) => {
                     if (res['Type'] === 'error') {
-                        this.pUpManager.showErrorAlert('No se pudo registrar la entrada solicitada.')
+                        this.pUpManager.showErrorAlert('No se pudo registrar la entrada solicitada.');
                         return undefined;
                     }
                     return res;

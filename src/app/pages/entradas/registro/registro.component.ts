@@ -61,7 +61,7 @@ export class RegistroComponent implements OnInit {
   constructor(private actaRecibidoHelper: ActaRecibidoHelper, private pUpManager: PopUpManager) {
     this.source = new LocalDataSource();
     this.actas = new Array<ActaRecibido>();
-    this.actaSeleccionada = "";
+    this.actaSeleccionada = '';
     this.loadActas();
   }
 
@@ -72,17 +72,19 @@ export class RegistroComponent implements OnInit {
     this.actaRecibidoHelper.getActasRecibido().subscribe(res => {
       if (res !== null) {
         const data = <Array<any>>res;
-        for (let datos in data) {
-          const acta = new ActaRecibido;
-          acta.Activo = data[datos].ActaRecibidoId.Activo;
-          acta.FechaCreacion = data[datos].ActaRecibidoId.FechaCreacion;
-          acta.FechaModificacion = data[datos].ActaRecibidoId.FechaModificacion;
-          acta.FechaVistoBueno = data[datos].ActaRecibidoId.FechaVistoBueno;
-          acta.Id = data[datos].ActaRecibidoId.Id;
-          acta.Observaciones = data[datos].ActaRecibidoId.Observaciones;
-          acta.RevisorId = data[datos].ActaRecibidoId.RevisorId;
-          acta.UbicacionId = data[datos].ActaRecibidoId.UbicacionId;
-          this.actas.push(acta);
+        for (const datos in Object.keys(data)) {
+          if (data.hasOwnProperty(datos)) {
+            const acta = new ActaRecibido;
+            acta.Activo = data[datos].ActaRecibidoId.Activo;
+            acta.FechaCreacion = data[datos].ActaRecibidoId.FechaCreacion;
+            acta.FechaModificacion = data[datos].ActaRecibidoId.FechaModificacion;
+            acta.FechaVistoBueno = data[datos].ActaRecibidoId.FechaVistoBueno;
+            acta.Id = data[datos].ActaRecibidoId.Id;
+            acta.Observaciones = data[datos].ActaRecibidoId.Observaciones;
+            acta.RevisorId = data[datos].ActaRecibidoId.RevisorId;
+            acta.UbicacionId = data[datos].ActaRecibidoId.UbicacionId;
+            this.actas.push(acta);
+          }
         }
         this.source.load(this.actas);
       }
@@ -92,7 +94,7 @@ export class RegistroComponent implements OnInit {
   onCustom(event) {
     alert(`Custom event '${event.action}' fired on row №: ${event.data.Id}`);
     // this.actaSeleccionada = `${event.data.Id}`;
-    this.actaSeleccionada = "2";
+    this.actaSeleccionada = '2';
   }
 
 }

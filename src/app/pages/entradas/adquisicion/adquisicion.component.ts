@@ -21,7 +21,7 @@ export class AdquisicionComponent implements OnInit {
   contratoForm: FormGroup;
   facturaForm: FormGroup;
   observacionForm: FormGroup;
-  // Validadores 
+  // Validadores
   checked: boolean;
   tipoContratoSelect: boolean;
   vigenciaSelect: boolean;
@@ -45,15 +45,16 @@ export class AdquisicionComponent implements OnInit {
 
   @Input() actaRecibidoId: string;
 
-  constructor(private entradasHelper: EntradaHelper, private actaRecibidoHelper: ActaRecibidoHelper, private pUpManager: PopUpManager, private fb: FormBuilder) {
+  constructor(private entradasHelper: EntradaHelper, private actaRecibidoHelper: ActaRecibidoHelper,
+    private pUpManager: PopUpManager, private fb: FormBuilder) {
     this.checked = false;
     this.tipoContratoSelect = false;
     this.vigenciaSelect = false;
     this.contratos = new Array<Contrato>();
     this.contratoEspecifico = new Contrato;
     this.soportes = new Array<SoporteActa>();
-    this.proveedor = "";
-    this.fechaFactura = "";
+    this.proveedor = '';
+    this.fechaFactura = '';
     this.validar = false;
     this.iniciarContrato();
   }
@@ -78,14 +79,14 @@ export class AdquisicionComponent implements OnInit {
    * Métodos para cargar los contratos.
    */
   loadContratos(): void {
-    if (this.opcionTipoContrato != '' && this.opcionvigencia) {
+    if (this.opcionTipoContrato !== '' && this.opcionvigencia) {
       this.entradasHelper.getContratos(this.opcionTipoContrato, this.opcionvigencia).subscribe(res => {
         if (res !== null) {
           while (this.contratos.length > 0) {
             this.contratos.pop();
           }
-          for (let index in res.contratos_suscritos.contrato_suscritos) {
-            let contratoAux = new Contrato;
+          for (const index of Object.keys(res.contratos_suscritos.contrato_suscritos)) {
+            const contratoAux = new Contrato;
             contratoAux.NumeroContratoSuscrito = res.contratos_suscritos.contrato_suscritos[index].numero_contrato;
             this.contratos.push(contratoAux);
           }
@@ -97,8 +98,8 @@ export class AdquisicionComponent implements OnInit {
   loadContratoEspecifico(): void {
     this.entradasHelper.getContrato(this.contratoInput, this.opcionvigencia).subscribe(res => {
       if (res !== null) {
-        let ordenadorAux = new OrdenadorGasto;
-        let supervisorAux = new Supervisor;
+        const ordenadorAux = new OrdenadorGasto;
+        const supervisorAux = new Supervisor;
         ordenadorAux.Id = res.contrato.ordenador_gasto.id;
         ordenadorAux.NombreOrdenador = res.contrato.ordenador_gasto.nombre_ordenador;
         ordenadorAux.RolOrdenadorGasto = res.contrato.ordenador_gasto.rol_ordenador;
@@ -118,13 +119,15 @@ export class AdquisicionComponent implements OnInit {
   loadSoporte(): void {
     this.actaRecibidoHelper.getSoporte(this.actaRecibidoId).subscribe(res => {
       if (res !== null) {
-        for (let index in res) {
-          let soporte = new SoporteActa;
-          soporte.Id = res[index].Id;
-          soporte.Consecutivo = res[index].Consecutivo;
-          soporte.Proveedor = res[index].ProveedorId;
-          soporte.FechaSoporte = res[index].FechaSoporte;
-          this.soportes.push(soporte);
+        for (const index in res) {
+          if (res.hasOwnProperty(index)) {
+            const soporte = new SoporteActa;
+            soporte.Id = res[index].Id;
+            soporte.Consecutivo = res[index].Consecutivo;
+            soporte.Proveedor = res[index].ProveedorId;
+            soporte.FechaSoporte = res[index].FechaSoporte;
+            this.soportes.push(soporte);
+          }
         }
       }
     });
@@ -135,10 +138,10 @@ export class AdquisicionComponent implements OnInit {
    */
   onContratoSubmit() {
     if (this.contratos.length > 0) {
-      let aux = this.contratoForm.value.contratoCtrl;
+      const aux = this.contratoForm.value.contratoCtrl;
       let existe = false;
-      if (aux != '') {
-        for (let i in this.contratos) {
+      if (aux !== '') {
+        for (const i in this.contratos) {
           if (this.contratos[i].NumeroContratoSuscrito.toString() === aux) {
             this.contratoInput = aux;
             existe = true;
@@ -198,9 +201,9 @@ export class AdquisicionComponent implements OnInit {
   }
 
   changeSelectSoporte(event) {
-    let soporteId = event.target.options[event.target.options.selectedIndex].value;
-    for (let i in this.soportes) {
-      if (this.soportes[i].Id == soporteId) {
+    const soporteId: string = event.target.options[event.target.options.selectedIndex].value;
+    for (const i in this.soportes) {
+      if (this.soportes[i].Id.toString() === soporteId) {
         this.proveedor = this.soportes[i].Proveedor.toString();
         this.fechaFactura = this.soportes[i].FechaSoporte.toString();
       }
@@ -208,11 +211,11 @@ export class AdquisicionComponent implements OnInit {
   }
 
   iniciarContrato() {
-    let ordenadorAux = new OrdenadorGasto;
-    let supervisorAux = new Supervisor;
-    ordenadorAux.NombreOrdenador = "";
-    ordenadorAux.RolOrdenadorGasto = "";
-    supervisorAux.Nombre = "";
+    const ordenadorAux = new OrdenadorGasto;
+    const supervisorAux = new Supervisor;
+    ordenadorAux.NombreOrdenador = '';
+    ordenadorAux.RolOrdenadorGasto = '';
+    supervisorAux.Nombre = '';
     this.contratoEspecifico.OrdenadorGasto = ordenadorAux;
     this.contratoEspecifico.Supervisor = supervisorAux;
   }
@@ -229,7 +232,7 @@ export class AdquisicionComponent implements OnInit {
    */
   onSubmit() {
     if (this.validar) {
-      let entradaData = new Entrada;
+      const entradaData = new Entrada;
       entradaData.TipoEntrada = 5;
       entradaData.ActaRecibidoId = +this.actaRecibidoId;
       entradaData.ContratoId = this.contratoEspecifico.NumeroContratoSuscrito;
@@ -246,7 +249,7 @@ export class AdquisicionComponent implements OnInit {
       //     this.pUpManager.showSuccessAlert('Entrada registrada satisfactoriamente!');
       //   }
       // });
-      console.log(entradaData);
+      // console.log(entradaData);
       this.pUpManager.showSuccesToast('Registro Exitoso');
       this.pUpManager.showSuccessAlert('Entrada registrada satisfactoriamente!');
     } else {

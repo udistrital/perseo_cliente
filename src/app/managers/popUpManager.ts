@@ -29,7 +29,7 @@ export class PopUpManager {
         const duration: any = 0;
         this.toast.show(message, this.translate.instant('GLOBAL.info'), { status, duration });
     }
-    
+
     public showSuccesToast(message: string) {
         const status: any = 'success';
         this.toast.show(message, this.translate.instant('GLOBAL.info'), { status });
