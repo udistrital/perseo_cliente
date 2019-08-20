@@ -26,7 +26,7 @@
       <ngx-elaboracion-propia *ngIf="opcionEntrada === 'Elaboración Propia'"></ngx-elaboracion-propia>
       <ngx-donacion *ngIf="opcionEntrada === 'Donación'" [actaRecibidoId]="actaSeleccionada"></ngx-donacion>
       <ngx-sobrante *ngIf="opcionEntrada === 'Sobrante de Inventario'"></ngx-sobrante>
-      <ngx-terceros *ngIf="opcionEntrada === 'Terceros'"></ngx-terceros>
+      <ngx-terceros *ngIf="opcionEntrada === 'Terceros'" [actaRecibidoId]="actaSeleccionada"></ngx-terceros>
       <!-- 
       <h5 class="pt-4" *ngIf="opcionEntrada != null">Elementos de Entrada</h5>
       <ngx-tabla-entradas *ngIf="opcionEntrada != null"></ngx-tabla-entradas> -->

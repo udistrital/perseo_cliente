@@ -1,4 +1,5 @@
-<h3 class="pt-4 pb-4">Entrada de Bienes de Terceros</h3>
+<h3 class="pt-4 pb-2">Entrada de Bienes de Terceros</h3>
+<p class="font-weight-bold font-italic pb-2">Acta de recibido # {{ actaRecibidoId }}</p>
 
 <!-- FORMULARIO -->
 <nb-stepper #stepper orientation="horizontal">
@@ -9,24 +10,31 @@
     <form [formGroup]="contratoForm" (ngSubmit)="onContratoSubmit()" class="step-container">
       <div class="row">
         <div class="form-group col-sm">
+          <label>Tipo de Contrato</label>
+          <select class="form-control" (change)="changeSelectTipoContrato($event)">
+            <option disabled selected>Seleccionar...</option>
+            <option value="14">Orden de Servicios</option>
+            <option value="15">Orden de Compra</option>
+          </select>
+        </div>
+        <div class="form-group col-sm">
+          <label>Vigencia</label>
+          <select class="form-control" (change)="changeSelectVigencia($event)" [disabled]="!tipoContratoSelect">
+            <option disabled selected>Seleccionar...</option>
+            <option value="{{ vigencia-1 }}">{{ vigencia-1 }}</option>
+            <option value="{{ vigencia }}">{{ vigencia }}</option>
+          </select>
+        </div>
+        <div class="form-group col-sm">
           <label>Número de Contrato</label>
           <div class="input-group">
-            <input nbInput type="text" placeholder="Contrato" class="form-control" formControlName="contratoCtrl"
+            <input nbInput type="text" shape="semi-round" placeholder="Contrato" class="form-control"
+              [readonly]="!vigenciaSelect || !tipoContratoSelect" list="contratosList" formControlName="contratoCtrl"
               [ngClass]="{'form-control-danger': contratoForm.invalid && (contratoForm.dirty || contratoForm.touched)}" />
           </div>
-        </div>
-        <div class="form-group col-sm">
-          <label>Tipo de Contrato</label>
-          <div class="input-group">
-            <input nbInput type="text" placeholder="Tipo Contrato" class="form-control" [readonly]="true" />
-          </div>
-        </div>
-        <div class="form-group col-sm">
-          <label>Fecha de Contrato</label>
-          <div class="input-group">
-            <input nbInput type="text" placeholder="Fecha de Elaboraciòn Contrato" class="form-control"
-              [readonly]="true" />
-          </div>
+          <datalist id="contratosList">
+            <option *ngFor="let item of contratos" value='{{ item.NumeroContratoSuscrito }}'></option>
+          </datalist>
         </div>
       </div>
       <button nbButton nbStepperNext>Siguiente</button>
@@ -40,18 +48,21 @@
       <div class="form-group col-sm">
         <label>Nombres y Apellidos</label>
         <div class="input-group">
-          <input nbInput type="text" placeholder="Nombre Completo" class="form-control" [readonly]="true" />
+          <input nbInput type="text" shape="semi-round" placeholder="Nombre Completo" class="form-control"
+            value="{{ contratoEspecifico.OrdenadorGasto.NombreOrdenador }}" [readonly]="true" />
         </div>
       </div>
       <div class="form-group col-sm">
         <label>Asignación</label>
         <div class="input-group">
-          <input nbInput type="text" placeholder="Cargo" class="form-control" [readonly]="true" />
+          <input nbInput type="text" shape="semi-round" placeholder="Rol" class="form-control"
+            value="{{ contratoEspecifico.OrdenadorGasto.RolOrdenadorGasto }}" [readonly]="true" />
         </div>
       </div>
       <div class="form-group col-sm">
         <label>Tercero en Administración</label>
         <select class="form-control">
+          <option disabled selected>Seleccionar...</option>
           <option>IDEXUD</option>
           <option>CICD</option>
           <option>I+3</option>
@@ -69,19 +80,21 @@
       <div class="form-group col-sm">
         <label>Nombres y Apellidos</label>
         <div class="input-group">
-          <input nbInput type="text" placeholder="Nombre Completo" class="form-control" [readonly]="true" />
+          <input nbInput type="text" shape="semi-round" placeholder="Nombre Completo" class="form-control"
+            value="{{ contratoEspecifico.Supervisor.Nombre }}" [readonly]="true" />
         </div>
       </div>
       <div class="form-group col-sm">
         <label>Sede</label>
         <div class="input-group">
-          <input nbInput type="text" placeholder="Sede" class="form-control" [readonly]="true" />
+          <input nbInput type="text" shape="semi-round" placeholder="Sede" class="form-control" [readonly]="true" />
         </div>
       </div>
       <div class="form-group col-sm">
         <label>Dependencia</label>
         <div class="input-group">
-          <input nbInput type="text" placeholder="Dependencia" class="form-control" [readonly]="true" />
+          <input nbInput type="text" shape="semi-round" placeholder="Dependencia" class="form-control"
+            [readonly]="true" />
         </div>
       </div>
     </div>
@@ -97,24 +110,24 @@
         <div class="form-group col-sm">
           <label>Número de Factura</label>
           <div class="input-group">
-            <select class="form-control">
-              <option>000-000-000</option>
-              <option>100-000-000</option>
-              <option>200-000-000</option>
-              <option>300-000-000</option>
+            <select class="form-control" (change)="changeSelectSoporte($event)">
+              <option disabled selected>Seleccionar...</option>
+              <option *ngFor="let item of soportes" value="{{ item.Id }}">{{ item.Consecutivo }}</option>
             </select>
           </div>
         </div>
         <div class="form-group col-sm">
           <label>Proveedor</label>
           <div class="input-group">
-            <input nbInput type="text" placeholder="NIT o Razón Social" class="form-control" [readonly]="true" />
+            <input nbInput type="text" shape="semi-round" placeholder="NIT o Razón Social" class="form-control"
+              value="{{proveedor}}" [readonly]="true" />
           </div>
         </div>
         <div class="form-group col-sm">
           <label>Fecha de Factura</label>
           <div class="input-group">
-            <input nbInput type="text" placeholder="Fecha de Registro Factura" class="form-control" [readonly]="true">
+            <input nbInput type="text" shape="semi-round" placeholder="Fecha de Registro Factura" class="form-control"
+              value="{{ fechaFactura }}" [readonly]="true">
           </div>
         </div>
       </div>
@@ -125,24 +138,39 @@
 
   <!-- OBSERVACIONES -->
   <nb-step [stepControl]="observacionesForm" label="Observaciones">
-    <h5>Observaciones</h5>
-    <div class="row">
-      <div class="form-group  col-lg-12">
-        <div class="input-group">
-          <textarea rows="5" placeholder="Observaciones" class="form-control"></textarea>
+    <form [formGroup]="observacionForm" class="step-container">
+      <h5>Observaciones</h5>
+      <div class="row">
+        <div class="form-group  col-lg-12">
+          <div class="input-group">
+            <textarea rows="5" shape="semi-round" placeholder="Observaciones" class="form-control"
+              formControlName="observacionCtrl"></textarea>
+          </div>
         </div>
       </div>
+      <button nbButton nbStepperPrevious>Anterior</button>
+      <button nbButton nbStepperNext>Siguiente</button>
+    </form>
+  </nb-step>
+
+  <!-- FINALIZAR -->
+  <nb-step [hidden]="true">
+    <div class="step-container d-flex justify-content-center">
+      <h3>Datos Correctos!</h3>
     </div>
-    <button nbButton nbStepperPrevious>Anterior</button>
+    <div class="step-container d-flex justify-content-center">
+      <p>Click en Registrar Entrada para continuar</p>
+    </div>
   </nb-step>
 
 </nb-stepper>
 
 <h5 class="pt-4">Elementos de Entrada</h5>
-<ngx-tabla-entradas></ngx-tabla-entradas>
+<ngx-tabla-entradas [actaRecibidoId]="actaRecibidoId"></ngx-tabla-entradas>
 
 <div class="justify-content-center float-right pt-4">
-  <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+  <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off"
+    (click)="onSubmit()">
     Registrar Entrada
   </button>
 </div>
