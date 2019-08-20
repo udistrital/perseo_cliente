@@ -1,11 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { LocalDataSource } from 'ngx-smart-table';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { DatosLocales } from './datos_locales';
-import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator, MatTable } from '@angular/material';
 import 'hammerjs';
+import { EventEmitter } from 'selenium-webdriver';
+import {formatCurrency, getCurrencySymbol} from '@angular/common';
 
 
 @Component({
@@ -22,6 +24,8 @@ export class RegistroActaRecibidoComponent implements OnInit {
 
   errMess: any;
   private sub: Subscription;
+
+  @ViewChildren(MatTable) _matTable:QueryList<MatTable<any>>;
 
   firstForm: FormGroup;
   @ViewChild('fform') firstFormDirective;
@@ -80,12 +84,12 @@ export class RegistroActaRecibidoComponent implements OnInit {
       Marca: ['', Validators.required],
       Serie: ['', Validators.required],
       UnidadMedida: ['', Validators.required],
-      ValorUnitario: ['', Validators.required],
-      Subtotal: ['', Validators.required],
-      Descuento: ['', Validators.required],
+      ValorUnitario: ['0', Validators.required],
+      Subtotal: ['0', Validators.required],
+      Descuento: ['0', Validators.required],
       PorcentajeIvaId: ['', Validators.required],
-      ValorIva: ['', Validators.required],
-      ValorTotal: ['', Validators.required],
+      ValorIva: ['0', Validators.required],
+      ValorTotal: ['0', Validators.required],
     });
   }
   get Formulario_3(): FormGroup {
@@ -101,9 +105,11 @@ export class RegistroActaRecibidoComponent implements OnInit {
   }
   addElementos(Soporte) {
     Soporte.get('Elementos').push(this.Elementos);
+    this._matTable.forEach((mat)=> mat.renderRows());
   }
-  deletePlayer(Soporte, index: number) {
+  deleteElementos(Soporte, index: number) {
     Soporte.get('Elementos').removeAt(index);
+    this._matTable.forEach((mat)=> mat.renderRows());
   }
   onFirstSubmit() {
     this.Datos = this.firstForm.value;
@@ -114,6 +120,15 @@ export class RegistroActaRecibidoComponent implements OnInit {
   }
   removeTab(i: number) {
     this.deleteSoportes(i);
+    this.selected.setValue(i - 1);
+  }
+  addSpace(Soporte) {
+    this.addElementos(Soporte);
+
+
+  }
+  deleteSpace() {
+
   }
   // Acciones para elementos
 
@@ -134,4 +149,30 @@ export class RegistroActaRecibidoComponent implements OnInit {
     'ValorTotal',
     'Acciones',
   ];
+  Pipe2Number(any: String) {
+    if (any !== null){
+      console.log(any);
+      return any.replace(/[$,]/g,"");
+    }else{
+      return '0';
+    }
+  }
+  validateOnlyNumbers(evt) {
+    var theEvent = evt || window.event;
+    var key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode( key );
+    var regex = /[0-9]|\./;
+    if( !regex.test(key) ) {
+      theEvent.returnValue = false;
+      if(theEvent.preventDefault) theEvent.preventDefault();
+    }
+  }
+  updateValue(value: string) {
+    let val = parseInt(value, 10);
+    if (Number.isNaN(val)) {
+      val = 0;
+    }
+    return formatCurrency(val, 'en-US', getCurrencySymbol('USD', 'wide'));
+}
+
 }
