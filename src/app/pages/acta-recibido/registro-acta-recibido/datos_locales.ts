@@ -1,6 +1,6 @@
 export const DatosLocales: any [] = [
     {
-        'Id':0,
+        'Id': 0,
         'Nombre': '',
         'Cantidad': 0,
         'Marca': '',

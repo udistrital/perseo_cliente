@@ -25,7 +25,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
   errMess: any;
   private sub: Subscription;
 
-  @ViewChildren(MatTable) _matTable:QueryList<MatTable<any>>;
+  @ViewChildren(MatTable) _matTable: QueryList<MatTable<any>>;
 
   firstForm: FormGroup;
   @ViewChild('fform') firstFormDirective;
@@ -105,11 +105,11 @@ export class RegistroActaRecibidoComponent implements OnInit {
   }
   addElementos(Soporte) {
     Soporte.get('Elementos').push(this.Elementos);
-    this._matTable.forEach((mat)=> mat.renderRows());
+    this._matTable.forEach((mat) => mat.renderRows());
   }
   deleteElementos(Soporte, index: number) {
     Soporte.get('Elementos').removeAt(index);
-    this._matTable.forEach((mat)=> mat.renderRows());
+    this._matTable.forEach((mat) => mat.renderRows());
   }
   onFirstSubmit() {
     this.Datos = this.firstForm.value;
@@ -150,29 +150,10 @@ export class RegistroActaRecibidoComponent implements OnInit {
     'Acciones',
   ];
   Pipe2Number(any: String) {
-    if (any !== null){
-      console.log(any);
+    if (any !== null) {
       return any.replace(/[$,]/g,"");
-    }else{
-      return '0';
+    } else {
+      return "0";
     }
   }
-  validateOnlyNumbers(evt) {
-    var theEvent = evt || window.event;
-    var key = theEvent.keyCode || theEvent.which;
-    key = String.fromCharCode( key );
-    var regex = /[0-9]|\./;
-    if( !regex.test(key) ) {
-      theEvent.returnValue = false;
-      if(theEvent.preventDefault) theEvent.preventDefault();
-    }
-  }
-  updateValue(value: string) {
-    let val = parseInt(value, 10);
-    if (Number.isNaN(val)) {
-      val = 0;
-    }
-    return formatCurrency(val, 'en-US', getCurrencySymbol('USD', 'wide'));
-}
-
 }
