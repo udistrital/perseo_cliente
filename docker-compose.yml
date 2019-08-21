@@ -8,7 +8,7 @@ services:
     container_name: ${SERVICE_NAME} 
     env_file:
       - .env
-    command: sh -c 'npm install; ng serve  --host ${HOST} --port ${PORT}'  
+    command: sh -c 'npm install; npm install node-sass --save; ng serve  --host ${HOST} --port ${PORT}'  
     ports:
       - '${PORT}:${PORT}'
       - '35730:35730'
