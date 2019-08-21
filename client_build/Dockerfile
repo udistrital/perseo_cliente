@@ -1,4 +1,4 @@
-FROM node:10.15.3-alpine
+FROM node:12-alpine
 #npm install -g npm
 RUN npm install -g @angular/cli 
 ## rxjs-tslint tslint typescript

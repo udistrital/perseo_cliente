@@ -8,7 +8,14 @@ import { RegistroActaRecibidoComponent } from './registro-acta-recibido/registro
 import { VerificacionActaRecibidoComponent } from './verificacion-acta-recibido/verificacion-acta-recibido.component';
 import { ConsultaActaRecibidoComponent } from './consulta-acta-recibido/consulta-acta-recibido.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { Ng2SmartTableModule } from 'ngx-smart-table';
+import { NbStepperModule } from '@nebular/theme';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatStepperModule } from '@angular/material/stepper';
+import {MatTableModule} from '@angular/material/table';
+import { MatPaginatorModule, MatSortModule } from '@angular/material';
+import { TablaFacturaComponent } from './registro-acta-recibido/tabla-factura/tabla-factura.component';
+
 
 @NgModule({
   declarations: [
@@ -16,14 +23,20 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     RegistroActaRecibidoComponent,
     VerificacionActaRecibidoComponent,
     ConsultaActaRecibidoComponent,
+    TablaFacturaComponent,
   ],
   imports: [
     CommonModule,
     ActaRecibidoRoutingModule,
     ThemeModule,
+    Ng2SmartTableModule,
     TranslateModule,
-    OwlDateTimeModule,
-    OwlNativeDateTimeModule,
+    NbStepperModule,
+    MatTabsModule,
+    MatStepperModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
   ],
 })
 export class ActaRecibidoModule { }
