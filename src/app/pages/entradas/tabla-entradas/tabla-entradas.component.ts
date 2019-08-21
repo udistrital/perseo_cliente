@@ -33,13 +33,13 @@ export class TablaEntradasComponent implements OnInit {
         title: 'Factura',
         valuePrepareFunction: (value: any) => {
           return value.Consecutivo;
-        }
+        },
       },
       TipoBien: {
         title: 'Tipo de Bien',
         valuePrepareFunction: (value: any) => {
           return value.Nombre;
-        }
+        },
       },
       SubgrupoCatalogoId: {
         title: 'Subgrupo',
