@@ -97,26 +97,25 @@
                         <nb-card-header>Articulos Relacionados</nb-card-header>
                         <nb-card-body>
                           <div class="example-container mat-elevation-z8">
-                            <table mat-table #MatTable formArrayName="Elementos" [dataSource]='soporte.get("Elementos").controls' matSort>
+                            <table mat-table #MatTable formArrayName="Elementos" [dataSource]='soporte.get("Elementos").controls'>
 
                               <!-- Tipo de Bien -->
                               <ng-container matColumnDef="TipoBienId">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo de Bien </th>
-                                <td mat-cell  *matCellDef="let element; let rowIndex = index"
+                                <th mat-header-cell *matHeaderCellDef> Tipo de Bien </th>
+                                <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
-                                  <input nbInput type="text" fieldSize="tiny" class="cell" 
-                                    formControlName="TipoBienId" placeholder="Valor Total" required>
-
+                                  <input nbInput type="text" fieldSize="tiny" class="cell-2" [(ngModel)]="element.TipoBienId"
+                                    formControlName="TipoBienId" placeholder="Tipo de Bien" required>
                                 </td>
                               </ng-container>
 
                               <!-- Subgrupo Catalogo -->
                               <ng-container matColumnDef="SubgrupoCatalogoId">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Subgrupo</th>
-                                <td mat-cell  *matCellDef="let element; let rowIndex = index"
+                                <th mat-header-cell *matHeaderCellDef> Subgrupo</th>
+                                <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   
-                                  <input nbInput type="text" fieldSize="tiny" class="cell" 
+                                  <input nbInput type="text" fieldSize="tiny" class="cell" [(ngModel)]="element.SubgrupoCatalogoId"
                                     formControlName="SubgrupoCatalogoId" placeholder="Valor Total" required>
 
                                 </td>
@@ -124,135 +123,122 @@
 
                               <!-- Nombre Catalogo -->
                               <ng-container matColumnDef="Nombre">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre</th>
-                                <td mat-cell  *matCellDef="let element; let rowIndex = index"
+                                <th mat-header-cell *matHeaderCellDef> Descripcion </th>
+                                <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   
-                                  <input nbInput type="text" fieldSize="tiny" class="cell" formControlName="Nombre"
-                                    placeholder="Valor Total" required>
+                                  <input nbInput type="text" fieldSize="tiny" class="cell" formControlName="Nombre" [(ngModel)]="element.Nombre"
+                                    placeholder="Descripcion" required>
 
-                                </td>
-                              </ng-container>
-
-                              <!-- RevisorId Column -->
-                              <ng-container matColumnDef="RevisorId">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Revisor </th>
-                                <td mat-cell  *matCellDef="let element; let rowIndex = index"
-                                  [formGroupName]="rowIndex">
-                                  
-                                  <input nbInput type="text" fieldSize="tiny" class="cell" 
-                                    formControlName="RevisorId" placeholder="Valor Total" required>
                                 </td>
                               </ng-container>
 
                               <!-- Cantidad Column -->
                               <ng-container matColumnDef="Cantidad">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Cantidad </th>
-                                <td mat-cell  *matCellDef="let element; let rowIndex = index"
+                                <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+                                <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   
-                                  <input nbInput type="text" fieldSize="tiny" class="cell"  formControlName="Cantidad"
-                                    placeholder="Valor Total" required>
+                                  <input nbInput type="number" fieldSize="tiny" class="cell"  formControlName="Cantidad" [(ngModel)]="element.Cantidad"
+                                  placeholder="Cantidad" required>
                                 </td>
                               </ng-container>
 
                               <!-- Marca Column -->
                               <ng-container matColumnDef="Marca">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Marca </th>
-                                <td mat-cell  *matCellDef="let element; let rowIndex = index"
+                                <th mat-header-cell *matHeaderCellDef> Marca </th>
+                                <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   
-                                  <input nbInput type="text" fieldSize="tiny" class="cell"  formControlName="Marca"
-                                    placeholder="Valor Total" required>
+                                  <input nbInput type="text" fieldSize="tiny" class="cell"  formControlName="Marca" [(ngModel)]="element.Marca"
+                                    placeholder="Marca" required>
                                 </td>
                               </ng-container>
 
                               <!-- Serie Column -->
                               <ng-container matColumnDef="Serie">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Serie </th>
-                                <td mat-cell  *matCellDef="let element; let rowIndex = index"
+                                <th mat-header-cell *matHeaderCellDef> Serie </th>
+                                <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   
-                                  <input nbInput type="text" fieldSize="tiny" class="cell"  formControlName="Serie"
-                                    placeholder="Valor Total" required>
+                                  <input nbInput type="text" fieldSize="tiny" class="cell"  formControlName="Serie" [(ngModel)]="element.Serie"
+                                    placeholder="Serie" required>
                                 </td>
                               </ng-container>
 
                               <!-- UnidadMedida Column -->
                               <ng-container matColumnDef="UnidadMedida">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Unidad de Medida </th>
-                                <td mat-cell  *matCellDef="let element; let rowIndex = index"
+                                <th mat-header-cell *matHeaderCellDef> Unidad de Medida </th>
+                                <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   
-                                  <input nbInput type="text" fieldSize="tiny" class="cell" 
-                                    formControlName="UnidadMedida" placeholder="Valor Total" required>
+                                  <input nbInput type="text" fieldSize="tiny" class="cell" [(ngModel)]="element.UnidadMedida"
+                                    formControlName="UnidadMedida" placeholder="Medida" required>
                                 </td>
                               </ng-container>
 
                               <!-- ValorUnitario Column -->
                               <ng-container matColumnDef="ValorUnitario">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor Unitario </th>
-                                <td mat-cell  *matCellDef="let element; let rowIndex = index"
+                                <th mat-header-cell *matHeaderCellDef> Valor Unitario </th>
+                                <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   
                                   <input nbInput type="text" fieldSize="tiny" class="cell" [ngModel]="element.ValorUnitario | currency" (ngModelChange)="element.ValorUnitario = Pipe2Number($event)"
-                                    formControlName="ValorUnitario" placeholder="Valor Total" required>
+                                    formControlName="ValorUnitario" placeholder="Valor Unitario" required>
                                 </td>
                               </ng-container>
 
                               <!-- Subtotal Column -->
                               <ng-container matColumnDef="Subtotal">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Subtotal </th>
-                                <td mat-cell  *matCellDef="let element; let rowIndex = index"
+                                <th mat-header-cell *matHeaderCellDef> Subtotal </th>
+                                <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   
-                                  <input nbInput type="text" fieldSize="tiny" class="cell"  formControlName="Subtotal" [ngModel]="element.Subtotal | currency" (ngModelChange)="element.Subtotal = Pipe2Number($event)"
-                                    placeholder="Valor Total" required>
+                                  <input nbInput type="text" fieldSize="tiny" class="cell"  formControlName="Subtotal" [ngModel]="valorXcantidad(element.ValorUnitario, element.Cantidad) | currency" (ngModelChange)="element.Subtotal = Pipe2Number($event)"
+                                    placeholder="Subtotal" required>
                                 </td>
                               </ng-container>
 
                               <!-- Descuento Column -->
                               <ng-container matColumnDef="Descuento">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Descuento </th>
-                                <td mat-cell  *matCellDef="let element; let rowIndex = index"
+                                <th mat-header-cell *matHeaderCellDef> Descuento </th>
+                                <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   
-                                  <input nbInput type="text" fieldSize="tiny" class="cell"  formControlName="Descuento" 
-                                    placeholder="Valor Total" required>
+                                  <input nbInput type="text" fieldSize="tiny" class="cell"  formControlName="Descuento" [ngModel]="element.Descuento | currency" (ngModelChange)="element.Descuento = Pipe2Number($event)"
+                                    placeholder="Descuento" required>
                                 </td>
                               </ng-container>
 
                               <!-- PorcentajeIvaId Column -->
                               <ng-container matColumnDef="PorcentajeIvaId">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> PorcentajeIvaId </th>
-                                <td mat-cell  *matCellDef="let element; let rowIndex = index"
+                                <th mat-header-cell *matHeaderCellDef> IVA </th>
+                                <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   
-                                  <input nbInput type="text" fieldSize="tiny" class="cell" 
-                                    formControlName="PorcentajeIvaId" placeholder="Valor Total" required>
+                                  <input nbInput type="text" fieldSize="tiny" class="cell" [(ngModel)]="element.PorcentajeIvaId"
+                                    formControlName="PorcentajeIvaId" placeholder="% IVA" required>
                                 </td>
                               </ng-container>
 
                               <!-- ValorIva Column -->
                               <ng-container matColumnDef="ValorIva">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> ValorIva </th>
-                                <td mat-cell  *matCellDef="let element; let rowIndex = index"
+                                <th mat-header-cell *matHeaderCellDef> ValorIva </th>
+                                <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                  
                                   <input nbInput type="text" fieldSize="tiny" class="cell" [ngModel]="element.ValorIva | currency" (ngModelChange)="element.ValorIva = Pipe2Number($event)"
-                                    formControlName="ValorIva" placeholder="Valor Total" required>
+                                    formControlName="ValorIva" placeholder="Valor Iva" required>
                                 </td>
                               </ng-container>
 
                               <!-- ValorTotal Column -->
                               <ng-container matColumnDef="ValorTotal">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> ValorTotal </th>
-                                <td mat-cell  *matCellDef="let element; let rowIndex = index"
+                                <th mat-header-cell *matHeaderCellDef> ValorTotal </th>
+                                <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
-                                 
-                                  <input nbInput type="text" fieldSize="tiny" class="cell" [ngModel]="element.ValorTotal | currency" (ngModelChange)="element.ValorTotal = Pipe2Number($event)"
+                                  <input nbInput type="text" fieldSize="tiny" class="cell" [ngModel]="valortotal(element.Subtotal, element.Descuento, element.ValorIva) | currency" (ngModelChange)="element.ValorTotal = Pipe2Number($event)"
                                     formControlName="ValorTotal" placeholder="Valor Total" required>
-                                    
                                 </td>
                               </ng-container>
 
@@ -261,10 +247,8 @@
                                 <th mat-header-cell *matHeaderCellDef>
                                   <i class="fas fa-plus-square fa-2x" (click)="addElementos(soporte)"></i>
                                 </th>
-                                <td mat-cell *matCellDef="let element; let rowIndex = index"
+                                <td mat-cell *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
-                                  <i class="far fa-check-square fa-2x"></i> &nbsp;
-                                  <i class="far fa-edit fa-2x"></i> &nbsp;
                                   <i class="far fa-window-close fa-2x" (click)="deleteElementos(soporte,rowIndex)"></i>
                                 </td>
                               </ng-container>

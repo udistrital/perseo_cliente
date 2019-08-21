@@ -81,8 +81,8 @@ export class RequestManager {
    * @param element data to send as JSON, With the id to UPDATE
    * @returns Observable<any>
    */
-  put(endpoint, element, id) {
-    return this.http.put<any>(`${this.path}${endpoint}${id}`, element, this.httpOptions).pipe(
+  put(endpoint, element) {
+    return this.http.put<any>(`${this.path}${endpoint}/${element.Id}`, element, this.httpOptions).pipe(
       catchError(this.errManager.handleError),
     );
   }

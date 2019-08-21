@@ -79,8 +79,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
       TipoBienId: ['', Validators.required],
       SubgrupoCatalogoId: ['', Validators.required],
       Nombre: ['', Validators.required],
-      RevisorId: ['', Validators.required],
-      Cantidad: ['', Validators.required],
+      Cantidad: ['0', Validators.required],
       Marca: ['', Validators.required],
       Serie: ['', Validators.required],
       UnidadMedida: ['', Validators.required],
@@ -136,7 +135,6 @@ export class RegistroActaRecibidoComponent implements OnInit {
     'TipoBienId',
     'SubgrupoCatalogoId',
     'Nombre',
-    'RevisorId',
     'Cantidad',
     'Marca',
     'Serie',
@@ -155,5 +153,13 @@ export class RegistroActaRecibidoComponent implements OnInit {
     } else {
       return '0';
     }
+  }
+  valortotal(subtotal: string, descuento: string, iva: string){
+    console.log(parseFloat(subtotal) - parseFloat(descuento) + parseFloat(iva));
+    return (parseFloat(subtotal) - parseFloat(descuento) + parseFloat(iva));
+  }
+  valorXcantidad(valor_unitario: string, cantidad: string) {
+    console.log(parseFloat(valor_unitario) * parseFloat(cantidad));
+    return (parseFloat(valor_unitario) * parseFloat(cantidad))
   }
 }
