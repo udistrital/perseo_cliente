@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'ngx-sobrante',
@@ -7,9 +8,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SobranteComponent implements OnInit {
 
-  constructor() { }
+  solicitanteForm: FormGroup;
+  soporteForm: FormGroup;
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.solicitanteForm = this.fb.group({
+      solicitanteCtrl: ['', Validators.required],
+    });
+    this.soporteForm = this.fb.group({
+      soporteCtrl: ['', Validators.required],
+    });
+  }
+
+  // Métodos para validar campos requeridos en el formulario
+  onSolicitanteSubmit() {
+    this.soporteForm.markAsDirty();
+  }
+
+  onSoporteSubmit() {
+    this.soporteForm.markAsDirty();
   }
 
 }
