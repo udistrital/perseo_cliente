@@ -151,9 +151,9 @@ export class RegistroActaRecibidoComponent implements OnInit {
   ];
   Pipe2Number(any: String) {
     if (any !== null) {
-      return any.replace(/[$,]/g,"");
+      return any.replace(/[$,]/g, '');
     } else {
-      return "0";
+      return '0';
     }
   }
 }

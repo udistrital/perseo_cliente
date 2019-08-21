@@ -8,7 +8,7 @@ describe('TablaFacturaComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TablaFacturaComponent, ]
+      declarations: [ TablaFacturaComponent ],
     })
     .compileComponents();
   }));
