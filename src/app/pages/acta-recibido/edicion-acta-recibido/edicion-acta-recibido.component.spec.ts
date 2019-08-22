@@ -8,7 +8,7 @@ describe('EdicionActaRecibidoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [EdicionActaRecibidoComponent]
+      declarations: [EdicionActaRecibidoComponent],
     })
       .compileComponents();
   }));

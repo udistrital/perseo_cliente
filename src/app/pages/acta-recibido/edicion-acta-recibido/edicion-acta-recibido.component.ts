@@ -21,7 +21,7 @@ import { HistoricoActa } from '../../../@core/data/models/acta_recibido/historic
 @Component({
   selector: 'ngx-edicion-acta-recibido',
   templateUrl: './edicion-acta-recibido.component.html',
-  styleUrls: ['./edicion-acta-recibido.component.scss']
+  styleUrls: ['./edicion-acta-recibido.component.scss'],
 })
 export class EdicionActaRecibidoComponent implements OnInit {
 
@@ -137,7 +137,6 @@ export class EdicionActaRecibidoComponent implements OnInit {
     this.carga_agregada = true;
   }
 
-  
   get Formulario_1(): FormGroup {
     return this.fb.group({
       Sede: ['', Validators.required],
