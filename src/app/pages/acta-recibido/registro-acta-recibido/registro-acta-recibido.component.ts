@@ -72,7 +72,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
     this.Estados_Acta = new Array<EstadoActa>();
     this.Actas_Recibido.getEstadosActa().subscribe(res => {
       if (res !== null) {
-        for (const index in res) {    
+        for (const index in res) {
           if (res.hasOwnProperty(index)) {
             const estados_acta = new EstadoActa;
             estados_acta.Id = res[index].Id;
@@ -92,7 +92,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
     this.Tipos_Bien = new Array<TipoBien>();
     this.Actas_Recibido.getTipoBien().subscribe(res => {
       if (res !== null) {
-        for (const index in res) {    
+        for (const index in res) {
           if (res.hasOwnProperty(index)) {
             const tipo_bien = new TipoBien;
             tipo_bien.Id = res[index].Id;
@@ -113,7 +113,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
     this.Estados_Elemento = new Array<EstadoElemento>();
     this.Actas_Recibido.getEstadosElemento().subscribe(res => {
       if (res !== null) {
-        for (const index in res) {    
+        for (const index in res) {
           if (res.hasOwnProperty(index)) {
             const estados_elemento = new EstadoElemento;
             estados_elemento.Id = res[index].Id;
@@ -262,13 +262,13 @@ export class RegistroActaRecibidoComponent implements OnInit {
       return '0';
     }
   }
-  valortotal(subtotal: string, descuento: string, iva: string){
+  valortotal(subtotal: string, descuento: string, iva: string) {
     return (parseFloat(subtotal) - parseFloat(descuento) + parseFloat(iva));
   }
   valorXcantidad(valor_unitario: string, cantidad: string) {
-    return (parseFloat(valor_unitario) * parseFloat(cantidad))
+    return (parseFloat(valor_unitario) * parseFloat(cantidad));
   }
-  valor_iva(subtotal: string, descuento: string, porcentaje_iva: string){
+  valor_iva(subtotal: string, descuento: string, porcentaje_iva: string) {
     return ((parseFloat(subtotal) - parseFloat(descuento)) * parseFloat(porcentaje_iva) / 100);
   }
 }
