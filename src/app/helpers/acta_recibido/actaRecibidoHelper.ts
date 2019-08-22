@@ -12,11 +12,11 @@ export class ActaRecibidoHelper {
         private pUpManager: PopUpManager) { }
 
     /**
-         * Contratos Get
-         * If the response has errors in the OAS API it should show a popup message with an error.
-         * If the response is successs, it returns the object's data.
-         * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
-         */
+     * Contratos Get
+     * If the response has errors in the OAS API it should show a popup message with an error.
+     * If the response is successs, it returns the object's data.
+     * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
+     */
     public getActasRecibido() {
         this.rqManager.setPath('ACTA_RECIBIDO_SERVICE');
         return this.rqManager.get('historico_acta?query=EstadoActaId.Nombre:Aceptada,ActaRecibidoId.Activo:True').pipe(
@@ -54,7 +54,7 @@ export class ActaRecibidoHelper {
     }
 
     /**
-     * Elementos Acta Get
+     * Soportes Acta Get
      * If the response has errors in the OAS API it should show a popup message with an error.
      * If the response is successs, it returns the object's data.
      * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
@@ -73,5 +73,70 @@ export class ActaRecibidoHelper {
             ),
         );
     }
+
+    /**
+     * Tipo de Bien Acta Get
+     * If the response has errors in the OAS API it should show a popup message with an error.
+     * If the response is successs, it returns the object's data.
+     * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
+     */
+    public getTipoBien() {
+        this.rqManager.setPath('ACTA_RECIBIDO_SERVICE');
+        return this.rqManager.get('tipo_bien').pipe(
+            map(
+                (res) => {
+                    if (res === 'error') {
+                        this.pUpManager.showErrorAlert('No se pudo consultar los tipos de bien');
+                        return undefined;
+                    }
+                    return res;
+                },
+            ),
+        );
+    }
+
+    /**
+     * Estados Acta Get
+     * If the response has errors in the OAS API it should show a popup message with an error.
+     * If the response is successs, it returns the object's data.
+     * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
+     */
+    public getEstadosActa() {
+        this.rqManager.setPath('ACTA_RECIBIDO_SERVICE');
+        return this.rqManager.get('estado_acta').pipe(
+            map(
+                (res) => {
+                    if (res === 'error') {
+                        this.pUpManager.showErrorAlert('No se pudo consultar los estados de acta');
+                        return undefined;
+                    }
+                    return res;
+                },
+            ),
+        );
+    }
+
+    /**
+     * Estados Acta Get
+     * If the response has errors in the OAS API it should show a popup message with an error.
+     * If the response is successs, it returns the object's data.
+     * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
+     */
+    public getEstadosElemento() {
+        this.rqManager.setPath('ACTA_RECIBIDO_SERVICE');
+        return this.rqManager.get('estado_elemento').pipe(
+            map(
+                (res) => {
+                    if (res === 'error') {
+                        this.pUpManager.showErrorAlert('No se pudo consultar los estados de acta');
+                        return undefined;
+                    }
+                    return res;
+                },
+            ),
+        );
+    }
+
+
 
 }

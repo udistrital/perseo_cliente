@@ -1,13 +1,21 @@
 import { Component, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
-import { LocalDataSource } from 'ngx-smart-table';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
-import { DatosLocales } from './datos_locales';
-import { MatTableDataSource, MatSort, MatPaginator, MatTable } from '@angular/material';
+
+import { MatTable } from '@angular/material';
 import 'hammerjs';
-import { EventEmitter } from 'selenium-webdriver';
-import {formatCurrency, getCurrencySymbol} from '@angular/common';
+import { ActaRecibidoHelper } from '../../../helpers/acta_recibido/actaRecibidoHelper';
+import { ActaRecibido } from '../../../@core/data/models/acta_recibido/acta_recibido';
+import { Elemento } from '../../../@core/data/models/acta_recibido/elemento';
+import { TipoBien } from '../../../@core/data/models/acta_recibido/tipo_bien';
+import { SoporteActa } from '../../../@core/data/models/acta_recibido/soporte_acta';
+import { EstadoActa } from '../../../@core/data/models/acta_recibido/estado_acta';
+import { EstadoElemento } from '../../../@core/data/models/acta_recibido/estado_elemento';
+import { HistoricoActa } from '../../../@core/data/models/acta_recibido/historico_acta';
+
+
+
 
 
 @Component({
@@ -19,35 +27,107 @@ import {formatCurrency, getCurrencySymbol} from '@angular/common';
 
 export class RegistroActaRecibidoComponent implements OnInit {
 
-  ELEMENT_DATA: any[] = DatosLocales;
-  dataSource =  new MatTableDataSource<any>(this.ELEMENT_DATA);
-
+  // Mensajes de error
   errMess: any;
   private sub: Subscription;
 
+  // Decorador para renderizar los cambios en las tablas de elementos
   @ViewChildren(MatTable) _matTable: QueryList<MatTable<any>>;
 
+  // Variables de Formulario
   firstForm: FormGroup;
   @ViewChild('fform') firstFormDirective;
   Datos: any;
   carga_agregada: boolean;
-  tabs = ['Soporte 1'];
+  index;
   selected = new FormControl(0);
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  // Tablas parametricas
+
+  Estados_Acta: Array<EstadoActa>;
+  Tipos_Bien: Array<TipoBien>;
+  Estados_Elemento: Array<EstadoElemento>;
+
+  // Modelos
+
+  Acta: ActaRecibido;
+  Elementos_Soporte: Array<Elemento>;
+  Soportes_Acta: Array<SoporteActa>;
+  Historico_Acta: HistoricoActa;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private fb: FormBuilder,
+    private Actas_Recibido: ActaRecibidoHelper,
   ) {
   }
   ngOnInit() {
-    // this.source.load(this.data);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.Traer_Tipo_Bien();
+    this.Traer_Estados_Acta();
+    this.Traer_Estados_Elemento();
     this.Cargar_Formularios();
+  }
+  Traer_Estados_Acta() {
+    this.Estados_Acta = new Array<EstadoActa>();
+    this.Actas_Recibido.getEstadosActa().subscribe(res => {
+      if (res !== null) {
+        for (const index in res) {    
+          if (res.hasOwnProperty(index)) {
+            const estados_acta = new EstadoActa;
+            estados_acta.Id = res[index].Id;
+            estados_acta.Nombre = res[index].Nombre;
+            estados_acta.CodigoAbreviacion = res[index].CodigoAbreviacion;
+            estados_acta.Descripcion = res[index].Descripcion;
+            estados_acta.FechaCreacion = res[index].FechaCreacion;
+            estados_acta.FechaModificacion = res[index].FechaModificacion;
+            estados_acta.NumeroOrden = res[index].NumeroOrden;
+            this.Estados_Acta.push(estados_acta);
+          }
+        }
+      }
+    });
+  }
+  Traer_Tipo_Bien() {
+    this.Tipos_Bien = new Array<TipoBien>();
+    this.Actas_Recibido.getTipoBien().subscribe(res => {
+      if (res !== null) {
+        for (const index in res) {    
+          if (res.hasOwnProperty(index)) {
+            const tipo_bien = new TipoBien;
+            tipo_bien.Id = res[index].Id;
+            tipo_bien.Nombre = res[index].Nombre;
+            tipo_bien.CodigoAbreviacion = res[index].CodigoAbreviacion;
+            tipo_bien.Descripcion = res[index].Descripcion;
+            tipo_bien.FechaCreacion = res[index].FechaCreacion;
+            tipo_bien.FechaModificacion = res[index].FechaModificacion;
+            tipo_bien.NumeroOrden = res[index].NumeroOrden;
+            this.Tipos_Bien.push(tipo_bien);
+          }
+        }
+      }
+    });
+  }
+  Traer_Estados_Elemento() {
+
+    this.Estados_Elemento = new Array<EstadoElemento>();
+    this.Actas_Recibido.getEstadosElemento().subscribe(res => {
+      if (res !== null) {
+        for (const index in res) {    
+          if (res.hasOwnProperty(index)) {
+            const estados_elemento = new EstadoElemento;
+            estados_elemento.Id = res[index].Id;
+            estados_elemento.Nombre = res[index].Nombre;
+            estados_elemento.CodigoAbreviacion = res[index].CodigoAbreviacion;
+            estados_elemento.Descripcion = res[index].Descripcion;
+            estados_elemento.FechaCreacion = res[index].FechaCreacion;
+            estados_elemento.FechaModificacion = res[index].FechaModificacion;
+            estados_elemento.NumeroOrden = res[index].NumeroOrden;
+            this.Estados_Elemento.push(estados_elemento);
+          }
+        }
+      }
+    });
   }
   Cargar_Formularios() {
 
@@ -112,23 +192,51 @@ export class RegistroActaRecibidoComponent implements OnInit {
   }
   onFirstSubmit() {
     this.Datos = this.firstForm.value;
+    // this.Registrar_Acta(this.Datos.Formulario1,this.Formulario_3);
+    // this.Registrar_Soporte(this.Datos.Formulario2);
+    // this.Registrar_Elementos(this.Datos.Formulario2);
   }
   addTab() {
     this.addSoportes();
-    this.selected.setValue(this.tabs.length - 1);
+    this.selected.setValue(this.firstForm.get('Formulario2').value.length - 1);
   }
   removeTab(i: number) {
     this.deleteSoportes(i);
     this.selected.setValue(i - 1);
   }
-  addSpace(Soporte) {
-    this.addElementos(Soporte);
 
+  // Registrar_Acta(Datos: any, Datos2: any) {
+  //   this.Acta.Activo = true;
+  //   this.Acta.FechaCreacion = new Date();
+  //   this.Acta.FechaModificacion = new Date();
+  //   this.Acta.RevisorId = 123;
+  //   this.Acta.UbicacionId = Datos.Ubicacion;
+  //   this.Acta.Observaciones = Datos2.Datos_Adicionales;
+  // }
 
-  }
-  deleteSpace() {
+  // Registrar_Soporte(Datos) {
+  //   for(var i = 0; i++; i <= (Datos.length() - 1)) {
+  //     this.Soportes_Acta[i].ActaRecibido = this.Acta;
+  //     this.Soportes_Acta[i].Activo = true;
+  //     this.Soportes_Acta[i].Consecutivo = Datos.Consecutivo;
+  //     this.Soportes_Acta[i].FechaCreacion = new Date();
+  //     this.Soportes_Acta[i].FechaModificacion = new Date();
+  //     this.Soportes_Acta[i].FechaSoporte = Datos.Fecha_Factura;
+  //     this.Soportes_Acta[i].Proveedor = Datos.Proveedor;
+  //   }
+  // }
+  // Registrar_Elementos(Datos) {
+  //   for(var i = 0; i++; i <= (Datos.length() - 1)) {
+  //     this.Soportes_Acta[i].ActaRecibido = this.Acta;
+  //     this.Soportes_Acta[i].Activo = true;
+  //     this.Soportes_Acta[i].Consecutivo = Datos.Consecutivo;
+  //     this.Soportes_Acta[i].FechaCreacion = new Date();
+  //     this.Soportes_Acta[i].FechaModificacion = new Date();
+  //     this.Soportes_Acta[i].FechaSoporte = Datos.Fecha_Factura;
+  //     this.Soportes_Acta[i].Proveedor = Datos.Proveedor;
+  //   }
 
-  }
+  // }
   // Acciones para elementos
 
   displayedColumns = [
@@ -155,11 +263,12 @@ export class RegistroActaRecibidoComponent implements OnInit {
     }
   }
   valortotal(subtotal: string, descuento: string, iva: string){
-    console.log(parseFloat(subtotal) - parseFloat(descuento) + parseFloat(iva));
     return (parseFloat(subtotal) - parseFloat(descuento) + parseFloat(iva));
   }
   valorXcantidad(valor_unitario: string, cantidad: string) {
-    console.log(parseFloat(valor_unitario) * parseFloat(cantidad));
     return (parseFloat(valor_unitario) * parseFloat(cantidad))
+  }
+  valor_iva(subtotal: string, descuento: string, porcentaje_iva: string){
+    return ((parseFloat(subtotal) - parseFloat(descuento)) * parseFloat(porcentaje_iva) / 100);
   }
 }
