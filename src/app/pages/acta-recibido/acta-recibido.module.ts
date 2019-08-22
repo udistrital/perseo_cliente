@@ -15,6 +15,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import {MatTableModule} from '@angular/material/table';
 import { MatPaginatorModule, MatSortModule } from '@angular/material';
 import { TablaFacturaComponent } from './registro-acta-recibido/tabla-factura/tabla-factura.component';
+import { EdicionActaRecibidoComponent } from './edicion-acta-recibido/edicion-acta-recibido.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { TablaFacturaComponent } from './registro-acta-recibido/tabla-factura/ta
     VerificacionActaRecibidoComponent,
     ConsultaActaRecibidoComponent,
     TablaFacturaComponent,
+    EdicionActaRecibidoComponent,
   ],
   imports: [
     CommonModule,
