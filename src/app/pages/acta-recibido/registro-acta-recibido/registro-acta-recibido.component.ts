@@ -13,6 +13,7 @@ import { SoporteActa } from '../../../@core/data/models/acta_recibido/soporte_ac
 import { EstadoActa } from '../../../@core/data/models/acta_recibido/estado_acta';
 import { EstadoElemento } from '../../../@core/data/models/acta_recibido/estado_elemento';
 import { HistoricoActa } from '../../../@core/data/models/acta_recibido/historico_acta';
+import { TransaccionSoporteActa } from '../../../@core/data/models/acta_recibido/transaccion_acta_recibido';
 
 
 
@@ -190,12 +191,6 @@ export class RegistroActaRecibidoComponent implements OnInit {
     Soporte.get('Elementos').removeAt(index);
     this._matTable.forEach((mat) => mat.renderRows());
   }
-  onFirstSubmit() {
-    this.Datos = this.firstForm.value;
-    // this.Registrar_Acta(this.Datos.Formulario1,this.Formulario_3);
-    // this.Registrar_Soporte(this.Datos.Formulario2);
-    // this.Registrar_Elementos(this.Datos.Formulario2);
-  }
   addTab() {
     this.addSoportes();
     this.selected.setValue(this.firstForm.get('Formulario2').value.length - 1);
@@ -204,37 +199,75 @@ export class RegistroActaRecibidoComponent implements OnInit {
     this.deleteSoportes(i);
     this.selected.setValue(i - 1);
   }
+  onFirstSubmit() {
+    this.Datos = this.firstForm.value;
+    console.log(this.Datos);
+    // this.Registrar_Acta(this.Datos.Formulario1,this.Formulario_3);
+    // this.Registrar_Soporte(this.Datos.Formulario2);
+    // this.Registrar_Elementos(this.Datos.Formulario2);
+  }
+  
+  Registrar_Acta(Datos: any, Datos2: any): ActaRecibido {
 
-  // Registrar_Acta(Datos: any, Datos2: any) {
-  //   this.Acta.Activo = true;
-  //   this.Acta.FechaCreacion = new Date();
-  //   this.Acta.FechaModificacion = new Date();
-  //   this.Acta.RevisorId = 123;
-  //   this.Acta.UbicacionId = Datos.Ubicacion;
-  //   this.Acta.Observaciones = Datos2.Datos_Adicionales;
-  // }
+    const Acta_de_Recibido = new ActaRecibido();
+    Acta_de_Recibido.Activo = true;
+    Acta_de_Recibido.FechaCreacion = new Date();
+    Acta_de_Recibido.FechaModificacion = new Date();
+    Acta_de_Recibido.RevisorId = 123;
+    Acta_de_Recibido.UbicacionId = Datos.Ubicacion;
+    Acta_de_Recibido.Observaciones = Datos2.Datos_Adicionales;
 
-  // Registrar_Soporte(Datos) {
-  //   for(var i = 0; i++; i <= (Datos.length() - 1)) {
-  //     this.Soportes_Acta[i].ActaRecibido = this.Acta;
-  //     this.Soportes_Acta[i].Activo = true;
-  //     this.Soportes_Acta[i].Consecutivo = Datos.Consecutivo;
-  //     this.Soportes_Acta[i].FechaCreacion = new Date();
-  //     this.Soportes_Acta[i].FechaModificacion = new Date();
-  //     this.Soportes_Acta[i].FechaSoporte = Datos.Fecha_Factura;
-  //     this.Soportes_Acta[i].Proveedor = Datos.Proveedor;
-  //   }
-  // }
-  // Registrar_Elementos(Datos) {
-  //   for(var i = 0; i++; i <= (Datos.length() - 1)) {
-  //     this.Soportes_Acta[i].ActaRecibido = this.Acta;
-  //     this.Soportes_Acta[i].Activo = true;
-  //     this.Soportes_Acta[i].Consecutivo = Datos.Consecutivo;
-  //     this.Soportes_Acta[i].FechaCreacion = new Date();
-  //     this.Soportes_Acta[i].FechaModificacion = new Date();
-  //     this.Soportes_Acta[i].FechaSoporte = Datos.Fecha_Factura;
-  //     this.Soportes_Acta[i].Proveedor = Datos.Proveedor;
-  //   }
+    return Acta_de_Recibido;
+  }
+
+  Registrar_Soporte(Datos : any, Elementos_: any, Acta :ActaRecibido): TransaccionSoporteActa {
+
+    const Soporte_Acta = new SoporteActa();
+    const Transaccion = new TransaccionSoporteActa();
+
+    Soporte_Acta.ActaRecibido = Acta;
+    Soporte_Acta.Activo = true;
+    Soporte_Acta.Consecutivo = Datos.Consecutivo;
+    Soporte_Acta.FechaCreacion = new Date();
+    Soporte_Acta.FechaModificacion = new Date();
+    Soporte_Acta.FechaSoporte = Datos.Fecha_Factura;
+    Soporte_Acta.Proveedor = Datos.Proveedor;
+    
+    Transaccion.SoporteActa = Soporte_Acta;
+    Transaccion.Elementos = this.Registrar_Elementos(Elementos_,Soporte_Acta);
+
+    
+    return Transaccion
+  }
+  Registrar_Elementos(Datos :any, Soporte: SoporteActa) :Array<Elemento> {
+    var Elementos_Soporte = new Array<Elemento>();
+    
+    for(var i = 0; i++; i <= (Datos.length() - 1)) {
+      Elementos_Soporte[i].Id = Datos[i].Id;
+      Elementos_Soporte[i].Nombre = Datos[i].Nombre;
+      Elementos_Soporte[i].Cantidad = Datos[i].Cantidad;
+      Elementos_Soporte[i].Marca = Datos[i].Marca;
+      Elementos_Soporte[i].Serie = Datos[i].Serie;
+      Elementos_Soporte[i].UnidadMedida = Datos[i].UnidadMedida;
+      Elementos_Soporte[i].ValorUnitario = Datos[i].ValorUnitario;
+      Elementos_Soporte[i].ValorCantidad = Datos[i].ValorCantidad;
+      Elementos_Soporte[i].Subtotal = Datos[i].Subtotal;
+      Elementos_Soporte[i].Descuento = Datos[i].Descuento;
+      Elementos_Soporte[i].ValorTotal = Datos[i].ValorTotal;
+      Elementos_Soporte[i].PorcentajeIvaId = Datos[i].PorcentajeIvaId;
+      Elementos_Soporte[i].ValorIva = Datos[i].ValorIva;
+      Elementos_Soporte[i].ValorFinal = Datos[i].ValorFinal;
+      Elementos_Soporte[i].SubgrupoCatalogoId = Datos[i].SubgrupoCatalogoId;
+      Elementos_Soporte[i].Verificado = Datos[i].Verificado;
+      Elementos_Soporte[i].TipoBien = Datos[i].TipoBien;
+      Elementos_Soporte[i].EstadoElemento = Datos[i].EstadoElemento;
+      Elementos_Soporte[i].SoporteActa = Datos[i].SoporteActa;
+      Elementos_Soporte[i].Activo = Datos[i].Activo;
+      Elementos_Soporte[i].FechaCreacion = new Date();
+      Elementos_Soporte[i].FechaModificacion = new Datos();
+    }
+    return Elementos_Soporte;
+  }
 
   // }
   // Acciones para elementos

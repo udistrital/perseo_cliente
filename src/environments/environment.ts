@@ -17,7 +17,8 @@ export const environment = {
   NOTIFICACION_SERVICE: 'ws://10.20.0.254:8199/ws/join',
   CONF_MENU_SERVICE: 'http://10.20.0.254/configuracion_api/v1/menu_opcion_padre/ArbolMenus/',
   ADMINISTRATIVA_SERVICE: 'http://jbpm.udistritaloas.edu.co:8280/services/administrativaProxy/',
-  ACTA_RECIBIDO_SERVICE: 'http://10.20.0.254:8206/v1/',
+  // ACTA_RECIBIDO_SERVICE: 'http://10.20.0.254:8206/v1/',
+  ACTA_RECIBIDO_SERVICE: 'http://localhost:8080/v1/',
   TOKEN: {
     AUTORIZATION_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oauth2/authorize',
     CLIENTE_ID: '3Idp5LUlnZY7cOV10NaLuyRfzooa',
