@@ -5,7 +5,7 @@ export class SoporteActa {
     Consecutivo: number;
     Proveedor: number; // CAMBIAR POR MODELO CUANDO SE PUEDA CONSULTAR
     FechaSoporte: Date;
-    ActaRecibido: ActaRecibido;
+    ActaRecibidoId: ActaRecibido;
     Activo: boolean;
     FechaCreacion: Date;
     FechaModificacion: Date;

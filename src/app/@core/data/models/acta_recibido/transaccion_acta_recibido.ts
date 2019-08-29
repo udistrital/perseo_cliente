@@ -4,15 +4,13 @@ import { Elemento } from './elemento';
 import { HistoricoActa } from './historico_acta';
 
 export class TransaccionSoporteActa {
-
     SoporteActa: SoporteActa;
     Elementos: Array<Elemento>;
-
 }
 
 export class TransaccionActaRecibido {
     ActaRecibido: ActaRecibido;
-    UltimoHistorico: HistoricoActa;
+    UltimoEstado: HistoricoActa;
     SoportesActa: Array<TransaccionSoporteActa>;
 }
 
