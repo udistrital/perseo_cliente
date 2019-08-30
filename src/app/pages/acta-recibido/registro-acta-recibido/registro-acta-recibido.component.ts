@@ -1,108 +1,159 @@
-import { Component, OnInit } from '@angular/core';
-import { LocalDataSource } from 'ng2-smart-table';
+import { Component, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
+import { LocalDataSource } from 'ngx-smart-table';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
+import { DatosLocales } from './datos_locales';
+import { MatTableDataSource, MatSort, MatPaginator, MatTable } from '@angular/material';
+import 'hammerjs';
+import { EventEmitter } from 'selenium-webdriver';
+import {formatCurrency, getCurrencySymbol} from '@angular/common';
+
 
 @Component({
   selector: 'ngx-registro-acta-recibido',
   templateUrl: './registro-acta-recibido.component.html',
   styleUrls: ['./registro-acta-recibido.component.scss'],
 })
+
+
 export class RegistroActaRecibidoComponent implements OnInit {
 
-  source: LocalDataSource;
-  foo: any;
-  datos: any;
+  ELEMENT_DATA: any[] = DatosLocales;
+  dataSource =  new MatTableDataSource<any>(this.ELEMENT_DATA);
 
-  settings = {
-    actions: {
-      columnTitle: 'Acciones',
-      position: 'right',
-    },
-    add: {
-      addButtonContent: '<i class="nb-plus"></i>',
-      createButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
-    },
-
-    edit: {
-      editButtonContent: '<i class="nb-edit"></i>',
-      saveButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
-    },
-    delete: {
-      deleteButtonContent: '<i class="nb-trash"></i>',
-    },
-    columns: {
-      tipo_bien: {
-        title: 'Tipo de Bien',
-      },
-      subgrupo: {
-        title: 'Subgrupo',
-      },
-      descripcion: {
-        title: 'Descripcion',
-      },
-      cantidad: {
-        title: 'Cantidad',
-      },
-      marca: {
-        title: 'Marca',
-      },
-      serie: {
-        title: 'Serie',
-      },
-      unidad_medida: {
-        title: 'Unidad de Medida',
-      },
-      valor_unitario: {
-        title: 'Valor Unitario',
-      },
-      valor_cantidad: {
-        title: 'Valor por Cantidad',
-      },
-      descuento: {
-        title: 'Descuento',
-      },
-      porcentaje_iva: {
-        title: '% IVA',
-      },
-      valor_iva: {
-        title: 'Valor IVA',
-      },
-      valor_total: {
-        title: 'Valor Total',
-      },
-    },
-  };
-
-  
+  errMess: any;
   private sub: Subscription;
 
-  bandera: boolean = false;
-  id: any;
-  errMess: any;
+  @ViewChildren(MatTable) _matTable: QueryList<MatTable<any>>;
 
-  constructor(private router: Router, private route: ActivatedRoute ) {
-    
+  firstForm: FormGroup;
+  @ViewChild('fform') firstFormDirective;
+  Datos: any;
+  carga_agregada: boolean;
+  tabs = ['Soporte 1'];
+  selected = new FormControl(0);
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private fb: FormBuilder,
+  ) {
   }
-
   ngOnInit() {
-    //this.source.load(this.data);
+    // this.source.load(this.data);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.Cargar_Formularios();
   }
-  ver() {
-    //this.source.getAll().then((data) => { console.log(data); this.foo = data; this.bandera = true; });
-  }
+  Cargar_Formularios() {
 
-  ver2() {
-    console.log(this.foo);
+    this.firstForm = this.fb.group({
+      Formulario1: this.Formulario_1,
+      Formulario2: this.fb.array([this.Formulario_2]),
+      Formulario3: this.Formulario_3,
+    });
+    this.carga_agregada = true;
   }
-  ver3() {
-    this.datos = this.source.getAll();
-    console.log(this.datos);
+  get Formulario_1(): FormGroup {
+    return this.fb.group({
+      Sede: ['', Validators.required],
+      Dependencia: ['', Validators.required],
+      Ubicacion: ['', Validators.required],
+    });
   }
+  get Formulario_2(): FormGroup {
+    return this.fb.group({
+      Proveedor: ['', Validators.required],
+      Consecutivo: ['', Validators.required],
+      Fecha_Factura: ['', Validators.required],
+      Soporte: ['', Validators.required],
+      Elementos: this.fb.array([this.Elementos]),
+    });
+  }
+  get Elementos(): FormGroup {
+    return this.fb.group({
+      TipoBienId: ['', Validators.required],
+      SubgrupoCatalogoId: ['', Validators.required],
+      Nombre: ['', Validators.required],
+      RevisorId: ['', Validators.required],
+      Cantidad: ['', Validators.required],
+      Marca: ['', Validators.required],
+      Serie: ['', Validators.required],
+      UnidadMedida: ['', Validators.required],
+      ValorUnitario: ['0', Validators.required],
+      Subtotal: ['0', Validators.required],
+      Descuento: ['0', Validators.required],
+      PorcentajeIvaId: ['', Validators.required],
+      ValorIva: ['0', Validators.required],
+      ValorTotal: ['0', Validators.required],
+    });
+  }
+  get Formulario_3(): FormGroup {
+    return this.fb.group({
+      Datos_Adicionales: ['', Validators.required],
+    });
+  }
+  addSoportes() {
+    (this.firstForm.get('Formulario2') as FormArray).push(this.Formulario_2);
+  }
+  deleteSoportes(index: number) {
+    (this.firstForm.get('Formulario2') as FormArray).removeAt(index);
+  }
+  addElementos(Soporte) {
+    Soporte.get('Elementos').push(this.Elementos);
+    this._matTable.forEach((mat) => mat.renderRows());
+  }
+  deleteElementos(Soporte, index: number) {
+    Soporte.get('Elementos').removeAt(index);
+    this._matTable.forEach((mat) => mat.renderRows());
+  }
+  onFirstSubmit() {
+    this.Datos = this.firstForm.value;
+  }
+  addTab() {
+    this.addSoportes();
+    this.selected.setValue(this.tabs.length - 1);
+  }
+  removeTab(i: number) {
+    this.deleteSoportes(i);
+    this.selected.setValue(i - 1);
+  }
+  addSpace(Soporte) {
+    this.addElementos(Soporte);
 
-  onCustom(event: any) {
-    alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`)
+
+  }
+  deleteSpace() {
+
+  }
+  // Acciones para elementos
+
+  displayedColumns = [
+    'TipoBienId',
+    'SubgrupoCatalogoId',
+    'Nombre',
+    'RevisorId',
+    'Cantidad',
+    'Marca',
+    'Serie',
+    'UnidadMedida',
+    'ValorUnitario',
+    'Subtotal',
+    'Descuento',
+    'PorcentajeIvaId',
+    'ValorIva',
+    'ValorTotal',
+    'Acciones',
+  ];
+  Pipe2Number(any: String) {
+    if (any !== null) {
+      return any.replace(/[$,]/g, '');
+    } else {
+      return '0';
+    }
   }
 }

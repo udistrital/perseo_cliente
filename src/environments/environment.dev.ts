@@ -12,6 +12,7 @@ export const environment = {
   CONFIGURACION_SERVICE: 'https://autenticacion.udistrital.edu.co/apioas/configuracion_crud_api/v1/',
   CONF_MENU_SERVICE: 'https://autenticacion.udistrital.edu.co/apioas/configuracion_crud_api/v1/menu_opcion_padre/ArbolMenus/',
   NOTIFICACION_SERVICE: 'ws://10.20.0.254:8199/ws/join',
+  ADMINISTRATIVA_SERVICE: 'https://jbpm.udistritaloas.edu.co:8243/services/administrativa_produccion',
   TOKEN: {
     AUTORIZATION_URL: 'https://autenticacion.udistrital.edu.co/oauth2/authorize',
     CLIENTE_ID: 'qGicYmef58iY7VxyFm8B39995FUa',

@@ -8,7 +8,14 @@ import { RegistroActaRecibidoComponent } from './registro-acta-recibido/registro
 import { VerificacionActaRecibidoComponent } from './verificacion-acta-recibido/verificacion-acta-recibido.component';
 import { ConsultaActaRecibidoComponent } from './consulta-acta-recibido/consulta-acta-recibido.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { Ng2SmartTableModule } from 'ngx-smart-table';
+import { NbStepperModule } from '@nebular/theme';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatStepperModule } from '@angular/material/stepper';
+import {MatTableModule} from '@angular/material/table';
+import { MatPaginatorModule, MatSortModule } from '@angular/material';
+import { TablaFacturaComponent } from './registro-acta-recibido/tabla-factura/tabla-factura.component';
+
 
 @NgModule({
   declarations: [
@@ -16,6 +23,7 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
     RegistroActaRecibidoComponent,
     VerificacionActaRecibidoComponent,
     ConsultaActaRecibidoComponent,
+    TablaFacturaComponent,
   ],
   imports: [
     CommonModule,
@@ -23,6 +31,12 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
     ThemeModule,
     Ng2SmartTableModule,
     TranslateModule,
+    NbStepperModule,
+    MatTabsModule,
+    MatStepperModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
   ],
 })
 export class ActaRecibidoModule { }

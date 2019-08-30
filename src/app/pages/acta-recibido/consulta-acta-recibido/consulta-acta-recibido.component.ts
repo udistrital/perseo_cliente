@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { LocalDataSource } from 'ng2-smart-table';
+import { LocalDataSource } from 'ngx-smart-table';
 import { Router } from '@angular/router';
 
 @Component({
@@ -43,39 +43,114 @@ export class ConsultaActaRecibidoComponent implements OnInit {
       ],
       position: 'right',
       add: false,
-      edit: false,
+      edit: true,
       delete: false,
     },
     columns: {
       consecutivo: {
         title: 'Consecutivo',
+        valuePrepareFunction: (value: any) => {
+          return value;
+        },
       },
       fecha_creacion: {
         title: 'Fecha de Creacion',
+        width: '70px',
+        valuePrepareFunction: (value: any) => {
+          const date = value.split('T');
+          return date[0];
+        },
+        filter: {
+          type: 'daterange',
+          config: {
+            daterange: {
+              format: 'yyyy/mm/dd',
+            },
+          },
+        },
       },
       fecha_visto_bueno: {
         title: 'Fecha Visto Bueno',
+        width: '70px',
+        valuePrepareFunction: (value: any) => {
+          const date = value.split('T');
+          return date[0];
+        },
+        filter: {
+          type: 'daterange',
+          config: {
+            daterange: {
+              format: 'yyyy/mm/dd',
+            },
+          },
+        },
       },
       revisor: {
         title: 'Revisor',
+        valuePrepareFunction: (value: any) => {
+          return value;
+        },
       },
       estado: {
         title: 'Estado',
+        valuePrepareFunction: (value: any) => {
+          return value;
+        },
+        filter: {
+          type: 'list',
+          config: {
+            selectText: 'Select...',
+            list: [
+              { value: '1', title: 'Registrada' },
+              { value: '2', title: 'En Elaboracion' },
+              { value: '3', title: 'En Revision' },
+              { value: '4', title: 'En Verificacion' },
+              { value: '5', title: 'Aceptada' },
+              { value: '6', title: 'Anulada' },
+
+            ],
+          },
+        },
       },
       ubicacion: {
         title: 'Ubicacion',
+        valuePrepareFunction: (value: any) => {
+          return value;
+        },
       },
       numero_factura: {
         title: 'Numero Factura',
+        valuePrepareFunction: (value: any) => {
+          return value;
+        },
       },
       fecha_factura: {
         title: 'Fecha de Factura',
+        width: '70px',
+        valuePrepareFunction: (value: any) => {
+          const date = value.split('T');
+          return date[0];
+        },
+        filter: {
+          type: 'daterange',
+          config: {
+            daterange: {
+              format: 'yyyy/mm/dd',
+            },
+          },
+        },
       },
       proveedor: {
         title: 'Proveedor',
+        valuePrepareFunction: (value: any) => {
+          return value;
+        },
       },
       observaciones: {
         title: 'Observaciones',
+        valuePrepareFunction: (value: any) => {
+          return value;
+        },
       },
     },
   };
@@ -83,65 +158,78 @@ export class ConsultaActaRecibidoComponent implements OnInit {
     {
       id: '00-123',
       consecutivo: '00-123',
-      fecha_creacion: '03/06/2019',
-      fecha_visto_bueno: '07/06/2019',
+      fecha_creacion: '2019-08-11T22:37:36.760Z',
+      fecha_visto_bueno: '2019-06-11T22:37:36.760Z',
       revisor: 'Revisor 1',
-      estado: 'Estado 2',
+      estado: 'Aprobada',
       ubicacion: 'Laboratorios Ingenieria',
       numero_factura: 'QW-124324-1234',
-      fecha_factura: '03/06/2019',
+      fecha_factura: '2019-08-11T22:37:36.760Z',
       proveedor: 'Dell',
       observaciones: 'lorem ipsum lorem ipsum lorem',
     },
     {
       id: '00-123',
       consecutivo: '00-123',
-      fecha_creacion: '03/06/2019',
-      fecha_visto_bueno: '07/06/2019',
+      fecha_creacion: '2019-08-11T22:37:36.760Z',
+      fecha_visto_bueno: '2019-06-11T22:37:36.760Z',
       revisor: 'Revisor 1',
-      estado: 'Estado 2',
+      estado: 'Aprobada',
       ubicacion: 'Laboratorios Ingenieria',
       numero_factura: 'QW-124324-1234',
-      fecha_factura: '03/06/2019',
+      fecha_factura: '2019-08-11T22:37:36.760Z',
       proveedor: 'Dell',
       observaciones: 'lorem ipsum lorem ipsum lorem',
     },
     {
       id: '00-123',
       consecutivo: '00-123',
-      fecha_creacion: '03/06/2019',
-      fecha_visto_bueno: '07/06/2019',
+      fecha_creacion: '2019-08-11T22:37:36.760Z',
+      fecha_visto_bueno: '2019-06-11T22:37:36.760Z',
       revisor: 'Revisor 1',
-      estado: 'Estado 2',
+      estado: 'Aprobada',
       ubicacion: 'Laboratorios Ingenieria',
       numero_factura: 'QW-124324-1234',
-      fecha_factura: '03/06/2019',
+      fecha_factura: '2019-08-11T22:37:36.760Z',
       proveedor: 'Dell',
       observaciones: 'lorem ipsum lorem ipsum lorem',
     },
     {
       id: '00-123',
       consecutivo: '00-123',
-      fecha_creacion: '03/06/2019',
-      fecha_visto_bueno: '07/06/2019',
+      fecha_creacion: '2019-08-11T22:37:36.760Z',
+      fecha_visto_bueno: '2019-06-11T22:37:36.760Z',
       revisor: 'Revisor 1',
-      estado: 'Estado 2',
+      estado: 'Aprobada',
       ubicacion: 'Laboratorios Ingenieria',
       numero_factura: 'QW-124324-1234',
-      fecha_factura: '03/06/2019',
+      fecha_factura: '2019-08-11T22:37:36.760Z',
       proveedor: 'Dell',
       observaciones: 'lorem ipsum lorem ipsum lorem',
     },
     {
       id: '00-123',
       consecutivo: '00-123',
-      fecha_creacion: '03/06/2019',
-      fecha_visto_bueno: '07/06/2019',
+      fecha_creacion: '2019-08-11T22:37:36.760Z',
+      fecha_visto_bueno: '2019-06-11T22:37:36.760Z',
       revisor: 'Revisor 1',
-      estado: 'Estado 2',
+      estado: 'Aprobada',
       ubicacion: 'Laboratorios Ingenieria',
       numero_factura: 'QW-124324-1234',
-      fecha_factura: '03/06/2019',
+      fecha_factura: '2019-08-11T22:37:36.760Z',
+      proveedor: 'Dell',
+      observaciones: 'lorem ipsum lorem ipsum lorem',
+    },
+    {
+      id: '00-123',
+      consecutivo: '00-123',
+      fecha_creacion: '2019-08-11T22:37:36.760Z',
+      fecha_visto_bueno: '2019-06-11T22:37:36.760Z',
+      revisor: 'Revisor 1',
+      estado: 'Aprobada',
+      ubicacion: 'Laboratorios Ingenieria',
+      numero_factura: 'QW-124324-1234',
+      fecha_factura: '2019-08-11T22:37:36.760Z',
       proveedor: 'Dell',
       observaciones: 'lorem ipsum lorem ipsum lorem',
     },
@@ -157,13 +245,13 @@ export class ConsultaActaRecibidoComponent implements OnInit {
   }
 
   onCustom(event: any) {
-    alert(`Custom event '${event.action}' fired on row №: ${event.data.consecutivo}`)
+    alert(`Custom event '${event.action}' fired on row №: ${event.data.consecutivo}`);
     if (event !== null) {
-      this.router.navigate(['/pages/acta_recibido/registro_acta_recibido', { id: event.data.consecutivo }])
+      this.router.navigate(['/pages/acta_recibido/registro_acta_recibido', { id: event.data.consecutivo }]);
     }
   }
   onRegister() {
-    this.router.navigate(['/pages/acta_recibido/registro_acta_recibido'])
+    this.router.navigate(['/pages/acta_recibido/registro_acta_recibido']);
   }
 
 }
