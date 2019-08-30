@@ -7,5 +7,5 @@ export class ActaRecibido {
     Observaciones: string;
     RevisorId: number;
     UbicacionId: number;
-    CodigoAbreviacion: string; 
+    CodigoAbreviacion: string;
 }
