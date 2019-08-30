@@ -74,7 +74,6 @@ export class EdicionActaRecibidoComponent implements OnInit {
     this.Traer_Estados_Acta();
     this.Traer_Estados_Elemento();
     this.Traer_Acta(17);
-    
   }
   Traer_Estados_Acta() {
     this.Estados_Acta = new Array<EstadoActa>();
@@ -148,12 +147,12 @@ export class EdicionActaRecibidoComponent implements OnInit {
     });
   }
   Cargar_Formularios(transaccion_: TransaccionActaRecibido) {
-    
+
     this.firstForm = new FormGroup({});
 
     const Form2 = this.fb.array([]);
 
-    for (const Soporte of transaccion_.SoportesActa){
+    for (const Soporte of transaccion_.SoportesActa) {
 
       const Formulario__2 = this.fb.group({
         Proveedor: [Soporte.SoporteActa.ProveedorId, Validators.required],
@@ -163,31 +162,29 @@ export class EdicionActaRecibidoComponent implements OnInit {
         Elementos: this.fb.array([]),
       });
 
-        for (const Elemento of Soporte.Elementos){
+        for (const _Elemento of Soporte.Elementos ){
 
           const Elemento___ = this.fb.group({
-            TipoBienId: [Elemento.TipoBienId.Id, Validators.required],
-            SubgrupoCatalogoId: [Elemento.SubgrupoCatalogoId, Validators.required],
-            Nombre: [Elemento.Nombre, Validators.required],
-            Cantidad: [Elemento.Cantidad, Validators.required],
-            Marca: [Elemento.Marca, Validators.required],
-            Serie: [Elemento.Serie, Validators.required],
-            UnidadMedida: [Elemento.UnidadMedida, Validators.required],
-            ValorUnitario: [Elemento.ValorUnitario, Validators.required],
-            Subtotal: [Elemento.ValorTotal, Validators.required],
-            Descuento: [Elemento.Descuento, Validators.required],
-            PorcentajeIvaId: [Elemento.PorcentajeIvaId, Validators.required],
-            ValorIva: [Elemento.ValorIva, Validators.required],
-            ValorTotal: [Elemento.ValorFinal, Validators.required],
+            TipoBienId: [_Elemento.TipoBienId.Id, Validators.required],
+            SubgrupoCatalogoId: [_Elemento.SubgrupoCatalogoId, Validators.required],
+            Nombre: [_Elemento.Nombre, Validators.required],
+            Cantidad: [_Elemento.Cantidad, Validators.required],
+            Marca: [_Elemento.Marca, Validators.required],
+            Serie: [_Elemento.Serie, Validators.required],
+            UnidadMedida: [_Elemento.UnidadMedida, Validators.required],
+            ValorUnitario: [_Elemento.ValorUnitario, Validators.required],
+            Subtotal: [_Elemento.ValorTotal, Validators.required],
+            Descuento: [_Elemento.Descuento, Validators.required],
+            PorcentajeIvaId: [_Elemento.PorcentajeIvaId, Validators.required],
+            ValorIva: [_Elemento.ValorIva, Validators.required],
+            ValorTotal: [_Elemento.ValorFinal, Validators.required],
           });
 
         (Formulario__2.get('Elementos') as FormArray).push(Elemento___);
         }
-      
+
       Form2.push(Formulario__2);
     }
-
-    console.log(Form2.value);
 
     this.firstForm = this.fb.group({
       Formulario1: this.fb.group({
@@ -200,8 +197,6 @@ export class EdicionActaRecibidoComponent implements OnInit {
         Datos_Adicionales: [transaccion_.ActaRecibido.Observaciones, Validators.required],
       }),
     });
-
-    console.log(this.firstForm.value);
 
     this.carga_agregada = true;
   }
@@ -246,18 +241,11 @@ export class EdicionActaRecibidoComponent implements OnInit {
   addSoportes() {
     (this.firstForm.get('Formulario2') as FormArray).push(this.Formulario_2);
   }
-  addSoportes2(Formulario: FormGroup) {
-    (this.firstForm.get('Formulario2') as FormArray).push(Formulario);
-  }
   deleteSoportes(index: number) {
     (this.firstForm.get('Formulario2') as FormArray).removeAt(index);
   }
   addElementos(Soporte) {
     Soporte.get('Elementos').push(this.Elementos);
-    this._matTable.forEach((mat) => mat.renderRows());
-  }
-  addElementos2(Soporte, Elemento: FormGroup) {
-    Soporte.get('Elementos').push(Elemento);
     this._matTable.forEach((mat) => mat.renderRows());
   }
   deleteElementos(Soporte, index: number) {
