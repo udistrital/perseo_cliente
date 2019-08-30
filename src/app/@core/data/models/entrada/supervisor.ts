@@ -3,4 +3,6 @@ export class Supervisor {
     Id: number;
     DocumentoIdentificacion: number;
     Cargo: string;
+    Sede: string;
+    Dependencia: string;
 }

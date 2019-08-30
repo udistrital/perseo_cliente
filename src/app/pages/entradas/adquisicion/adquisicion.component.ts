@@ -106,6 +106,8 @@ export class AdquisicionComponent implements OnInit {
         supervisorAux.Id = res.contrato.supervisor.id;
         supervisorAux.Nombre = res.contrato.supervisor.nombre;
         supervisorAux.Cargo = res.contrato.supervisor.cargo;
+        supervisorAux.Dependencia = res.contrato.supervisor.dependencia_supervisor;
+        supervisorAux.Sede = res.contrato.supervisor.sede_supervisor;
         supervisorAux.DocumentoIdentificacion = res.contrato.supervisor.documento_identificacion;
         this.contratoEspecifico.OrdenadorGasto = ordenadorAux;
         this.contratoEspecifico.NumeroContratoSuscrito = res.contrato.numero_contrato;

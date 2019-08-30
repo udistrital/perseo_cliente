@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { LocalDataSource } from 'ng2-smart-table';
+import { LocalDataSource } from 'ngx-smart-table';
 import { PopUpManager } from '../../../managers/popUpManager';
 import { Elemento } from '../../../@core/data/models/acta_recibido/elemento';
 import { TipoBien } from '../../../@core/data/models/acta_recibido/tipo_bien';
@@ -44,7 +44,7 @@ export class TablaEntradasComponent implements OnInit {
       SubgrupoCatalogoId: {
         title: 'Subgrupo',
       },
-      Descripcion: {
+      Nombre: {
         title: 'Descripcion',
       },
       Cantidad: {

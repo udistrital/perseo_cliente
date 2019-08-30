@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LocalDataSource } from 'ng2-smart-table';
+import { LocalDataSource } from 'ngx-smart-table';
 import { ActaRecibido } from '../../../@core/data/models/acta_recibido/acta_recibido';
 import { PopUpManager } from '../../../managers/popUpManager';
 import { ActaRecibidoHelper } from '../../../helpers/acta_recibido/actaRecibidoHelper';
@@ -39,9 +39,33 @@ export class RegistroComponent implements OnInit {
       },
       FechaCreacion: {
         title: 'Fecha de Creación',
+        valuePrepareFunction: (value: any) => {
+          const date = value.split('T');
+          return date[0];
+        },
+        filter: {
+          type: 'daterange',
+          config: {
+            daterange: {
+              format: 'yyyy/mm/dd',
+            },
+          },
+        },
       },
       FechaVistoBueno: {
         title: 'Fecha de Visto Bueno',
+        valuePrepareFunction: (value: any) => {
+          const date = value.split('T');
+          return date[0];
+        },
+        filter: {
+          type: 'daterange',
+          config: {
+            daterange: {
+              format: 'yyyy/mm/dd',
+            },
+          },
+        },
       },
       RevisorId: {
         title: 'Revisor',
@@ -49,7 +73,7 @@ export class RegistroComponent implements OnInit {
       UbicacionId: {
         title: 'Ubicación',
       },
-      Estado: {
+      CodigoAbreviacion: {
         title: 'Estado',
       },
       Observaciones: {
@@ -83,6 +107,7 @@ export class RegistroComponent implements OnInit {
             acta.Observaciones = data[datos].ActaRecibidoId.Observaciones;
             acta.RevisorId = data[datos].ActaRecibidoId.RevisorId;
             acta.UbicacionId = data[datos].ActaRecibidoId.UbicacionId;
+            acta.CodigoAbreviacion = data[datos].EstadoActaId.CodigoAbreviacion;
             this.actas.push(acta);
           }
         }
@@ -92,9 +117,7 @@ export class RegistroComponent implements OnInit {
   }
 
   onCustom(event) {
-    alert(`Custom event '${event.action}' fired on row №: ${event.data.Id}`);
-    // this.actaSeleccionada = `${event.data.Id}`;
-    this.actaSeleccionada = '2';
+    this.actaSeleccionada = `${event.data.Id}`;
   }
 
 }

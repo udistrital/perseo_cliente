@@ -78,14 +78,15 @@
       <div class="form-group col-sm">
         <label>Sede</label>
         <div class="input-group">
-          <input nbInput type="text" shape="semi-round" placeholder="Sede" class="form-control" [readonly]="true" />
+          <input nbInput type="text" shape="semi-round" placeholder="Sede" class="form-control"
+            value="{{ contratoEspecifico.Supervisor.Sede }}" [readonly]="true" />
         </div>
       </div>
       <div class="form-group col-sm">
         <label>Dependencia</label>
         <div class="input-group">
           <input nbInput type="text" shape="semi-round" placeholder="Dependencia" class="form-control"
-            [readonly]="true" />
+            value="{{ contratoEspecifico.Supervisor.Dependencia }}" [readonly]="true" />
         </div>
       </div>
     </div>
