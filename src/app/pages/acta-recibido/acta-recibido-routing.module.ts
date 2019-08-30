@@ -4,6 +4,7 @@ import { ActaRecibidoComponent } from './acta-recibido.component';
 import { RegistroActaRecibidoComponent } from './registro-acta-recibido/registro-acta-recibido.component';
 import { VerificacionActaRecibidoComponent } from './verificacion-acta-recibido/verificacion-acta-recibido.component';
 import { ConsultaActaRecibidoComponent } from './consulta-acta-recibido/consulta-acta-recibido.component';
+import { EdicionActaRecibidoComponent } from './edicion-acta-recibido/edicion-acta-recibido.component';
 
 const routes: Routes = [{
   path: '',
@@ -16,6 +17,10 @@ const routes: Routes = [{
     {
       path: 'registro_acta_recibido',
       component: RegistroActaRecibidoComponent,
+    },
+    {
+      path: 'edicion_acta_recibido',
+      component: EdicionActaRecibidoComponent,
     },
     {
       path: 'verificacion_acta_recibido',

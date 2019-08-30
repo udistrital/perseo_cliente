@@ -1,11 +1,10 @@
 import { ActaRecibido } from './acta_recibido';
+import { EstadoActa } from './estado_acta';
 
-export class SoporteActa {
+export class HistoricoActa {
     Id: number;
-    Consecutivo: number;
-    Proveedor: number; // CAMBIAR POR MODELO CUANDO SE PUEDA CONSULTAR
-    FechaSoporte: Date;
     ActaRecibidoId: ActaRecibido;
+    EstadoActaId: EstadoActa;
     Activo: boolean;
     FechaCreacion: Date;
     FechaModificacion: Date;

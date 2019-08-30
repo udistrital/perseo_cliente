@@ -1,4 +1,4 @@
-export class EstadoElemento {
+export class EstadoActa {
     Id: number;
     Nombre: string;
     Descripcion: string;
