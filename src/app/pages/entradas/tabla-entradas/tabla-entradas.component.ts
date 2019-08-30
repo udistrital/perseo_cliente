@@ -1,11 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { LocalDataSource } from 'ng2-smart-table';
-import { EntradaHelper } from '../../../helpers/entradas/entradaHelper';
+import { LocalDataSource } from 'ngx-smart-table';
 import { PopUpManager } from '../../../managers/popUpManager';
 import { Elemento } from '../../../@core/data/models/acta_recibido/elemento';
 import { TipoBien } from '../../../@core/data/models/acta_recibido/tipo_bien';
 import { SoporteActa } from '../../../@core/data/models/acta_recibido/soporte_acta';
-import { never } from 'rxjs';
 import { ActaRecibidoHelper } from '../../../helpers/acta_recibido/actaRecibidoHelper';
 
 @Component({
@@ -32,15 +30,21 @@ export class TablaEntradasComponent implements OnInit {
     },
     columns: {
       SoporteActa: {
-        title: 'Factira',
+        title: 'Factura',
+        valuePrepareFunction: (value: any) => {
+          return value.Consecutivo;
+        },
       },
       TipoBien: {
         title: 'Tipo de Bien',
+        valuePrepareFunction: (value: any) => {
+          return value.Nombre;
+        },
       },
       SubgrupoCatalogoId: {
         title: 'Subgrupo',
       },
-      Descripcion: {
+      Nombre: {
         title: 'Descripcion',
       },
       Cantidad: {

@@ -61,7 +61,7 @@ export class EntradaHelper {
      * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
      */
     public postEntrada(entradaData) {
-        this.rqManager.setPath('ACTA_RECIBIDO_SERVICE');
+        this.rqManager.setPath('ARKA_SERVICE');
         return this.rqManager.post(`entrada/`, entradaData).pipe(
             map(
                 (res) => {
