@@ -111,9 +111,9 @@ export class TablaEntradasComponent implements OnInit {
             elemento.Verificado = data[datos].Verificado;
             tipoBien.Id = data[datos].TipoBienId.Id;
             tipoBien.Nombre = data[datos].TipoBienId.Nombre;
-            elemento.TipoBien = tipoBien;
+            elemento.TipoBienId = tipoBien;
             soporteActa.Consecutivo = data[datos].SoporteActaId.Consecutivo;
-            elemento.SoporteActa = soporteActa;
+            elemento.SoporteActaId = soporteActa;
             elemento.SubgrupoCatalogoId = data[datos].SubgrupoCatalogoId;
             this.elementos.push(elemento);
           }
