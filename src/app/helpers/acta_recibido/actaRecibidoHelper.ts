@@ -145,7 +145,7 @@ export class ActaRecibidoHelper {
      */
     public getTransaccionActa(ActaId) {
         this.rqManager.setPath('ACTA_RECIBIDO_SERVICE');
-        return this.rqManager.get('transaccion_acta_recibido/'+ ActaId ).pipe(
+        return this.rqManager.get('transaccion_acta_recibido/' + ActaId ).pipe(
             map(
                 (res) => {
                     if (res === 'error') {
@@ -166,7 +166,7 @@ export class ActaRecibidoHelper {
      */
     public postTransaccionActa(Transaccion) {
         this.rqManager.setPath('ACTA_RECIBIDO_SERVICE');
-        return this.rqManager.post('transaccion_acta_recibido',Transaccion).pipe(
+        return this.rqManager.post('transaccion_acta_recibido', Transaccion).pipe(
             map(
                 (res) => {
                     if (res['Type'] === 'error') {
@@ -178,8 +178,6 @@ export class ActaRecibidoHelper {
             ),
         );
     }
-
-    
 
 
 }

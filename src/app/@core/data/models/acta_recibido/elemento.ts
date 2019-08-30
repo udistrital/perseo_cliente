@@ -13,7 +13,7 @@ export class Elemento {
     Subtotal: number;
     Descuento: number;
     ValorTotal: number;
-    PorcentajeIvaId: number; // Remplazar por modelo cuando este disponoble 
+    PorcentajeIvaId: number; // Remplazar por modelo cuando este disponoble
     ValorIva: number;
     ValorFinal: number;
     SubgrupoCatalogoId: number; // Remplazar por modelo cuando este disponoble

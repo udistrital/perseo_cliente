@@ -213,26 +213,26 @@ export class RegistroActaRecibidoComponent implements OnInit {
 
     const Transaccion_Acta = new TransaccionActaRecibido();
 
-    Transaccion_Acta.ActaRecibido = this.Registrar_Acta(this.Datos.Formulario1,this.Datos.Formulario3);
-    Transaccion_Acta.UltimoEstado = this.Registrar_Estado_Acta(Transaccion_Acta.ActaRecibido,2);
+    Transaccion_Acta.ActaRecibido = this.Registrar_Acta(this.Datos.Formulario1, this.Datos.Formulario3);
+    Transaccion_Acta.UltimoEstado = this.Registrar_Estado_Acta(Transaccion_Acta.ActaRecibido, 2);
 
     const Soportes = new Array<TransaccionSoporteActa>();
 
-    for (let soporte of this.Datos.Formulario2) {
-      console.log(soporte);
+    for (const soporte of this.Datos.Formulario2) {
+
       Soportes.push(this.Registrar_Soporte(soporte, soporte.Elementos, Transaccion_Acta.ActaRecibido));
     }
 
     Transaccion_Acta.SoportesActa = Soportes;
 
-    console.log(Transaccion_Acta);
+
 
     this.Actas_Recibido.postTransaccionActa(Transaccion_Acta).subscribe((res: any) => {
-      console.log(res);
+
     });
 
   }
-  
+
   Registrar_Acta(Datos: any, Datos2: any): ActaRecibido {
 
     const Acta_de_Recibido = new ActaRecibido();
@@ -248,19 +248,19 @@ export class RegistroActaRecibidoComponent implements OnInit {
     return Acta_de_Recibido;
   }
   Registrar_Estado_Acta(Acta: ActaRecibido, Estado: number): HistoricoActa {
-    
+
     const Historico_ = new HistoricoActa();
 
     Historico_.Id = null;
     Historico_.ActaRecibidoId = Acta;
     Historico_.Activo = true;
-    Historico_.EstadoActaId = this.Estados_Acta.find(estado => estado.Id == Estado);
+    Historico_.EstadoActaId = this.Estados_Acta.find(estado => estado.Id === Estado);
     Historico_.FechaCreacion = new Date();
     Historico_.FechaModificacion = new Date();
 
     return Historico_;
   }
-  Registrar_Soporte(Datos : any, Elementos_: any, Acta :ActaRecibido): TransaccionSoporteActa {
+  Registrar_Soporte(Datos: any, Elementos_: any, Acta: ActaRecibido): TransaccionSoporteActa {
 
     const Soporte_Acta = new SoporteActa();
     const Transaccion = new TransaccionSoporteActa();
@@ -273,21 +273,21 @@ export class RegistroActaRecibidoComponent implements OnInit {
     Soporte_Acta.FechaModificacion = new Date();
     Soporte_Acta.FechaSoporte = Datos.Fecha_Factura;
     Soporte_Acta.Proveedor = Datos.Proveedor;
-    
-    Transaccion.SoporteActa = Soporte_Acta;
-    Transaccion.Elementos = this.Registrar_Elementos(Elementos_,Soporte_Acta);
 
-    return Transaccion
+    Transaccion.SoporteActa = Soporte_Acta;
+    Transaccion.Elementos = this.Registrar_Elementos(Elementos_, Soporte_Acta);
+
+    return Transaccion;
   }
-  Registrar_Elementos(Datos :any, Soporte: SoporteActa) :Array<Elemento> {
-    var Elementos_Soporte = new Array<Elemento>();
-    
-    for(let datos of Datos) {
+  Registrar_Elementos(Datos: any, Soporte: SoporteActa): Array<Elemento> {
+    const Elementos_Soporte = new Array<Elemento>();
+
+    for (const datos of Datos) {
 
       const Elemento__ = new Elemento;
       const valorTotal = (parseFloat(this.Pipe2Number(datos.Subtotal)) - parseFloat(this.Pipe2Number(datos.Descuento)));
-      
-      Elemento__.Id = null
+
+      Elemento__.Id = null;
       Elemento__.Nombre = datos.Nombre;
       Elemento__.Cantidad = datos.Cantidad;
       Elemento__.Marca = datos.Marca;
@@ -302,8 +302,8 @@ export class RegistroActaRecibidoComponent implements OnInit {
       Elemento__.ValorFinal = parseFloat(this.Pipe2Number(datos.ValorTotal));
       Elemento__.SubgrupoCatalogoId = parseFloat(datos.SubgrupoCatalogoId);
       Elemento__.Verificado = false;
-      Elemento__.TipoBienId = this.Tipos_Bien.find(bien => bien.Id == datos.TipoBienId);
-      Elemento__.EstadoElementoId = this.Estados_Acta.find(estado => estado.Id == 1);
+      Elemento__.TipoBienId = this.Tipos_Bien.find(bien => bien.Id === datos.TipoBienId);
+      Elemento__.EstadoElementoId = this.Estados_Acta.find(estado => estado.Id === 1);
       Elemento__.SoporteActaId = Soporte;
       Elemento__.Activo = true;
       Elemento__.FechaCreacion = new Date();
