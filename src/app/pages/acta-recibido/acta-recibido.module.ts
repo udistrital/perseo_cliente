@@ -14,7 +14,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatStepperModule } from '@angular/material/stepper';
 import {MatTableModule} from '@angular/material/table';
 import { MatPaginatorModule, MatSortModule } from '@angular/material';
-import { TablaFacturaComponent } from './registro-acta-recibido/tabla-factura/tabla-factura.component';
 import { EdicionActaRecibidoComponent } from './edicion-acta-recibido/edicion-acta-recibido.component';
 
 
@@ -24,7 +23,6 @@ import { EdicionActaRecibidoComponent } from './edicion-acta-recibido/edicion-ac
     RegistroActaRecibidoComponent,
     VerificacionActaRecibidoComponent,
     ConsultaActaRecibidoComponent,
-    TablaFacturaComponent,
     EdicionActaRecibidoComponent,
   ],
   imports: [
