@@ -41,7 +41,7 @@ export class ActaRecibidoHelper {
      */
     public getActasRecibido2() {
         this.rqManager.setPath('ACTA_RECIBIDO_SERVICE');
-        return this.rqManager.get('historico_acta?query=ActaRecibidoId.Activo:True').pipe(
+        return this.rqManager.get('historico_acta?query=Activo:true&limit=-1').pipe(
             map(
                 (res) => {
                     if (res === 'error') {

@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { ActaRecibidoHelper } from '../../../helpers/acta_recibido/actaRecibidoHelper';
 import { PopUpManager } from '../../../managers/popUpManager';
 import { ActaRecibido } from '../../../@core/data/models/acta_recibido/acta_recibido';
+import { ConsultaActaRecibido } from '../../../@core/data/models/acta_recibido/consulta_actas';
+import { stringify } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'ngx-consulta-acta-recibido',
@@ -14,45 +16,32 @@ import { ActaRecibido } from '../../../@core/data/models/acta_recibido/acta_reci
 export class ConsultaActaRecibidoComponent implements OnInit {
 
   actaSeleccionada: string;
+  estadoActaSeleccionada: string;
   source: LocalDataSource;
-  actas: Array<ActaRecibido>;
+  actas: Array<ConsultaActaRecibido>;
 
   settings = {
     actions: {
+      columnTitle: 'Acciones',
       custom: [
         {
           name: 'Ver',
-          title: '<i class="fas fa-eye" nbPopover="Ver" nbPopoverTrigger="hint" nbPopoverPlacement="bottom"></i>',
+          title: '<i class="fas fa-eye"></i>',
         },
         {
           name: 'Editar',
-          title: '<i class="fas fa-pencil-alt" nbPopover="Editar" nbPopoverTrigger="hint" nbPopoverPlacement="bottom"></i>',
-        },
-        {
-          name: 'Anular',
-          title: '<i class="fas fa-trash-alt" nbPopover="Anular" nbPopoverTrigger="hint" nbPopoverPlacement="bottom"></i>',
-        },
-        {
-          name: 'Enviar a Revision',
-          title: '<i class="fas fa-play" nbPopover="Enviar a Revisor" nbPopoverTrigger="hint" nbPopoverPlacement="bottom"></i>',
-        },
-        {
-          name: 'Enviar a Jefe de Area',
-          title: '<i class="fas fa-forward" nbPopover="Enviar a Jefe de Area" nbPopoverTrigger="hint" nbPopoverPlacement="bottom"></i>',
-        },
-        {
-          name: 'Verificar',
-          title: '<i class="fas fa-tasks" nbPopover="Verificar" nbPopoverTrigger="hint" nbPopoverPlacement="bottom"></i>',
+          title: '<i class="fas fa-pencil-alt"></i>',
         },
       ],
       position: 'right',
       add: false,
-      edit: true,
+      edit: false,
       delete: false,
     },
     columns: {
       Id: {
         title: 'Consecutivo',
+        width: '90px',
         valuePrepareFunction: (value: any) => {
           return value;
         },
@@ -111,7 +100,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
           return value;
         },
       },
-      estado: {
+      Estado: {
         title: 'Estado',
         valuePrepareFunction: (value: any) => {
           return value;
@@ -121,13 +110,13 @@ export class ConsultaActaRecibidoComponent implements OnInit {
           config: {
             selectText: 'Select...',
             list: [
-              { value: '1', title: 'Registrada' },
-              { value: '2', title: 'En Elaboracion' },
-              { value: '3', title: 'En Revision' },
-              { value: '4', title: 'En Verificacion' },
-              { value: '5', title: 'Aceptada' },
-              { value: '6', title: 'Anulada' },
-
+              { value: 'Registrada', title: 'Registrada' },
+              { value: 'En Elaboracion', title: 'En Elaboracion' },
+              { value: 'En Modificacion', title: 'En Modificacion' },
+              { value: 'En Verificacion', title: 'En Verificacion' },
+              { value: 'Aceptada', title: 'Aceptada' },
+              { value: 'Asociada a Entrada', title: 'Asociada a Entrada'},
+              { value: 'Anulada', title: 'Anulada' },
             ],
           },
         },
@@ -146,6 +135,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
       },
     },
   };
+  accion: string;
 
 
 
@@ -157,7 +147,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => { // Live reload
     });
     this.source = new LocalDataSource(); // create the source
-      this.actas = new Array<ActaRecibido>();
+      this.actas = new Array<ConsultaActaRecibido>();
       this.actaSeleccionada = '';
       this.loadActas();
   }
@@ -168,11 +158,13 @@ export class ConsultaActaRecibidoComponent implements OnInit {
   onCustom(event: any) {
 
     this.actaSeleccionada = `${event.data.Id}`;
+    this.estadoActaSeleccionada = `${event.data.Estado}`;
+    this.accion = `${event.action}`;
 
-    alert(`Custom event '${event.action}' fired on row №: ${event.data.consecutivo}`);
-    if (event !== null) {
-      this.router.navigate(['/pages/acta_recibido/registro_acta_recibido', { id: event.data.consecutivo }]);
-    }
+    console.log(this.accion);
+    console.log(this.estadoActaSeleccionada);
+    console.log(this.actaSeleccionada);
+
   }
   onRegister() {
     this.router.navigate(['/pages/acta_recibido/registro_acta_recibido']);
@@ -181,10 +173,11 @@ export class ConsultaActaRecibidoComponent implements OnInit {
   loadActas(): void {
     this.actaRecibidoHelper.getActasRecibido2().subscribe(res => {
       if (res !== null) {
+        console.log(res);
         const data = <Array<any>>res;
         for (const datos in Object.keys(data)) {
           if (data.hasOwnProperty(datos)) {
-            const acta = new ActaRecibido;
+            const acta = new ConsultaActaRecibido;
             acta.Activo = data[datos].ActaRecibidoId.Activo;
             acta.FechaCreacion = data[datos].ActaRecibidoId.FechaCreacion;
             acta.FechaModificacion = data[datos].ActaRecibidoId.FechaModificacion;
@@ -193,12 +186,13 @@ export class ConsultaActaRecibidoComponent implements OnInit {
             acta.Observaciones = data[datos].ActaRecibidoId.Observaciones;
             acta.RevisorId = data[datos].ActaRecibidoId.RevisorId;
             acta.UbicacionId = data[datos].ActaRecibidoId.UbicacionId;
-            acta.CodigoAbreviacion = data[datos].EstadoActaId.CodigoAbreviacion;
+            acta.Estado = data[datos].EstadoActaId.Nombre;
             this.actas.push(acta);
           }
         }
         this.source.load(this.actas);
       }
     });
+    
   }
 }

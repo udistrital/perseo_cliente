@@ -4,9 +4,9 @@
   }
   
   :host /deep/ ng2-st-tbody-custom a.ng2-smart-action.ng2-smart-action-custom-custom {
-    display: block;
+    display: flex;
     width: 100px;
-    text-align: center;
+    text-align: left;
     font-size: 0.5em;
   }
   
