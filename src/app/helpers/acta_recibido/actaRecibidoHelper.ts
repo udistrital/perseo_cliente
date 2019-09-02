@@ -33,6 +33,28 @@ export class ActaRecibidoHelper {
         );
     }
 
+/**
+     * Contratos Get
+     * If the response has errors in the OAS API it should show a popup message with an error.
+     * If the response is successs, it returns the object's data.
+     * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
+     */
+    public getActasRecibido2() {
+        this.rqManager.setPath('ACTA_RECIBIDO_SERVICE');
+        return this.rqManager.get('historico_acta?query=ActaRecibidoId.Activo:True').pipe(
+            map(
+                (res) => {
+                    if (res === 'error') {
+                        this.pUpManager.showErrorAlert('No se pudo consultar las actas de recibido');
+                        return undefined;
+                    }
+                    return res;
+                },
+            ),
+        );
+    }
+
+
     /**
      * Elementos Acta Get
      * If the response has errors in the OAS API it should show a popup message with an error.
@@ -167,6 +189,27 @@ export class ActaRecibidoHelper {
     public postTransaccionActa(Transaccion) {
         this.rqManager.setPath('ACTA_RECIBIDO_SERVICE');
         return this.rqManager.post('transaccion_acta_recibido', Transaccion).pipe(
+            map(
+                (res) => {
+                    if (res['Type'] === 'error') {
+                        this.pUpManager.showErrorAlert('No se pudo consultar el acta solicitada');
+                        return undefined;
+                    }
+                    return res;
+                },
+            ),
+        );
+    }
+
+    /**
+     * Estados Acta Get
+     * If the response has errors in the OAS API it should show a popup message with an error.
+     * If the response is successs, it returns the object's data.
+     * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
+     */
+    public putTransaccionActa(Transaccion, Id) {
+        this.rqManager.setPath('ACTA_RECIBIDO_SERVICE');
+        return this.rqManager.put2('transaccion_acta_recibido', Transaccion, Id).pipe(
             map(
                 (res) => {
                     if (res['Type'] === 'error') {

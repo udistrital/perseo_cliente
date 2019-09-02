@@ -73,7 +73,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
     this.Traer_Tipo_Bien();
     this.Traer_Estados_Acta();
     this.Traer_Estados_Elemento();
-    this.Traer_Acta(17);
+    this.Traer_Acta(3);
   }
   Traer_Estados_Acta() {
     this.Estados_Acta = new Array<EstadoActa>();
@@ -155,6 +155,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
     for (const Soporte of transaccion_.SoportesActa) {
 
       const Formulario__2 = this.fb.group({
+        Id:[Soporte.SoporteActa.Id],
         Proveedor: [Soporte.SoporteActa.ProveedorId, Validators.required],
         Consecutivo: [Soporte.SoporteActa.Consecutivo, Validators.required],
         Fecha_Factura: [Soporte.SoporteActa.FechaSoporte, Validators.required],
@@ -165,6 +166,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
         for (const _Elemento of Soporte.Elementos ){
 
           const Elemento___ = this.fb.group({
+            Id:[_Elemento.Id],
             TipoBienId: [_Elemento.TipoBienId.Id, Validators.required],
             SubgrupoCatalogoId: [_Elemento.SubgrupoCatalogoId, Validators.required],
             Nombre: [_Elemento.Nombre, Validators.required],
@@ -188,6 +190,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
 
     this.firstForm = this.fb.group({
       Formulario1: this.fb.group({
+        Id:[transaccion_.ActaRecibido.Id],
         Sede: ['', Validators.required],
         Dependencia: ['', Validators.required],
         Ubicacion: [transaccion_.ActaRecibido.UbicacionId, Validators.required],
@@ -202,6 +205,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
   }
   get Formulario_1(): FormGroup {
     return this.fb.group({
+      Id:[0],
       Sede: ['', Validators.required],
       Dependencia: ['', Validators.required],
       Ubicacion: ['', Validators.required],
@@ -209,6 +213,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
   }
   get Formulario_2(): FormGroup {
     return this.fb.group({
+      Id:[0],
       Proveedor: ['', Validators.required],
       Consecutivo: ['', Validators.required],
       Fecha_Factura: ['', Validators.required],
@@ -218,6 +223,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
   }
   get Elementos(): FormGroup {
     return this.fb.group({
+      Id:[0],
       TipoBienId: ['', Validators.required],
       SubgrupoCatalogoId: ['', Validators.required],
       Nombre: ['', Validators.required],
@@ -277,9 +283,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
 
     Transaccion_Acta.SoportesActa = Soportes;
 
-
-
-    this.Actas_Recibido.postTransaccionActa(Transaccion_Acta).subscribe((res: any) => {
+    this.Actas_Recibido.putTransaccionActa(Transaccion_Acta, Transaccion_Acta.ActaRecibido.Id).subscribe((res: any) => {
 
     });
 
@@ -289,7 +293,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
 
     const Acta_de_Recibido = new ActaRecibido();
 
-    Acta_de_Recibido.Id = null;
+    Acta_de_Recibido.Id = parseFloat(Datos.Id);;
     Acta_de_Recibido.Activo = true;
     Acta_de_Recibido.FechaCreacion = new Date();
     Acta_de_Recibido.FechaModificacion = new Date();
@@ -317,7 +321,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
     const Soporte_Acta = new SoporteActa();
     const Transaccion = new TransaccionSoporteActa();
 
-    Soporte_Acta.Id = null;
+    Soporte_Acta.Id = parseFloat(Datos.Id);;
     Soporte_Acta.ActaRecibidoId = __;
     Soporte_Acta.Activo = true;
     Soporte_Acta.Consecutivo = Datos.Consecutivo;
@@ -339,7 +343,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
       const Elemento__ = new Elemento;
       const valorTotal = (parseFloat(this.Pipe2Number(datos.Subtotal)) - parseFloat(this.Pipe2Number(datos.Descuento)));
 
-      Elemento__.Id = null;
+      Elemento__.Id = parseFloat(Datos.Id);;
       Elemento__.Nombre = datos.Nombre;
       Elemento__.Cantidad = datos.Cantidad;
       Elemento__.Marca = datos.Marca;

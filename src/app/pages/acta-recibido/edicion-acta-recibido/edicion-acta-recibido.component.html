@@ -104,7 +104,7 @@
                                 <th mat-header-cell *matHeaderCellDef> Tipo de Bien </th>
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
-                                  <select type="text" class="cell-2 form-control" [(ngModel)]="element.TipoBienId"
+                                  <select type="text" class="cell-2 form-control" 
                                   formControlName="TipoBienId" placeholder="Tipo de Bien" required>
                                     <option *ngFor="let tipobien of Tipos_Bien" [(value)]="tipobien.Id">{{tipobien.Nombre}}</option>
                                   </select>
@@ -117,7 +117,7 @@
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   
-                                  <select nbInput type="text" fieldSize="tiny" class="cell form-control" [(ngModel)]="element.SubgrupoCatalogoId"
+                                  <select nbInput type="text" fieldSize="tiny" class="cell form-control" 
                                     formControlName="SubgrupoCatalogoId" placeholder="Subcatalogo" required>
                                     <option>1232341</option>
                                     <option>7674234</option>
@@ -132,7 +132,7 @@
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   
-                                  <input nbInput type="text" fieldSize="tiny" class="cell" formControlName="Nombre" [(ngModel)]="element.Nombre"
+                                  <input nbInput type="text" fieldSize="tiny" class="cell" formControlName="Nombre" 
                                     placeholder="Descripcion" required>
 
                                 </td>
@@ -144,7 +144,7 @@
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   
-                                  <input nbInput type="number" fieldSize="tiny" class="cell"  formControlName="Cantidad" [(ngModel)]="element.Cantidad"
+                                  <input nbInput type="number" fieldSize="tiny" class="cell"  formControlName="Cantidad" 
                                   placeholder="Cantidad" required>
                                 </td>
                               </ng-container>
@@ -155,7 +155,7 @@
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   
-                                  <input nbInput type="text" fieldSize="tiny" class="cell"  formControlName="Marca" [(ngModel)]="element.Marca"
+                                  <input nbInput type="text" fieldSize="tiny" class="cell"  formControlName="Marca"
                                     placeholder="Marca" required>
                                 </td>
                               </ng-container>
@@ -166,7 +166,7 @@
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   
-                                  <input nbInput type="text" fieldSize="tiny" class="cell"  formControlName="Serie" [(ngModel)]="element.Serie"
+                                  <input nbInput type="text" fieldSize="tiny" class="cell"  formControlName="Serie"
                                     placeholder="Serie" required>
                                 </td>
                               </ng-container>
@@ -177,7 +177,7 @@
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   
-                                  <input nbInput type="number" fieldSize="tiny" class="cell" [(ngModel)]="element.UnidadMedida"
+                                  <input nbInput type="number" fieldSize="tiny" class="cell" 
                                     formControlName="UnidadMedida" placeholder="Medida" required>
                                 </td>
                               </ng-container>
@@ -188,7 +188,7 @@
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   
-                                  <input nbInput type="text" fieldSize="tiny" class="cell" [ngModel]="element.ValorUnitario | currency" (ngModelChange)="element.ValorUnitario = Pipe2Number($event)"
+                                  <input nbInput type="text" fieldSize="tiny" class="cell" 
                                     formControlName="ValorUnitario" placeholder="Valor Unitario" required>
                                 </td>
                               </ng-container>
@@ -199,7 +199,7 @@
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   
-                                  <input nbInput type="text" fieldSize="tiny" class="cell"  formControlName="Subtotal" [ngModel]="valorXcantidad(element.ValorUnitario, element.Cantidad) | currency" (ngModelChange)="element.Subtotal = Pipe2Number($event)"
+                                  <input nbInput type="text" fieldSize="tiny" class="cell"  formControlName="Subtotal" 
                                     placeholder="Subtotal" required>
                                 </td>
                               </ng-container>
@@ -210,7 +210,7 @@
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   
-                                  <input nbInput type="text" fieldSize="tiny" class="cell"  formControlName="Descuento" [ngModel]="element.Descuento | currency" (ngModelChange)="element.Descuento = Pipe2Number($event)"
+                                  <input nbInput type="text" fieldSize="tiny" class="cell"  formControlName="Descuento" 
                                     placeholder="Descuento" required>
                                 </td>
                               </ng-container>
@@ -221,7 +221,7 @@
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   
-                                  <input nbInput type="number" fieldSize="tiny" class="cell" [(ngModel)]="element.PorcentajeIvaId"
+                                  <input nbInput type="number" fieldSize="tiny" class="cell" 
                                     formControlName="PorcentajeIvaId" placeholder="% IVA" required>
                                 </td>
                               </ng-container>
@@ -232,7 +232,7 @@
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                  
-                                  <input nbInput type="text" fieldSize="tiny" class="cell" [ngModel]="valor_iva(element.Subtotal, element.Descuento, element.PorcentajeIvaId) | currency" (ngModelChange)="element.ValorIva = Pipe2Number($event)"
+                                  <input nbInput type="text" fieldSize="tiny" class="cell" 
                                     formControlName="ValorIva" placeholder="Valor Iva" required>
                                 </td>
                               </ng-container>
@@ -242,7 +242,7 @@
                                 <th mat-header-cell *matHeaderCellDef> ValorTotal </th>
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
-                                  <input nbInput type="text" fieldSize="tiny" class="cell" [ngModel]="valortotal(element.Subtotal, element.Descuento, element.ValorIva) | currency" (ngModelChange)="element.ValorTotal = Pipe2Number($event)"
+                                  <input nbInput type="text" fieldSize="tiny" class="cell" 
                                     formControlName="ValorTotal" placeholder="Valor Total" required>
                                 </td>
                               </ng-container>

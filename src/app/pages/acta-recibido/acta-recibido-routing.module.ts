@@ -5,6 +5,7 @@ import { RegistroActaRecibidoComponent } from './registro-acta-recibido/registro
 import { VerificacionActaRecibidoComponent } from './verificacion-acta-recibido/verificacion-acta-recibido.component';
 import { ConsultaActaRecibidoComponent } from './consulta-acta-recibido/consulta-acta-recibido.component';
 import { EdicionActaRecibidoComponent } from './edicion-acta-recibido/edicion-acta-recibido.component';
+import { VerDetalleComponent } from './ver-detalle/ver-detalle.component';
 
 const routes: Routes = [{
   path: '',
@@ -25,6 +26,10 @@ const routes: Routes = [{
     {
       path: 'verificacion_acta_recibido',
       component: VerificacionActaRecibidoComponent,
+    },
+    {
+      path: 'ver_detalle',
+      component: VerDetalleComponent,
     },
   ],
 }];

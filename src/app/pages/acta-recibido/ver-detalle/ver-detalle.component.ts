@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren, QueryList, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
@@ -18,20 +18,17 @@ import { TransaccionSoporteActa, TransaccionActaRecibido } from '../../../@core/
 import Swal from 'sweetalert2';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-
-
-
+import { CurrencyPipe } from '@angular/common';
 
 
 @Component({
-  selector: 'ngx-registro-acta-recibido',
-  templateUrl: './registro-acta-recibido.component.html',
-  styleUrls: ['./registro-acta-recibido.component.scss'],
+  selector: 'ngx-ver-detalle',
+  templateUrl: './ver-detalle.component.html',
+  styleUrls: ['./ver-detalle.component.scss']
 })
+export class VerDetalleComponent implements OnInit {
 
-
-export class RegistroActaRecibidoComponent implements OnInit {
-
+  
   config: ToasterConfig;
 
   // Mensajes de error
@@ -51,16 +48,18 @@ export class RegistroActaRecibidoComponent implements OnInit {
 
   // Tablas parametricas
 
+  @Input('Id_Acta') _ActaId: number;
   Estados_Acta: Array<EstadoActa>;
   Tipos_Bien: Array<TipoBien>;
   Estados_Elemento: Array<EstadoElemento>;
 
   // Modelos
 
-  Acta: ActaRecibido;
-  Elementos_Soporte: Array<Elemento>;
+  Acta__: ActaRecibido;
+  Elementos__Soporte: Array<Elemento>;
   Soportes_Acta: Array<SoporteActa>;
   Historico_Acta: HistoricoActa;
+  Transaccion__: TransaccionActaRecibido;
 
   constructor(
     private translate: TranslateService,
@@ -69,6 +68,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
     private fb: FormBuilder,
     private Actas_Recibido: ActaRecibidoHelper,
     private toasterService: ToasterService,
+    private cp: CurrencyPipe,
 
   ) {
   }
@@ -76,7 +76,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
     this.Traer_Tipo_Bien();
     this.Traer_Estados_Acta();
     this.Traer_Estados_Elemento();
-    this.Cargar_Formularios();
+    this.Traer_Acta(3);
   }
   Traer_Estados_Acta() {
     this.Estados_Acta = new Array<EstadoActa>();
@@ -139,82 +139,85 @@ export class RegistroActaRecibidoComponent implements OnInit {
       }
     });
   }
-  Cargar_Formularios() {
+  Traer_Acta(Acta_Id: number) {
+    this.Transaccion__ = new TransaccionActaRecibido;
+    this.Actas_Recibido.getTransaccionActa(Acta_Id).subscribe(res => {
+      if (res !== null) {
+        this.Transaccion__ = res[0];
+
+        this.Cargar_Formularios(this.Transaccion__);
+      }
+    });
+  }
+  T_V(valor: string): string{
+    return this.cp.transform(valor);
+  }
+  Cargar_Formularios(transaccion_: TransaccionActaRecibido) {
+
+    this.firstForm = new FormGroup({});
+
+    const Form2 = this.fb.array([]);
+
+    for (const Soporte of transaccion_.SoportesActa) {
+
+      const Formulario__2 = this.fb.group({
+        Id:[Soporte.SoporteActa.Id],
+        Proveedor: [Soporte.SoporteActa.ProveedorId, Validators.required],
+        Consecutivo: [Soporte.SoporteActa.Consecutivo, Validators.required],
+        Fecha_Factura: [Soporte.SoporteActa.FechaSoporte, Validators.required],
+        Soporte: ['', Validators.required],
+        Elementos: this.fb.array([]),
+      });
+
+        for (const _Elemento of Soporte.Elementos ){
+
+          const Elemento___ = this.fb.group({
+            Id:[_Elemento.Id],
+            TipoBienId: [_Elemento.TipoBienId.Id, Validators.required],
+            SubgrupoCatalogoId: [_Elemento.SubgrupoCatalogoId, Validators.required],
+            Nombre: [_Elemento.Nombre, Validators.required],
+            Cantidad: [_Elemento.Cantidad, Validators.required],
+            Marca: [_Elemento.Marca, Validators.required],
+            Serie: [_Elemento.Serie, Validators.required],
+            UnidadMedida: [_Elemento.UnidadMedida, Validators.required],
+            ValorUnitario: [this.T_V(_Elemento.ValorUnitario.toString()), Validators.required],
+            Subtotal: [this.T_V(_Elemento.ValorTotal.toString()), Validators.required],
+            Descuento: [this.T_V(_Elemento.Descuento.toString()), Validators.required],
+            PorcentajeIvaId: [_Elemento.PorcentajeIvaId, Validators.required],
+            ValorIva: [this.T_V(_Elemento.ValorIva.toString()), Validators.required],
+            ValorTotal: [this.T_V(_Elemento.ValorFinal.toString()), Validators.required],
+            Verificado: [false, Validators.required],
+          });
+
+        (Formulario__2.get('Elementos') as FormArray).push(Elemento___);
+        }
+
+      Form2.push(Formulario__2);
+    }
 
     this.firstForm = this.fb.group({
-      Formulario1: this.Formulario_1,
-      Formulario2: this.fb.array([this.Formulario_2]),
-      Formulario3: this.Formulario_3,
+      Formulario1: this.fb.group({
+        Id:[transaccion_.ActaRecibido.Id],
+        Sede: ['', Validators.required],
+        Dependencia: ['', Validators.required],
+        Ubicacion: [transaccion_.ActaRecibido.UbicacionId, Validators.required],
+      }),
+      Formulario2: Form2,
+      Formulario3: this.fb.group({
+        Datos_Adicionales: [transaccion_.ActaRecibido.Observaciones, Validators.required],
+      }),
     });
+
     this.carga_agregada = true;
   }
-  get Formulario_1(): FormGroup {
-    return this.fb.group({
-      Sede: ['', Validators.required],
-      Dependencia: ['', Validators.required],
-      Ubicacion: ['', Validators.required],
-    });
-  }
-  get Formulario_2(): FormGroup {
-    return this.fb.group({
-      Proveedor: ['', Validators.required],
-      Consecutivo: ['', Validators.required],
-      Fecha_Factura: ['', Validators.required],
-      Soporte: ['', Validators.required],
-      Elementos: this.fb.array([this.Elementos]),
-    });
-  }
-  get Elementos(): FormGroup {
-    return this.fb.group({
-      TipoBienId: ['', Validators.required],
-      SubgrupoCatalogoId: ['', Validators.required],
-      Nombre: ['', Validators.required],
-      Cantidad: ['0', Validators.required],
-      Marca: ['', Validators.required],
-      Serie: ['', Validators.required],
-      UnidadMedida: ['', Validators.required],
-      ValorUnitario: ['0', Validators.required],
-      Subtotal: ['0', Validators.required],
-      Descuento: ['0', Validators.required],
-      PorcentajeIvaId: ['', Validators.required],
-      ValorIva: ['0', Validators.required],
-      ValorTotal: ['0', Validators.required],
-    });
-  }
-  get Formulario_3(): FormGroup {
-    return this.fb.group({
-      Datos_Adicionales: ['', Validators.required],
-    });
-  }
-  addSoportes() {
-    (this.firstForm.get('Formulario2') as FormArray).push(this.Formulario_2);
-  }
-  deleteSoportes(index: number) {
-    (this.firstForm.get('Formulario2') as FormArray).removeAt(index);
-  }
-  addElementos(Soporte) {
-    Soporte.get('Elementos').push(this.Elementos);
-    this._matTable.forEach((mat) => mat.renderRows());
-  }
-  deleteElementos(Soporte, index: number) {
-    Soporte.get('Elementos').removeAt(index);
-    this._matTable.forEach((mat) => mat.renderRows());
-  }
-  addTab() {
-    this.addSoportes();
-    this.selected.setValue(this.firstForm.get('Formulario2').value.length - 1);
-  }
-  removeTab(i: number) {
-    this.deleteSoportes(i);
-    this.selected.setValue(i - 1);
-  }
+
   onFirstSubmit() {
     this.Datos = this.firstForm.value;
 
     const Transaccion_Acta = new TransaccionActaRecibido();
 
     Transaccion_Acta.ActaRecibido = this.Registrar_Acta(this.Datos.Formulario1, this.Datos.Formulario3);
-    Transaccion_Acta.UltimoEstado = this.Registrar_Estado_Acta(Transaccion_Acta.ActaRecibido, 2);
+    Transaccion_Acta.UltimoEstado = this.Registrar_Estado_Acta(Transaccion_Acta.ActaRecibido, 5);
 
     const Soportes = new Array<TransaccionSoporteActa>();
 
@@ -225,9 +228,30 @@ export class RegistroActaRecibidoComponent implements OnInit {
 
     Transaccion_Acta.SoportesActa = Soportes;
 
+    this.Actas_Recibido.putTransaccionActa(Transaccion_Acta, Transaccion_Acta.ActaRecibido.Id).subscribe((res: any) => {
 
+    });
 
-    this.Actas_Recibido.postTransaccionActa(Transaccion_Acta).subscribe((res: any) => {
+  }
+
+  onFirstSubmit2() {
+    this.Datos = this.firstForm.value;
+
+    const Transaccion_Acta = new TransaccionActaRecibido();
+
+    Transaccion_Acta.ActaRecibido = this.Registrar_Acta(this.Datos.Formulario1, this.Datos.Formulario3);
+    Transaccion_Acta.UltimoEstado = this.Registrar_Estado_Acta(Transaccion_Acta.ActaRecibido, 3);
+
+    const Soportes = new Array<TransaccionSoporteActa>();
+
+    for (const soporte of this.Datos.Formulario2) {
+
+      Soportes.push(this.Registrar_Soporte(soporte, soporte.Elementos, Transaccion_Acta.ActaRecibido));
+    }
+
+    Transaccion_Acta.SoportesActa = Soportes;
+
+    this.Actas_Recibido.putTransaccionActa(Transaccion_Acta,Transaccion_Acta.ActaRecibido.Id).subscribe((res: any) => {
 
     });
 
@@ -237,22 +261,23 @@ export class RegistroActaRecibidoComponent implements OnInit {
 
     const Acta_de_Recibido = new ActaRecibido();
 
-    Acta_de_Recibido.Id = null;
+    Acta_de_Recibido.Id = parseFloat(Datos.Id);
     Acta_de_Recibido.Activo = true;
     Acta_de_Recibido.FechaCreacion = new Date();
     Acta_de_Recibido.FechaModificacion = new Date();
+    Acta_de_Recibido.FechaVistoBueno =  new Date();
     Acta_de_Recibido.RevisorId = 123;
     Acta_de_Recibido.UbicacionId = parseFloat(Datos.Ubicacion);
     Acta_de_Recibido.Observaciones = Datos2.Datos_Adicionales;
 
     return Acta_de_Recibido;
   }
-  Registrar_Estado_Acta(Acta: ActaRecibido, Estado: number): HistoricoActa {
+  Registrar_Estado_Acta(__: ActaRecibido, Estado: number): HistoricoActa {
 
     const Historico_ = new HistoricoActa();
 
     Historico_.Id = null;
-    Historico_.ActaRecibidoId = Acta;
+    Historico_.ActaRecibidoId = __;
     Historico_.Activo = true;
     Historico_.EstadoActaId = this.Estados_Acta.find(estado => estado.Id === Estado);
     Historico_.FechaCreacion = new Date();
@@ -260,19 +285,19 @@ export class RegistroActaRecibidoComponent implements OnInit {
 
     return Historico_;
   }
-  Registrar_Soporte(Datos: any, Elementos_: any, Acta: ActaRecibido): TransaccionSoporteActa {
+  Registrar_Soporte(Datos: any, Elementos_: any, __: ActaRecibido): TransaccionSoporteActa {
 
     const Soporte_Acta = new SoporteActa();
     const Transaccion = new TransaccionSoporteActa();
 
-    Soporte_Acta.Id = null;
-    Soporte_Acta.ActaRecibidoId = Acta;
+    Soporte_Acta.Id = parseFloat(Datos.Id);
+    Soporte_Acta.ActaRecibidoId = __;
     Soporte_Acta.Activo = true;
     Soporte_Acta.Consecutivo = Datos.Consecutivo;
     Soporte_Acta.FechaCreacion = new Date();
     Soporte_Acta.FechaModificacion = new Date();
     Soporte_Acta.FechaSoporte = Datos.Fecha_Factura;
-    Soporte_Acta.ProveedorId = parseFloat(Datos.Proveedor);
+    Soporte_Acta.ProveedorId = Datos.Proveedor;
 
     Transaccion.SoporteActa = Soporte_Acta;
     Transaccion.Elementos = this.Registrar_Elementos(Elementos_, Soporte_Acta);
@@ -280,14 +305,14 @@ export class RegistroActaRecibidoComponent implements OnInit {
     return Transaccion;
   }
   Registrar_Elementos(Datos: any, Soporte: SoporteActa): Array<Elemento> {
-    const Elementos_Soporte = new Array<Elemento>();
+    const _ = new Array<Elemento>();
 
     for (const datos of Datos) {
 
       const Elemento__ = new Elemento;
       const valorTotal = (parseFloat(this.Pipe2Number(datos.Subtotal)) - parseFloat(this.Pipe2Number(datos.Descuento)));
 
-      Elemento__.Id = null;
+      Elemento__.Id = parseFloat(Datos.Id);
       Elemento__.Nombre = datos.Nombre;
       Elemento__.Cantidad = datos.Cantidad;
       Elemento__.Marca = datos.Marca;
@@ -301,18 +326,18 @@ export class RegistroActaRecibidoComponent implements OnInit {
       Elemento__.ValorIva = parseFloat(this.Pipe2Number(datos.ValorIva));
       Elemento__.ValorFinal = parseFloat(this.Pipe2Number(datos.ValorTotal));
       Elemento__.SubgrupoCatalogoId = parseFloat(datos.SubgrupoCatalogoId);
-      Elemento__.Verificado = false;
+      Elemento__.Verificado = datos.Verificado;
       Elemento__.TipoBienId = this.Tipos_Bien.find(bien => bien.Id === datos.TipoBienId);
-      Elemento__.EstadoElementoId = this.Estados_Acta.find(estado => estado.Id === 1);
+      Elemento__.EstadoElementoId = this.Estados_Acta.find(estado => estado.Id === 2);
       Elemento__.SoporteActaId = Soporte;
       Elemento__.Activo = true;
       Elemento__.FechaCreacion = new Date();
       Elemento__.FechaModificacion = new Date();
 
-      Elementos_Soporte.push(Elemento__);
+      _.push(Elemento__);
 
     }
-    return Elementos_Soporte;
+    return _;
   }
 
   displayedColumns = [
@@ -329,7 +354,6 @@ export class RegistroActaRecibidoComponent implements OnInit {
     'PorcentajeIvaId',
     'ValorIva',
     'ValorTotal',
-    'Acciones',
   ];
 
   Pipe2Number(any: String) {

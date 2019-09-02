@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { ThemeModule } from '../../@theme/theme.module';
 
 import { ActaRecibidoRoutingModule } from './acta-recibido-routing.module';
@@ -15,6 +15,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import {MatTableModule} from '@angular/material/table';
 import { MatPaginatorModule, MatSortModule } from '@angular/material';
 import { EdicionActaRecibidoComponent } from './edicion-acta-recibido/edicion-acta-recibido.component';
+import { VerDetalleComponent } from './ver-detalle/ver-detalle.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { EdicionActaRecibidoComponent } from './edicion-acta-recibido/edicion-ac
     VerificacionActaRecibidoComponent,
     ConsultaActaRecibidoComponent,
     EdicionActaRecibidoComponent,
+    VerDetalleComponent,
   ],
   imports: [
     CommonModule,
@@ -37,6 +39,9 @@ import { EdicionActaRecibidoComponent } from './edicion-acta-recibido/edicion-ac
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+  ],
+  providers: [
+    CurrencyPipe,
   ],
 })
 export class ActaRecibidoModule { }

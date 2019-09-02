@@ -25,6 +25,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Verificación de Acta',
         link: '/pages/acta_recibido/verificacion_acta_recibido',
       },
+      {
+        title: 'Ver Detalle',
+        link: '/pages/acta_recibido/ver_detalle',
+      },
     ],
   },
   {
