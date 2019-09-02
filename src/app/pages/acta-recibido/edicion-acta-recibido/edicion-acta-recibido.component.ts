@@ -73,7 +73,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
     this.Traer_Tipo_Bien();
     this.Traer_Estados_Acta();
     this.Traer_Estados_Elemento();
-    this.Traer_Acta(3);
+    this.Traer_Acta(this._ActaId);
   }
   Traer_Estados_Acta() {
     this.Estados_Acta = new Array<EstadoActa>();
