@@ -373,26 +373,4 @@ export class VerDetalleComponent implements OnInit {
   valor_iva(subtotal: string, descuento: string, porcentaje_iva: string) {
     return ((parseFloat(subtotal) - parseFloat(descuento)) * parseFloat(porcentaje_iva) / 100);
   }
-
-  private showToast(type: string, title: string, body: string) {
-    this.config = new ToasterConfig({
-      // 'toast-top-full-width', 'toast-bottom-full-width', 'toast-top-left', 'toast-top-center'
-      positionClass: 'toast-top-center',
-      timeout: 5000,  // ms
-      newestOnTop: true,
-      tapToDismiss: false, // hide on click
-      preventDuplicates: true,
-      animation: 'slideDown', // 'fade', 'flyLeft', 'flyRight', 'slideDown', 'slideUp'
-      limit: 5,
-    });
-    const toast: Toast = {
-      type: type, // 'default', 'info', 'success', 'warning', 'error'
-      title: title,
-      body: body,
-      showCloseButton: true,
-      bodyOutputType: BodyOutputType.TrustedHtml,
-    };
-    this.toasterService.popAsync(toast);
-  }
-
 }

@@ -284,7 +284,20 @@ export class EdicionActaRecibidoComponent implements OnInit {
     Transaccion_Acta.SoportesActa = Soportes;
 
     this.Actas_Recibido.putTransaccionActa(Transaccion_Acta, Transaccion_Acta.ActaRecibido.Id).subscribe((res: any) => {
-
+      if (res !== null){
+        Swal.fire({
+          type: 'success',
+          title: 'Acta N° '+`${res.ActaRecibido.Id}`+' Modificada',
+          text: 'El acta N° '+`${res.ActaRecibido.Id}`+' ha sido modificada exitosamente',
+        })
+      } else {
+        Swal.fire({
+          type: 'error',
+          title: 'Acta N° '+`${res.ActaRecibido.Id}`+' No Modificada',
+          text: 'El acta N° '+`${res.ActaRecibido.Id}`+' no ha podido ser modificada, intenta mas tarde',
+        })
+      }
+      
     });
 
   }
@@ -388,12 +401,13 @@ export class EdicionActaRecibidoComponent implements OnInit {
     'Acciones',
   ];
 
-  Pipe2Number(any: String) {
-    if (any !== null) {
-      return any.replace(/[$,]/g, '');
-    } else {
-      return '0';
-    }
+  Pipe2Number(any: string) {
+    // if (any !== null) {
+    //   return any.replace(/[$,]/g, '');
+    // } else {
+    //   return '0';
+    // }
+    return any
   }
 
   valortotal(subtotal: string, descuento: string, iva: string) {
@@ -404,27 +418,6 @@ export class EdicionActaRecibidoComponent implements OnInit {
   }
   valor_iva(subtotal: string, descuento: string, porcentaje_iva: string) {
     return ((parseFloat(subtotal) - parseFloat(descuento)) * parseFloat(porcentaje_iva) / 100);
-  }
-
-  private showToast(type: string, title: string, body: string) {
-    this.config = new ToasterConfig({
-      // 'toast-top-full-width', 'toast-bottom-full-width', 'toast-top-left', 'toast-top-center'
-      positionClass: 'toast-top-center',
-      timeout: 5000,  // ms
-      newestOnTop: true,
-      tapToDismiss: false, // hide on click
-      preventDuplicates: true,
-      animation: 'slideDown', // 'fade', 'flyLeft', 'flyRight', 'slideDown', 'slideUp'
-      limit: 5,
-    });
-    const toast: Toast = {
-      type: type, // 'default', 'info', 'success', 'warning', 'error'
-      title: title,
-      body: body,
-      showCloseButton: true,
-      bodyOutputType: BodyOutputType.TrustedHtml,
-    };
-    this.toasterService.popAsync(toast);
   }
 
 }
