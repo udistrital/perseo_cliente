@@ -29,7 +29,7 @@ import { CurrencyPipe } from '@angular/common';
 })
 export class VerificacionActaRecibidoComponent implements OnInit {
 
-  
+
   config: ToasterConfig;
 
   // Mensajes de error
@@ -150,7 +150,7 @@ export class VerificacionActaRecibidoComponent implements OnInit {
       }
     });
   }
-  T_V(valor: string): string{
+  T_V(valor: string): string {
     return this.cp.transform(valor);
   }
   Cargar_Formularios(transaccion_: TransaccionActaRecibido) {
@@ -162,7 +162,7 @@ export class VerificacionActaRecibidoComponent implements OnInit {
     for (const Soporte of transaccion_.SoportesActa) {
 
       const Formulario__2 = this.fb.group({
-        Id:[Soporte.SoporteActa.Id],
+        Id: [Soporte.SoporteActa.Id],
         Proveedor: [Soporte.SoporteActa.ProveedorId, Validators.required],
         Consecutivo: [Soporte.SoporteActa.Consecutivo, Validators.required],
         Fecha_Factura: [Soporte.SoporteActa.FechaSoporte, Validators.required],
@@ -170,10 +170,10 @@ export class VerificacionActaRecibidoComponent implements OnInit {
         Elementos: this.fb.array([]),
       });
 
-        for (const _Elemento of Soporte.Elementos ){
+        for (const _Elemento of Soporte.Elementos ) {
 
           const Elemento___ = this.fb.group({
-            Id:[_Elemento.Id],
+            Id: [_Elemento.Id],
             TipoBienId: [_Elemento.TipoBienId.Id, Validators.required],
             SubgrupoCatalogoId: [_Elemento.SubgrupoCatalogoId, Validators.required],
             Nombre: [_Elemento.Nombre, Validators.required],
@@ -198,7 +198,7 @@ export class VerificacionActaRecibidoComponent implements OnInit {
 
     this.firstForm = this.fb.group({
       Formulario1: this.fb.group({
-        Id:[transaccion_.ActaRecibido.Id],
+        Id: [transaccion_.ActaRecibido.Id],
         Sede: ['', Validators.required],
         Dependencia: ['', Validators.required],
         Ubicacion: [transaccion_.ActaRecibido.UbicacionId, Validators.required],
@@ -252,7 +252,7 @@ export class VerificacionActaRecibidoComponent implements OnInit {
 
     Transaccion_Acta.SoportesActa = Soportes;
 
-    this.Actas_Recibido.putTransaccionActa(Transaccion_Acta,Transaccion_Acta.ActaRecibido.Id).subscribe((res: any) => {
+    this.Actas_Recibido.putTransaccionActa(Transaccion_Acta, Transaccion_Acta.ActaRecibido.Id).subscribe((res: any) => {
 
     });
 

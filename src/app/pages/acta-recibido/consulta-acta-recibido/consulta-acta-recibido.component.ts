@@ -146,7 +146,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
       },
     },
   };
-  
+
 
 
   constructor(private translate: TranslateService, private router: Router, private actaRecibidoHelper: ActaRecibidoHelper, private pUpManager: PopUpManager) {

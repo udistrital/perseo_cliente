@@ -8,7 +8,7 @@ describe('VerDetalleComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ VerDetalleComponent ]
+      declarations: [ VerDetalleComponent ],
     })
     .compileComponents();
   }));
