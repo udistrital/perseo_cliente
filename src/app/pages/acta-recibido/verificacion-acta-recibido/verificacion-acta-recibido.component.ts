@@ -254,20 +254,19 @@ export class VerificacionActaRecibidoComponent implements OnInit {
 
     this.Actas_Recibido.putTransaccionActa(Transaccion_Acta, Transaccion_Acta.ActaRecibido.Id).subscribe((res: any) => {
 
-      if (res !== null){
+      if (res !== null) {
         Swal.fire({
           type: 'success',
-          title: 'Acta N° '+`${res.ActaRecibido.Id}`+' Verificada',
-          text: 'El acta N° '+`${res.ActaRecibido.Id}`+' ha sido verificada exitosamente',
-        })
+          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' Verificada',
+          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' ha sido verificada exitosamente',
+        });
       } else {
         Swal.fire({
           type: 'error',
-          title: 'Acta N° '+`${res.ActaRecibido.Id}`+' No Verificada',
-          text: 'El acta N° '+`${res.ActaRecibido.Id}`+' no ha podido ser Verificada, intenta mas tarde',
-        })
+          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' No Verificada',
+          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' no ha podido ser Verificada, intenta mas tarde',
+        });
       }
-
     });
 
   }

@@ -284,20 +284,19 @@ export class EdicionActaRecibidoComponent implements OnInit {
     Transaccion_Acta.SoportesActa = Soportes;
 
     this.Actas_Recibido.putTransaccionActa(Transaccion_Acta, Transaccion_Acta.ActaRecibido.Id).subscribe((res: any) => {
-      if (res !== null){
+      if (res !== null) {
         Swal.fire({
           type: 'success',
-          title: 'Acta N° '+`${res.ActaRecibido.Id}`+' Modificada',
-          text: 'El acta N° '+`${res.ActaRecibido.Id}`+' ha sido modificada exitosamente',
-        })
+          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' Modificada',
+          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' ha sido modificada exitosamente',
+        });
       } else {
         Swal.fire({
           type: 'error',
-          title: 'Acta N° '+`${res.ActaRecibido.Id}`+' No Modificada',
-          text: 'El acta N° '+`${res.ActaRecibido.Id}`+' no ha podido ser modificada, intenta mas tarde',
-        })
+          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' No Modificada',
+          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' no ha podido ser modificada, intenta mas tarde',
+        });
       }
-      
     });
 
   }
