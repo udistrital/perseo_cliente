@@ -139,11 +139,11 @@ export class ConsultaActaRecibidoComponent implements OnInit {
 
 
 
-  constructor(private translate: TranslateService, 
-    private router: Router, 
-    private actaRecibidoHelper: ActaRecibidoHelper, 
+  constructor(private translate: TranslateService,
+    private router: Router,
+    private actaRecibidoHelper: ActaRecibidoHelper,
     private pUpManager: PopUpManager) {
-      
+
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => { // Live reload
     });
     this.source = new LocalDataSource(); // create the source
@@ -160,11 +160,6 @@ export class ConsultaActaRecibidoComponent implements OnInit {
     this.actaSeleccionada = `${event.data.Id}`;
     this.estadoActaSeleccionada = `${event.data.Estado}`;
     this.accion = `${event.action}`;
-
-    console.log(this.accion);
-    console.log(this.estadoActaSeleccionada);
-    console.log(this.actaSeleccionada);
-
   }
   onRegister() {
     this.router.navigate(['/pages/acta_recibido/registro_acta_recibido']);
@@ -173,7 +168,6 @@ export class ConsultaActaRecibidoComponent implements OnInit {
   loadActas(): void {
     this.actaRecibidoHelper.getActasRecibido2().subscribe(res => {
       if (res !== null) {
-        console.log(res);
         const data = <Array<any>>res;
         for (const datos in Object.keys(data)) {
           if (data.hasOwnProperty(datos)) {
@@ -193,6 +187,5 @@ export class ConsultaActaRecibidoComponent implements OnInit {
         this.source.load(this.actas);
       }
     });
-    
   }
 }
