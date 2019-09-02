@@ -28,7 +28,7 @@ import { CurrencyPipe } from '@angular/common';
 })
 export class VerDetalleComponent implements OnInit {
 
-  
+
   config: ToasterConfig;
 
   // Mensajes de error

@@ -149,7 +149,11 @@ export class ConsultaActaRecibidoComponent implements OnInit {
 
 
 
-  constructor(private translate: TranslateService, private router: Router, private actaRecibidoHelper: ActaRecibidoHelper, private pUpManager: PopUpManager) {
+  constructor(private translate: TranslateService, 
+    private router: Router, 
+    private actaRecibidoHelper: ActaRecibidoHelper, 
+    private pUpManager: PopUpManager) {
+      
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => { // Live reload
     });
     this.source = new LocalDataSource(); // create the source
