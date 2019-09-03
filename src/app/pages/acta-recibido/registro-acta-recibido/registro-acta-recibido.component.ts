@@ -225,12 +225,24 @@ export class RegistroActaRecibidoComponent implements OnInit {
 
     Transaccion_Acta.SoportesActa = Soportes;
 
-
+    console.log(Transaccion_Acta);
 
     this.Actas_Recibido.postTransaccionActa(Transaccion_Acta).subscribe((res: any) => {
-
+      console.log(res);
+      if (res !== null) {
+        (Swal as any).fire({
+          type: 'success',
+          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' Registrada',
+          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' ha sido registrada exitosamente',
+        });
+      } else {
+        (Swal as any).fire({
+          type: 'error',
+          title: 'Acta  No Registrada',
+          text: 'El acta no ha podido ser registrada, intenta mas tarde',
+        });
+      }
     });
-
   }
 
   Registrar_Acta(Datos: any, Datos2: any): ActaRecibido {
@@ -287,6 +299,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
       const Elemento__ = new Elemento;
       const valorTotal = (parseFloat(this.Pipe2Number(datos.Subtotal)) - parseFloat(this.Pipe2Number(datos.Descuento)));
 
+
       Elemento__.Id = null;
       Elemento__.Nombre = datos.Nombre;
       Elemento__.Cantidad = datos.Cantidad;
@@ -302,7 +315,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
       Elemento__.ValorFinal = parseFloat(this.Pipe2Number(datos.ValorTotal));
       Elemento__.SubgrupoCatalogoId = parseFloat(datos.SubgrupoCatalogoId);
       Elemento__.Verificado = false;
-      Elemento__.TipoBienId = this.Tipos_Bien.find(bien => bien.Id === datos.TipoBienId);
+      Elemento__.TipoBienId = this.Tipos_Bien.find(bien => bien.Id === parseFloat(datos.TipoBienId));
       Elemento__.EstadoElementoId = this.Estados_Acta.find(estado => estado.Id === 1);
       Elemento__.SoporteActaId = Soporte;
       Elemento__.Activo = true;

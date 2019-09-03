@@ -272,7 +272,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
     const Transaccion_Acta = new TransaccionActaRecibido();
 
     Transaccion_Acta.ActaRecibido = this.Registrar_Acta(this.Datos.Formulario1, this.Datos.Formulario3);
-    Transaccion_Acta.UltimoEstado = this.Registrar_Estado_Acta(Transaccion_Acta.ActaRecibido, 2);
+    Transaccion_Acta.UltimoEstado = this.Registrar_Estado_Acta(Transaccion_Acta.ActaRecibido, 3);
 
     const Soportes = new Array<TransaccionSoporteActa>();
 
@@ -285,16 +285,52 @@ export class EdicionActaRecibidoComponent implements OnInit {
 
     this.Actas_Recibido.putTransaccionActa(Transaccion_Acta, Transaccion_Acta.ActaRecibido.Id).subscribe((res: any) => {
       if (res !== null) {
-        Swal.fire({
+        (Swal as any).fire({
           type: 'success',
           title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' Modificada',
           text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' ha sido modificada exitosamente',
         });
       } else {
-        Swal.fire({
+        (Swal as any).fire({
           type: 'error',
           title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' No Modificada',
           text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' no ha podido ser modificada, intenta mas tarde',
+        });
+      }
+    });
+
+  }
+
+  onFirstSubmit2() {
+    this.Datos = this.firstForm.value;
+
+    const Transaccion_Acta = new TransaccionActaRecibido();
+
+    Transaccion_Acta.ActaRecibido = this.Registrar_Acta(this.Datos.Formulario1, this.Datos.Formulario3);
+
+    Transaccion_Acta.UltimoEstado = this.Registrar_Estado_Acta(Transaccion_Acta.ActaRecibido, 4);
+
+    const Soportes = new Array<TransaccionSoporteActa>();
+
+    for (const soporte of this.Datos.Formulario2) {
+
+      Soportes.push(this.Registrar_Soporte(soporte, soporte.Elementos, Transaccion_Acta.ActaRecibido));
+    }
+
+    Transaccion_Acta.SoportesActa = Soportes;
+
+    this.Actas_Recibido.putTransaccionActa(Transaccion_Acta, Transaccion_Acta.ActaRecibido.Id).subscribe((res: any) => {
+      if (res !== null) {
+        (Swal as any).fire({
+          type: 'success',
+          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' Enviada',
+          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' ha sido enviada a verificacion exitosamente',
+        });
+      } else {
+        (Swal as any).fire({
+          type: 'error',
+          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' No Enviada',
+          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' no ha podido ser enviada, intenta mas tarde',
         });
       }
     });
@@ -370,7 +406,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
       Elemento__.ValorFinal = parseFloat(this.Pipe2Number(datos.ValorTotal));
       Elemento__.SubgrupoCatalogoId = parseFloat(datos.SubgrupoCatalogoId);
       Elemento__.Verificado = false;
-      Elemento__.TipoBienId = this.Tipos_Bien.find(bien => bien.Id === datos.TipoBienId);
+      Elemento__.TipoBienId = this.Tipos_Bien.find(bien => bien.Id === parseFloat(datos.TipoBienId));
       Elemento__.EstadoElementoId = this.Estados_Acta.find(estado => estado.Id === 1);
       Elemento__.SoporteActaId = Soporte;
       Elemento__.Activo = true;
@@ -406,7 +442,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
     // } else {
     //   return '0';
     // }
-    return any
+    return any;
   }
 
   valortotal(subtotal: string, descuento: string, iva: string) {

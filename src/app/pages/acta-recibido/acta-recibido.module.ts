@@ -16,6 +16,7 @@ import {MatTableModule} from '@angular/material/table';
 import { MatPaginatorModule, MatSortModule } from '@angular/material';
 import { EdicionActaRecibidoComponent } from './edicion-acta-recibido/edicion-acta-recibido.component';
 import { VerDetalleComponent } from './ver-detalle/ver-detalle.component';
+import { CapturarElementosComponent } from './capturar-elementos/capturar-elementos.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { VerDetalleComponent } from './ver-detalle/ver-detalle.component';
     ConsultaActaRecibidoComponent,
     EdicionActaRecibidoComponent,
     VerDetalleComponent,
+    CapturarElementosComponent,
   ],
   imports: [
     CommonModule,

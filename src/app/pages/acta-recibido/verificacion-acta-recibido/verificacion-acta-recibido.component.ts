@@ -255,16 +255,16 @@ export class VerificacionActaRecibidoComponent implements OnInit {
     this.Actas_Recibido.putTransaccionActa(Transaccion_Acta, Transaccion_Acta.ActaRecibido.Id).subscribe((res: any) => {
 
       if (res !== null) {
-        Swal.fire({
+        (Swal as any).fire({
           type: 'success',
-          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' Verificada',
-          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' ha sido verificada exitosamente',
+          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' Retornada',
+          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' ha sido retornada exitosamente',
         });
       } else {
-        Swal.fire({
+        (Swal as any).fire({
           type: 'error',
-          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' No Verificada',
-          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' no ha podido ser Verificada, intenta mas tarde',
+          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' No Retornada',
+          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' no ha podido ser Retornada, intenta mas tarde',
         });
       }
     });
@@ -341,7 +341,7 @@ export class VerificacionActaRecibidoComponent implements OnInit {
       Elemento__.ValorFinal = parseFloat(this.Pipe2Number(datos.ValorTotal));
       Elemento__.SubgrupoCatalogoId = parseFloat(datos.SubgrupoCatalogoId);
       Elemento__.Verificado = datos.Verificado;
-      Elemento__.TipoBienId = this.Tipos_Bien.find(bien => bien.Id === datos.TipoBienId);
+      Elemento__.TipoBienId = this.Tipos_Bien.find(bien => bien.Id === parseFloat(datos.TipoBienId));
       Elemento__.EstadoElementoId = this.Estados_Acta.find(estado => estado.Id === 2);
       Elemento__.SoporteActaId = Soporte;
       Elemento__.Activo = true;

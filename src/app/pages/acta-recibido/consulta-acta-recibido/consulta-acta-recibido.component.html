@@ -15,6 +15,6 @@
   </nb-card>
   <ngx-ver-detalle *ngIf=" accion === 'Ver'" [Id_Acta]="actaSeleccionada"></ngx-ver-detalle>
   <ngx-edicion-acta-recibido *ngIf=" accion === 'Editar' && estadoActaSeleccionada === 'En Elaboracion'" [Id_Acta]="actaSeleccionada"></ngx-edicion-acta-recibido>
-  <ngx-edicion-acta-recibido *ngIf=" accion === 'Editar' && estadoSeleccionada === 'En Modificacion'" [Id_Acta]="actaSeleccionada"></ngx-edicion-acta-recibido>
-  <ngx-verificacion-acta-recibido *ngIf=" accion === 'Editar' && estadoActaSeleccionada === 'En Verificacion'" [Id_Acta]="actaSeleccionada"></ngx-verificacion-acta-recibido>
+  <ngx-edicion-acta-recibido *ngIf=" accion === 'Editar' && estadoActaSeleccionada === 'En Modificacion'" [Id_Acta]="actaSeleccionada"></ngx-edicion-acta-recibido>
+  <ngx-verificacion-acta-recibido *ngIf=" accion === 'Editar' && estadoActaSeleccionada === 'En verificacion'" [Id_Acta]="actaSeleccionada"></ngx-verificacion-acta-recibido>
 </div>
