@@ -20,7 +20,7 @@ export class ActaRecibidoHelper {
      */
     public getActasRecibido() {
         this.rqManager.setPath('ACTA_RECIBIDO_SERVICE');
-        return this.rqManager.get('historico_acta?query=EstadoActaId.Nombre:Aceptada,ActaRecibidoId.Activo:True').pipe(
+        return this.rqManager.get('historico_acta?query=EstadoActaId.Id:5,Activo:True&limit=-1').pipe(
             map(
                 (res) => {
                     if (res === 'error') {
@@ -41,7 +41,7 @@ export class ActaRecibidoHelper {
      */
     public getElementosActa(actaId) {
         this.rqManager.setPath('ACTA_RECIBIDO_SERVICE');
-        return this.rqManager.get('elemento?query=SoporteActaId.ActaRecibidoId.Id:' + actaId + ',SoporteActaId.ActaRecibidoId.Activo:True').pipe(
+        return this.rqManager.get('elemento?query=SoporteActaId.ActaRecibidoId.Id:' + actaId + ',SoporteActaId.ActaRecibidoId.Activo:True&limit=-1').pipe(
             map(
                 (res) => {
                     if (res === 'error') {
@@ -62,7 +62,7 @@ export class ActaRecibidoHelper {
      */
     public getSoporte(actaId) {
         this.rqManager.setPath('ACTA_RECIBIDO_SERVICE');
-        return this.rqManager.get('soporte_acta?query=ActaRecibidoId:' + actaId + ',ActaRecibidoId.Activo:True').pipe(
+        return this.rqManager.get('soporte_acta?query=ActaRecibidoId:' + actaId + ',ActaRecibidoId.Activo:True&limit=-1').pipe(
             map(
                 (res) => {
                     if (res === 'error') {
@@ -83,7 +83,7 @@ export class ActaRecibidoHelper {
      */
     public getTipoBien() {
         this.rqManager.setPath('ACTA_RECIBIDO_SERVICE');
-        return this.rqManager.get('tipo_bien').pipe(
+        return this.rqManager.get('tipo_bien?limit=-1').pipe(
             map(
                 (res) => {
                     if (res === 'error') {
@@ -145,7 +145,7 @@ export class ActaRecibidoHelper {
      */
     public getTransaccionActa(ActaId) {
         this.rqManager.setPath('ACTA_RECIBIDO_SERVICE');
-        return this.rqManager.get('transaccion_acta_recibido/' + ActaId ).pipe(
+        return this.rqManager.get('transaccion_acta_recibido/' + ActaId).pipe(
             map(
                 (res) => {
                     if (res === 'error') {

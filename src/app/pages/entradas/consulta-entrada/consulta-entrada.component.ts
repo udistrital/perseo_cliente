@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ngx-smart-table';
 import { Router } from '@angular/router';
 import { EntradaHelper } from '../../../helpers/entradas/entradaHelper';
-// import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from './smart-table-datepicker/smart-table-datepicker.component'
+import { Entrada } from '../../../@core/data/models/entrada/entrada';
 
 @Component({
   selector: 'ngx-consulta-entrada',
@@ -13,7 +13,9 @@ import { EntradaHelper } from '../../../helpers/entradas/entradaHelper';
 export class ConsultaEntradaComponent implements OnInit {
 
   source: LocalDataSource;
+  entradas: Array<Entrada>;
   detalle: boolean;
+  actaRecibidoId: number;
 
   settings = {
     hideSubHeader: false,
@@ -32,31 +34,35 @@ export class ConsultaEntradaComponent implements OnInit {
       ],
     },
     columns: {
-      consecutivo: {
+      Consecutivo: {
         title: 'Consecutivo',
       },
-      acta_recibido: {
+      ActaRecibidoId: {
         title: 'Acta de Recibido',
       },
-      fecha_creacion: {
+      FechaCreacion: {
         title: 'Fecha de Creación',
+        valuePrepareFunction: (value: any) => {
+          const date = value.split('T');
+          return date[0];
+        },
+        filter: {
+          type: 'daterange',
+          config: {
+            daterange: {
+              format: 'yyyy/mm/dd',
+            },
+          },
+        },
       },
       fecha_visto_bueno: {
         title: 'Fecha Visto Bueno',
-        // filter: {
-        //   type: 'custom',
-        //   renderComponent: SmartTableDatepickerRenderComponent,
-        //   config: {
-        //     renderComponent: SmartTableDatepickerRenderComponent,
-        //     editor: {
-        //       type: 'custom',
-        //       component: SmartTableDatepickerComponent,
-        //     },
-        //   },
-        // },
       },
-      tipo_entrada: {
+      TipoEntradaId: {
         title: 'Tipo Entrada',
+        valuePrepareFunction: (value: any) => {
+          return value.Nombre;
+        },
         filter: {
           type: 'list',
           config: {
@@ -81,71 +87,44 @@ export class ConsultaEntradaComponent implements OnInit {
     },
   };
 
-  data = [
-    {
-      consecutivo: '00-123',
-      acta_recibido: '1234',
-      fecha_creacion: '03/06/2019',
-      fecha_visto_bueno: '07/06/2019',
-      tipo_entrada: 'Adquisición',
-      revisor: 'Revisor 1',
-      estado: 'Estado 2',
-    },
-    {
-      consecutivo: '00-124',
-      acta_recibido: '5678',
-      fecha_creacion: '03/06/2019',
-      fecha_visto_bueno: '07/06/2019',
-      tipo_entrada: 'Elaboración Propia',
-      revisor: 'Revisor 1',
-      estado: 'Aprobado',
-    },
-    {
-      consecutivo: '00-125',
-      acta_recibido: '9012',
-      fecha_creacion: '03/06/2019',
-      fecha_visto_bueno: '08/06/2019',
-      tipo_entrada: 'Donación',
-      revisor: 'Revisor 3',
-      estado: 'Aprobado',
-    },
-    {
-      consecutivo: '00-126',
-      acta_recibido: '3456',
-      fecha_creacion: '03/06/2019',
-      fecha_visto_bueno: '07/06/2019',
-      tipo_entrada: 'Reposición',
-      revisor: 'Revisor 2',
-      estado: 'Aprobado',
-    },
-    {
-      consecutivo: '00-127',
-      acta_recibido: '7890',
-      fecha_creacion: '03/06/2019',
-      fecha_visto_bueno: '09/06/2019',
-      tipo_entrada: 'Sobrante',
-      revisor: 'Revisor 3',
-      estado: 'Aprobado',
-    },
-    {
-      consecutivo: '00-128',
-      acta_recibido: '9876',
-      fecha_creacion: '03/06/2019',
-      fecha_visto_bueno: '08/06/2019',
-      tipo_entrada: 'Terceros',
-      revisor: 'Revisor 3',
-      estado: 'Aprobado',
-    },
-  ];
-
   constructor(private router: Router, private entradasHelper: EntradaHelper) {
     this.source = new LocalDataSource();
-    this.source.load(this.data);
+    this.entradas = new Array<Entrada>();
     this.detalle = false;
+    this.loadEntradas();
+  }
+
+  loadEntradas(): void {
+    this.entradasHelper.getEntradas().subscribe(res => {
+      if (res !== null) {
+        const data = <Array<any>>res;
+        for (const datos in Object.keys(data)) {
+          if (data.hasOwnProperty(datos)) {
+            const entrada = new Entrada;
+            entrada.ActaRecibidoId = data[datos].ActaRecibidoId;
+            entrada.ContratoId = data[datos].ContratoId;
+            entrada.DocumentoContableId = data[datos].DocumentoContableId;
+            entrada.FechaCreacion = data[datos].FechaCreacion;
+            entrada.FechaModificacion = data[datos].FechaModificacion;
+            entrada.Importacion = data[datos].Importacion;
+            entrada.Observacion = data[datos].Observacion;
+            entrada.Solicitante = data[datos].Solicitante;
+            entrada.TipoEntradaId = data[datos].TipoEntradaId;
+            entrada.ElementoId = data[datos].ElementoId;
+            entrada.Consecutivo = data[datos].Consecutivo;
+            entrada.Vigencia = data[datos].Vigencia;
+            entrada.Activo = data[datos].Activo;
+            this.entradas.push(entrada);
+          }
+        }
+        this.source.load(this.entradas);
+      }
+    });
   }
 
   onCustom(event) {
-    alert(`Custom event '${event.action}' fired on row №: ${event.data.consecutivo}`);
+    alert(`Custom event '${event.action}' fired on row №: ${event.data.Consecutivo}`);
+    this.actaRecibidoId = +`${event.data.ActaRecibidoId}`;
     this.detalle = true;
   }
 

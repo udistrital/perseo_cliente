@@ -8,6 +8,7 @@ import { OrdenadorGasto } from '../../../@core/data/models/entrada/ordenador_gas
 import { Supervisor } from '../../../@core/data/models/entrada/supervisor';
 import { SoporteActa } from '../../../@core/data/models/acta_recibido/soporte_acta';
 import { ActaRecibidoHelper } from '../../../helpers/acta_recibido/actaRecibidoHelper';
+import { TipoEntrada } from '../../../@core/data/models/entrada/tipo_entrada';
 
 @Component({
   selector: 'ngx-adquisicion',
@@ -110,7 +111,7 @@ export class AdquisicionComponent implements OnInit {
         supervisorAux.Sede = res.contrato.supervisor.sede_supervisor;
         supervisorAux.DocumentoIdentificacion = res.contrato.supervisor.documento_identificacion;
         this.contratoEspecifico.OrdenadorGasto = ordenadorAux;
-        this.contratoEspecifico.NumeroContratoSuscrito = res.contrato.numero_contrato;
+        this.contratoEspecifico.NumeroContratoSuscrito = res.contrato.numero_contrato_suscrito;
         this.contratoEspecifico.TipoContrato = res.contrato.tipo_contrato;
         this.contratoEspecifico.FechaSuscripcion = res.contrato.fecha_suscripcion;
         this.contratoEspecifico.Supervisor = supervisorAux;
@@ -235,25 +236,30 @@ export class AdquisicionComponent implements OnInit {
   onSubmit() {
     if (this.validar) {
       const entradaData = new Entrada;
-      entradaData.TipoEntrada = 5;
+      const tipoEntrada = new TipoEntrada;
+      // CAMPOS OBLIGATORIOS
       entradaData.ActaRecibidoId = +this.actaRecibidoId;
-      entradaData.ContratoId = this.contratoEspecifico.NumeroContratoSuscrito;
-      entradaData.Importacion = true;
-      entradaData.NumeroImportacion = this.facturaForm.value.facturaCtrl;
-      entradaData.FechaCreacion = new Date();
-      entradaData.FechaModificacion = new Date();
+      entradaData.Activo = true;
+      entradaData.Consecutivo = "ABC-124" // REVISAR
+      entradaData.DocumentoContableId = 1; // REVISAR
+      tipoEntrada.Id = 5;
+      entradaData.TipoEntradaId = tipoEntrada;
+      entradaData.Vigencia = this.vigencia.toString();
+      // CAMPOS REQUERIDOS PARA ADQUISICIÓN
+      entradaData.ContratoId = +this.contratoEspecifico.NumeroContratoSuscrito;
+      entradaData.Importacion = this.checked;
+      // entradaData.NumeroImportacion = this.facturaForm.value.facturaCtrl; // REVISAR
       entradaData.Observacion = this.observacionForm.value.observacionCtrl;
-      // entradaData.Observacion = aux[3];
-      // this.entradasHelper.postEntrada(entradaData).subscribe(res => {
-      //   console.info(entradaData + 'Rest' + res);
-      //   if (res !== null) {
-      //     this.pUpManager.showSuccesToast('Registro Exitoso');
-      //     this.pUpManager.showSuccessAlert('Entrada registrada satisfactoriamente!');
-      //   }
-      // });
-      // console.log(entradaData);
-      this.pUpManager.showSuccesToast('Registro Exitoso');
-      this.pUpManager.showSuccessAlert('Entrada registrada satisfactoriamente!');
+      // ENVIA LA ENTRADA AL MID
+      this.entradasHelper.postEntrada(entradaData).subscribe(res => {
+        console.info(entradaData + 'Rest' + res);
+        if (res !== null) {
+          this.pUpManager.showSuccesToast('Registro Exitoso');
+          this.pUpManager.showSuccessAlert('Entrada registrada satisfactoriamente!');
+        } else {
+          this.pUpManager.showErrorAlert('No es posible hacer el registro.');
+        }
+      });
     } else {
       this.pUpManager.showErrorAlert('No ha llenado todos los campos! No es posible hacer el registro.');
     }

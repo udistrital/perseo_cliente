@@ -95,6 +95,7 @@ export class RegistroComponent implements OnInit {
   loadActas(): void {
     this.actaRecibidoHelper.getActasRecibido().subscribe(res => {
       if (res !== null) {
+        console.log(res)
         const data = <Array<any>>res;
         for (const datos in Object.keys(data)) {
           if (data.hasOwnProperty(datos)) {

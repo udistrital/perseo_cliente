@@ -29,13 +29,13 @@ export class TablaEntradasComponent implements OnInit {
       delete: false,
     },
     columns: {
-      SoporteActa: {
+      SoporteActaId: {
         title: 'Factura',
         valuePrepareFunction: (value: any) => {
           return value.Consecutivo;
         },
       },
-      TipoBien: {
+      TipoBienId: {
         title: 'Tipo de Bien',
         valuePrepareFunction: (value: any) => {
           return value.Nombre;
@@ -62,8 +62,8 @@ export class TablaEntradasComponent implements OnInit {
       ValorUnitario: {
         title: 'Valor Unitario',
       },
-      ValorCantidad: {
-        title: 'Valor por Cantidad',
+      Subtotal: {
+        title: 'Subtotal',
       },
       Descuento: {
         title: 'Descuento',
@@ -74,7 +74,7 @@ export class TablaEntradasComponent implements OnInit {
       ValorIva: {
         title: 'Valor IVA',
       },
-      ValorTotal: {
+      ValorFinal: {
         title: 'Valor Total',
       },
     },
@@ -100,7 +100,6 @@ export class TablaEntradasComponent implements OnInit {
             elemento.Serie = data[datos].Serie;
             elemento.UnidadMedida = data[datos].UnidadMedida;
             elemento.ValorUnitario = data[datos].ValorUnitario;
-//            elemento.ValorCantidad = data[datos].ValorUnitario * data[datos].Cantidad;
             elemento.Subtotal = data[datos].Subtotal;
             elemento.Descuento = data[datos].Descuento;
             elemento.ValorTotal = data[datos].ValorTotal;

@@ -19,6 +19,7 @@ export const environment = {
   ADMINISTRATIVA_SERVICE: 'http://jbpm.udistritaloas.edu.co:8280/services/administrativaProxy/',
   // ACTA_RECIBIDO_SERVICE: 'http://10.20.0.254:8206/v1/',
   ACTA_RECIBIDO_SERVICE: 'http://10.20.2.143:8080/v1/',
+  ENTRADAS_SERVICE: 'http://10.20.2.157:8080/v1/',
   // ARKA_SERVICE: 'http://10.20.2.143:8080/v1/', PONER EL DE 254
   ARKA_SERVICE: 'http://10.20.2.157:8084/v1/',
   TOKEN: {
