@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import * as XLSX from 'xlsx';
+import { TranslateService } from '@ngx-translate/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActaRecibidoHelper } from '../../../helpers/acta_recibido/actaRecibidoHelper';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'ngx-capturar-elementos',
@@ -7,36 +11,74 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./capturar-elementos.component.scss']
 })
 export class CapturarElementosComponent implements OnInit {
+
   fileString: string | ArrayBuffer;
   arrayBuffer: Iterable<number>;
+  form: FormGroup;
+  buffer: Uint8Array;
 
-  constructor() { }
+  @ViewChild('fileInput') fileInput: ElementRef;
+  respuesta: any;
+
+  constructor(private fb: FormBuilder,
+    translate: TranslateService,
+    private actaRecibidoHelper: ActaRecibidoHelper) {
+
+  }
 
   ngOnInit() {
+    this.createForm();
   }
 
-  cargandoImagen(event): void {
-    console.log(event);
-    this.readThis(event.target);
+
+  createForm() {
+    this.form = this.fb.group({
+      archivo: null,
+    });
+  }
+  onFileChange(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.form.get('archivo').setValue(file);
+    }
+  }
+  private prepareSave(): any {
+    const input = new FormData();
+    input.append('archivo', this.form.get('archivo').value);
+    return input;
   }
 
-  readThis(inputValue: any): void {
+  readThis(): void {
 
-    var file: File = inputValue.files[0];
-    var myReader: FileReader = new FileReader();
-    var fileType = inputValue.parentElement.id;
+    const formModel = this.prepareSave();
+    this.actaRecibidoHelper.postArchivo(formModel).subscribe(res => {
 
-    myReader.onloadend = (e) => {
-      
-      console.log(myReader.result);
-      this.fileString = myReader.result;
+      console.log(res);
+      this.respuesta = res;
+      if (res !== null) {
+        (Swal as any).fire({
+          type: 'success',
+          title: 'Elementos Cargados',
+          text: 'Elementos cargados exitosamente',
+        });
+      } else {
+        (Swal as any).fire({
+          type: 'error',
+          title: 'Elementos No Cargados',
+          text: 'Los elementos no han sido cargados, intenta mas tarde',
+        });
+      }
+    });
+    // };
+    // myReader.readAsArrayBuffer(file);
+  }
 
-            var workbook = XLSX.read(this.fileString, {type:"array"});
-            
-            console.log(workbook.Sheets);
-   };
+  clearFile() {
+    this.fileInput.nativeElement.value = '';
+  }
 
-    myReader.readAsArrayBuffer(file);
+  onSubmit() {
+    this.readThis();
   }
 
 }

@@ -222,5 +222,26 @@ export class ActaRecibidoHelper {
         );
     }
 
+    /**
+     * Estados Acta Get
+     * If the response has errors in the OAS API it should show a popup message with an error.
+     * If the response is successs, it returns the object's data.
+     * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
+     */
+    public postArchivo(Transaccion) {
+        this.rqManager.setPath('ARKA_SERVICE');
+        return this.rqManager.post('acta_recibido', Transaccion).pipe(
+            map(
+                (res) => {
+                    if (res['Type'] === 'error') {
+                        this.pUpManager.showErrorAlert('No se pudieron cargar los elementos');
+                        return undefined;
+                    }
+                    return res;
+                },
+            ),
+        );
+    }
+
 
 }
