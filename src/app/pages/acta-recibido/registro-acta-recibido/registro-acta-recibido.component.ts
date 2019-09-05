@@ -225,10 +225,10 @@ export class RegistroActaRecibidoComponent implements OnInit {
 
     Transaccion_Acta.SoportesActa = Soportes;
 
-    console.log(Transaccion_Acta);
+
 
     this.Actas_Recibido.postTransaccionActa(Transaccion_Acta).subscribe((res: any) => {
-      console.log(res);
+
       if (res !== null) {
         (Swal as any).fire({
           type: 'success',

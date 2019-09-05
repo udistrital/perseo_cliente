@@ -8,7 +8,7 @@ describe('CapturarElementosComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CapturarElementosComponent ]
+      declarations: [ CapturarElementosComponent ],
     })
     .compileComponents();
   }));

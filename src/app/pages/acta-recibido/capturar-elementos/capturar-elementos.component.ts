@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'ngx-capturar-elementos',
   templateUrl: './capturar-elementos.component.html',
-  styleUrls: ['./capturar-elementos.component.scss']
+  styleUrls: ['./capturar-elementos.component.scss'],
 })
 export class CapturarElementosComponent implements OnInit {
 
@@ -53,7 +53,7 @@ export class CapturarElementosComponent implements OnInit {
     const formModel = this.prepareSave();
     this.actaRecibidoHelper.postArchivo(formModel).subscribe(res => {
 
-      console.log(res);
+      
       this.respuesta = res;
       if (res !== null) {
         (Swal as any).fire({
