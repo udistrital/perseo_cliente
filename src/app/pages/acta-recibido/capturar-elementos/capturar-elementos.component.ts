@@ -53,7 +53,6 @@ export class CapturarElementosComponent implements OnInit {
     const formModel = this.prepareSave();
     this.actaRecibidoHelper.postArchivo(formModel).subscribe(res => {
 
-      
       this.respuesta = res;
       if (res !== null) {
         (Swal as any).fire({
