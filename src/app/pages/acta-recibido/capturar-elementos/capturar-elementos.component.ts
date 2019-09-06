@@ -100,10 +100,7 @@ export class CapturarElementosComponent implements OnInit {
           title: 'Elementos Cargados',
           text: 'Elementos cargados exitosamente',
         });
-        this.respuesta = res;
-        console.log(this.respuesta)
         this.dataSource = new MatTableDataSource(this.respuesta[0].Elementos);
-
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       } else {
