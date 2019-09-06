@@ -19,9 +19,17 @@ export const environment = {
   ADMINISTRATIVA_SERVICE: 'http://jbpm.udistritaloas.edu.co:8280/services/administrativaProxy/',
   // ACTA_RECIBIDO_SERVICE: 'http://10.20.0.254:8206/v1/',
   ACTA_RECIBIDO_SERVICE: 'http://10.20.2.143:8080/v1/',
-  ENTRADAS_SERVICE: 'http://10.20.2.157:8080/v1/',
+  ENTRADAS_SERVICE: 'http://10.20.2.134:8080/v1/',
   // ARKA_SERVICE: 'http://10.20.2.143:8080/v1/', PONER EL DE 254
-  ARKA_SERVICE: 'http://10.20.2.157:8084/v1/',
+  ARKA_SERVICE: 'http://10.20.2.134:8084/v1/',
+  SPAGOBI: {
+    PROTOCOL: 'https',
+    HOST: 'intelligentia.udistrital.edu.co',
+    PORT: '8443',
+    CONTEXTPATH: 'SpagoBI',
+    USER: 'sergio_orjuela',
+    PASSWORD: 'sergio_orjuela',
+  },
   TOKEN: {
     AUTORIZATION_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oauth2/authorize',
     CLIENTE_ID: '3Idp5LUlnZY7cOV10NaLuyRfzooa',

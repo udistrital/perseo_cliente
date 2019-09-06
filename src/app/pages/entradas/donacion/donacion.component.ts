@@ -213,11 +213,11 @@ export class DonacionComponent implements OnInit {
   onSubmit() {
     if (this.validar) {
       const entradaData = new Entrada;
-      entradaData.TipoEntrada = 5;
+      // entradaData.TipoEntrada = 5;
       entradaData.ActaRecibidoId = +this.actaRecibidoId;
       entradaData.ContratoId = this.contratoEspecifico.NumeroContratoSuscrito;
       entradaData.Importacion = true;
-      entradaData.NumeroImportacion = this.facturaForm.value.facturaCtrl;
+      // entradaData.NumeroImportacion = this.facturaForm.value.facturaCtrl;
       entradaData.FechaCreacion = new Date();
       entradaData.FechaModificacion = new Date();
       entradaData.Observacion = this.observacionForm.value.observacionCtrl;
