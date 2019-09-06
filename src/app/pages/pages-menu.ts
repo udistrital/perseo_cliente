@@ -17,10 +17,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Registro de Acta',
         link: '/pages/acta_recibido/registro_acta_recibido',
       },
-      // {
-      //   title: 'Edicion de Acta',
-      //   link: '/pages/acta_recibido/edicion_acta_recibido',
-      // },
+      {
+        title: 'Edicion de Acta',
+        link: '/pages/acta_recibido/edicion_acta_recibido',
+      },
       // {
       //   title: 'Verificación de Acta',
       //   link: '/pages/acta_recibido/verificacion_acta_recibido',

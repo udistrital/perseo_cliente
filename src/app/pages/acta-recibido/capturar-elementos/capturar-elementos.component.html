@@ -1,15 +1,186 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="archivo_icfes">Archivo</label>
-      <input type="file" id="archivo_icfes" (change)="onFileChange($event)" #fileInput>
-      <button type="button" class="btn btn-sm btn-default" (click)="clearFile()">clear file</button>
-    </div>
-    <button type="submit" [disabled]="form.invalid || loading" class="btn btn-success">Submit <i class="fa fa-spinner fa-spin fa-fw" *ngIf="loading"></i></button>
+<div class="card-2">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <nb-card>
+      <nb-card-header>Carga Masiva</nb-card-header>
+      <nb-card-body>
+        <div class="form-group col-sm">
+          <input nbInput type="file" id="archivo_icfes" (change)="onFileChange($event)" class="form-control-file"
+            #fileInput>
+        </div>
+        <button type="button" class="btn btn-primary" (click)="clearFile()">clear file</button>
+      </nb-card-body>
+      <nb-card-footer>
+        <button type="submit" [disabled]="form.invalid || loading" class="btn btn-success">Submit <i
+            class="fa fa-spinner fa-spin fa-fw" *ngIf="loading"></i></button>
+      </nb-card-footer>
+    </nb-card>
   </form>
-  <div *ngIf=respuesta>
-    <code>
-      <pre>
-        {{respuesta | json}}
-      </pre>
-    </code>
-  </div>
+</div>
+
+
+
+<nb-card *ngIf="dataSource">
+  <nb-card-header>Articulos Relacionados</nb-card-header>
+  <nb-card-body>
+
+    <input nbInput (keyup)="applyFilter($event.target.value)" class="filter" placeholder="Filtro">
+
+    <div>
+      <table mat-table [dataSource]="dataSource" matSort>
+
+        <!-- Tipo de Bien -->
+        <ng-container matColumnDef="TipoBienId">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo de Bien </th>
+          <td mat-cell *matCellDef="let element; let rowIndex = index">
+            <select type="text" class="cell-2 form-control" placeholder="Tipo de Bien" required>
+              <option *ngFor="let tipobien of Tipos_Bien" [(value)]="tipobien.Id">{{tipobien.Nombre}}</option>
+            </select>
+          </td>
+          <td mat-footer-cell *matFooterCellDef>Totales</td>
+        </ng-container>
+
+        <!-- Subgrupo Catalogo -->
+        <ng-container matColumnDef="SubgrupoCatalogoId">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Subgrupo</th>
+          <td mat-cell *matCellDef="let element; let rowIndex = index">
+
+            <select nbInput type="text" fieldSize="tiny" class="cell form-control" placeholder="Subcatalogo"
+              [(ngModel)]="element.SubgrupoCatalogoId" required>
+              <option>1232341</option>
+              <option>7674234</option>
+              <option>1933232</option>
+            </select>
+          </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <!-- Nombre Catalogo -->
+        <ng-container matColumnDef="Nombre">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripcion </th>
+          <td mat-cell *matCellDef="let element; let rowIndex = index">
+            <input nbInput type="text" fieldSize="tiny" class="cell" placeholder="Descripcion"
+              [(ngModel)]="element.Descripcion" required>
+          </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <!-- Cantidad Column -->
+        <ng-container matColumnDef="Cantidad">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Cantidad </th>
+          <td mat-cell *matCellDef="let element; let rowIndex = index">
+            <input nbInput type="number" fieldSize="tiny" class="cell" placeholder="Cantidad"
+              [(ngModel)]="element.Cantidad" required>
+          </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <!-- Marca Column -->
+        <ng-container matColumnDef="Marca">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Marca </th>
+          <td mat-cell *matCellDef="let element; let rowIndex = index">
+            <input nbInput type="text" fieldSize="tiny" class="cell" placeholder="Marca" [(ngModel)]="element.Marca"
+              required>
+          </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <!-- Serie Column -->
+        <ng-container matColumnDef="Serie">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Serie </th>
+          <td mat-cell *matCellDef="let element; let rowIndex = index">
+            <input nbInput type="text" fieldSize="tiny" class="cell" placeholder="Serie" [(ngModel)]="element.Serie"
+              required>
+          </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <!-- UnidadMedida Column -->
+        <ng-container matColumnDef="UnidadMedida">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Unidad de Medida </th>
+          <td mat-cell *matCellDef="let element; let rowIndex = index">
+            <input nbInput type="number" fieldSize="tiny" class="cell" placeholder="Medida"
+              [(ngModel)]="element.UnidadMedida" required>
+          </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <!-- ValorUnitario Column -->
+        <ng-container matColumnDef="ValorUnitario">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor Unitario </th>
+          <td mat-cell *matCellDef="let element; let rowIndex = index">
+
+            <input nbInput type="text" fieldSize="tiny" class="cell" placeholder="Valor Unitario"
+              [(ngModel)]="element.ValorUnitario" required>
+          </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <!-- Subtotal Column -->
+        <ng-container matColumnDef="Subtotal">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Subtotal </th>
+          <td mat-cell *matCellDef="let element; let rowIndex = index">
+            <input nbInput type="text" fieldSize="tiny" class="cell" placeholder="Subtotal"
+              [(ngModel)]="element.Subtotal" required>
+          </td>
+          <td mat-footer-cell *matFooterCellDef>2123245</td>
+        </ng-container>
+
+        <!-- Descuento Column -->
+        <ng-container matColumnDef="Descuento">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Descuento </th>
+          <td mat-cell *matCellDef="let element; let rowIndex = index">
+            <input nbInput type="text" fieldSize="tiny" class="cell" placeholder="Descuento"
+              [(ngModel)]="element.Descuento" required>
+          </td>
+          <td mat-footer-cell *matFooterCellDef> 456465464 </td>
+        </ng-container>
+
+        <!-- PorcentajeIvaId Column -->
+        <ng-container matColumnDef="PorcentajeIvaId">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> % IVA </th>
+          <td mat-cell *matCellDef="let element; let rowIndex = index">
+            <input nbInput type="text" fieldSize="tiny" class="cell" placeholder="% IVA"
+              [(ngModel)]="element.PorcentajeIvaId" required>
+          </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <!-- ValorIva Column -->
+        <ng-container matColumnDef="ValorIva">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor IVA </th>
+          <td mat-cell *matCellDef="let element; let rowIndex = index">
+            <input nbInput type="text" fieldSize="tiny" class="cell" placeholder="Valor Iva"
+              [(ngModel)]="element.ValorIva" required>
+          </td>
+          <td mat-footer-cell *matFooterCellDef> 45454666666 </td>
+        </ng-container>
+
+        <!-- ValorTotal Column -->
+        <ng-container matColumnDef="ValorTotal">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor Total </th>
+          <td mat-cell *matCellDef="let element; let rowIndex = index">
+            <input nbInput type="text" fieldSize="tiny" class="cell" placeholder="Valor Total"
+              [(ngModel)]="element.ValorTotal" required>
+          </td>
+          <td mat-footer-cell *matFooterCellDef> 4565454111 </td>
+        </ng-container>
+
+        <!-- Acciones Column -->
+        <ng-container matColumnDef="Acciones">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            <i class="fas fa-plus-square fa-2x"></i>
+          </th>
+          <td mat-cell *matCellDef="let element; let rowIndex = index">
+            <i class="far fa-window-close fa-2x"></i>
+          </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+      </table>
+    </div>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+  </nb-card-body>
+</nb-card>

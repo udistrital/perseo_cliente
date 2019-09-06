@@ -4,6 +4,11 @@ import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActaRecibidoHelper } from '../../../helpers/acta_recibido/actaRecibidoHelper';
 import Swal from 'sweetalert2';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource, MatTable } from '@angular/material/table';
+import { TipoBien } from '../../../@core/data/models/acta_recibido/tipo_bien';
+
 
 @Component({
   selector: 'ngx-capturar-elementos',
@@ -17,19 +22,55 @@ export class CapturarElementosComponent implements OnInit {
   form: FormGroup;
   buffer: Uint8Array;
 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   @ViewChild('fileInput') fileInput: ElementRef;
+  dataSource: MatTableDataSource<any>;
+
   respuesta: any;
+  Tipos_Bien: Array<TipoBien>;
 
   constructor(private fb: FormBuilder,
     translate: TranslateService,
     private actaRecibidoHelper: ActaRecibidoHelper) {
-
   }
 
   ngOnInit() {
     this.createForm();
+    this.Traer_Tipo_Bien();
+    this.dataSource = new MatTableDataSource();
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
+  Traer_Tipo_Bien() {
+    this.Tipos_Bien = new Array<TipoBien>();
+    this.actaRecibidoHelper.getTipoBien().subscribe(res => {
+      if (res !== null) {
+        for (const index in res) {
+          if (res.hasOwnProperty(index)) {
+            const tipo_bien = new TipoBien;
+            tipo_bien.Id = res[index].Id;
+            tipo_bien.Nombre = res[index].Nombre;
+            tipo_bien.CodigoAbreviacion = res[index].CodigoAbreviacion;
+            tipo_bien.Descripcion = res[index].Descripcion;
+            tipo_bien.FechaCreacion = res[index].FechaCreacion;
+            tipo_bien.FechaModificacion = res[index].FechaModificacion;
+            tipo_bien.NumeroOrden = res[index].NumeroOrden;
+            this.Tipos_Bien.push(tipo_bien);
+          }
+        }
+      }
+    });
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
 
   createForm() {
     this.form = this.fb.group({
@@ -53,13 +94,18 @@ export class CapturarElementosComponent implements OnInit {
     const formModel = this.prepareSave();
     this.actaRecibidoHelper.postArchivo(formModel).subscribe(res => {
 
-      this.respuesta = res;
       if (res !== null) {
         (Swal as any).fire({
           type: 'success',
           title: 'Elementos Cargados',
           text: 'Elementos cargados exitosamente',
         });
+        this.respuesta = res;
+        console.log(this.respuesta)
+        this.dataSource = new MatTableDataSource(this.respuesta[0].Elementos);
+
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       } else {
         (Swal as any).fire({
           type: 'error',
@@ -79,5 +125,22 @@ export class CapturarElementosComponent implements OnInit {
   onSubmit() {
     this.readThis();
   }
+
+  displayedColumns = [
+    'TipoBienId',
+    'SubgrupoCatalogoId',
+    'Nombre',
+    'Cantidad',
+    'Marca',
+    'Serie',
+    'UnidadMedida',
+    'ValorUnitario',
+    'Subtotal',
+    'Descuento',
+    'PorcentajeIvaId',
+    'ValorIva',
+    'ValorTotal',
+    'Acciones',
+  ];
 
 }
