@@ -45,6 +45,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
   firstForm: FormGroup;
   @ViewChild('fform') firstFormDirective;
   Datos: any;
+  DatosElementos: Array<any>;
   carga_agregada: boolean;
   index;
   selected = new FormControl(0);
@@ -166,19 +167,19 @@ export class RegistroActaRecibidoComponent implements OnInit {
   }
   get Elementos(): FormGroup {
     return this.fb.group({
-      TipoBienId: ['', Validators.required],
-      SubgrupoCatalogoId: ['', Validators.required],
-      Nombre: ['', Validators.required],
-      Cantidad: ['0', Validators.required],
-      Marca: ['', Validators.required],
-      Serie: ['', Validators.required],
-      UnidadMedida: ['', Validators.required],
-      ValorUnitario: ['0', Validators.required],
-      Subtotal: ['0', Validators.required],
-      Descuento: ['0', Validators.required],
-      PorcentajeIvaId: ['', Validators.required],
-      ValorIva: ['0', Validators.required],
-      ValorTotal: ['0', Validators.required],
+      TipoBienId: [''],
+      SubgrupoCatalogoId: [''],
+      Nombre: [''],
+      Cantidad: ['0'],
+      Marca: [''],
+      Serie: [''],
+      UnidadMedida: [''],
+      ValorUnitario: ['0'],
+      Subtotal: ['0'],
+      Descuento: ['0'],
+      PorcentajeIvaId: [''],
+      ValorIva: ['0'],
+      ValorTotal: ['0'],
     });
   }
   get Formulario_3(): FormGroup {
@@ -224,25 +225,26 @@ export class RegistroActaRecibidoComponent implements OnInit {
     }
 
     Transaccion_Acta.SoportesActa = Soportes;
+     // console.log(this.DatosElementos);
 
 
 
-    this.Actas_Recibido.postTransaccionActa(Transaccion_Acta).subscribe((res: any) => {
+    // this.Actas_Recibido.postTransaccionActa(Transaccion_Acta).subscribe((res: any) => {
 
-      if (res !== null) {
-        (Swal as any).fire({
-          type: 'success',
-          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' Registrada',
-          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' ha sido registrada exitosamente',
-        });
-      } else {
-        (Swal as any).fire({
-          type: 'error',
-          title: 'Acta  No Registrada',
-          text: 'El acta no ha podido ser registrada, intenta mas tarde',
-        });
-      }
-    });
+    //   if (res !== null) {
+    //     (Swal as any).fire({
+    //       type: 'success',
+    //       title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' Registrada',
+    //       text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' ha sido registrada exitosamente',
+    //     });
+    //   } else {
+    //     (Swal as any).fire({
+    //       type: 'error',
+    //       title: 'Acta  No Registrada',
+    //       text: 'El acta no ha podido ser registrada, intenta mas tarde',
+    //     });
+    //   }
+    // });
   }
 
   Registrar_Acta(Datos: any, Datos2: any): ActaRecibido {
@@ -361,6 +363,10 @@ export class RegistroActaRecibidoComponent implements OnInit {
   }
   valor_iva(subtotal: string, descuento: string, porcentaje_iva: string) {
     return ((parseFloat(subtotal) - parseFloat(descuento)) * parseFloat(porcentaje_iva) / 100);
+  }
+  ver(event: any, index: number){
+    // console.log(event);
+    this.DatosElementos[index] = event;
   }
 
 }

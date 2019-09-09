@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -27,6 +27,10 @@ export class CapturarElementosComponent implements OnInit {
   @ViewChild('fileInput') fileInput: ElementRef;
   dataSource: MatTableDataSource<any>;
 
+  @Input() DatosRecibidos: any;
+  @Output() DatosEnviados  = new EventEmitter();
+
+
   respuesta: any;
   Tipos_Bien: Array<TipoBien>;
 
@@ -38,9 +42,16 @@ export class CapturarElementosComponent implements OnInit {
   ngOnInit() {
     this.createForm();
     this.Traer_Tipo_Bien();
-    this.dataSource = new MatTableDataSource();
+    if (this.DatosRecibidos !== null) {
+      this.dataSource = new MatTableDataSource(this.DatosRecibidos);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    } else {
+      this.dataSource = new MatTableDataSource();
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    }
+
   }
 
   Traer_Tipo_Bien() {
@@ -100,9 +111,11 @@ export class CapturarElementosComponent implements OnInit {
           title: 'Elementos Cargados',
           text: 'Elementos cargados exitosamente',
         });
+        this.respuesta = res;
         this.dataSource = new MatTableDataSource(this.respuesta[0].Elementos);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.DatosEnviados.emit(this.dataSource.data);
       } else {
         (Swal as any).fire({
           type: 'error',

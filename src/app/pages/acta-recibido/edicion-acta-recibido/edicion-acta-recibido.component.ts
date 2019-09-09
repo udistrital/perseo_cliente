@@ -224,19 +224,19 @@ export class EdicionActaRecibidoComponent implements OnInit {
   get Elementos(): FormGroup {
     return this.fb.group({
       Id: [0],
-      TipoBienId: ['', Validators.required],
-      SubgrupoCatalogoId: ['', Validators.required],
-      Nombre: ['', Validators.required],
-      Cantidad: ['0', Validators.required],
-      Marca: ['', Validators.required],
-      Serie: ['', Validators.required],
-      UnidadMedida: ['', Validators.required],
-      ValorUnitario: ['0', Validators.required],
-      Subtotal: ['0', Validators.required],
-      Descuento: ['0', Validators.required],
-      PorcentajeIvaId: ['', Validators.required],
-      ValorIva: ['0', Validators.required],
-      ValorTotal: ['0', Validators.required],
+      TipoBienId: [''],
+      SubgrupoCatalogoId: [''],
+      Nombre: [''],
+      Cantidad: ['0'],
+      Marca: [''],
+      Serie: [''],
+      UnidadMedida: [''],
+      ValorUnitario: ['0'],
+      Subtotal: ['0'],
+      Descuento: ['0'],
+      PorcentajeIvaId: [''],
+      ValorIva: ['0'],
+      ValorTotal: ['0'],
     });
   }
   get Formulario_3(): FormGroup {
