@@ -1,5 +1,6 @@
 table {
   width: 100%;
+  text-align: right;
 }
 .filter {
   width: 100%;
@@ -34,18 +35,22 @@ table {
 .cell {
   height: 50px;
   width: 150px;
+  text-align: right;
 }
 .cell-2 {
   height: 50px;
   width: 130px;
+  text-align: right;
 }
 table {
   width: 100%;
   table-layout: fixed;
+  text-align: right;
 }
 th,
 td {
   width: 160px;
+  text-align: right;
 }
 tr.mat-footer-row {
   font-weight: bold;

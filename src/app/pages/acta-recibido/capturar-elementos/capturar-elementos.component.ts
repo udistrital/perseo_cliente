@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { TranslateService } from '@ngx-translate/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ActaRecibidoHelper } from '../../../helpers/acta_recibido/actaRecibidoHelper';
 import Swal from 'sweetalert2';
 import { MatPaginator } from '@angular/material/paginator';
@@ -21,6 +21,7 @@ export class CapturarElementosComponent implements OnInit {
   arrayBuffer: Iterable<number>;
   form: FormGroup;
   buffer: Uint8Array;
+  Validador: boolean = false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -28,8 +29,7 @@ export class CapturarElementosComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
 
   @Input() DatosRecibidos: any;
-  @Output() DatosEnviados  = new EventEmitter();
-
+  @Output() DatosEnviados = new EventEmitter();
 
   respuesta: any;
   Tipos_Bien: Array<TipoBien>;
@@ -44,14 +44,13 @@ export class CapturarElementosComponent implements OnInit {
     this.Traer_Tipo_Bien();
     if (this.DatosRecibidos !== null) {
       this.dataSource = new MatTableDataSource(this.DatosRecibidos);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     } else {
       this.dataSource = new MatTableDataSource();
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     }
-
   }
 
   Traer_Tipo_Bien() {
@@ -85,13 +84,24 @@ export class CapturarElementosComponent implements OnInit {
 
   createForm() {
     this.form = this.fb.group({
-      archivo: null,
+      archivo: ['', Validators.required],
     });
   }
   onFileChange(event) {
+
+    let nombre = new String
     if (event.target.files.length > 0) {
+      nombre = event.target.files[0].name
+      let [_, extension] = nombre.split('.');
       const file = event.target.files[0];
-      this.form.get('archivo').setValue(file);
+      if (extension !== 'xlsx') {
+        this.Validador = false;
+      } else {
+        this.form.get('archivo').setValue(file);
+        this.Validador = true;
+      }
+    } else {
+      this.Validador = false;
     }
   }
   private prepareSave(): any {
@@ -124,12 +134,11 @@ export class CapturarElementosComponent implements OnInit {
         });
       }
     });
-    // };
-    // myReader.readAsArrayBuffer(file);
   }
 
   clearFile() {
     this.fileInput.nativeElement.value = '';
+    this.form.get('archivo').setValue('');
   }
 
   onSubmit() {
@@ -152,5 +161,21 @@ export class CapturarElementosComponent implements OnInit {
     'ValorTotal',
     'Acciones',
   ];
+
+  getDescuentos(){
+    return this.dataSource.data.map(t => t.Descuento).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
+  }
+
+  getSubtotales(){
+    return this.dataSource.data.map(t => t.Subtotal).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
+  }
+
+  getIVA(){
+    return this.dataSource.data.map(t => t.ValorIva).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
+  }
+
+  getTotales(){
+    return this.dataSource.data.map(t => t.ValorTotal).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
+  }
 
 }

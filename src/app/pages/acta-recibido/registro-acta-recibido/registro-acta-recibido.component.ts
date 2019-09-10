@@ -74,6 +74,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
   ) {
   }
   ngOnInit() {
+    this.DatosElementos = new Array<any>();
     this.Traer_Tipo_Bien();
     this.Traer_Estados_Acta();
     this.Traer_Estados_Elemento();
@@ -211,40 +212,30 @@ export class RegistroActaRecibidoComponent implements OnInit {
   }
   onFirstSubmit() {
     this.Datos = this.firstForm.value;
-
     const Transaccion_Acta = new TransaccionActaRecibido();
-
     Transaccion_Acta.ActaRecibido = this.Registrar_Acta(this.Datos.Formulario1, this.Datos.Formulario3);
     Transaccion_Acta.UltimoEstado = this.Registrar_Estado_Acta(Transaccion_Acta.ActaRecibido, 2);
-
     const Soportes = new Array<TransaccionSoporteActa>();
-
     for (const soporte of this.Datos.Formulario2) {
-
       Soportes.push(this.Registrar_Soporte(soporte, soporte.Elementos, Transaccion_Acta.ActaRecibido));
     }
-
     Transaccion_Acta.SoportesActa = Soportes;
-     // console.log(this.DatosElementos);
-
-
-
-    // this.Actas_Recibido.postTransaccionActa(Transaccion_Acta).subscribe((res: any) => {
-
-    //   if (res !== null) {
-    //     (Swal as any).fire({
-    //       type: 'success',
-    //       title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' Registrada',
-    //       text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' ha sido registrada exitosamente',
-    //     });
-    //   } else {
-    //     (Swal as any).fire({
-    //       type: 'error',
-    //       title: 'Acta  No Registrada',
-    //       text: 'El acta no ha podido ser registrada, intenta mas tarde',
-    //     });
-    //   }
-    // });
+    console.log(this.DatosElementos);
+    this.Actas_Recibido.postTransaccionActa(Transaccion_Acta).subscribe((res: any) => {
+      if (res !== null) {
+        (Swal as any).fire({
+          type: 'success',
+          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' Registrada',
+          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' ha sido registrada exitosamente',
+        });
+      } else {
+        (Swal as any).fire({
+          type: 'error',
+          title: 'Acta  No Registrada',
+          text: 'El acta no ha podido ser registrada, intenta mas tarde',
+        });
+      }
+    });
   }
 
   Registrar_Acta(Datos: any, Datos2: any): ActaRecibido {
@@ -364,9 +355,11 @@ export class RegistroActaRecibidoComponent implements OnInit {
   valor_iva(subtotal: string, descuento: string, porcentaje_iva: string) {
     return ((parseFloat(subtotal) - parseFloat(descuento)) * parseFloat(porcentaje_iva) / 100);
   }
-  ver(event: any, index: number){
+  ver(event: any, index: number) {
     // console.log(event);
-    this.DatosElementos[index] = event;
+    this.DatosElementos.push(event);
+    console.log(this.DatosElementos);
+    console.log(index);
   }
 
 }

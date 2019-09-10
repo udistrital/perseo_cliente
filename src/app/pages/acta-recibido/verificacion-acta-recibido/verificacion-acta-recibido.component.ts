@@ -214,46 +214,15 @@ export class VerificacionActaRecibidoComponent implements OnInit {
 
   onFirstSubmit() {
     this.Datos = this.firstForm.value;
-
     const Transaccion_Acta = new TransaccionActaRecibido();
-
     Transaccion_Acta.ActaRecibido = this.Registrar_Acta(this.Datos.Formulario1, this.Datos.Formulario3);
     Transaccion_Acta.UltimoEstado = this.Registrar_Estado_Acta(Transaccion_Acta.ActaRecibido, 5);
-
     const Soportes = new Array<TransaccionSoporteActa>();
-
     for (const soporte of this.Datos.Formulario2) {
-
       Soportes.push(this.Registrar_Soporte(soporte, soporte.Elementos, Transaccion_Acta.ActaRecibido));
     }
-
     Transaccion_Acta.SoportesActa = Soportes;
-
     this.Actas_Recibido.putTransaccionActa(Transaccion_Acta, Transaccion_Acta.ActaRecibido.Id).subscribe((res: any) => {
-
-    });
-
-  }
-
-  onFirstSubmit2() {
-    this.Datos = this.firstForm.value;
-
-    const Transaccion_Acta = new TransaccionActaRecibido();
-
-    Transaccion_Acta.ActaRecibido = this.Registrar_Acta(this.Datos.Formulario1, this.Datos.Formulario3);
-    Transaccion_Acta.UltimoEstado = this.Registrar_Estado_Acta(Transaccion_Acta.ActaRecibido, 3);
-
-    const Soportes = new Array<TransaccionSoporteActa>();
-
-    for (const soporte of this.Datos.Formulario2) {
-
-      Soportes.push(this.Registrar_Soporte(soporte, soporte.Elementos, Transaccion_Acta.ActaRecibido));
-    }
-
-    Transaccion_Acta.SoportesActa = Soportes;
-
-    this.Actas_Recibido.putTransaccionActa(Transaccion_Acta, Transaccion_Acta.ActaRecibido.Id).subscribe((res: any) => {
-
       if (res !== null) {
         (Swal as any).fire({
           type: 'success',
@@ -268,7 +237,34 @@ export class VerificacionActaRecibidoComponent implements OnInit {
         });
       }
     });
+  }
 
+  onFirstSubmit2() {
+
+    this.Datos = this.firstForm.value;
+    const Transaccion_Acta = new TransaccionActaRecibido();
+    Transaccion_Acta.ActaRecibido = this.Registrar_Acta(this.Datos.Formulario1, this.Datos.Formulario3);
+    Transaccion_Acta.UltimoEstado = this.Registrar_Estado_Acta(Transaccion_Acta.ActaRecibido, 3);
+    const Soportes = new Array<TransaccionSoporteActa>();
+    for (const soporte of this.Datos.Formulario2) {
+      Soportes.push(this.Registrar_Soporte(soporte, soporte.Elementos, Transaccion_Acta.ActaRecibido));
+    }
+    Transaccion_Acta.SoportesActa = Soportes;
+    this.Actas_Recibido.putTransaccionActa(Transaccion_Acta, Transaccion_Acta.ActaRecibido.Id).subscribe((res: any) => {
+      if (res !== null) {
+        (Swal as any).fire({
+          type: 'success',
+          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' Retornada',
+          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' ha sido retornada exitosamente',
+        });
+      } else {
+        (Swal as any).fire({
+          type: 'error',
+          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' No Retornada',
+          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' no ha podido ser Retornada, intenta mas tarde',
+        });
+      }
+    });
   }
 
   Registrar_Acta(Datos: any, Datos2: any): ActaRecibido {
@@ -289,7 +285,6 @@ export class VerificacionActaRecibidoComponent implements OnInit {
   Registrar_Estado_Acta(__: ActaRecibido, Estado: number): HistoricoActa {
 
     const Historico_ = new HistoricoActa();
-
     Historico_.Id = null;
     Historico_.ActaRecibidoId = __;
     Historico_.Activo = true;
@@ -303,7 +298,6 @@ export class VerificacionActaRecibidoComponent implements OnInit {
 
     const Soporte_Acta = new SoporteActa();
     const Transaccion = new TransaccionSoporteActa();
-
     Soporte_Acta.Id = parseFloat(Datos.Id);
     Soporte_Acta.ActaRecibidoId = __;
     Soporte_Acta.Activo = true;
@@ -312,7 +306,6 @@ export class VerificacionActaRecibidoComponent implements OnInit {
     Soporte_Acta.FechaModificacion = new Date();
     Soporte_Acta.FechaSoporte = Datos.Fecha_Factura;
     Soporte_Acta.ProveedorId = Datos.Proveedor;
-
     Transaccion.SoporteActa = Soporte_Acta;
     Transaccion.Elementos = this.Registrar_Elementos(Elementos_, Soporte_Acta);
 
@@ -370,7 +363,6 @@ export class VerificacionActaRecibidoComponent implements OnInit {
     'ValorTotal',
     'Acciones',
   ];
-
   Pipe2Number(any: String) {
     if (any !== null) {
       return any.replace(/[$,]/g, '');
@@ -378,7 +370,6 @@ export class VerificacionActaRecibidoComponent implements OnInit {
       return '0';
     }
   }
-
   valortotal(subtotal: string, descuento: string, iva: string) {
     return (parseFloat(subtotal) - parseFloat(descuento) + parseFloat(iva));
   }

@@ -13,7 +13,7 @@ export class ActaRecibidoHelper {
         private pUpManager: PopUpManager) { }
 
     /**
-     * Contratos Get
+     * Actas de Recibido Get
      * If the response has errors in the OAS API it should show a popup message with an error.
      * If the response is successs, it returns the object's data.
      * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
@@ -34,7 +34,7 @@ export class ActaRecibidoHelper {
     }
 
 /**
-     * Contratos Get
+     * Actas de Recibido Activas Get
      * If the response has errors in the OAS API it should show a popup message with an error.
      * If the response is successs, it returns the object's data.
      * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
@@ -140,7 +140,7 @@ export class ActaRecibidoHelper {
     }
 
     /**
-     * Estados Acta Get
+     * Estados Elemento Acta Get
      * If the response has errors in the OAS API it should show a popup message with an error.
      * If the response is successs, it returns the object's data.
      * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
@@ -160,7 +160,7 @@ export class ActaRecibidoHelper {
         );
     }
     /**
-     * Estados Acta Get
+     * Elementos Transaccion Acta Get
      * If the response has errors in the OAS API it should show a popup message with an error.
      * If the response is successs, it returns the object's data.
      * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
@@ -181,7 +181,7 @@ export class ActaRecibidoHelper {
     }
 
     /**
-     * Estados Acta Get
+     * Transaccion Acta Post
      * If the response has errors in the OAS API it should show a popup message with an error.
      * If the response is successs, it returns the object's data.
      * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
@@ -202,7 +202,7 @@ export class ActaRecibidoHelper {
     }
 
     /**
-     * Estados Acta Get
+     * Transaccion Acta Post
      * If the response has errors in the OAS API it should show a popup message with an error.
      * If the response is successs, it returns the object's data.
      * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
@@ -223,7 +223,7 @@ export class ActaRecibidoHelper {
     }
 
     /**
-     * Estados Acta Get
+     * Conversion Archivo Post
      * If the response has errors in the OAS API it should show a popup message with an error.
      * If the response is successs, it returns the object's data.
      * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
@@ -242,6 +242,25 @@ export class ActaRecibidoHelper {
             ),
         );
     }
-
+/**
+     * Unidades Get
+     * If the response has errors in the OAS API it should show a popup message with an error.
+     * If the response is successs, it returns the object's data.
+     * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
+     */
+    public getUnidades() {
+        this.rqManager.setPath('UNIDADES_SERVICE');
+        return this.rqManager.get('unidad?limit=-1').pipe(
+            map(
+                (res) => {
+                    if (res === 'error') {
+                        this.pUpManager.showErrorAlert('No se pudo consultar las unidades');
+                        return undefined;
+                    }
+                    return res;
+                },
+            ),
+        );
+    }
 
 }

@@ -4,20 +4,19 @@
       <nb-card-header>Carga Masiva</nb-card-header>
       <nb-card-body>
         <div class="form-group col-sm">
-          <input nbInput type="file" id="archivo_icfes" (change)="onFileChange($event)" class="form-control-file"
+          <input nbInput formControlname="archivo" type="file" id="archivo_icfes" (change)="onFileChange($event)" class="form-control-file"
             #fileInput>
+            <p *ngIf="!Validador">El archivo debe tener extension (*.xlsx)</p>
         </div>
-        <button type="button" class="btn btn-primary" (click)="clearFile()">clear file</button>
+        <button type="button" class="btn btn-primary" (click)="clearFile()">Limpiar Espacio</button>
       </nb-card-body>
       <nb-card-footer>
-        <button type="submit" [disabled]="form.invalid || loading" class="btn btn-success">Submit <i
+        <button type="submit" [disabled]="!form.valid && !Validador" class="btn btn-success"> Cargar Elementos <i
             class="fa fa-spinner fa-spin fa-fw" *ngIf="loading"></i></button>
       </nb-card-footer>
     </nb-card>
   </form>
 </div>
-
-
 
 <nb-card *ngIf="dataSource">
   <nb-card-header>Articulos Relacionados</nb-card-header>
@@ -122,7 +121,9 @@
             <input nbInput type="text" fieldSize="tiny" class="cell" placeholder="Subtotal"
               [(ngModel)]="element.Subtotal" required>
           </td>
-          <td mat-footer-cell *matFooterCellDef>2123245</td>
+          <td mat-footer-cell *matFooterCellDef >
+            <p *ngIf="respuesta">{{ getSubtotales() | currency }}</p>
+          </td>
         </ng-container>
 
         <!-- Descuento Column -->
@@ -132,7 +133,9 @@
             <input nbInput type="text" fieldSize="tiny" class="cell" placeholder="Descuento"
               [(ngModel)]="element.Descuento" required>
           </td>
-          <td mat-footer-cell *matFooterCellDef> 456465464 </td>
+          <td mat-footer-cell *matFooterCellDef>
+              <p *ngIf="respuesta">{{ getDescuentos() | currency }}</p>
+          </td>
         </ng-container>
 
         <!-- PorcentajeIvaId Column -->
@@ -152,7 +155,9 @@
             <input nbInput type="text" fieldSize="tiny" class="cell" placeholder="Valor Iva"
               [(ngModel)]="element.ValorIva" required>
           </td>
-          <td mat-footer-cell *matFooterCellDef> 45454666666 </td>
+          <td mat-footer-cell *matFooterCellDef>
+              <p *ngIf="respuesta">{{ getIVA() | currency }}</p>
+          </td>
         </ng-container>
 
         <!-- ValorTotal Column -->
@@ -162,7 +167,9 @@
             <input nbInput type="text" fieldSize="tiny" class="cell" placeholder="Valor Total"
               [(ngModel)]="element.ValorTotal" required>
           </td>
-          <td mat-footer-cell *matFooterCellDef> 4565454111 </td>
+          <td mat-footer-cell *matFooterCellDef>
+              <p *ngIf="respuesta">{{ getTotales() | currency }}</p>
+          </td>
         </ng-container>
 
         <!-- Acciones Column -->
