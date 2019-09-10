@@ -1,5 +1,4 @@
-export const DatosLocales: any =
-{
+export const DatosLocales: any = {
     'NivelInventariosId': 1,
     'TipoBienId': 1,
     'SubgrupoCatalogoId': 0,

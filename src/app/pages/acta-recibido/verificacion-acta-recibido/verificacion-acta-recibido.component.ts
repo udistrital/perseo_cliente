@@ -19,6 +19,7 @@ import Swal from 'sweetalert2';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { CurrencyPipe } from '@angular/common';
+import { Unidad } from '../../../@core/data/models/acta_recibido/unidades';
 
 
 
@@ -61,6 +62,7 @@ export class VerificacionActaRecibidoComponent implements OnInit {
   Soportes_Acta: Array<SoporteActa>;
   Historico_Acta: HistoricoActa;
   Transaccion__: TransaccionActaRecibido;
+  Unidades: Unidad[];
 
   constructor(
     private translate: TranslateService,
@@ -147,6 +149,24 @@ export class VerificacionActaRecibidoComponent implements OnInit {
         this.Transaccion__ = res[0];
 
         this.Cargar_Formularios(this.Transaccion__);
+      }
+    });
+  }
+  Traer_Unidades() {
+    this.Unidades = new Array<Unidad>();
+    this.Actas_Recibido.getUnidades().subscribe(res => {
+      if (res !== null) {
+        for (const index in res) {
+          if (res.hasOwnProperty(index)) {
+            const unidad = new Unidad;
+            unidad.Id = res[index].Id;
+            unidad.Unidad = res[index].Unidad;
+            unidad.Tipo= res[index].Tipo;
+            unidad.Descripcion = res[index].Descripcion;
+            unidad.Estado = res[index].Estado;
+            this.Unidades.push(unidad);
+          }
+        }
       }
     });
   }

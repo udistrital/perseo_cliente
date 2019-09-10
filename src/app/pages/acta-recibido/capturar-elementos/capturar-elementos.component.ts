@@ -9,6 +9,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { TipoBien } from '../../../@core/data/models/acta_recibido/tipo_bien';
 import { DatosLocales } from './datos_locales';
+import { Unidad } from '../../../@core/data/models/acta_recibido/unidades';
 
 
 @Component({
@@ -34,6 +35,7 @@ export class CapturarElementosComponent implements OnInit {
 
   respuesta: any;
   Tipos_Bien: Array<TipoBien>;
+  Unidades: Unidad[];
 
   constructor(private fb: FormBuilder,
     translate: TranslateService,
@@ -69,6 +71,24 @@ export class CapturarElementosComponent implements OnInit {
             tipo_bien.FechaModificacion = res[index].FechaModificacion;
             tipo_bien.NumeroOrden = res[index].NumeroOrden;
             this.Tipos_Bien.push(tipo_bien);
+          }
+        }
+      }
+    });
+  }
+  Traer_Unidades() {
+    this.Unidades = new Array<Unidad>();
+    this.actaRecibidoHelper.getUnidades().subscribe(res => {
+      if (res !== null) {
+        for (const index in res) {
+          if (res.hasOwnProperty(index)) {
+            const unidad = new Unidad;
+            unidad.Id = res[index].Id;
+            unidad.Unidad = res[index].Unidad;
+            unidad.Tipo= res[index].Tipo;
+            unidad.Descripcion = res[index].Descripcion;
+            unidad.Estado = res[index].Estado;
+            this.Unidades.push(unidad);
           }
         }
       }
