@@ -85,7 +85,7 @@ export class CapturarElementosComponent implements OnInit {
             const unidad = new Unidad;
             unidad.Id = res[index].Id;
             unidad.Unidad = res[index].Unidad;
-            unidad.Tipo= res[index].Tipo;
+            unidad.Tipo = res[index].Tipo;
             unidad.Descripcion = res[index].Descripcion;
             unidad.Estado = res[index].Estado;
             this.Unidades.push(unidad);
