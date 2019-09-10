@@ -162,19 +162,19 @@ export class CapturarElementosComponent implements OnInit {
     'Acciones',
   ];
 
-  getDescuentos(){
+  getDescuentos() {
     return this.dataSource.data.map(t => t.Descuento).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
   }
 
-  getSubtotales(){
+  getSubtotales() {
     return this.dataSource.data.map(t => t.Subtotal).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
   }
 
-  getIVA(){
+  getIVA() {
     return this.dataSource.data.map(t => t.ValorIva).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
   }
 
-  getTotales(){
+  getTotales() {
     return this.dataSource.data.map(t => t.ValorTotal).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
   }
 

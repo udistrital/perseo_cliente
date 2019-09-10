@@ -220,7 +220,6 @@ export class RegistroActaRecibidoComponent implements OnInit {
       Soportes.push(this.Registrar_Soporte(soporte, soporte.Elementos, Transaccion_Acta.ActaRecibido));
     }
     Transaccion_Acta.SoportesActa = Soportes;
-    console.log(this.DatosElementos);
     this.Actas_Recibido.postTransaccionActa(Transaccion_Acta).subscribe((res: any) => {
       if (res !== null) {
         (Swal as any).fire({
@@ -358,8 +357,6 @@ export class RegistroActaRecibidoComponent implements OnInit {
   ver(event: any, index: number) {
     // console.log(event);
     this.DatosElementos.push(event);
-    console.log(this.DatosElementos);
-    console.log(index);
   }
 
 }
