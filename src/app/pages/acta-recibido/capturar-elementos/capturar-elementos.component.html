@@ -175,10 +175,10 @@
         <!-- Acciones Column -->
         <ng-container matColumnDef="Acciones">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            <i class="fas fa-plus-square fa-2x"></i>
+            <i class="fas fa-plus-square fa-2x" (click)="addElemento()"></i>
           </th>
           <td mat-cell *matCellDef="let element; let rowIndex = index">
-            <i class="far fa-window-close fa-2x"></i>
+            <i class="far fa-window-close fa-2x" (click)="deleteElemento(rowIndex)"></i>
           </td>
           <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>

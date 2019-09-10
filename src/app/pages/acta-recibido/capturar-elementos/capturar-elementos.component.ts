@@ -8,6 +8,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { TipoBien } from '../../../@core/data/models/acta_recibido/tipo_bien';
+import { DatosLocales } from './datos_locales';
 
 
 @Component({
@@ -178,4 +179,26 @@ export class CapturarElementosComponent implements OnInit {
     return this.dataSource.data.map(t => t.ValorTotal).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
   }
 
+  addElemento() {
+    this.dataSource.data.push(DatosLocales);
+  }
+  deleteElemento(index: number) {
+
+    (Swal as any).fire({
+      title: 'Esta Seguro?',
+      text: 'Esta seguro de eliminar el elemento?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No',
+    }).then((result) => {
+      if (result.value) {
+        const data = this.dataSource.data;
+        data.splice((this.paginator.pageIndex * this.paginator.pageSize) + index, 1);
+        this.dataSource.data = data;
+      }
+    });
+  }
 }

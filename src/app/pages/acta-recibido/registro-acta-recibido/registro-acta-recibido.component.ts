@@ -369,7 +369,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
 
     (Swal as any).fire({
       title: 'Esta Seguro?',
-      text: 'Esta seguro de que los datos son veridicos?,
+      text: 'Esta seguro de que los datos son veridicos?',
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
