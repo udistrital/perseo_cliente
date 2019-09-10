@@ -240,7 +240,7 @@ export class AdquisicionComponent implements OnInit {
       // CAMPOS OBLIGATORIOS
       entradaData.ActaRecibidoId = +this.actaRecibidoId;
       entradaData.Activo = true;
-      entradaData.Consecutivo = "ABC-124" // REVISAR
+      entradaData.Consecutivo = 'ABC-124'; // REVISAR
       entradaData.DocumentoContableId = 1; // REVISAR
       tipoEntrada.Id = 5;
       entradaData.TipoEntradaId = tipoEntrada;

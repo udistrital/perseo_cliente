@@ -41,17 +41,19 @@ export class ActaRecibidoHelper {
      */
     public getElementosActa(actaId) {
         this.rqManager.setPath('ACTA_RECIBIDO_SERVICE');
-        return this.rqManager.get('elemento?query=SoporteActaId.ActaRecibidoId.Id:' + actaId + ',SoporteActaId.ActaRecibidoId.Activo:True&limit=-1').pipe(
-            map(
-                (res) => {
-                    if (res === 'error') {
-                        this.pUpManager.showErrorAlert('No se pudo consultar los elementos');
-                        return undefined;
-                    }
-                    return res;
-                },
-            ),
-        );
+        return this.rqManager.get(
+            'elemento?query=SoporteActaId.ActaRecibidoId.Id:' + actaId +
+            ',SoporteActaId.ActaRecibidoId.Activo:True&limit=-1').pipe(
+                map(
+                    (res) => {
+                        if (res === 'error') {
+                            this.pUpManager.showErrorAlert('No se pudo consultar los elementos');
+                            return undefined;
+                        }
+                        return res;
+                    },
+                ),
+            );
     }
 
     /**

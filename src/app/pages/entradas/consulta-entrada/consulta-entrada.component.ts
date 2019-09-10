@@ -42,6 +42,7 @@ export class ConsultaEntradaComponent implements OnInit {
       },
       FechaCreacion: {
         title: 'Fecha de Creación',
+        width: '70px',
         valuePrepareFunction: (value: any) => {
           const date = value.split('T');
           return date[0];

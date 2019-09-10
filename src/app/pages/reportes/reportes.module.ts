@@ -13,7 +13,7 @@ import { ToasterModule } from 'angular2-toaster';
     CommonModule,
     ThemeModule,
     ToasterModule,
-    ReportesRoutingModule
-  ]
+    ReportesRoutingModule,
+  ],
 })
 export class ReportesModule { }

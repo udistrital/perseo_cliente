@@ -239,7 +239,7 @@ export class TercerosComponent implements OnInit {
       // CAMPOS OBLIGATORIOS
       entradaData.ActaRecibidoId = +this.actaRecibidoId;
       entradaData.Activo = true;
-      entradaData.Consecutivo = "ABC-124" // REVISAR
+      entradaData.Consecutivo = 'ABC-124'; // REVISAR
       entradaData.DocumentoContableId = 1; // REVISAR
       tipoEntrada.Id = 5;
       entradaData.TipoEntradaId = tipoEntrada;
@@ -263,5 +263,5 @@ export class TercerosComponent implements OnInit {
       this.pUpManager.showErrorAlert('No ha llenado todos los campos! No es posible hacer el registro.');
     }
   }
-  
+
 }

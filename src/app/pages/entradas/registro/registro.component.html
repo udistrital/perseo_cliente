@@ -5,6 +5,9 @@
     </nb-card-header>
     <nb-card-body>
 
+      <p class="h4 pb-4" *ngIf="actaSeleccionada === ''">Seleccione el acta de recibido a la cual desea realizarle
+        entrada dando clic en el ícono de acciones ubicado al costado derecho de la tabla.</p>
+
       <ng2-smart-table [settings]="settings" [source]="source" (custom)="onCustom($event)"
         *ngIf="actaSeleccionada === ''"></ng2-smart-table>
 

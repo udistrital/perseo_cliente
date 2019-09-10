@@ -13,6 +13,6 @@ export class Entrada {
     ContratoId: number;
     ElementoId: number; // REVISAR
     DocumentoContableId: number; // REVISAR
-    Consecutivo: string; 
+    Consecutivo: string;
     Vigencia: string;
 }

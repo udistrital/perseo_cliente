@@ -6,7 +6,7 @@ import { spagoBIService } from '../../../@core/utils/spagoBIAPI/spagoBIService';
 @Component({
   selector: 'ngx-registro-entradas',
   templateUrl: './registro-entradas.component.html',
-  styleUrls: ['./registro-entradas.component.scss']
+  styleUrls: ['./registro-entradas.component.scss'],
 })
 export class RegistroEntradasComponent implements OnInit {
 
