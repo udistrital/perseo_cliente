@@ -299,7 +299,6 @@ export class EdicionActaRecibidoComponent implements OnInit {
         });
       }
     });
-
   }
 
   onFirstSubmit2() {
@@ -456,18 +455,18 @@ export class EdicionActaRecibidoComponent implements OnInit {
   valor_iva(subtotal: string, descuento: string, porcentaje_iva: string) {
     return ((parseFloat(subtotal) - parseFloat(descuento)) * parseFloat(porcentaje_iva) / 100);
   }
-  Revisar_Totales(){
+  Revisar_Totales() {
     (Swal as any).fire({
       type: 'success',
       title: 'Carga de Elementos',
       text: 'Por favor verificar la carga de elementos, valores y totales asociados al soporte antes de actualizar el registro',
     });
   }
-  Revisar_Totales2(){
+  Revisar_Totales2() {
 
     (Swal as any).fire({
       title: 'Esta Seguro?',
-      text: "Esta seguro de que desea guardar los cambios?",
+      text: 'Esta seguro de que desea guardar los cambios?',
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -478,14 +477,14 @@ export class EdicionActaRecibidoComponent implements OnInit {
       if (result.value) {
         this.onFirstSubmit();
       }
-    })
+    });
   }
 
-  Revisar_Totales3(){
+  Revisar_Totales3() {
 
     (Swal as any).fire({
       title: 'Esta Seguro?',
-      text: "Esta seguro de que desea enviar el acta a verificacion?",
+      text: 'Esta seguro de que desea enviar el acta a verificacion?',
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -496,6 +495,6 @@ export class EdicionActaRecibidoComponent implements OnInit {
       if (result.value) {
         this.onFirstSubmit2();
       }
-    })
+    });
   }
 }

@@ -358,18 +358,18 @@ export class RegistroActaRecibidoComponent implements OnInit {
     // console.log(event);
     this.DatosElementos.push(event);
   }
-  Revisar_Totales(){
+  Revisar_Totales() {
     (Swal as any).fire({
       type: 'success',
       title: 'Carga de Elementos',
       text: 'Por favor verificar la carga de elementos, valores y totales asociados al soporte antes de generar el registro',
     });
   }
-  Revisar_Totales2(){
+  Revisar_Totales2() {
 
     (Swal as any).fire({
       title: 'Esta Seguro?',
-      text: "Esta seguro de que los datos son veridicos?",
+      text: 'Esta seguro de que los datos son veridicos?,
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -380,6 +380,6 @@ export class RegistroActaRecibidoComponent implements OnInit {
       if (result.value) {
         this.onFirstSubmit();
       }
-    })
+    });
   }
 }

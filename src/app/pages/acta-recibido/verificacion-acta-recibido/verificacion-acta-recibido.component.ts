@@ -381,11 +381,11 @@ export class VerificacionActaRecibidoComponent implements OnInit {
   valor_iva(subtotal: string, descuento: string, porcentaje_iva: string) {
     return ((parseFloat(subtotal) - parseFloat(descuento)) * parseFloat(porcentaje_iva) / 100);
   }
-  Revisar_Totales(){
+  Revisar_Totales() {
 
     (Swal as any).fire({
       title: 'Esta Seguro?',
-      text: "Esta seguro de que los datos estan verificados?",
+      text: 'Esta seguro de que los datos estan verificados?',
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -396,13 +396,13 @@ export class VerificacionActaRecibidoComponent implements OnInit {
       if (result.value) {
         this.onFirstSubmit();
       }
-    })
+    });
   }
-  Revisar_Totales2(){
+  Revisar_Totales2() {
 
     (Swal as any).fire({
       title: 'Esta Seguro?',
-      text: "Esta seguro que desea devolver el acta?",
+      text: 'Esta seguro que desea devolver el acta?',
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -413,6 +413,6 @@ export class VerificacionActaRecibidoComponent implements OnInit {
       if (result.value) {
         this.onFirstSubmit2();
       }
-    })
+    });
   }
 }
