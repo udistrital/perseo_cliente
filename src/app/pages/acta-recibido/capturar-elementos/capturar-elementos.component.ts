@@ -89,10 +89,10 @@ export class CapturarElementosComponent implements OnInit {
   }
   onFileChange(event) {
 
-    let nombre = new String
+    let nombre = '';
     if (event.target.files.length > 0) {
-      nombre = event.target.files[0].name
-      let [_, extension] = nombre.split('.');
+      nombre = event.target.files[0].name;
+      const [_, extension] = nombre.split('.');
       const file = event.target.files[0];
       if (extension !== 'xlsx') {
         this.Validador = false;

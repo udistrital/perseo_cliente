@@ -276,7 +276,7 @@
             </nb-card>
             <div class="justify-content-center">
               <button nbButton matStepperPrevious>Anterior</button>
-              <button nbButton matStepperNext [disabled]="!firstForm.get('Formulario1').valid || !firstForm.get('Formulario2').valid"
+              <button nbButton matStepperNext (click)="Revisar_Totales()" [disabled]="!firstForm.get('Formulario1').valid || !firstForm.get('Formulario2').valid"
                 class="float-right">Siguiente</button>
             </div>
           </mat-step>
@@ -318,8 +318,8 @@
               </nb-card-body>
             </nb-card>
             <div class="justify-content-center">
-              <button nbButton (click)="onFirstSubmit2()">Enviar a Verificacion</button>
-              <button nbButton matStepperNext (click)="onFirstSubmit()" [disabled]="!firstForm.get('Formulario3').valid || !firstForm.get('Formulario2').valid || !firstForm.get('Formulario3').valid"
+              <button nbButton (click)="Revisar_Totales3()">Enviar a Verificacion</button>
+              <button nbButton matStepperNext (click)="Revisar_Totales2()" [disabled]="!firstForm.get('Formulario3').valid || !firstForm.get('Formulario2').valid || !firstForm.get('Formulario3').valid"
                 class="float-right">Guardar Cambios</button>
             </div>
           </mat-step>

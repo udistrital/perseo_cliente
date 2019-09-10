@@ -229,6 +229,7 @@ export class VerificacionActaRecibidoComponent implements OnInit {
           title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' Retornada',
           text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' ha sido retornada exitosamente',
         });
+        this.router.navigate(['/consulta-acta-recibido']);
       } else {
         (Swal as any).fire({
           type: 'error',
@@ -257,6 +258,7 @@ export class VerificacionActaRecibidoComponent implements OnInit {
           title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' Retornada',
           text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' ha sido retornada exitosamente',
         });
+        this.router.navigate(['/consulta-acta-recibido']);
       } else {
         (Swal as any).fire({
           type: 'error',
@@ -378,5 +380,39 @@ export class VerificacionActaRecibidoComponent implements OnInit {
   }
   valor_iva(subtotal: string, descuento: string, porcentaje_iva: string) {
     return ((parseFloat(subtotal) - parseFloat(descuento)) * parseFloat(porcentaje_iva) / 100);
+  }
+  Revisar_Totales(){
+
+    (Swal as any).fire({
+      title: 'Esta Seguro?',
+      text: "Esta seguro de que los datos estan verificados?",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No',
+    }).then((result) => {
+      if (result.value) {
+        this.onFirstSubmit();
+      }
+    })
+  }
+  Revisar_Totales2(){
+
+    (Swal as any).fire({
+      title: 'Esta Seguro?',
+      text: "Esta seguro que desea devolver el acta?",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No',
+    }).then((result) => {
+      if (result.value) {
+        this.onFirstSubmit2();
+      }
+    })
   }
 }

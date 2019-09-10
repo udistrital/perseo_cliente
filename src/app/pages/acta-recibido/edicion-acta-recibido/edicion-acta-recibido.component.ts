@@ -290,6 +290,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
           title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' Modificada',
           text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' ha sido modificada exitosamente',
         });
+        this.router.navigate(['/consulta-acta-recibido']);
       } else {
         (Swal as any).fire({
           type: 'error',
@@ -326,6 +327,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
           title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' Enviada',
           text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' ha sido enviada a verificacion exitosamente',
         });
+        this.router.navigate(['/consulta-acta-recibido']);
       } else {
         (Swal as any).fire({
           type: 'error',
@@ -454,5 +456,46 @@ export class EdicionActaRecibidoComponent implements OnInit {
   valor_iva(subtotal: string, descuento: string, porcentaje_iva: string) {
     return ((parseFloat(subtotal) - parseFloat(descuento)) * parseFloat(porcentaje_iva) / 100);
   }
+  Revisar_Totales(){
+    (Swal as any).fire({
+      type: 'success',
+      title: 'Carga de Elementos',
+      text: 'Por favor verificar la carga de elementos, valores y totales asociados al soporte antes de actualizar el registro',
+    });
+  }
+  Revisar_Totales2(){
 
+    (Swal as any).fire({
+      title: 'Esta Seguro?',
+      text: "Esta seguro de que desea guardar los cambios?",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No',
+    }).then((result) => {
+      if (result.value) {
+        this.onFirstSubmit();
+      }
+    })
+  }
+
+  Revisar_Totales3(){
+
+    (Swal as any).fire({
+      title: 'Esta Seguro?',
+      text: "Esta seguro de que desea enviar el acta a verificacion?",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No',
+    }).then((result) => {
+      if (result.value) {
+        this.onFirstSubmit2();
+      }
+    })
+  }
 }

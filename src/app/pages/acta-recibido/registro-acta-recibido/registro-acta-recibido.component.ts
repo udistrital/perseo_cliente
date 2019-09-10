@@ -227,6 +227,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
           title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' Registrada',
           text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' ha sido registrada exitosamente',
         });
+        this.router.navigate(['/consulta-acta-recibido']);
       } else {
         (Swal as any).fire({
           type: 'error',
@@ -344,7 +345,6 @@ export class RegistroActaRecibidoComponent implements OnInit {
       return '0';
     }
   }
-
   valortotal(subtotal: string, descuento: string, iva: string) {
     return (parseFloat(subtotal) - parseFloat(descuento) + parseFloat(iva));
   }
@@ -358,5 +358,28 @@ export class RegistroActaRecibidoComponent implements OnInit {
     // console.log(event);
     this.DatosElementos.push(event);
   }
+  Revisar_Totales(){
+    (Swal as any).fire({
+      type: 'success',
+      title: 'Carga de Elementos',
+      text: 'Por favor verificar la carga de elementos, valores y totales asociados al soporte antes de generar el registro',
+    });
+  }
+  Revisar_Totales2(){
 
+    (Swal as any).fire({
+      title: 'Esta Seguro?',
+      text: "Esta seguro de que los datos son veridicos?",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No',
+    }).then((result) => {
+      if (result.value) {
+        this.onFirstSubmit();
+      }
+    })
+  }
 }
