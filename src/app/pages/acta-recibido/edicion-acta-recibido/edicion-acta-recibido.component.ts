@@ -19,6 +19,7 @@ import Swal from 'sweetalert2';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Unidad } from '../../../@core/data/models/acta_recibido/unidades';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 
 @Component({
@@ -55,11 +56,12 @@ export class EdicionActaRecibidoComponent implements OnInit {
   // Modelos
 
   Acta__: ActaRecibido;
-  Elementos__Soporte: Array<Elemento>;
+  Elementos__Soporte: Array<any[]>;
   Soportes_Acta: Array<SoporteActa>;
   Historico_Acta: HistoricoActa;
   Transaccion__: TransaccionActaRecibido;
   Unidades: Array<Unidad>;
+  DatosElementos: Array<any>;
 
   constructor(
     private translate: TranslateService,
@@ -171,6 +173,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
     this.firstForm = new FormGroup({});
 
     const Form2 = this.fb.array([]);
+    const elementos = new Array<any[]>();
 
     for (const Soporte of transaccion_.SoportesActa) {
 
@@ -180,34 +183,36 @@ export class EdicionActaRecibidoComponent implements OnInit {
         Consecutivo: [Soporte.SoporteActa.Consecutivo, Validators.required],
         Fecha_Factura: [Soporte.SoporteActa.FechaSoporte, Validators.required],
         Soporte: ['', Validators.required],
-        Elementos: this.fb.array([]),
       });
 
-        for (const _Elemento of Soporte.Elementos ) {
+      const elementoSoporte = []
+      for (const _Elemento of Soporte.Elementos) {
 
-          const Elemento___ = this.fb.group({
-            Id: [_Elemento.Id],
-            TipoBienId: [_Elemento.TipoBienId.Id, Validators.required],
-            SubgrupoCatalogoId: [_Elemento.SubgrupoCatalogoId, Validators.required],
-            Nombre: [_Elemento.Nombre, Validators.required],
-            Cantidad: [_Elemento.Cantidad, Validators.required],
-            Marca: [_Elemento.Marca, Validators.required],
-            Serie: [_Elemento.Serie, Validators.required],
-            UnidadMedida: [_Elemento.UnidadMedida, Validators.required],
-            ValorUnitario: [_Elemento.ValorUnitario, Validators.required],
-            Subtotal: [_Elemento.ValorTotal, Validators.required],
-            Descuento: [_Elemento.Descuento, Validators.required],
-            PorcentajeIvaId: [_Elemento.PorcentajeIvaId, Validators.required],
-            ValorIva: [_Elemento.ValorIva, Validators.required],
-            ValorTotal: [_Elemento.ValorFinal, Validators.required],
-          });
-
-        (Formulario__2.get('Elementos') as FormArray).push(Elemento___);
-        }
-
+        const Elemento___ = {
+          Id: _Elemento.Id,
+          TipoBienId: _Elemento.TipoBienId.Id,
+          SubgrupoCatalogoId: _Elemento.SubgrupoCatalogoId,
+          Nombre: _Elemento.Nombre,
+          Cantidad: _Elemento.Cantidad,
+          Marca: _Elemento.Marca,
+          Serie: _Elemento.Serie,
+          UnidadMedida: _Elemento.UnidadMedida,
+          ValorUnitario: _Elemento.ValorUnitario,
+          Subtotal: _Elemento.ValorTotal,
+          Descuento: _Elemento.Descuento,
+          PorcentajeIvaId: _Elemento.PorcentajeIvaId,
+          ValorIva: _Elemento.ValorIva,
+          ValorTotal: _Elemento.ValorFinal,
+        };
+        elementoSoporte.push(Elemento___);
+        console.log(elementoSoporte);
+      }
+      console.log(elementoSoporte);
+      elementos.push(elementoSoporte);
       Form2.push(Formulario__2);
     }
 
+    this.Elementos__Soporte = elementos;
     this.firstForm = this.fb.group({
       Formulario1: this.fb.group({
         Id: [transaccion_.ActaRecibido.Id],
@@ -220,7 +225,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
         Datos_Adicionales: [transaccion_.ActaRecibido.Observaciones, Validators.required],
       }),
     });
-
+    console.log(this.Elementos__Soporte)
     this.carga_agregada = true;
   }
   get Formulario_1(): FormGroup {
@@ -475,6 +480,12 @@ export class EdicionActaRecibidoComponent implements OnInit {
   valor_iva(subtotal: string, descuento: string, porcentaje_iva: string) {
     return ((parseFloat(subtotal) - parseFloat(descuento)) * parseFloat(porcentaje_iva) / 100);
   }
+
+  ver(event: any, index: number) {
+    console.log(event);
+    this.DatosElementos = event;
+  }
+  
   Revisar_Totales() {
     (Swal as any).fire({
       type: 'success',

@@ -25,7 +25,7 @@
     <input nbInput (keyup)="applyFilter($event.target.value)" class="filter" placeholder="Filtro">
 
     <div>
-      <table mat-table [dataSource]="dataSource" matSort>
+      <table mat-table [dataSource]="dataSource" matSort (keyup)="ver()">
 
         <!-- Tipo de Bien -->
         <ng-container matColumnDef="TipoBienId">

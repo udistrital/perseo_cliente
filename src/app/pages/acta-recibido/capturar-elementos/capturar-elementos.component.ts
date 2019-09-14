@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
@@ -17,7 +17,7 @@ import { Unidad } from '../../../@core/data/models/acta_recibido/unidades';
   templateUrl: './capturar-elementos.component.html',
   styleUrls: ['./capturar-elementos.component.scss'],
 })
-export class CapturarElementosComponent implements OnInit {
+export class CapturarElementosComponent implements OnInit{
 
   fileString: string | ArrayBuffer;
   arrayBuffer: Iterable<number>;
@@ -56,6 +56,9 @@ export class CapturarElementosComponent implements OnInit {
     }
   }
 
+  ver(){
+    this.DatosEnviados.emit(this.dataSource.data);
+  }
   Traer_Tipo_Bien() {
     this.Tipos_Bien = new Array<TipoBien>();
     this.actaRecibidoHelper.getTipoBien().subscribe(res => {
@@ -144,9 +147,9 @@ export class CapturarElementosComponent implements OnInit {
         });
         this.respuesta = res;
         this.dataSource = new MatTableDataSource(this.respuesta[0].Elementos);
+        this.ver();
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        this.DatosEnviados.emit(this.dataSource.data);
       } else {
         (Swal as any).fire({
           type: 'error',

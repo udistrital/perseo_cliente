@@ -375,8 +375,8 @@ export class RegistroActaRecibidoComponent implements OnInit {
     return ((parseFloat(subtotal) - parseFloat(descuento)) * parseFloat(porcentaje_iva) / 100);
   }
   ver(event: any, index: number) {
-    // console.log(event);
-    this.DatosElementos.push(event);
+    console.log(event);
+    this.DatosElementos = event;
   }
   Revisar_Totales() {
     (Swal as any).fire({
