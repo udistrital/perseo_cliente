@@ -20,7 +20,6 @@ export class AdquisicionComponent implements OnInit {
 
   // Formularios
   contratoForm: FormGroup;
-  facturaForm: FormGroup;
   observacionForm: FormGroup;
   // Validadores
   checked: boolean;
@@ -66,9 +65,6 @@ export class AdquisicionComponent implements OnInit {
         Validators.required,
         Validators.pattern('^[0-9]{2,4}$')],
       ],
-    });
-    this.facturaForm = this.fb.group({
-      facturaCtrl: ['', Validators.nullValidator],
     });
     this.observacionForm = this.fb.group({
       observacionCtrl: ['', Validators.nullValidator],
@@ -165,23 +161,6 @@ export class AdquisicionComponent implements OnInit {
   onFacturaSubmit() {
     this.validar = true;
     this.facturaForm.markAsDirty();
-  }
-
-  /**
-   * Método para validar que se seleccionó el checkbox de importación.
-   * Si es activo, el formulario se vuelve requerido.
-   */
-  toggle(event) {
-    this.checked = event.target.checked;
-    if (this.checked) {
-      this.facturaForm = this.fb.group({
-        facturaCtrl: ['', Validators.required],
-      });
-    } else {
-      this.facturaForm = this.fb.group({
-        facturaCtrl: ['', Validators.nullValidator],
-      });
-    }
   }
 
   /**

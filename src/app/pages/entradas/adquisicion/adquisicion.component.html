@@ -130,14 +130,6 @@
             <nb-checkbox status="success" (click)="toggle($event)"></nb-checkbox>
           </div>
         </div>
-        <div class="form-group col-lg-8">
-          <label>Número de Registro Importación</label>
-          <div class="input-group">
-            <input nbInput type="text" shape="semi-round" placeholder="Número de Importación" class="form-control"
-              formControlName="facturaCtrl" [readonly]="!checked" [ngClass]="{' form-control-danger': facturaForm.invalid && (facturaForm.dirty ||
-              facturaForm.touched)}" />
-          </div>
-        </div>
       </div>
       <button nbButton nbStepperPrevious>Anterior</button>
       <button nbButton nbStepperNext>Siguiente</button>
