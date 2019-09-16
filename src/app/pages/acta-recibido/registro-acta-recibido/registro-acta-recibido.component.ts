@@ -158,7 +158,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
     }
   }
   Traer_IVA(IVA: any) {
-    //console.log(IVA);
+    // console.log(IVA);
   }
   Traer_Estados_Acta(res: any) {
     this.Estados_Acta = new Array<EstadoActa>();
@@ -292,7 +292,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
 
     this.Datos.Formulario2.forEach((soporte, index) => {
       Soportes.push(this.Registrar_Soporte(soporte, this.Elementos__Soporte[index], Transaccion_Acta.ActaRecibido));
-      //console.log(index);
+      // console.log(index);
     });
     Transaccion_Acta.SoportesActa = Soportes;
     // console.log(Transaccion_Acta);
@@ -430,7 +430,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
   }
   ver(event: any, index: number) {
     this.DatosElementos = event;
-    console.log(this.Elementos__Soporte);
+    // console.log(this.Elementos__Soporte);
     if (this.Elementos__Soporte === undefined) {
       this.Elementos__Soporte = new Array<any>(this.DatosElementos);
     } else {

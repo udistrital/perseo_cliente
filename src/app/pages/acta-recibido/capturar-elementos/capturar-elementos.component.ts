@@ -62,7 +62,6 @@ export class CapturarElementosComponent implements OnInit {
   Traer_Parametros_Elementos() {
     this.actaRecibidoHelper.getParametros().subscribe(res => {
       if (res !== null) {
-        
         this.Traer_Tipo_Bien(res[0].TipoBien);
         this.Traer_Unidades(res[0].Unidades);
         this.Traer_IVA(res[0].IVA);
