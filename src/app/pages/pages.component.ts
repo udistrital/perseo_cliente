@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 import { MENU_ITEMS } from './pages-menu';
 
@@ -13,6 +14,12 @@ import { MENU_ITEMS } from './pages-menu';
   `,
 })
 export class PagesComponent {
+
+  constructor(private translate: TranslateService,
+    ) {
+      this.translate.onLangChange.subscribe((event: LangChangeEvent) => { // Live reload
+      });
+    }
 
   menu = MENU_ITEMS;
 }

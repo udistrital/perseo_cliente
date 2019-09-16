@@ -70,6 +70,11 @@ import { DEFAULT_THEME } from './styles/theme.default';
 import { COSMIC_THEME } from './styles/theme.cosmic';
 import { CORPORATE_THEME } from './styles/theme.corporate';
 import { UD_THEME } from './styles/theme.ud';
+import { ImplicitAutenticationService } from '../@core/utils/implicit_autentication.service';
+import { NotificacionesService } from '../@core/utils/notificaciones.service';
+import { ConfiguracionService } from '../@core/data/configuracion.service';
+import { DocumentoService } from '../@core/data/documento.service';
+import { TranslatePipe, TranslateModule } from '@ngx-translate/core';
 
 const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
 
@@ -107,6 +112,7 @@ const NB_MODULES = [
   NbChatModule,
   NbTooltipModule,
   NbCalendarKitModule,
+  TranslateModule,
 ];
 
 const COMPONENTS = [
@@ -167,7 +173,12 @@ export class ThemeModule {
   static forRoot(): ModuleWithProviders {
     return <ModuleWithProviders>{
       ngModule: ThemeModule,
-      providers: [...NB_THEME_PROVIDERS],
+      providers: [...NB_THEME_PROVIDERS,
+        ImplicitAutenticationService,
+        NotificacionesService,
+        ConfiguracionService,
+        DocumentoService,
+      ],
     };
   }
 }

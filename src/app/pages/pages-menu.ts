@@ -6,38 +6,24 @@ export const MENU_ITEMS: NbMenuItem[] = [
     group: true,
   },
   {
-    title: 'MENÚ',
-    icon: 'nb-star',
-  },
-  {
     title: 'Acta de Recibido',
     icon: 'nb-compose',
     children: [
       {
-        title: 'Consulta de Actas de Recibido',
+        title: 'Consulta de Actas',
         link: '/pages/acta_recibido/consulta_acta_recibido',
       },
       {
-        title: 'Registro de Acta de Recibido',
+        title: 'Registro de Acta',
         link: '/pages/acta_recibido/registro_acta_recibido',
       },
       {
-        title: 'Verificación de Acta de Recibido',
+        title: 'Edicion de Acta',
+        link: '/pages/acta_recibido/edicion_acta_recibido',
+      },
+      {
+        title: 'Verificación de Acta',
         link: '/pages/acta_recibido/verificacion_acta_recibido',
-      },
-    ],
-  },
-  {
-    title: 'Movimientos',
-    icon: 'nb-shuffle',
-    children: [
-      {
-        title: 'Solicitud de Baja de Bien',
-        link: '/pages/movimientos/solicitud_baja_bien',
-      },
-      {
-        title: 'Aprobación de Baja de Bien',
-        link: '/pages/movimientos/aprobacion_baja_bien',
       },
     ],
   },
@@ -46,7 +32,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'nb-compose',
     children: [
       {
-        title: 'Registrar',
+        title: 'Consultar Entradas',
+        link: '/pages/entradas/consulta_entrada',
+      },
+      {
+        title: 'Registrar Entrada',
         link: '/pages/entradas/registro',
       },
     ],
@@ -56,8 +46,30 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'nb-paper-plane',
     children: [
       {
+        title: 'Consultar Salida',
+        link: '/pages/salidas/consulta_salidas',
+      },
+      {
         title: 'Registrar Salida',
-        link: '/pages/salidas/registro',
+        link: '/pages/salidas/registro_salidas',
+      },
+    ],
+  },
+  {
+    title: 'Movimientos',
+    icon: 'nb-shuffle',
+    children: [
+      {
+        title: 'Consultar Baja de Bien',
+        link: '/pages/movimientos/consulta_baja_bien',
+      },
+      {
+        title: 'Solicitud de Baja de Bien',
+        link: '/pages/movimientos/solicitud_baja_bien',
+      },
+      {
+        title: 'Aprobación de Baja de Bien',
+        link: '/pages/movimientos/aprobacion_baja_bien',
       },
     ],
   },

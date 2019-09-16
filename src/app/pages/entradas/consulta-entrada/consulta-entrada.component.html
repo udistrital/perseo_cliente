@@ -1,0 +1,51 @@
+<div class="col-lg-12">
+  <nb-card>
+    <nb-card-header>Consultar Entradas</nb-card-header>
+    <nb-card-body>
+
+      <!-- CARD PARA MOSTRAR LAS SOLICITUDES -->
+      <nb-card *ngIf="!detalle">
+        <nb-card-header>Solicitudes</nb-card-header>
+        <nb-card-body>
+
+          <ng2-smart-table [settings]="settings" [source]="source" (custom)="onCustom($event)"></ng2-smart-table>
+
+        </nb-card-body>
+
+        <nb-card-footer>
+
+          <div class="justify-content-center float-right">
+            <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off"
+              (click)="onRegister()">
+              Registrar Nueva Entrada
+            </button>
+          </div>
+
+        </nb-card-footer>
+      </nb-card>
+
+      <!-- CARD PARA MOSTRAR LOS DETALLES DE LAS SOLICITUDES -->
+      <nb-card *ngIf="detalle">
+        <nb-card-header>Detalle</nb-card-header>
+        <nb-card-body>
+
+          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quisquam dolorem est molestiae alias maxime
+            recusandae, at, voluptates odit nulla facere deserunt ea mollitia! Repellat aliquid fugit commodi laborum
+            minus odit!</p>
+
+        </nb-card-body>
+
+        <nb-card-footer>
+          <nb-card-footer>
+
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"
+              (click)="detalle = !detalle">Cerrar</button>
+          </nb-card-footer>
+
+        </nb-card-footer>
+      </nb-card>
+
+
+    </nb-card-body>
+  </nb-card>
+</div>
