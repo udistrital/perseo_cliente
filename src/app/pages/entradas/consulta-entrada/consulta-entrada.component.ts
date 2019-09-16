@@ -124,7 +124,6 @@ export class ConsultaEntradaComponent implements OnInit {
   }
 
   onCustom(event) {
-    alert(`Custom event '${event.action}' fired on row №: ${event.data.Consecutivo}`);
     this.actaRecibidoId = +`${event.data.ActaRecibidoId}`;
     this.detalle = true;
   }
