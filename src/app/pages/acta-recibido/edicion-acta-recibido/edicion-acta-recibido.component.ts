@@ -185,7 +185,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
         Soporte: ['', Validators.required],
       });
 
-      const elementoSoporte = []
+      const elementoSoporte = [];
       for (const _Elemento of Soporte.Elementos) {
 
         const Elemento___ = {
@@ -205,9 +205,9 @@ export class EdicionActaRecibidoComponent implements OnInit {
           ValorTotal: _Elemento.ValorFinal,
         };
         elementoSoporte.push(Elemento___);
-        console.log(elementoSoporte);
+        // console.log(elementoSoporte);
       }
-      console.log(elementoSoporte);
+      // console.log(elementoSoporte);
       elementos.push(elementoSoporte);
       Form2.push(Formulario__2);
     }
@@ -225,7 +225,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
         Datos_Adicionales: [transaccion_.ActaRecibido.Observaciones, Validators.required],
       }),
     });
-    console.log(this.Elementos__Soporte)
+    // console.log(this.Elementos__Soporte)
     this.carga_agregada = true;
   }
   get Formulario_1(): FormGroup {
@@ -482,10 +482,10 @@ export class EdicionActaRecibidoComponent implements OnInit {
   }
 
   ver(event: any, index: number) {
-    console.log(event);
+    // console.log(event);
     this.DatosElementos = event;
   }
-  
+
   Revisar_Totales() {
     (Swal as any).fire({
       type: 'success',

@@ -126,7 +126,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
       UbicacionId: {
         title: 'Ubicacion',
         valuePrepareFunction: (value: any) => {
-          return value
+          return value;
         },
       },
       Observaciones: {
@@ -182,9 +182,9 @@ export class ConsultaActaRecibidoComponent implements OnInit {
         for (const datos in Object.keys(data)) {
           if (data.hasOwnProperty(datos)) {
             const acta = new ConsultaActaRecibido;
-            const ubicacion = this.Ubicaciones.find(ubicacion => ubicacion.Id === data[datos].ActaRecibidoId.UbicacionId);
+            const ubicacion = this.Ubicaciones.find(ubicacion_ => ubicacion_.Id === data[datos].ActaRecibidoId.UbicacionId);
             if (ubicacion == null) {
-              acta.UbicacionId = "Ubicacion no Especificada";
+              acta.UbicacionId = 'Ubicacion no Especificada';
             } else {
               acta.UbicacionId = ubicacion.Nombre;
             }

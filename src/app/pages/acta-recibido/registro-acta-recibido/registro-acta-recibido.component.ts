@@ -93,7 +93,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
     this.Actas_Recibido.getParametros().subscribe(res => {
       if (res !== null) {
         this.Traer_Estados_Acta(res[0].EstadoActa);
-        this.Traer_Estados_Elemento(res[0].EstadoElemento)
+        this.Traer_Estados_Elemento(res[0].EstadoElemento);
         this.Traer_Tipo_Bien(res[0].TipoBien);
         this.Traer_Unidades(res[0].Unidades);
         this.Traer_IVA(res[0].IVA);
@@ -103,9 +103,9 @@ export class RegistroActaRecibidoComponent implements OnInit {
   Traer_Parametros_Soporte() {
     this.Actas_Recibido.getParametrosSoporte().subscribe(res => {
       if (res !== null) {
-        console.log(res);
+        // console.log(res);
         this.Traer_Proveedores();
-        this.Traer_Ubicaciones(res[0].Ubicaciones)
+        this.Traer_Ubicaciones(res[0].Ubicaciones);
         this.Traer_Sedes(res[0].Sedes);
       }
     });
@@ -158,7 +158,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
     }
   }
   Traer_IVA(IVA: any) {
-    console.log(IVA);
+    //console.log(IVA);
   }
   Traer_Estados_Acta(res: any) {
     this.Estados_Acta = new Array<EstadoActa>();
@@ -292,10 +292,10 @@ export class RegistroActaRecibidoComponent implements OnInit {
 
     this.Datos.Formulario2.forEach((soporte, index) => {
       Soportes.push(this.Registrar_Soporte(soporte, this.Elementos__Soporte[index], Transaccion_Acta.ActaRecibido));
-      console.log(index);
+      //console.log(index);
     });
     Transaccion_Acta.SoportesActa = Soportes;
-    console.log(Transaccion_Acta);
+    // console.log(Transaccion_Acta);
     this.Actas_Recibido.postTransaccionActa(Transaccion_Acta).subscribe((res: any) => {
       if (res !== null) {
         (Swal as any).fire({
@@ -321,7 +321,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
     Acta_de_Recibido.FechaCreacion = new Date();
     Acta_de_Recibido.FechaModificacion = new Date();
     Acta_de_Recibido.RevisorId = 123;
-    Acta_de_Recibido.UbicacionId = this.Ubicaciones.find(ubicacion => ubicacion.Nombre == Datos.Ubicacion).Id;
+    Acta_de_Recibido.UbicacionId = this.Ubicaciones.find(ubicacion => ubicacion.Nombre === Datos.Ubicacion).Id;
     Acta_de_Recibido.Observaciones = Datos2.Datos_Adicionales;
 
     return Acta_de_Recibido;
@@ -341,7 +341,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
   }
   Registrar_Soporte(Datos: any, Elementos_: any, Acta: ActaRecibido): TransaccionSoporteActa {
 
-    console.log(Elementos_)
+    // console.log(Elementos_)
     const Soporte_Acta = new SoporteActa();
     const Transaccion = new TransaccionSoporteActa();
 
@@ -352,16 +352,16 @@ export class RegistroActaRecibidoComponent implements OnInit {
     Soporte_Acta.FechaCreacion = new Date();
     Soporte_Acta.FechaModificacion = new Date();
     Soporte_Acta.FechaSoporte = Datos.Fecha_Factura;
-    Soporte_Acta.ProveedorId = this.Proveedores.find(proveedor => proveedor.NomProveedor == Datos.Proveedor).Id;
+    Soporte_Acta.ProveedorId = this.Proveedores.find(proveedor => proveedor.NomProveedor === Datos.Proveedor).Id;
 
     Transaccion.SoporteActa = Soporte_Acta;
     Transaccion.Elementos = this.Registrar_Elementos(Elementos_, Soporte_Acta);
-    console.log(Transaccion.Elementos)
+    // console.log(Transaccion.Elementos)
     return Transaccion;
   }
   Registrar_Elementos(Datos: any, Soporte: SoporteActa): Array<Elemento> {
     const Elementos_Soporte = new Array<Elemento>();
-    console.log(Datos);
+    // console.log(Datos);
     for (const datos of Datos) {
 
       const Elemento__ = new Elemento;
@@ -388,7 +388,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
       Elemento__.Activo = true;
       Elemento__.FechaCreacion = new Date();
       Elemento__.FechaModificacion = new Date();
-      console.log(Elemento__);
+      // console.log(Elemento__);
       Elementos_Soporte.push(Elemento__);
 
     }
@@ -434,7 +434,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
     if (this.Elementos__Soporte === undefined) {
       this.Elementos__Soporte = new Array<any>(this.DatosElementos);
     } else {
-      console.log(this.Elementos__Soporte.length);
+      // console.log(this.Elementos__Soporte.length);
       if (index < (this.Elementos__Soporte.length)) {
         this.Elementos__Soporte[index] = this.DatosElementos;
       } else {
@@ -442,7 +442,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
       }
     }
 
-    console.log(this.Elementos__Soporte);
+    // console.log(this.Elementos__Soporte);
   }
   Revisar_Totales() {
     (Swal as any).fire({

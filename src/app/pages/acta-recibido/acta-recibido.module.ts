@@ -17,7 +17,7 @@ import { MatPaginatorModule, MatSortModule } from '@angular/material';
 import { EdicionActaRecibidoComponent } from './edicion-acta-recibido/edicion-acta-recibido.component';
 import { VerDetalleComponent } from './ver-detalle/ver-detalle.component';
 import { CapturarElementosComponent } from './capturar-elementos/capturar-elementos.component';
-import { Ng2CompleterModule } from "ng2-completer";
+import { Ng2CompleterModule } from 'ng2-completer';
 
 
 @NgModule({
