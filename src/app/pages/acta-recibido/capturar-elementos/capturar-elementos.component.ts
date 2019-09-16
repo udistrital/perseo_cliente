@@ -8,7 +8,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { TipoBien } from '../../../@core/data/models/acta_recibido/tipo_bien';
-import { DatosLocales } from './datos_locales';
+import { DatosLocales, DatosLocales2 } from './datos_locales';
 import { Unidad } from '../../../@core/data/models/acta_recibido/unidades';
 
 
@@ -27,6 +27,7 @@ export class CapturarElementosComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild('fileInput') fileInput: ElementRef;
   dataSource: MatTableDataSource<any>;
 
@@ -45,7 +46,7 @@ export class CapturarElementosComponent implements OnInit {
   ngOnInit() {
     this.createForm();
     this.Traer_Parametros_Elementos();
-    if (this.DatosRecibidos !== null) {
+    if (this.DatosRecibidos !== undefined) {
       this.dataSource = new MatTableDataSource(this.DatosRecibidos);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -150,7 +151,7 @@ export class CapturarElementosComponent implements OnInit {
           text: 'Elementos cargados exitosamente',
         });
         this.respuesta = res;
-        this.dataSource = new MatTableDataSource(this.respuesta[0].Elementos);
+        this.dataSource.data = this.respuesta[0].Elementos;
         this.ver();
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -207,7 +208,11 @@ export class CapturarElementosComponent implements OnInit {
   }
 
   addElemento() {
-    this.dataSource.data.push(DatosLocales);
+
+    const data = this.dataSource.data;
+    data.push(DatosLocales2);
+    this.dataSource = new MatTableDataSource(data);
+    console.log(this.dataSource.data);
   }
   deleteElemento(index: number) {
 

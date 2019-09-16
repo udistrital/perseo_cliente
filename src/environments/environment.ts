@@ -19,10 +19,10 @@ export const environment = {
   ADMINISTRATIVA_SERVICE: 'http://jbpm.udistritaloas.edu.co:8280/services/administrativaProxy/',
   UNIDADES_SERVICE: 'http://pruebasapi.intranetoas.udistrital.edu.co:8104/v1/',
   ACTA_RECIBIDO_SERVICE: 'http://10.20.2.143:8080/v1/',
-  // ARKA_SERVICE: 'http://10.20.2.143:8084/v1/',
+  ARKA_SERVICE: 'http://10.20.2.143:8084/v1/',
 
   // ACTA_RECIBIDO_SERVICE: 'http://localhost:8080/v1/',
-  ARKA_SERVICE: 'http://localhost:8084/v1/',
+  // ARKA_SERVICE: 'http://localhost:8084/v1/',
 
   TOKEN: {
     AUTORIZATION_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oauth2/authorize',

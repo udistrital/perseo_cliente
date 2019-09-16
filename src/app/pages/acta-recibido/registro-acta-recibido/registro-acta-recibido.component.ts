@@ -369,7 +369,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
 
       Elemento__.Id = null;
       Elemento__.Nombre = datos.Descripcion;
-      Elemento__.Cantidad = datos.Cantidad;
+      Elemento__.Cantidad = parseFloat(this.Pipe2Number(datos.Cantidad));
       Elemento__.Marca = datos.Marca;
       Elemento__.Serie = datos.Serie;
       Elemento__.UnidadMedida = datos.UnidadMedida;
