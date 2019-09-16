@@ -9,6 +9,7 @@ import { Supervisor } from '../../../@core/data/models/entrada/supervisor';
 import { SoporteActa } from '../../../@core/data/models/acta_recibido/soporte_acta';
 import { ActaRecibidoHelper } from '../../../helpers/acta_recibido/actaRecibidoHelper';
 import { TipoEntrada } from '../../../@core/data/models/entrada/tipo_entrada';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'ngx-adquisicion',
@@ -46,7 +47,7 @@ export class AdquisicionComponent implements OnInit {
 
   @Input() actaRecibidoId: string;
 
-  constructor(private entradasHelper: EntradaHelper, private actaRecibidoHelper: ActaRecibidoHelper,
+  constructor(private router: Router, private entradasHelper: EntradaHelper, private actaRecibidoHelper: ActaRecibidoHelper,
     private pUpManager: PopUpManager, private fb: FormBuilder) {
     this.checked = false;
     this.tipoContratoSelect = false;
@@ -222,7 +223,7 @@ export class AdquisicionComponent implements OnInit {
       // CAMPOS OBLIGATORIOS
       entradaData.ActaRecibidoId = +this.actaRecibidoId;
       entradaData.Activo = true;
-      entradaData.Consecutivo = 'ABC-124'; // REVISAR
+      entradaData.Consecutivo = 'P8-1-2019'; // REVISAR
       entradaData.DocumentoContableId = 1; // REVISAR
       tipoEntrada.Id = 5;
       entradaData.TipoEntradaId = tipoEntrada;
@@ -233,15 +234,22 @@ export class AdquisicionComponent implements OnInit {
       entradaData.Observacion = this.observacionForm.value.observacionCtrl;
       // ENVIA LA ENTRADA AL MID
 
-      this.entradasHelper.postEntrada(entradaData).subscribe(res => {
-        if (res !== null) {
-          this.pUpManager.showSuccesToast('Registro Exitoso');
-          this.pUpManager.showSuccessAlert('Entrada registrada satisfactoriamente!' +
-          '\n ENTRADA N°: ' + entradaData.Consecutivo);
-        } else {
-          this.pUpManager.showErrorAlert('No es posible hacer el registro.');
-        }
-      });
+      this.pUpManager.showSuccesToast('Registro Exitoso');
+      this.pUpManager.showSuccessAlert('Entrada registrada satisfactoriamente!' +
+        '\n ENTRADA N°: ' + entradaData.Consecutivo);
+
+      const navigationExtras: NavigationExtras = { state: { consecutivo: entradaData.Consecutivo } };
+      this.router.navigate(['/pages/reportes/registro-entradas'], navigationExtras)
+
+      // this.entradasHelper.postEntrada(entradaData).subscribe(res => {
+      //   if (res !== null) {
+      //     this.pUpManager.showSuccesToast('Registro Exitoso');
+      //     this.pUpManager.showSuccessAlert('Entrada registrada satisfactoriamente!' +
+      //     '\n ENTRADA N°: ' + entradaData.Consecutivo);
+      //   } else {
+      //     this.pUpManager.showErrorAlert('No es posible hacer el registro.');
+      //   }
+      // });
     } else {
       this.pUpManager.showErrorAlert('No ha llenado todos los campos! No es posible hacer el registro.');
     }

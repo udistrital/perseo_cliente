@@ -20,9 +20,6 @@
         <option>Sobrante de Inventario</option>
         <option>Terceros</option>
       </select>
-      <!-- 
-      <h5 class="pt-4" *ngIf="opcionEntrada != null">Consultar Acta de Recibido</h5>
-      <ngx-tabla-actas *ngIf="opcionEntrada != null"></ngx-tabla-actas> -->
 
       <ngx-adquisicion *ngIf="opcionEntrada === 'Adquisición'" [actaRecibidoId]="actaSeleccionada"></ngx-adquisicion>
       <ngx-reposicion *ngIf="opcionEntrada === 'Reposición'"></ngx-reposicion>
@@ -30,9 +27,6 @@
       <ngx-donacion *ngIf="opcionEntrada === 'Donación'" [actaRecibidoId]="actaSeleccionada"></ngx-donacion>
       <ngx-sobrante *ngIf="opcionEntrada === 'Sobrante de Inventario'"></ngx-sobrante>
       <ngx-terceros *ngIf="opcionEntrada === 'Terceros'" [actaRecibidoId]="actaSeleccionada"></ngx-terceros>
-      <!-- 
-      <h5 class="pt-4" *ngIf="opcionEntrada != null">Elementos de Entrada</h5>
-      <ngx-tabla-entradas *ngIf="opcionEntrada != null"></ngx-tabla-entradas> -->
 
     </nb-card-body>
   </nb-card>

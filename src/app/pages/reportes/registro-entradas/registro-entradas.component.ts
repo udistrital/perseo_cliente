@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, Input, ElementRef } from '@angular/core';
 import { ToasterConfig, ToasterService, Toast, BodyOutputType } from 'angular2-toaster';
 import { TranslateService } from '@ngx-translate/core';
 import { spagoBIService } from '../../../@core/utils/spagoBIAPI/spagoBIService';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-registro-entradas',
@@ -11,27 +12,54 @@ import { spagoBIService } from '../../../@core/utils/spagoBIAPI/spagoBIService';
 export class RegistroEntradasComponent implements OnInit {
 
   config: ToasterConfig;
+  consecutivo: string;
 
   @ViewChild('spagoBIDocumentArea') spagoBIDocumentArea: ElementRef;
   @Input() reportConfig: any;
 
-  constructor(private translate: TranslateService, private toasterService: ToasterService) {
+  constructor(private router: Router, private translate: TranslateService, private toasterService: ToasterService) {
+    this.loadParametros();
     this.initReportConfig();
   }
 
+  loadParametros() {
+    const navigation = this.router.getCurrentNavigation();
+    this.consecutivo = '';
+    if (navigation.extras.state) {
+      const state = navigation.extras.state as { consecutivo: string };
+      this.consecutivo = state.consecutivo;
+    }
+  }
+
   initReportConfig() {
-    this.reportConfig = {
-      documentLabel: 'prueba_arka',
-      eecutionRole: '/spagobi/user/admin',
-      // parameters: {'PARAMETERS': 'param_1=1&param_2=2'},
-      displayToolbar: true,
-      displaySliders: true,
-      iframe: {
+    if (this.consecutivo === '') {
+      this.reportConfig = {
+        documentLabel: 'prueba_arka',
+        eecutionRole: '/spagobi/user/admin',
+        displayToolbar: true,
+        displaySliders: true,
+        iframe: {
           style: 'border: solid rgb(0,0,0,0.2) 1px;',
           height: '500px;',
           width: '100%',
-      },
-    };
+        },
+      };
+    } else {
+      const parametros = 'consecutivo=' + this.consecutivo;
+      this.reportConfig = {
+        documentLabel: 'prueba_arka',
+        eecutionRole: '/spagobi/user/admin',
+        // parameters: {'PARAMETERS': 'param_1=1&param_2=2'},
+        parameters: { 'PARAMETERS': parametros },
+        displayToolbar: true,
+        displaySliders: true,
+        iframe: {
+          style: 'border: solid rgb(0,0,0,0.2) 1px;',
+          height: '500px;',
+          width: '100%',
+        },
+      };
+    }
   }
 
   callbackFunction(result, args, success) {
@@ -73,6 +101,10 @@ export class RegistroEntradasComponent implements OnInit {
       bodyOutputType: BodyOutputType.TrustedHtml,
     };
     this.toasterService.popAsync(toast);
+  }
+
+  onRegister() {
+    this.router.navigate(['/pages/entradas/registro']);
   }
 
 
