@@ -20,6 +20,7 @@ export class AdquisicionComponent implements OnInit {
 
   // Formularios
   contratoForm: FormGroup;
+  facturaForm: FormGroup;
   observacionForm: FormGroup;
   // Validadores
   checked: boolean;
@@ -65,6 +66,9 @@ export class AdquisicionComponent implements OnInit {
         Validators.required,
         Validators.pattern('^[0-9]{2,4}$')],
       ],
+    });
+    this.facturaForm = this.fb.group({
+      facturaCtrl: ['', Validators.nullValidator],
     });
     this.observacionForm = this.fb.group({
       observacionCtrl: ['', Validators.nullValidator],
@@ -160,7 +164,6 @@ export class AdquisicionComponent implements OnInit {
 
   onFacturaSubmit() {
     this.validar = true;
-    this.facturaForm.markAsDirty();
   }
 
   /**
@@ -227,14 +230,14 @@ export class AdquisicionComponent implements OnInit {
       // CAMPOS REQUERIDOS PARA ADQUISICIÓN
       entradaData.ContratoId = +this.contratoEspecifico.NumeroContratoSuscrito;
       entradaData.Importacion = this.checked;
-      // entradaData.NumeroImportacion = this.facturaForm.value.facturaCtrl; // REVISAR
       entradaData.Observacion = this.observacionForm.value.observacionCtrl;
       // ENVIA LA ENTRADA AL MID
+
       this.entradasHelper.postEntrada(entradaData).subscribe(res => {
-        console.info(entradaData + 'Rest' + res);
         if (res !== null) {
           this.pUpManager.showSuccesToast('Registro Exitoso');
-          this.pUpManager.showSuccessAlert('Entrada registrada satisfactoriamente!');
+          this.pUpManager.showSuccessAlert('Entrada registrada satisfactoriamente!' +
+          '\n ENTRADA N°: ' + entradaData.Consecutivo);
         } else {
           this.pUpManager.showErrorAlert('No es posible hacer el registro.');
         }
