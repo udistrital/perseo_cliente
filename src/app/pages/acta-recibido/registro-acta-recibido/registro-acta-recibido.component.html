@@ -5,18 +5,14 @@
       <nb-card-body *ngIf="firstForm">
         <mat-vertical-stepper [linear]="true" #stepper>
           <mat-step label="Datos Iniciales" formGroupName="Formulario1">
-            <nb-card>
+            <nb-card [nbSpinner]="!Sedes">
               <nb-card-header>Datos Iniciales de Recibido</nb-card-header>
               <nb-card-body>
                 <div class="row">
                   <div class="form-group col-sm">
                     <label>Sede</label>
-                    <select class="form-control" formControlName="Sede" required>
-                      <option>Sede 1</option>
-                      <option>Sede 2</option>
-                      <option>Sede 3</option>
-                      <option>Sede 4</option>
-                      <option>Sede 5</option>
+                    <select nbInput type="text" class="form-control" placeholder="Sede" formControlName="Sede" required>
+                      <option *ngFor="let sede of Sedes" [(value)]="sede.Id">{{sede.Nombre}}</option>
                     </select>
                   </div>
                   <div class="form-group col-sm">
@@ -31,13 +27,8 @@
                   </div>
                   <div class="form-group col-sm">
                     <label>Ubicación</label>
-                    <select class="form-control" formControlName="Ubicacion" required>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                    </select>
+                    <ng2-completer inputClass="form-control" nbInput [(ngModel)]="searchStr" [datasource]="dataService" formControlName="Ubicacion" [minSearchLength]="3">
+                    </ng2-completer>
                   </div>
                 </div>
               </nb-card-body>
@@ -63,10 +54,8 @@
                           <div class="row">
                             <div class="form-group col-sm">
                               <label>Proveedor</label>
-                              <div class="input-group">
-                                <input type="text" placeholder="NIT o Razón social" class="form-control"
-                                  formControlName="Proveedor" required>
-                              </div>
+                                  <ng2-completer inputClass="form-control" nbInput [(ngModel)]="searchStr2" [datasource]="dataService2" formControlName="Proveedor" [minSearchLength]="3">
+                                    </ng2-completer>
                             </div>
                             <div class="form-group col-sm">
                               <label>Consecutivo de Factura o de Soporte</label>
@@ -96,7 +85,7 @@
 
                       <ngx-capturar-elementos (DatosEnviados)="ver($event, i)">
                       </ngx-capturar-elementos>
-                      
+
                     </div>
                   </mat-tab>
                   <mat-tab [disabled]="true">
@@ -109,7 +98,8 @@
             </nb-card>
             <div class="justify-content-center">
               <button nbButton matStepperPrevious>Anterior</button>
-              <button nbButton matStepperNext (click)="Revisar_Totales()" [disabled]="!firstForm.get('Formulario1').valid || !firstForm.get('Formulario2').valid"
+              <button nbButton matStepperNext (click)="Revisar_Totales()"
+                [disabled]="!firstForm.get('Formulario1').valid || !firstForm.get('Formulario2').valid"
                 class="float-right">Siguiente</button>
             </div>
           </mat-step>
@@ -152,7 +142,8 @@
             </nb-card>
             <div class="justify-content-center">
               <button nbButton matStepperPrevious>Anterior</button>
-              <button nbButton matStepperNext (click)="Revisar_Totales2()" [disabled]="!firstForm.get('Formulario3').valid || !firstForm.get('Formulario2').valid || !firstForm.get('Formulario3').valid"
+              <button nbButton matStepperNext (click)="Revisar_Totales2()"
+                [disabled]="!firstForm.get('Formulario3').valid || !firstForm.get('Formulario2').valid || !firstForm.get('Formulario3').valid"
                 class="float-right">Guardar Cambios</button>
             </div>
           </mat-step>

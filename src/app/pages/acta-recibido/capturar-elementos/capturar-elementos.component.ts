@@ -17,7 +17,7 @@ import { Unidad } from '../../../@core/data/models/acta_recibido/unidades';
   templateUrl: './capturar-elementos.component.html',
   styleUrls: ['./capturar-elementos.component.scss'],
 })
-export class CapturarElementosComponent implements OnInit{
+export class CapturarElementosComponent implements OnInit {
 
   fileString: string | ArrayBuffer;
   arrayBuffer: Iterable<number>;
@@ -44,7 +44,7 @@ export class CapturarElementosComponent implements OnInit{
 
   ngOnInit() {
     this.createForm();
-    this.Traer_Tipo_Bien();
+    this.Traer_Parametros_Elementos();
     if (this.DatosRecibidos !== null) {
       this.dataSource = new MatTableDataSource(this.DatosRecibidos);
       this.dataSource.paginator = this.paginator;
@@ -56,46 +56,51 @@ export class CapturarElementosComponent implements OnInit{
     }
   }
 
-  ver(){
+  ver() {
     this.DatosEnviados.emit(this.dataSource.data);
   }
-  Traer_Tipo_Bien() {
-    this.Tipos_Bien = new Array<TipoBien>();
-    this.actaRecibidoHelper.getTipoBien().subscribe(res => {
+  Traer_Parametros_Elementos() {
+    this.actaRecibidoHelper.getParametros().subscribe(res => {
       if (res !== null) {
-        for (const index in res) {
-          if (res.hasOwnProperty(index)) {
-            const tipo_bien = new TipoBien;
-            tipo_bien.Id = res[index].Id;
-            tipo_bien.Nombre = res[index].Nombre;
-            tipo_bien.CodigoAbreviacion = res[index].CodigoAbreviacion;
-            tipo_bien.Descripcion = res[index].Descripcion;
-            tipo_bien.FechaCreacion = res[index].FechaCreacion;
-            tipo_bien.FechaModificacion = res[index].FechaModificacion;
-            tipo_bien.NumeroOrden = res[index].NumeroOrden;
-            this.Tipos_Bien.push(tipo_bien);
-          }
-        }
+        console.log(res[0]);
+        this.Traer_Tipo_Bien(res[0].TipoBien);
+        this.Traer_Unidades(res[0].Unidades);
+        this.Traer_IVA(res[0].IVA);
       }
     });
   }
-  Traer_Unidades() {
-    this.Unidades = new Array<Unidad>();
-    this.actaRecibidoHelper.getUnidades().subscribe(res => {
-      if (res !== null) {
-        for (const index in res) {
-          if (res.hasOwnProperty(index)) {
-            const unidad = new Unidad;
-            unidad.Id = res[index].Id;
-            unidad.Unidad = res[index].Unidad;
-            unidad.Tipo = res[index].Tipo;
-            unidad.Descripcion = res[index].Descripcion;
-            unidad.Estado = res[index].Estado;
-            this.Unidades.push(unidad);
-          }
-        }
+  Traer_IVA(IVA: any) {
+    console.log(IVA);
+  }
+  Traer_Tipo_Bien(res: any) {
+    this.Tipos_Bien = new Array<TipoBien>();
+    for (const index in res) {
+      if (res.hasOwnProperty(index)) {
+        const tipo_bien = new TipoBien;
+        tipo_bien.Id = res[index].Id;
+        tipo_bien.Nombre = res[index].Nombre;
+        tipo_bien.CodigoAbreviacion = res[index].CodigoAbreviacion;
+        tipo_bien.Descripcion = res[index].Descripcion;
+        tipo_bien.FechaCreacion = res[index].FechaCreacion;
+        tipo_bien.FechaModificacion = res[index].FechaModificacion;
+        tipo_bien.NumeroOrden = res[index].NumeroOrden;
+        this.Tipos_Bien.push(tipo_bien);
       }
-    });
+    }
+  }
+  Traer_Unidades(res: any) {
+    this.Unidades = new Array<Unidad>();
+    for (const index in res) {
+      if (res.hasOwnProperty(index)) {
+        const unidad = new Unidad;
+        unidad.Id = res[index].Id;
+        unidad.Unidad = res[index].Unidad;
+        unidad.Tipo = res[index].Tipo;
+        unidad.Descripcion = res[index].Descripcion;
+        unidad.Estado = res[index].Estado;
+        this.Unidades.push(unidad);
+      }
+    }
   }
 
   applyFilter(filterValue: string) {

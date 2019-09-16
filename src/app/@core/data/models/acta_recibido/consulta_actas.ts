@@ -8,7 +8,7 @@ export class ConsultaActaRecibido {
     Id: number;
     Observaciones: string;
     RevisorId: number;
-    UbicacionId: number;
+    UbicacionId: string;
     CodigoAbreviacion: string;
     Estado: string;
 

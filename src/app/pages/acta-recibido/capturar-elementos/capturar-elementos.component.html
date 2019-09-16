@@ -31,7 +31,7 @@
         <ng-container matColumnDef="TipoBienId">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo de Bien </th>
           <td mat-cell *matCellDef="let element; let rowIndex = index">
-            <select type="text" class="cell-2 form-control" placeholder="Tipo de Bien" required>
+            <select nbInput type="text" class="cell-2 form-control" placeholder="Tipo de Bien" required>
               <option *ngFor="let tipobien of Tipos_Bien" [(value)]="tipobien.Id">{{tipobien.Nombre}}</option>
             </select>
           </td>
@@ -97,8 +97,9 @@
         <ng-container matColumnDef="UnidadMedida">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Unidad de Medida </th>
           <td mat-cell *matCellDef="let element; let rowIndex = index">
-            <input nbInput type="number" fieldSize="tiny" class="cell" placeholder="Medida"
-              [(ngModel)]="element.UnidadMedida" required>
+            <select nbInput type="text" class="cell" placeholder="Unidad de Medida" required>
+              <option *ngFor="let unidad of Unidades" [(value)]="unidad.Id">{{unidad.Unidad}}</option>
+            </select>
           </td>
           <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>

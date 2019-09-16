@@ -268,9 +268,9 @@ export class ActaRecibidoHelper {
      * If the response is successs, it returns the object's data.
      * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
      */
-    public getParametros(Transaccion) {
+    public getParametros() {
         this.rqManager.setPath('ARKA_SERVICE');
-        return this.rqManager.get('acta_recibido', Transaccion).pipe(
+        return this.rqManager.get('acta_recibido').pipe(
             map(
                 (res) => {
                     if (res['Type'] === 'error') {
@@ -282,5 +282,48 @@ export class ActaRecibidoHelper {
             ),
         );
     }
+
+    /**
+     * Conversion Archivo Get
+     * If the response has errors in the OAS API it should show a popup message with an error.
+     * If the response is successs, it returns the object's data.
+     * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
+     */
+    public getParametrosSoporte() {
+        this.rqManager.setPath('ARKA_SERVICE');
+        return this.rqManager.get('parametros_soporte').pipe(
+            map(
+                (res) => {
+                    if (res['Type'] === 'error') {
+                        this.pUpManager.showErrorAlert('No se pudieron cargar los parametros generales');
+                        return undefined;
+                    }
+                    return res;
+                },
+            ),
+        );
+    }
+
+    /**
+     * Conversion Archivo Get
+     * If the response has errors in the OAS API it should show a popup message with an error.
+     * If the response is successs, it returns the object's data.
+     * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
+     */
+    public getProveedores() {
+        this.rqManager.setPath('UNIDADES_SERVICE');
+        return this.rqManager.get('informacion_proveedor?limit=-1').pipe(
+            map(
+                (res) => {
+                    if (res['Type'] === 'error') {
+                        this.pUpManager.showErrorAlert('No se pudieron cargar los parametros generales');
+                        return undefined;
+                    }
+                    return res;
+                },
+            ),
+        );
+    }
+
 
 }

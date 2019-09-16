@@ -7,6 +7,7 @@ import { PopUpManager } from '../../../managers/popUpManager';
 import { ActaRecibido } from '../../../@core/data/models/acta_recibido/acta_recibido';
 import { ConsultaActaRecibido } from '../../../@core/data/models/acta_recibido/consulta_actas';
 import { stringify } from '@angular/compiler/src/util';
+import { Ubicacion } from '../../../@core/data/models/acta_recibido/soporte_acta';
 
 @Component({
   selector: 'ngx-consulta-acta-recibido',
@@ -19,6 +20,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
   estadoActaSeleccionada: string;
   source: LocalDataSource;
   actas: Array<ConsultaActaRecibido>;
+  Ubicaciones: Array<Ubicacion>;
 
   settings = {
     actions: {
@@ -115,7 +117,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
               { value: 'En Modificacion', title: 'En Modificacion' },
               { value: 'En Verificacion', title: 'En Verificacion' },
               { value: 'Aceptada', title: 'Aceptada' },
-              { value: 'Asociada a Entrada', title: 'Asociada a Entrada'},
+              { value: 'Asociada a Entrada', title: 'Asociada a Entrada' },
               { value: 'Anulada', title: 'Anulada' },
             ],
           },
@@ -124,7 +126,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
       UbicacionId: {
         title: 'Ubicacion',
         valuePrepareFunction: (value: any) => {
-          return value;
+          return value
         },
       },
       Observaciones: {
@@ -147,14 +149,21 @@ export class ConsultaActaRecibidoComponent implements OnInit {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => { // Live reload
     });
     this.source = new LocalDataSource(); // create the source
-      this.actas = new Array<ConsultaActaRecibido>();
-      this.actaSeleccionada = '';
-      this.loadActas();
+    this.actas = new Array<ConsultaActaRecibido>();
+
+
   }
   ngOnInit() {
-
+    this.Traer_Parametros_Soporte();
   }
 
+  Traer_Parametros_Soporte() {
+    this.actaRecibidoHelper.getParametrosSoporte().subscribe(res => {
+      if (res !== null) {
+        this.loadActas(res[0].Ubicaciones);
+      }
+    });
+  }
   onCustom(event: any) {
 
     this.actaSeleccionada = `${event.data.Id}`;
@@ -165,13 +174,20 @@ export class ConsultaActaRecibidoComponent implements OnInit {
     this.router.navigate(['/pages/acta_recibido/registro_acta_recibido']);
   }
 
-  loadActas(): void {
+  loadActas(ubicaciones: Array<Ubicacion>): void {
     this.actaRecibidoHelper.getActasRecibido2().subscribe(res => {
       if (res !== null) {
         const data = <Array<any>>res;
+        this.Ubicaciones = ubicaciones;
         for (const datos in Object.keys(data)) {
           if (data.hasOwnProperty(datos)) {
             const acta = new ConsultaActaRecibido;
+            const ubicacion = this.Ubicaciones.find(ubicacion => ubicacion.Id === data[datos].ActaRecibidoId.UbicacionId);
+            if (ubicacion == null) {
+              acta.UbicacionId = "Ubicacion no Especificada";
+            } else {
+              acta.UbicacionId = ubicacion.Nombre;
+            }
             acta.Activo = data[datos].ActaRecibidoId.Activo;
             acta.FechaCreacion = data[datos].ActaRecibidoId.FechaCreacion;
             acta.FechaModificacion = data[datos].ActaRecibidoId.FechaModificacion;
@@ -179,7 +195,6 @@ export class ConsultaActaRecibidoComponent implements OnInit {
             acta.Id = data[datos].ActaRecibidoId.Id;
             acta.Observaciones = data[datos].ActaRecibidoId.Observaciones;
             acta.RevisorId = data[datos].ActaRecibidoId.RevisorId;
-            acta.UbicacionId = data[datos].ActaRecibidoId.UbicacionId;
             acta.Estado = data[datos].EstadoActaId.Nombre;
             this.actas.push(acta);
           }
@@ -187,5 +202,6 @@ export class ConsultaActaRecibidoComponent implements OnInit {
         this.source.load(this.actas);
       }
     });
+    this.actaSeleccionada = '';
   }
 }
