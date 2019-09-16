@@ -9,43 +9,50 @@ pipeline:
 
   # build and test the go program
   nodejs:
-    image: node:10.7.0
+    image: node:12.6.0
     commands:
-     - npm install -g grunt-cli bower
-     - npm install natives
-     - npm install
-     - bower install --allow-root
-     - grunt build
-
+     - node --version
+     - npm i
+     - npm run build:test
     when:
-      branch: [master, test]
+      branch: [test]
+      event: [push, pull_request]
+      
+  nodejs:  
+    image: node:12.6.0
+    commands:
+     - node --version
+     - npm i
+     - npm run build:prod
+    when:
+      branch: [master]
       event: [push, pull_request]
 
   # upload app.zip to s3 bucket for CodePipline
   publish_s3:
     image: plugins/s3
     secrets: [ aws_access_key_id, aws_secret_access_key ]
-    region: "us-east-1"
+    region: "us-east-1"    
     bucket: "cliente-pruebas"
     source: dist/**/*
     target: /pruebas${DRONE_REPO_NAME%%_cliente}.portaloas.udistrital.edu.co
     strip_prefix: dist/
     when:
-      branch: test
-      event: [push, pull_request]
-
+      branch: [test]
+      event: [push, pull_request] 
+    
   # upload app.zip to s3 bucket for CodePipline
   publish_s3:
     image: plugins/s3
     secrets: [ aws_access_key_id, aws_secret_access_key ]
-    region: "us-east-1"
-    bucket: "cliente-pruebas"
+    region: "us-east-1"    
+    bucket: "cliente-prod"
     source: dist/**/*
     target: /${DRONE_REPO_NAME%%_cliente}.portaloas.udistrital.edu.co
     strip_prefix: dist/
     when:
-      branch: master
-      event: [push, pull_request]
+      branch: [master]
+      event: [push, pull_request] 
 
   #Notify results to telegram
   notify_telegram:
@@ -63,4 +70,4 @@ pipeline:
     when:
       status: [success, failure]
       branch: [master, test]
-      event: [push, pull_request]
+      event: [push, pull_request]      
