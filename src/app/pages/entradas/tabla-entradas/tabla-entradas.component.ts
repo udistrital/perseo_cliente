@@ -98,7 +98,7 @@ export class TablaEntradasComponent implements OnInit {
             elemento.Cantidad = data[datos].Cantidad;
             elemento.Marca = data[datos].Marca;
             elemento.Serie = data[datos].Serie;
-            elemento.UnidadMedida = data[datos].UnidadMedida;
+            elemento.UnidadMedida = data[datos].UnidadMedida.Unidad;
             elemento.ValorUnitario = data[datos].ValorUnitario;
             elemento.Subtotal = data[datos].Subtotal;
             elemento.Descuento = data[datos].Descuento;

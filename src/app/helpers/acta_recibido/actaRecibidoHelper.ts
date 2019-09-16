@@ -40,10 +40,9 @@ export class ActaRecibidoHelper {
      * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
      */
     public getElementosActa(actaId) {
-        this.rqManager.setPath('ACTA_RECIBIDO_SERVICE');
+        this.rqManager.setPath('ARKA_SERVICE');
         return this.rqManager.get(
-            'elemento?query=SoporteActaId.ActaRecibidoId.Id:' + actaId +
-            ',SoporteActaId.ActaRecibidoId.Activo:True&limit=-1').pipe(
+            'acta_recibido/get_elementos_acta/' + actaId).pipe(
                 map(
                     (res) => {
                         if (res === 'error') {
