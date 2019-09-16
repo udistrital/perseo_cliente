@@ -14,21 +14,21 @@ export interface DatosLocales {
     ValorTotal: string;
     ValorUnitario: string;
 
-};
+}
 
 export const DatosLocales2: DatosLocales = {
-    Cantidad: "1",
-    Descripcion: "",
-    Descuento: "0",
-    Marca: "",
-    NivelInventariosId: "1",
-    PorcentajeIvaId: "19.00%",
-    Serie: "",
-    SubgrupoCatalogoId: "",
-    Subtotal: "",
-    TipoBienId: "1",
-    UnidadMedida: "2",
-    ValorIva: "0",
-    ValorTotal: "0",
-    ValorUnitario: "0",
+    Cantidad: '1',
+    Descripcion: '',
+    Descuento: '0',
+    Marca: '',
+    NivelInventariosId: '1',
+    PorcentajeIvaId: '19.00%',
+    Serie: '',
+    SubgrupoCatalogoId: '',
+    Subtotal: '',
+    TipoBienId: '1',
+    UnidadMedida: '2',
+    ValorIva: '0',
+    ValorTotal: '0',
+    ValorUnitario: '0',
   };

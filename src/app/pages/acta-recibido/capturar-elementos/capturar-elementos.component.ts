@@ -212,7 +212,7 @@ export class CapturarElementosComponent implements OnInit {
     const data = this.dataSource.data;
     data.push(DatosLocales2);
     this.dataSource = new MatTableDataSource(data);
-    console.log(this.dataSource.data);
+    // console.log(this.dataSource.data);
   }
   deleteElemento(index: number) {
 
