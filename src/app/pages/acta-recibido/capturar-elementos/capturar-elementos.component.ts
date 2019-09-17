@@ -227,7 +227,7 @@ export class CapturarElementosComponent implements OnInit {
   }
 
   addElemento() {
-    console.log(this.dataSource.data.values);
+    // console.log(this.dataSource.data.values);
     this.dataSource.data.push({
         Cantidad: '1',
         Descripcion: '',
@@ -243,10 +243,10 @@ export class CapturarElementosComponent implements OnInit {
         ValorIva: '0',
         ValorTotal: '0',
         ValorUnitario: '0',
-      }
+      },
     );
     this.dataSource._updateChangeSubscription();
-    console.log(this.dataSource.data);
+    // console.log(this.dataSource.data);
   }
   deleteElemento(index: number) {
 
@@ -277,7 +277,7 @@ export class CapturarElementosComponent implements OnInit {
     return ((parseFloat(subtotal) - parseFloat(descuento)) * parseFloat(porcentaje_iva) / 100);
   }
   Pipe2Number(any: String) {
-    console.log(any);
+    // console.log(any);
     if (any !== null) {
       return any.replace(/[$,]/g, '');
     } else {
