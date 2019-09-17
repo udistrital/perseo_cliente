@@ -4,9 +4,9 @@
       <nb-card-header>Carga Masiva</nb-card-header>
       <nb-card-body>
         <div class="form-group col-sm">
-          <input nbInput formControlname="archivo" type="file" id="archivo_icfes" (change)="onFileChange($event)" class="form-control-file"
-            #fileInput>
-            <p *ngIf="!Validador">El archivo debe tener extension (*.xlsx)</p>
+          <input nbInput formControlname="archivo" type="file" id="archivo_icfes" (change)="onFileChange($event)"
+            class="form-control-file" #fileInput>
+          <p *ngIf="!Validador">El archivo debe tener extension (*.xlsx)</p>
         </div>
         <button type="button" class="btn btn-primary" (click)="clearFile()">Limpiar Espacio</button>
       </nb-card-body>
@@ -31,7 +31,8 @@
         <ng-container matColumnDef="TipoBienId">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo de Bien </th>
           <td mat-cell *matCellDef="let element; let rowIndex = index">
-            <select nbInput type="text" class="cell-2 form-control" [(ngModel)]="element.TipoBienId" placeholder="Tipo de Bien" required>
+            <select nbInput type="text" class="cell-2 form-control" [(ngModel)]="element.TipoBienId"
+              placeholder="Tipo de Bien" required>
               <option *ngFor="let tipobien of Tipos_Bien" [(value)]="tipobien.Id">{{tipobien.Nombre}}</option>
             </select>
           </td>
@@ -67,7 +68,8 @@
         <ng-container matColumnDef="Cantidad">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Cantidad </th>
           <td mat-cell *matCellDef="let element; let rowIndex = index">
-            <input nbInput type="number" fieldSize="tiny" class="cell" placeholder="Cantidad"
+            <input nbInput type="text" fieldSize="tiny" class="cell" placeholder="Cantidad"
+              (ngModelChange)="element.Subtotal = valorXcantidad(element.ValorUnitario, $event).toString()"
               [(ngModel)]="element.Cantidad" required>
           </td>
           <td mat-footer-cell *matFooterCellDef></td>
@@ -97,7 +99,8 @@
         <ng-container matColumnDef="UnidadMedida">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Unidad de Medida </th>
           <td mat-cell *matCellDef="let element; let rowIndex = index">
-            <select nbInput type="text" class="cell" placeholder="Unidad de Medida" [(ngModel)]="element.UnidadMedida"required>
+            <select nbInput type="text" class="cell" placeholder="Unidad de Medida" [(ngModel)]="element.UnidadMedida"
+              required>
               <option *ngFor="let unidad of Unidades" [(value)]="unidad.Id">{{unidad.Unidad}}</option>
             </select>
           </td>
@@ -110,6 +113,7 @@
           <td mat-cell *matCellDef="let element; let rowIndex = index">
 
             <input nbInput type="text" fieldSize="tiny" class="cell" placeholder="Valor Unitario"
+              (ngModelChange)="element.Subtotal = valorXcantidad($event, element.Cantidad).toString()"
               [(ngModel)]="element.ValorUnitario" required>
           </td>
           <td mat-footer-cell *matFooterCellDef></td>
@@ -120,9 +124,10 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Subtotal </th>
           <td mat-cell *matCellDef="let element; let rowIndex = index">
             <input nbInput type="text" fieldSize="tiny" class="cell" placeholder="Subtotal"
-              [(ngModel)]="element.Subtotal" required>
+              (ngModelChange)="console.log($event)"
+              [(ngModel)]="element.Subtotal" readonly>
           </td>
-          <td mat-footer-cell *matFooterCellDef >
+          <td mat-footer-cell *matFooterCellDef>
             <p *ngIf="respuesta">{{ getSubtotales() | currency }}</p>
           </td>
         </ng-container>
@@ -135,7 +140,7 @@
               [(ngModel)]="element.Descuento" required>
           </td>
           <td mat-footer-cell *matFooterCellDef>
-              <p *ngIf="respuesta">{{ getDescuentos() | currency }}</p>
+            <p *ngIf="respuesta">{{ getDescuentos() | currency }}</p>
           </td>
         </ng-container>
 
@@ -157,7 +162,7 @@
               [(ngModel)]="element.ValorIva" required>
           </td>
           <td mat-footer-cell *matFooterCellDef>
-              <p *ngIf="respuesta">{{ getIVA() | currency }}</p>
+            <p *ngIf="respuesta">{{ getIVA() | currency }}</p>
           </td>
         </ng-container>
 
@@ -166,10 +171,10 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor Total </th>
           <td mat-cell *matCellDef="let element; let rowIndex = index">
             <input nbInput type="text" fieldSize="tiny" class="cell" placeholder="Valor Total"
-              [(ngModel)]="element.ValorTotal" required>
+              [ngModel]="element.ValorTotal | currency" required>
           </td>
           <td mat-footer-cell *matFooterCellDef>
-              <p *ngIf="respuesta">{{ getTotales() | currency }}</p>
+            <p *ngIf="respuesta">{{ getTotales() | currency }}</p>
           </td>
         </ng-container>
 

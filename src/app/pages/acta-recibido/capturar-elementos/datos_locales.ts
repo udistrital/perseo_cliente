@@ -16,7 +16,7 @@ export interface DatosLocales {
 
 }
 
-export const DatosLocales2: DatosLocales = {
+export const DatosLocales2: any = {
     Cantidad: '1',
     Descripcion: '',
     Descuento: '0',

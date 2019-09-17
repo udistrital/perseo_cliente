@@ -396,7 +396,7 @@ export class VerificacionActaRecibidoComponent implements OnInit {
     return (parseFloat(subtotal) - parseFloat(descuento) + parseFloat(iva));
   }
   valorXcantidad(valor_unitario: string, cantidad: string) {
-    return (parseFloat(valor_unitario) * parseFloat(cantidad));
+    return (parseFloat(valor_unitario) * parseFloat(cantidad)).toString();
   }
   valor_iva(subtotal: string, descuento: string, porcentaje_iva: string) {
     return ((parseFloat(subtotal) - parseFloat(descuento)) * parseFloat(porcentaje_iva) / 100);
