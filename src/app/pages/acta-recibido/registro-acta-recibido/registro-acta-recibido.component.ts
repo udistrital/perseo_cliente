@@ -144,7 +144,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
             proveedor.Correo = res[index].Correo;
             proveedor.NumDocumento = res[index].NumDocumento;
             proveedor.TipoPersona = res[index].TipoPersona;
-            proveedor.compuesto = res[index].NumDocumento + ' - ' + res[index].NomProveedor
+            proveedor.compuesto = res[index].NumDocumento + ' - ' + res[index].NomProveedor;
             this.Proveedores.push(proveedor);
           }
         }

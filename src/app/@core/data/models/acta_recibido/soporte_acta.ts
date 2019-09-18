@@ -28,7 +28,7 @@ export class Ubicacion {
 export class Dependencia {
     Id: number;
     Nombre: string;
-    TelefonoDependencia: string;  
+    TelefonoDependencia: string;
     CorreoElectronico: string;
 }
 

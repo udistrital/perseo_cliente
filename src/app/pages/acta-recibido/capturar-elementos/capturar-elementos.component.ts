@@ -314,8 +314,8 @@ export class CapturarElementosComponent implements OnInit {
   }
   valor_iva(subtotal: string, descuento: string, porcentaje_iva: number) {
     const tarifa = porcentaje_iva;
-    const impuesto = this.Tarifas_Iva.find(tarifa_ => tarifa_.Id == tarifa);
-    return ((parseFloat(subtotal) - parseFloat(descuento)) * impuesto.Tarifa / 100);
+    const impuesto = this.Tarifas_Iva.find(tarifa_ => tarifa_.Id.toString() === tarifa.toString()).Tarifa;
+    return ((parseFloat(subtotal) - parseFloat(descuento)) * impuesto / 100);
   }
   Pipe2Number(any: String) {
     // console.log(any);

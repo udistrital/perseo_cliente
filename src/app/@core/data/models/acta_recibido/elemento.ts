@@ -39,6 +39,6 @@ export class Impuesto {
     Decreto: string;
     FechaCreacion: Date;
     FechaModificacion: Date;
-    ImpuestoId : string;
+    ImpuestoId: string;
     Nombre: string;
 }
