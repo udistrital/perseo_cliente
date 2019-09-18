@@ -8,7 +8,7 @@ export class Elemento {
     Cantidad: number;
     Marca: string;
     Serie: string;
-    UnidadMedida: string;
+    UnidadMedida: number;
     ValorUnitario: number;
     Subtotal: number;
     Descuento: number;

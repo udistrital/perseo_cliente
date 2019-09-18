@@ -69,6 +69,8 @@ export class RegistroActaRecibidoComponent implements OnInit {
   Proveedores: Proveedor[];
   Ubicaciones: Ubicacion[];
   Sedes: Ubicacion[];
+  DatosTotales: any;
+  Totales: Array<any>;
 
   constructor(
     private translate: TranslateService,
@@ -221,6 +223,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
         this.Unidades.push(unidad);
       }
     }
+    console.log(this.Unidades);
   }
   Cargar_Formularios() {
 
@@ -233,8 +236,8 @@ export class RegistroActaRecibidoComponent implements OnInit {
   }
   get Formulario_1(): FormGroup {
     return this.fb.group({
-      Sede: ['', Validators.required],
-      Dependencia: ['', Validators.required],
+      Sede: [''],
+      Dependencia: [''],
       Ubicacion: ['', Validators.required],
     });
   }
@@ -372,12 +375,12 @@ export class RegistroActaRecibidoComponent implements OnInit {
       Elemento__.Cantidad = parseFloat(this.Pipe2Number(datos.Cantidad));
       Elemento__.Marca = datos.Marca;
       Elemento__.Serie = datos.Serie;
-      Elemento__.UnidadMedida = datos.UnidadMedida;
+      Elemento__.UnidadMedida = this.Unidades.find(unidad => unidad.Id === parseFloat(datos.UnidadMedida)).Id;
       Elemento__.ValorUnitario = parseFloat(this.Pipe2Number(datos.ValorUnitario));
       Elemento__.Subtotal = parseFloat(this.Pipe2Number(datos.Subtotal));
       Elemento__.Descuento = parseFloat(this.Pipe2Number(datos.Descuento));
       Elemento__.ValorTotal = valorTotal;
-      Elemento__.PorcentajeIvaId = datos.PorcentajeIvaId;
+      Elemento__.PorcentajeIvaId = parseFloat(datos.PorcentajeIvaId);
       Elemento__.ValorIva = parseFloat(this.Pipe2Number(datos.ValorIva));
       Elemento__.ValorFinal = parseFloat(this.Pipe2Number(datos.ValorTotal));
       Elemento__.SubgrupoCatalogoId = parseFloat(datos.SubgrupoCatalogoId);
@@ -441,8 +444,21 @@ export class RegistroActaRecibidoComponent implements OnInit {
         this.Elementos__Soporte.push(this.DatosElementos);
       }
     }
-
+    console.log(this.Elementos__Soporte);
+  }
+  ver2(event: any, index: number) {
+    this.DatosTotales = event;
     // console.log(this.Elementos__Soporte);
+    if (this.Totales === undefined) {
+      this.Totales = new Array<any>(this.DatosTotales);
+    } else {
+      // console.log(this.Elementos__Soporte.length);
+      if (index < (this.Totales.length)) {
+        this.Totales[index] = this.DatosTotales;
+      } else {
+        this.Totales.push(this.DatosTotales);
+      }
+    }
   }
   Revisar_Totales() {
     (Swal as any).fire({

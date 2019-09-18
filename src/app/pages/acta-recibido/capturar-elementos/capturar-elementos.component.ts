@@ -8,9 +8,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { TipoBien } from '../../../@core/data/models/acta_recibido/tipo_bien';
-// import { DatosLocales, DatosLocales2 } from './datos_locales';
+import { DatosLocales, DatosLocales2 } from './datos_locales';
 import { Unidad } from '../../../@core/data/models/acta_recibido/unidades';
-import { DatosLocales2 } from './datos_locales';
+
+
 
 
 @Component({
@@ -25,6 +26,7 @@ export class CapturarElementosComponent implements OnInit {
   form: FormGroup;
   buffer: Uint8Array;
   Validador: boolean = false;
+  Totales: DatosLocales;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -34,6 +36,7 @@ export class CapturarElementosComponent implements OnInit {
 
   @Input() DatosRecibidos: any;
   @Output() DatosEnviados = new EventEmitter();
+  @Output() DatosTotales = new EventEmitter();
 
   respuesta: any;
   Tipos_Bien: Array<TipoBien>;
@@ -46,6 +49,7 @@ export class CapturarElementosComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
+    this.Totales = new DatosLocales();
     this.Traer_Parametros_Elementos();
     if (this.DatosRecibidos !== undefined) {
       this.dataSource = new MatTableDataSource(this.DatosRecibidos);
@@ -60,6 +64,7 @@ export class CapturarElementosComponent implements OnInit {
 
   ver() {
     this.DatosEnviados.emit(this.dataSource.data);
+    this.DatosTotales.emit(this.Totales);
   }
   Traer_Parametros_Elementos() {
     this.actaRecibidoHelper.getParametros().subscribe(res => {
@@ -192,60 +197,51 @@ export class CapturarElementosComponent implements OnInit {
     'Acciones',
   ];
 
-  DatosLocales2: any = {
-    Cantidad: '1',
-    Descripcion: '',
-    Descuento: '0',
-    Marca: '',
-    NivelInventariosId: '1',
-    PorcentajeIvaId: '19.00%',
-    Serie: '',
-    SubgrupoCatalogoId: '',
-    Subtotal: '',
-    TipoBienId: '1',
-    UnidadMedida: '2',
-    ValorIva: '0',
-    ValorTotal: '0',
-    ValorUnitario: '0',
-  };
-
-
   getDescuentos() {
+    this.Totales.Descuento = this.dataSource.data.map(t => t.Descuento).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
     return this.dataSource.data.map(t => t.Descuento).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
   }
 
   getSubtotales() {
+    this.Totales.Subtotal = this.dataSource.data.map(t => t.Subtotal).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
     return this.dataSource.data.map(t => t.Subtotal).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
   }
 
   getIVA() {
+    this.Totales.ValorIva = this.dataSource.data.map(t => t.ValorIva).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
     return this.dataSource.data.map(t => t.ValorIva).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
   }
 
   getTotales() {
+    this.Totales.ValorTotal = this.dataSource.data.map(t => t.ValorTotal).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
     return this.dataSource.data.map(t => t.ValorTotal).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
   }
 
   addElemento() {
-    // console.log(this.dataSource.data.values);
-    this.dataSource.data.push({
-        Cantidad: '1',
-        Descripcion: '',
-        Descuento: '0',
-        Marca: '',
-        NivelInventariosId: '1',
-        PorcentajeIvaId: '19.00%',
-        Serie: '',
-        SubgrupoCatalogoId: '',
-        Subtotal: '0',
-        TipoBienId: '1',
-        UnidadMedida: '2',
-        ValorIva: '0',
-        ValorTotal: '0',
-        ValorUnitario: '0',
-      },
+    const data = this.dataSource.data;
+    data.push({
+      Cantidad: '1',
+      Descripcion: '',
+      Descuento: '0',
+      Marca: '',
+      NivelInventariosId: '1',
+      PorcentajeIvaId: '19.00%',
+      Serie: '',
+      SubgrupoCatalogoId: '',
+      Subtotal: '0',
+      TipoBienId: '1',
+      UnidadMedida: '2',
+      ValorIva: '0',
+      ValorTotal: '0',
+      ValorUnitario: '0',
+    },
     );
-    this.dataSource._updateChangeSubscription();
+    this.respuesta = data;
+    this.dataSource.data = data;
+    this.ver();
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+
     // console.log(this.dataSource.data);
   }
   deleteElemento(index: number) {
@@ -279,7 +275,7 @@ export class CapturarElementosComponent implements OnInit {
   Pipe2Number(any: String) {
     // console.log(any);
     if (any !== null) {
-      return any.replace(/[$,]/g, '');
+      return any.replace(/[$,%]/g, '');
     } else {
       return '0';
     }

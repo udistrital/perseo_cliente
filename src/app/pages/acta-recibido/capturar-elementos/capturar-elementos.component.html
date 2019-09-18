@@ -69,7 +69,9 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Cantidad </th>
           <td mat-cell *matCellDef="let element; let rowIndex = index">
             <input nbInput type="text" fieldSize="tiny" class="cell" placeholder="Cantidad"
-              (ngModelChange)="element.Subtotal = valorXcantidad(element.ValorUnitario, $event).toString()"
+              (ngModelChange)="element.Subtotal = valorXcantidad(element.ValorUnitario, $event).toString();
+              element.ValorTotal = valortotal(valorXcantidad(element.ValorUnitario, $event).toString(),element.Descuento,element.ValorIva).toString();
+              element.ValorIva = valor_iva(valorXcantidad(element.ValorUnitario, $event).toString(),element.Descuento,element.PorcentajeIvaId).toString();" 
               [(ngModel)]="element.Cantidad" required>
           </td>
           <td mat-footer-cell *matFooterCellDef></td>
@@ -113,7 +115,9 @@
           <td mat-cell *matCellDef="let element; let rowIndex = index">
 
             <input nbInput type="text" fieldSize="tiny" class="cell" placeholder="Valor Unitario"
-              (ngModelChange)="element.Subtotal = valorXcantidad($event, element.Cantidad).toString()"
+              (ngModelChange)="element.Subtotal = valorXcantidad($event, element.Cantidad).toString();
+              element.ValorIva = valor_iva(valorXcantidad($event, element.Cantidad).toString(),element.Descuento,element.PorcentajeIvaId).toString();
+              element.ValorTotal = valortotal(valorXcantidad($event, element.Cantidad).toString(),element.Descuento,element.ValorIva).toString();" 
               [(ngModel)]="element.ValorUnitario" required>
           </td>
           <td mat-footer-cell *matFooterCellDef></td>
@@ -124,8 +128,7 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Subtotal </th>
           <td mat-cell *matCellDef="let element; let rowIndex = index">
             <input nbInput type="text" fieldSize="tiny" class="cell" placeholder="Subtotal"
-              (ngModelChange)="console.log($event)"
-              [(ngModel)]="element.Subtotal" readonly>
+            [(ngModel)]="element.Subtotal" readonly>
           </td>
           <td mat-footer-cell *matFooterCellDef>
             <p *ngIf="respuesta">{{ getSubtotales() | currency }}</p>
@@ -137,7 +140,10 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Descuento </th>
           <td mat-cell *matCellDef="let element; let rowIndex = index">
             <input nbInput type="text" fieldSize="tiny" class="cell" placeholder="Descuento"
-              [(ngModel)]="element.Descuento" required>
+              [(ngModel)]="element.Descuento"
+              (ngModelChange)="element.ValorIva = valor_iva(element.Subtotal,$event,element.PorcentajeIvaId).toString();
+              element.ValorTotal = valortotal(element.Subtotal,$event,element.ValorIva).toString();"
+              required>
           </td>
           <td mat-footer-cell *matFooterCellDef>
             <p *ngIf="respuesta">{{ getDescuentos() | currency }}</p>
@@ -149,7 +155,10 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header> % IVA </th>
           <td mat-cell *matCellDef="let element; let rowIndex = index">
             <input nbInput type="text" fieldSize="tiny" class="cell" placeholder="% IVA"
-              [(ngModel)]="element.PorcentajeIvaId" required>
+              [(ngModel)]="element.PorcentajeIvaId" 
+              (ngModelChange)="element.ValorIva = valor_iva(element.Subtotal,element.Descuento,$event).toString();
+              element.ValorTotal = valortotal(element.Subtotal,element.Descuento,valor_iva(element.Subtotal,element.Descuento,$event).toString()).toString();"
+              required>
           </td>
           <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
@@ -159,7 +168,7 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor IVA </th>
           <td mat-cell *matCellDef="let element; let rowIndex = index">
             <input nbInput type="text" fieldSize="tiny" class="cell" placeholder="Valor Iva"
-              [(ngModel)]="element.ValorIva" required>
+              [(ngModel)]="element.ValorIva" readonly>
           </td>
           <td mat-footer-cell *matFooterCellDef>
             <p *ngIf="respuesta">{{ getIVA() | currency }}</p>
@@ -171,7 +180,7 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor Total </th>
           <td mat-cell *matCellDef="let element; let rowIndex = index">
             <input nbInput type="text" fieldSize="tiny" class="cell" placeholder="Valor Total"
-              [ngModel]="element.ValorTotal | currency" required>
+              [(ngModel)]="element.ValorTotal" readonly>
           </td>
           <td mat-footer-cell *matFooterCellDef>
             <p *ngIf="respuesta">{{ getTotales() | currency }}</p>
