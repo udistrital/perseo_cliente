@@ -11,23 +11,20 @@
                 <div class="row">
                   <div class="form-group col-sm">
                     <label>Sede</label>
-                    <select nbInput type="text" class="form-control" placeholder="Sede" formControlName="Sede" required>
+                    <select nbInput type="text" class="form-control" formControlName="Sede" required>
                       <option *ngFor="let sede of Sedes" [(value)]="sede.Id">{{sede.Nombre}}</option>
                     </select>
                   </div>
                   <div class="form-group col-sm">
                     <label>Dependencia</label>
-                    <select class="form-control" formControlName="Dependencia" required>
-                      <option>Dependencia 1</option>
-                      <option>Dependencia 2</option>
-                      <option>Dependencia 3</option>
-                      <option>Dependencia 4</option>
-                      <option>Dependencia 5</option>
-                    </select>
+                      <ng2-completer inputClass="form-control" nbInput [(ngModel)]="searchStr3" [datasource]="dataService3"
+                      formControlName="Dependencia" [minSearchLength]="3">
+                    </ng2-completer>
                   </div>
                   <div class="form-group col-sm">
                     <label>Ubicación</label>
-                    <ng2-completer inputClass="form-control" nbInput [(ngModel)]="searchStr" [datasource]="dataService" formControlName="Ubicacion" [minSearchLength]="3">
+                    <ng2-completer inputClass="form-control" nbInput [(ngModel)]="searchStr" [datasource]="dataService"
+                      formControlName="Ubicacion" [minSearchLength]="3">
                     </ng2-completer>
                   </div>
                 </div>
@@ -54,13 +51,14 @@
                           <div class="row">
                             <div class="form-group col-sm">
                               <label>Proveedor</label>
-                                  <ng2-completer inputClass="form-control" nbInput [(ngModel)]="searchStr2" [datasource]="dataService2" formControlName="Proveedor" [minSearchLength]="3">
-                                    </ng2-completer>
+                              <ng2-completer inputClass="form-control" placeholder="dfdfdfdf" nbInput [(ngModel)]="searchStr2"
+                                [datasource]="dataService2" formControlName="Proveedor" [minSearchLength]="3">
+                              </ng2-completer>
                             </div>
                             <div class="form-group col-sm">
                               <label>Consecutivo de Factura o de Soporte</label>
                               <div class="input-group">
-                                <input nbInput type="text" placeholder="Consecutivo" class="form-control"
+                                <input nbInput type="text" placeholder="{{ 'GLOBAL.placeholder_id' | translate}}" class="form-control"
                                   formControlName="Consecutivo" required>
                               </div>
                             </div>
@@ -104,25 +102,25 @@
             </div>
           </mat-step>
           <mat-step label="Datos Adicionales" formGroupName="Formulario3">
-            <nb-card>
+            <nb-card *ngIf="Totales">
               <nb-card-header>Gran Consolidado</nb-card-header>
               <nb-card-body>
                 <table class="table text-center">
                   <tr>
                     <td class="thead-dark">Gran Subtotal</td>
-                    <td>14'000.000</td>
+                    <td>{{getGranSubtotal() | currency}}</td>
                   </tr>
                   <tr>
                     <td class="thead-dark">Gran Descuentos</td>
-                    <td>0</td>
+                    <td>{{getGranDescuentos() | currency}}</td>
                   </tr>
                   <tr>
                     <td class="thead-dark">Gran IVA</td>
-                    <td>1'900.000</td>
+                    <td>{{getGranValorIva() | currency}}</td>
                   </tr>
                   <tr>
                     <td class="thead-dark">Gran Total</td>
-                    <td>15'900.000</td>
+                    <td>{{getGranTotal() | currency}}</td>
                   </tr>
                 </table>
               </nb-card-body>
@@ -152,3 +150,10 @@
     </nb-card>
   </form>
 </div>
+<!-- <div>
+  <code>
+    <pre>
+      {{firstForm.value | json}}
+    </pre>
+  </code>
+</div> -->

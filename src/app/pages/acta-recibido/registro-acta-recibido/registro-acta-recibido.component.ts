@@ -8,9 +8,9 @@ import { MatTable } from '@angular/material';
 import 'hammerjs';
 import { ActaRecibidoHelper } from '../../../helpers/acta_recibido/actaRecibidoHelper';
 import { ActaRecibido } from '../../../@core/data/models/acta_recibido/acta_recibido';
-import { Elemento } from '../../../@core/data/models/acta_recibido/elemento';
+import { Elemento, Impuesto } from '../../../@core/data/models/acta_recibido/elemento';
 import { TipoBien } from '../../../@core/data/models/acta_recibido/tipo_bien';
-import { SoporteActa, Proveedor, Ubicacion } from '../../../@core/data/models/acta_recibido/soporte_acta';
+import { SoporteActa, Proveedor, Ubicacion, Dependencia } from '../../../@core/data/models/acta_recibido/soporte_acta';
 import { EstadoActa } from '../../../@core/data/models/acta_recibido/estado_acta';
 import { EstadoElemento } from '../../../@core/data/models/acta_recibido/estado_elemento';
 import { HistoricoActa } from '../../../@core/data/models/acta_recibido/historico_acta';
@@ -20,6 +20,7 @@ import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-t
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Unidad } from '../../../@core/data/models/acta_recibido/unidades';
 import { CompleterService, CompleterData } from 'ng2-completer';
+import { HttpLoaderFactory } from '../../../app.module';
 
 
 
@@ -35,6 +36,9 @@ import { CompleterService, CompleterData } from 'ng2-completer';
 export class RegistroActaRecibidoComponent implements OnInit {
 
   config: ToasterConfig;
+  searchStr: string;
+  searchStr2: string;
+  searchStr3: string;
   protected dataService: CompleterData;
   protected dataService2: CompleterData;
 
@@ -60,7 +64,6 @@ export class RegistroActaRecibidoComponent implements OnInit {
   Estados_Elemento: Array<EstadoElemento>;
 
   // Modelos
-
   Acta: ActaRecibido;
   Elementos__Soporte: Array<any>;
   Soportes_Acta: Array<SoporteActa>;
@@ -69,8 +72,11 @@ export class RegistroActaRecibidoComponent implements OnInit {
   Proveedores: Proveedor[];
   Ubicaciones: Ubicacion[];
   Sedes: Ubicacion[];
+  Dependencias: Dependencia[];
   DatosTotales: any;
   Totales: Array<any>;
+  dataService3: CompleterData;
+  Tarifas_Iva: Impuesto[];
 
   constructor(
     private translate: TranslateService,
@@ -105,12 +111,26 @@ export class RegistroActaRecibidoComponent implements OnInit {
   Traer_Parametros_Soporte() {
     this.Actas_Recibido.getParametrosSoporte().subscribe(res => {
       if (res !== null) {
-        // console.log(res);
+        this.Traer_Dependencias(res[0].Dependencias);
         this.Traer_Proveedores();
         this.Traer_Ubicaciones(res[0].Ubicaciones);
         this.Traer_Sedes(res[0].Sedes);
       }
     });
+  }
+  Traer_Dependencias(res: any) {
+    this.Dependencias = new Array<Dependencia>();
+    for (const index in res) {
+      if (res.hasOwnProperty(index)) {
+        const dependencia = new Dependencia;
+        dependencia.Id = res[index].Id;
+        dependencia.TelefonoDependencia = res[index].TelefonoDependencia;
+        dependencia.CorreoElectronico = res[index].Correo;
+        dependencia.Nombre = res[index].Nombre;
+        this.Dependencias.push(dependencia);
+      }
+    }
+    this.dataService3 = this.completerService.local(this.Dependencias, 'Nombre', 'Nombre');
   }
   Traer_Proveedores() {
     this.Proveedores = new Array<Proveedor>();
@@ -124,11 +144,12 @@ export class RegistroActaRecibidoComponent implements OnInit {
             proveedor.Correo = res[index].Correo;
             proveedor.NumDocumento = res[index].NumDocumento;
             proveedor.TipoPersona = res[index].TipoPersona;
+            proveedor.compuesto = res[index].NumDocumento + ' - ' + res[index].NomProveedor
             this.Proveedores.push(proveedor);
           }
         }
       }
-      this.dataService2 = this.completerService.local(this.Proveedores, 'NomProveedor', 'NomProveedor');
+      this.dataService2 = this.completerService.local(this.Proveedores, 'compuesto', 'compuesto');
     });
 
   }
@@ -159,8 +180,22 @@ export class RegistroActaRecibidoComponent implements OnInit {
       }
     }
   }
-  Traer_IVA(IVA: any) {
-    // console.log(IVA);
+  Traer_IVA(res: any) {
+    this.Tarifas_Iva = new Array<Impuesto>();
+    for (const index in res) {
+      if (res.hasOwnProperty(index)) {
+        const tarifas = new Impuesto;
+        tarifas.Id = res[index].Id;
+        tarifas.Activo = res[index].Activo;
+        tarifas.Tarifa = res[index].Tarifa;
+        tarifas.Decreto = res[index].Decreto;
+        tarifas.FechaCreacion = res[index].FechaCreacion;
+        tarifas.FechaModificacion = res[index].FechaModificacion;
+        tarifas.ImpuestoId = res[index].ImpuestoId.Id;
+        tarifas.Nombre = res[index].Tarifa.toString() + '% ' + res[index].ImpuestoId.CodigoAbreviacion;
+        this.Tarifas_Iva.push(tarifas);
+      }
+    }
   }
   Traer_Estados_Acta(res: any) {
     this.Estados_Acta = new Array<EstadoActa>();
@@ -223,7 +258,6 @@ export class RegistroActaRecibidoComponent implements OnInit {
         this.Unidades.push(unidad);
       }
     }
-    console.log(this.Unidades);
   }
   Cargar_Formularios() {
 
@@ -292,13 +326,11 @@ export class RegistroActaRecibidoComponent implements OnInit {
     Transaccion_Acta.ActaRecibido = this.Registrar_Acta(this.Datos.Formulario1, this.Datos.Formulario3);
     Transaccion_Acta.UltimoEstado = this.Registrar_Estado_Acta(Transaccion_Acta.ActaRecibido, 2);
     const Soportes = new Array<TransaccionSoporteActa>();
-
     this.Datos.Formulario2.forEach((soporte, index) => {
       Soportes.push(this.Registrar_Soporte(soporte, this.Elementos__Soporte[index], Transaccion_Acta.ActaRecibido));
-      // console.log(index);
+
     });
     Transaccion_Acta.SoportesActa = Soportes;
-    // console.log(Transaccion_Acta);
     this.Actas_Recibido.postTransaccionActa(Transaccion_Acta).subscribe((res: any) => {
       if (res !== null) {
         (Swal as any).fire({
@@ -344,7 +376,6 @@ export class RegistroActaRecibidoComponent implements OnInit {
   }
   Registrar_Soporte(Datos: any, Elementos_: any, Acta: ActaRecibido): TransaccionSoporteActa {
 
-    // console.log(Elementos_)
     const Soporte_Acta = new SoporteActa();
     const Transaccion = new TransaccionSoporteActa();
 
@@ -355,16 +386,14 @@ export class RegistroActaRecibidoComponent implements OnInit {
     Soporte_Acta.FechaCreacion = new Date();
     Soporte_Acta.FechaModificacion = new Date();
     Soporte_Acta.FechaSoporte = Datos.Fecha_Factura;
-    Soporte_Acta.ProveedorId = this.Proveedores.find(proveedor => proveedor.NomProveedor === Datos.Proveedor).Id;
+    Soporte_Acta.ProveedorId = this.Proveedores.find(proveedor => proveedor.NumDocumento === Datos.Proveedor).Id;
 
     Transaccion.SoporteActa = Soporte_Acta;
     Transaccion.Elementos = this.Registrar_Elementos(Elementos_, Soporte_Acta);
-    // console.log(Transaccion.Elementos)
     return Transaccion;
   }
   Registrar_Elementos(Datos: any, Soporte: SoporteActa): Array<Elemento> {
     const Elementos_Soporte = new Array<Elemento>();
-    // console.log(Datos);
     for (const datos of Datos) {
 
       const Elemento__ = new Elemento;
@@ -391,7 +420,6 @@ export class RegistroActaRecibidoComponent implements OnInit {
       Elemento__.Activo = true;
       Elemento__.FechaCreacion = new Date();
       Elemento__.FechaModificacion = new Date();
-      // console.log(Elemento__);
       Elementos_Soporte.push(Elemento__);
 
     }
@@ -433,26 +461,22 @@ export class RegistroActaRecibidoComponent implements OnInit {
   }
   ver(event: any, index: number) {
     this.DatosElementos = event;
-    // console.log(this.Elementos__Soporte);
     if (this.Elementos__Soporte === undefined) {
       this.Elementos__Soporte = new Array<any>(this.DatosElementos);
     } else {
-      // console.log(this.Elementos__Soporte.length);
       if (index < (this.Elementos__Soporte.length)) {
         this.Elementos__Soporte[index] = this.DatosElementos;
       } else {
         this.Elementos__Soporte.push(this.DatosElementos);
       }
     }
-    console.log(this.Elementos__Soporte);
+
   }
   ver2(event: any, index: number) {
     this.DatosTotales = event;
-    // console.log(this.Elementos__Soporte);
     if (this.Totales === undefined) {
       this.Totales = new Array<any>(this.DatosTotales);
     } else {
-      // console.log(this.Elementos__Soporte.length);
       if (index < (this.Totales.length)) {
         this.Totales[index] = this.DatosTotales;
       } else {
@@ -482,5 +506,36 @@ export class RegistroActaRecibidoComponent implements OnInit {
         this.onFirstSubmit();
       }
     });
+  }
+  getGranSubtotal() {
+    if (this.Totales !== []) {
+      return this.Totales.map(t => t.Subtotal).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
+    } else {
+      return '0';
+    }
+  }
+  getGranDescuentos() {
+
+    if (this.Totales !== []) {
+      return this.Totales.map(t => t.Descuento).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
+    } else {
+      return '0';
+    }
+  }
+  getGranValorIva() {
+
+    if (this.Totales !== []) {
+      return this.Totales.map(t => t.ValorIva).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
+    } else {
+      return '0';
+    }
+  }
+  getGranTotal() {
+
+    if (this.Totales !== []) {
+      return this.Totales.map(t => t.ValorTotal).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
+    } else {
+      return '0';
+    }
   }
 }

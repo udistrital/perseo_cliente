@@ -17,11 +17,18 @@ export class Proveedor {
     NumDocumento: string;
     TipoPersona: string;
     Correo: string;
+    compuesto: string;
 }
 export class Ubicacion {
     Id: number;
     Codigo: string;
     Nombre: string; // CAMBIAR POR MODELO CUANDO SE PUEDA CONSULTAR
     Estado: string;
+}
+export class Dependencia {
+    Id: number;
+    Nombre: string;
+    TelefonoDependencia: string;  
+    CorreoElectronico: string;
 }
 

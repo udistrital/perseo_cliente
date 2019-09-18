@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import * as XLSX from 'xlsx';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ActaRecibidoHelper } from '../../../helpers/acta_recibido/actaRecibidoHelper';
 import Swal from 'sweetalert2';
@@ -10,6 +10,7 @@ import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { TipoBien } from '../../../@core/data/models/acta_recibido/tipo_bien';
 import { DatosLocales, DatosLocales2 } from './datos_locales';
 import { Unidad } from '../../../@core/data/models/acta_recibido/unidades';
+import { Impuesto } from '../../../@core/data/models/acta_recibido/elemento';
 
 
 
@@ -41,10 +42,16 @@ export class CapturarElementosComponent implements OnInit {
   respuesta: any;
   Tipos_Bien: Array<TipoBien>;
   Unidades: Unidad[];
+  Tarifas_Iva: Impuesto[];
 
   constructor(private fb: FormBuilder,
-    translate: TranslateService,
+    private translate: TranslateService,
     private actaRecibidoHelper: ActaRecibidoHelper) {
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+    });
+  }
+  useLanguage(language: string) {
+    this.translate.use(language);
   }
 
   ngOnInit() {
@@ -75,8 +82,22 @@ export class CapturarElementosComponent implements OnInit {
       }
     });
   }
-  Traer_IVA(IVA: any) {
-    // console.log(IVA);
+  Traer_IVA(res: any) {
+    this.Tarifas_Iva = new Array<Impuesto>();
+    for (const index in res) {
+      if (res.hasOwnProperty(index)) {
+        const tarifas = new Impuesto;
+        tarifas.Id = res[index].Id;
+        tarifas.Activo = res[index].Activo;
+        tarifas.Tarifa = res[index].Tarifa;
+        tarifas.Decreto = res[index].Decreto;
+        tarifas.FechaCreacion = res[index].FechaCreacion;
+        tarifas.FechaModificacion = res[index].FechaModificacion;
+        tarifas.ImpuestoId = res[index].ImpuestoId.Id;
+        tarifas.Nombre = res[index].Tarifa.toString() + '% ' + res[index].ImpuestoId.CodigoAbreviacion;
+        this.Tarifas_Iva.push(tarifas);
+      }
+    }
   }
   Traer_Tipo_Bien(res: any) {
     this.Tipos_Bien = new Array<TipoBien>();
@@ -156,6 +177,7 @@ export class CapturarElementosComponent implements OnInit {
           title: 'Elementos Cargados',
           text: 'Elementos cargados exitosamente',
         });
+
         this.respuesta = res;
         this.dataSource.data = this.respuesta[0].Elementos;
         this.ver();
@@ -198,23 +220,43 @@ export class CapturarElementosComponent implements OnInit {
   ];
 
   getDescuentos() {
-    this.Totales.Descuento = this.dataSource.data.map(t => t.Descuento).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
-    return this.dataSource.data.map(t => t.Descuento).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
+
+    if (this.dataSource.data.length !== 0) {
+      this.Totales.Descuento = this.dataSource.data.map(t => t.Descuento).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
+      return this.dataSource.data.map(t => t.Descuento).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
+    } else {
+      return '0';
+    }
   }
 
   getSubtotales() {
-    this.Totales.Subtotal = this.dataSource.data.map(t => t.Subtotal).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
-    return this.dataSource.data.map(t => t.Subtotal).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
+
+    if (this.dataSource.data.length !== 0) {
+      this.Totales.Subtotal = this.dataSource.data.map(t => t.Subtotal).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
+      return this.dataSource.data.map(t => t.Subtotal).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
+    } else {
+      return '0';
+    }
   }
 
   getIVA() {
-    this.Totales.ValorIva = this.dataSource.data.map(t => t.ValorIva).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
-    return this.dataSource.data.map(t => t.ValorIva).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
+
+    if (this.dataSource.data.length !== 0) {
+      this.Totales.ValorIva = this.dataSource.data.map(t => t.ValorIva).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
+      return this.dataSource.data.map(t => t.ValorIva).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
+    } else {
+      return '0';
+    }
   }
 
   getTotales() {
-    this.Totales.ValorTotal = this.dataSource.data.map(t => t.ValorTotal).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
-    return this.dataSource.data.map(t => t.ValorTotal).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
+
+    if (this.dataSource.data.length !== 0) {
+      this.Totales.ValorTotal = this.dataSource.data.map(t => t.ValorTotal).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
+      return this.dataSource.data.map(t => t.ValorTotal).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
+    } else {
+      return '0';
+    }
   }
 
   addElemento() {
@@ -225,7 +267,7 @@ export class CapturarElementosComponent implements OnInit {
       Descuento: '0',
       Marca: '',
       NivelInventariosId: '1',
-      PorcentajeIvaId: '19.00%',
+      PorcentajeIvaId: '3',
       Serie: '',
       SubgrupoCatalogoId: '',
       Subtotal: '0',
@@ -263,14 +305,17 @@ export class CapturarElementosComponent implements OnInit {
       }
     });
   }
+
   valortotal(subtotal: string, descuento: string, iva: string) {
     return (parseFloat(subtotal) - parseFloat(descuento) + parseFloat(iva));
   }
   valorXcantidad(valor_unitario: string, cantidad: string) {
     return (parseFloat(valor_unitario) * parseFloat(cantidad));
   }
-  valor_iva(subtotal: string, descuento: string, porcentaje_iva: string) {
-    return ((parseFloat(subtotal) - parseFloat(descuento)) * parseFloat(porcentaje_iva) / 100);
+  valor_iva(subtotal: string, descuento: string, porcentaje_iva: number) {
+    const tarifa = porcentaje_iva;
+    const impuesto = this.Tarifas_Iva.find(tarifa_ => tarifa_.Id == tarifa);
+    return ((parseFloat(subtotal) - parseFloat(descuento)) * impuesto.Tarifa / 100);
   }
   Pipe2Number(any: String) {
     // console.log(any);

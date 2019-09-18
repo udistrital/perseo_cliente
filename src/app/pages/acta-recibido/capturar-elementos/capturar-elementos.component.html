@@ -154,11 +154,12 @@
         <ng-container matColumnDef="PorcentajeIvaId">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> % IVA </th>
           <td mat-cell *matCellDef="let element; let rowIndex = index">
-            <input nbInput type="text" fieldSize="tiny" class="cell" placeholder="% IVA"
-              [(ngModel)]="element.PorcentajeIvaId" 
+              <select nbInput type="text" class="cell form-control" [(ngModel)]="element.PorcentajeIvaId"
               (ngModelChange)="element.ValorIva = valor_iva(element.Subtotal,element.Descuento,$event).toString();
               element.ValorTotal = valortotal(element.Subtotal,element.Descuento,valor_iva(element.Subtotal,element.Descuento,$event).toString()).toString();"
-              required>
+              placeholder="% IVA" required>
+              <option *ngFor="let tarifas of Tarifas_Iva" [(value)]="tarifas.Id">{{tarifas.Nombre}}</option>
+            </select>
           </td>
           <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
@@ -197,7 +198,7 @@
           </td>
           <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
-
+        
         <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>

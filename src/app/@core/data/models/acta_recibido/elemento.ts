@@ -26,3 +26,19 @@ export class Elemento {
     FechaModificacion: Date;
     Placa: string;
 }
+
+export class Impuesto {
+    Id: number;
+    Activo: boolean;
+    Tarifa: number;
+    PorcentajeAplicacion: number;
+    BaseUvt: number;
+    BasePesos: number;
+    InicioVigencia: Date;
+    FinVigencia: Date;
+    Decreto: string;
+    FechaCreacion: Date;
+    FechaModificacion: Date;
+    ImpuestoId : string;
+    Nombre: string;
+}
