@@ -172,7 +172,7 @@
     "placeholder_padre": "ej: padre",
     "hijo": "hijo",
     "placeholder_hijo": "ej: hijo",
-    "aceptar": "aceptar",
+    "aceptar": "Confirm",
     "cancelar": "cancelar",
     "salir": "salir",
     "eliminar": "eliminar",
@@ -182,6 +182,7 @@
     "guardar": "guardar",
     "formulario": "formulario",
     "lista": "lista",
-    "regresar": "back"
+    "regresar": "back",
+    "operacion_exitosa": "Successful Operation"
   }
 }

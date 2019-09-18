@@ -160,7 +160,6 @@ export class AdquisicionComponent implements OnInit {
         }
       }
     }
-    this.contratoForm.markAsDirty();
   }
 
   onFacturaSubmit() {
@@ -227,29 +226,24 @@ export class AdquisicionComponent implements OnInit {
       entradaData.DocumentoContableId = 1; // REVISAR
       tipoEntrada.Id = 5;
       entradaData.TipoEntradaId = tipoEntrada;
-      entradaData.Vigencia = this.vigencia.toString();
+      entradaData.Vigencia = this.vigencia.toString(); // REVISAR
+      entradaData.Observacion = this.observacionForm.value.observacionCtrl;
       // CAMPOS REQUERIDOS PARA ADQUISICIÓN
       entradaData.ContratoId = +this.contratoEspecifico.NumeroContratoSuscrito;
       entradaData.Importacion = this.checked;
-      entradaData.Observacion = this.observacionForm.value.observacionCtrl;
       // ENVIA LA ENTRADA AL MID
+      this.entradasHelper.postEntrada(entradaData).subscribe(res => {
+        if (res !== null) {
+          this.pUpManager.showSuccesToast('Registro Exitoso');
+          this.pUpManager.showSuccessAlert('Entrada registrada satisfactoriamente!' +
+            '\n ENTRADA N°: ' + entradaData.Consecutivo);
 
-      this.pUpManager.showSuccesToast('Registro Exitoso');
-      this.pUpManager.showSuccessAlert('Entrada registrada satisfactoriamente!' +
-        '\n ENTRADA N°: ' + entradaData.Consecutivo);
-
-      const navigationExtras: NavigationExtras = { state: { consecutivo: entradaData.Consecutivo } };
-      this.router.navigate(['/pages/reportes/registro-entradas'], navigationExtras)
-
-      // this.entradasHelper.postEntrada(entradaData).subscribe(res => {
-      //   if (res !== null) {
-      //     this.pUpManager.showSuccesToast('Registro Exitoso');
-      //     this.pUpManager.showSuccessAlert('Entrada registrada satisfactoriamente!' +
-      //     '\n ENTRADA N°: ' + entradaData.Consecutivo);
-      //   } else {
-      //     this.pUpManager.showErrorAlert('No es posible hacer el registro.');
-      //   }
-      // });
+          const navigationExtras: NavigationExtras = { state: { consecutivo: entradaData.Consecutivo } };
+          this.router.navigate(['/pages/reportes/registro-entradas'], navigationExtras);
+        } else {
+          this.pUpManager.showErrorAlert('No es posible hacer el registro.');
+        }
+      });
     } else {
       this.pUpManager.showErrorAlert('No ha llenado todos los campos! No es posible hacer el registro.');
     }

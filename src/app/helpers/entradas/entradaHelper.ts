@@ -54,6 +54,27 @@ export class EntradaHelper {
     }
 
     /**
+     * Contratos Get
+     * If the response has errors in the OAS API it should show a popup message with an error.
+     * If the response is successs, it returns the object's data.
+     * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
+     */
+    public getSolicitantes(vigencia) {
+        this.rqManager.setPath('ADMINISTRATIVA_SERVICE');
+        return this.rqManager.get('lista_ordenadores/' + vigencia + '/' + vigencia).pipe(
+            map(
+                (res) => {
+                    if (res === 'error') {
+                        this.pUpManager.showErrorAlert('No se pudo consultar los ordenadores');
+                        return undefined;
+                    }
+                    return res;
+                },
+            ),
+        );
+    }
+
+    /**
      * Entrada Post
      * If the response has errors in the OAS API it should show a popup message with an error.
      * If the response suceed, it returns the data of the updated object.
@@ -85,6 +106,27 @@ export class EntradaHelper {
     public getEntradas() {
         this.rqManager.setPath('ENTRADAS_SERVICE');
         return this.rqManager.get('entrada_elemento?limit=-1').pipe(
+            map(
+                (res) => {
+                    if (res === 'error') {
+                        this.pUpManager.showErrorAlert('No se pudo consultar el contrato contratos');
+                        return undefined;
+                    }
+                    return res;
+                },
+            ),
+        );
+    }
+
+    /**
+     * Contratos Get
+     * If the response has errors in the OAS API it should show a popup message with an error.
+     * If the response is successs, it returns the object's data.
+     * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
+     */
+    public getEntrada(consecutivo) {
+        this.rqManager.setPath('ENTRADAS_SERVICE');
+        return this.rqManager.get('entrada_elemento?query=Consecutivo:' + consecutivo).pipe(
             map(
                 (res) => {
                     if (res === 'error') {

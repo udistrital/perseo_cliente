@@ -21,7 +21,72 @@
 
       <!-- CARD PARA MOSTRAR LOS DETALLES DE LAS SOLICITUDES -->
 
-      <h5 class="pb-4" *ngIf="detalle">Elementos de Entrada</h5>
+      <h5 class="pb-4" *ngIf="detalle">Detalle Entrada</h5>
+
+      <div class="container">
+
+        <div class="row">
+          <div class="col">
+            <p *ngIf="detalle">Entrada: {{ entradaEspecifica.Consecutivo }}</p>
+          </div>
+          <div class="col">
+            <p *ngIf="detalle">Tipo de Entrada: {{ entradaEspecifica.TipoEntradaId.Nombre }}</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div *ngIf="detalle && entradaEspecifica.TipoEntradaId.Id === 5" class="col">
+            <p *ngIf="detalle && entradaEspecifica.TipoEntradaId.Id === 5 && entradaEspecifica.Importacion">Entrada
+              por
+              Importación: Si</p>
+            <p *ngIf="detalle && entradaEspecifica.TipoEntradaId.Id === 5 && !entradaEspecifica.Importacion">Entrada
+              por
+              Importación: No</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <p *ngIf="detalle">Acta de Recibido N°: {{ entradaEspecifica.ActaRecibidoId }}</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <p *ngIf="detalle && entradaEspecifica.ContratoId !== 0">Contrato N°: {{ entradaEspecifica.ContratoId }}</p>
+          </div>
+          <div class="col">
+            <p *ngIf="detalle">Tipo Contrato: {{ contrato.TipoContrato }}</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <p *ngIf="detalle && contrato.ContratoId !== 0">Supervisor: {{ contrato.Supervisor.Nombre }}</p>
+          </div>
+          <div class="col">
+            <p *ngIf="detalle && contrato.ContratoId !== 0">Cargo: {{ contrato.Supervisor.Cargo }}</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <p *ngIf="detalle && entradaEspecifica.Solicitante !== 0">Solicitante: {{ entradaEspecifica.Solicitante }}
+            </p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <p *ngIf="detalle && entradaEspecifica.Observacion !== ''">Observaciones: {{ entradaEspecifica.Observacion }}</p>
+            <p *ngIf="detalle && entradaEspecifica.Observacion === ''">Observaciones: N/A</p>
+          </div>
+        </div>
+
+      </div>
+
+      <h5 class="pt-4 pb-4" *ngIf="detalle">Elementos Entrada</h5>
+
       <ngx-tabla-entradas [actaRecibidoId]="actaRecibidoId" *ngIf="detalle"></ngx-tabla-entradas>
 
       <div class="pt-4">

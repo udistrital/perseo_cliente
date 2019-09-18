@@ -3,6 +3,10 @@ import { LocalDataSource } from 'ngx-smart-table';
 import { Router } from '@angular/router';
 import { EntradaHelper } from '../../../helpers/entradas/entradaHelper';
 import { Entrada } from '../../../@core/data/models/entrada/entrada';
+import { Contrato } from '../../../@core/data/models/entrada/contrato';
+import { Supervisor } from '../../../@core/data/models/entrada/supervisor';
+import { OrdenadorGasto } from '../../../@core/data/models/entrada/ordenador_gasto';
+import { TipoEntrada } from '../../../@core/data/models/entrada/tipo_entrada';
 
 @Component({
   selector: 'ngx-consulta-entrada',
@@ -16,6 +20,9 @@ export class ConsultaEntradaComponent implements OnInit {
   entradas: Array<Entrada>;
   detalle: boolean;
   actaRecibidoId: number;
+  consecutivoEntrada: string;
+  entradaEspecifica: Entrada;
+  contrato: Contrato;
 
   settings = {
     hideSubHeader: false,
@@ -41,7 +48,7 @@ export class ConsultaEntradaComponent implements OnInit {
         title: 'Acta de Recibido',
       },
       FechaCreacion: {
-        title: 'Fecha de Creación',
+        title: 'Fecha de Entrada',
         width: '70px',
         valuePrepareFunction: (value: any) => {
           const date = value.split('T');
@@ -55,9 +62,6 @@ export class ConsultaEntradaComponent implements OnInit {
             },
           },
         },
-      },
-      fecha_visto_bueno: {
-        title: 'Fecha Visto Bueno',
       },
       TipoEntradaId: {
         title: 'Tipo Entrada',
@@ -79,12 +83,6 @@ export class ConsultaEntradaComponent implements OnInit {
           },
         },
       },
-      revisor: {
-        title: 'Revisor',
-      },
-      estado: {
-        title: 'Estado',
-      },
     },
   };
 
@@ -92,6 +90,9 @@ export class ConsultaEntradaComponent implements OnInit {
     this.source = new LocalDataSource();
     this.entradas = new Array<Entrada>();
     this.detalle = false;
+    this.entradaEspecifica = new Entrada;
+    this.contrato = new Contrato;
+    this.iniciarParametros();
     this.loadEntradas();
   }
 
@@ -123,9 +124,66 @@ export class ConsultaEntradaComponent implements OnInit {
     });
   }
 
+  loadEntradaEspecifica(): void {
+    this.entradasHelper.getEntrada(this.consecutivoEntrada).subscribe(res => {
+      if (res !== null) {
+        this.entradaEspecifica.ActaRecibidoId = res[0].ActaRecibidoId;
+        this.entradaEspecifica.ContratoId = res[0].ContratoId;
+        this.entradaEspecifica.DocumentoContableId = res[0].DocumentoContableId;
+        this.entradaEspecifica.FechaCreacion = res[0].FechaCreacion;
+        this.entradaEspecifica.FechaModificacion = res[0].FechaModificacion;
+        this.entradaEspecifica.Importacion = res[0].Importacion;
+        this.entradaEspecifica.Observacion = res[0].Observacion;
+        this.entradaEspecifica.Solicitante = res[0].Solicitante;
+        this.entradaEspecifica.TipoEntradaId = res[0].TipoEntradaId;
+        this.entradaEspecifica.ElementoId = res[0].ElementoId;
+        this.entradaEspecifica.Consecutivo = res[0].Consecutivo;
+        this.entradaEspecifica.Vigencia = res[0].Vigencia;
+        this.entradaEspecifica.Activo = res[0].Activo;
+        if (this.entradaEspecifica.ContratoId !== 0) {
+          this.loadContrato();
+        }
+      }
+    });
+  }
+
+  loadContrato(): void {
+    this.entradasHelper.getContrato(this.entradaEspecifica.ContratoId, this.entradaEspecifica.Vigencia).subscribe(res => {
+      if (res !== null) {
+        const ordenadorAux = new OrdenadorGasto;
+        const supervisorAux = new Supervisor;
+        ordenadorAux.Id = res.contrato.ordenador_gasto.id;
+        ordenadorAux.NombreOrdenador = res.contrato.ordenador_gasto.nombre_ordenador;
+        ordenadorAux.RolOrdenadorGasto = res.contrato.ordenador_gasto.rol_ordenador;
+        supervisorAux.Id = res.contrato.supervisor.id;
+        supervisorAux.Nombre = res.contrato.supervisor.nombre;
+        supervisorAux.Cargo = res.contrato.supervisor.cargo;
+        supervisorAux.Dependencia = res.contrato.supervisor.dependencia_supervisor;
+        supervisorAux.Sede = res.contrato.supervisor.sede_supervisor;
+        supervisorAux.DocumentoIdentificacion = res.contrato.supervisor.documento_identificacion;
+        this.contrato.OrdenadorGasto = ordenadorAux;
+        this.contrato.NumeroContratoSuscrito = res.contrato.numero_contrato_suscrito;
+        this.contrato.TipoContrato = res.contrato.tipo_contrato;
+        this.contrato.FechaSuscripcion = res.contrato.fecha_suscripcion;
+        this.contrato.Supervisor = supervisorAux;
+      }
+    });
+  }
+
   onCustom(event) {
     this.actaRecibidoId = +`${event.data.ActaRecibidoId}`;
+    this.consecutivoEntrada = `${event.data.Consecutivo}`;
     this.detalle = true;
+    this.loadEntradaEspecifica();
+  }
+
+  iniciarParametros() {
+    const tipoEntrada = new TipoEntrada;
+    const supervisor = new Supervisor;
+    const ordenadorGasto = new OrdenadorGasto;
+    this.entradaEspecifica.TipoEntradaId = tipoEntrada;
+    this.contrato.Supervisor = supervisor;
+    this.contrato.OrdenadorGasto = ordenadorGasto;
   }
 
   onRegister() {

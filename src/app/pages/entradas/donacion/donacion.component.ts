@@ -8,6 +8,9 @@ import { PopUpManager } from '../../../managers/popUpManager';
 import { OrdenadorGasto } from '../../../@core/data/models/entrada/ordenador_gasto';
 import { Supervisor } from '../../../@core/data/models/entrada/supervisor';
 import { Entrada } from '../../../@core/data/models/entrada/entrada';
+import { load } from '@angular/core/src/render3';
+import { TipoEntrada } from '../../../@core/data/models/entrada/tipo_entrada';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-donacion',
@@ -20,9 +23,11 @@ export class DonacionComponent implements OnInit {
   contratoForm: FormGroup;
   facturaForm: FormGroup;
   observacionForm: FormGroup;
+  solicitanteForm: FormGroup;
   // Validadores
   tipoContratoSelect: boolean;
   vigenciaSelect: boolean;
+  solicitanteSelect: boolean;
   // Año Actual
   vigencia: number;
   // Contratos
@@ -37,22 +42,30 @@ export class DonacionComponent implements OnInit {
   fechaFactura: string;
   observaciones: string;
   validar: boolean;
+  ordenadorId: number;
+  cargoOrdenador: string;
   // Selects
   opcionTipoContrato: string;
   opcionvigencia: string;
+  opcionSolicitante: string;
+  fechaSolicitante: string;
+  ordenadores: Array<OrdenadorGasto>;
 
   @Input() actaRecibidoId: string;
 
-  constructor(private entradasHelper: EntradaHelper, private actaRecibidoHelper: ActaRecibidoHelper,
+  constructor(private router: Router, private entradasHelper: EntradaHelper, private actaRecibidoHelper: ActaRecibidoHelper,
     private pUpManager: PopUpManager, private fb: FormBuilder) {
     this.tipoContratoSelect = false;
     this.vigenciaSelect = false;
+    this.solicitanteSelect = false;
     this.contratos = new Array<Contrato>();
     this.contratoEspecifico = new Contrato;
     this.soportes = new Array<SoporteActa>();
+    this.ordenadores = new Array<OrdenadorGasto>();
     this.proveedor = '';
     this.fechaFactura = '';
     this.validar = false;
+    this.ordenadorId = 0;
     this.iniciarContrato();
   }
 
@@ -65,6 +78,10 @@ export class DonacionComponent implements OnInit {
     });
     this.facturaForm = this.fb.group({
       facturaCtrl: ['', Validators.nullValidator],
+    });
+    this.solicitanteForm = this.fb.group({
+      solicitanteCtrl: ['', Validators.required],
+      fechaCtrl: ['', Validators.required],
     });
     this.observacionForm = this.fb.group({
       observacionCtrl: ['', Validators.nullValidator],
@@ -95,6 +112,7 @@ export class DonacionComponent implements OnInit {
   loadContratoEspecifico(): void {
     this.entradasHelper.getContrato(this.contratoInput, this.opcionvigencia).subscribe(res => {
       if (res !== null) {
+        console.log(res)
         const ordenadorAux = new OrdenadorGasto;
         const supervisorAux = new Supervisor;
         ordenadorAux.Id = res.contrato.ordenador_gasto.id;
@@ -105,7 +123,7 @@ export class DonacionComponent implements OnInit {
         supervisorAux.Cargo = res.contrato.supervisor.cargo;
         supervisorAux.DocumentoIdentificacion = res.contrato.supervisor.documento_identificacion;
         this.contratoEspecifico.OrdenadorGasto = ordenadorAux;
-        this.contratoEspecifico.NumeroContratoSuscrito = res.contrato.numero_contrato;
+        this.contratoEspecifico.NumeroContratoSuscrito = res.contrato.numero_contrato_suscrito;
         this.contratoEspecifico.TipoContrato = res.contrato.tipo_contrato;
         this.contratoEspecifico.FechaSuscripcion = res.contrato.fecha_suscripcion;
         this.contratoEspecifico.Supervisor = supervisorAux;
@@ -125,6 +143,23 @@ export class DonacionComponent implements OnInit {
             soporte.FechaSoporte = res[index].FechaSoporte;
             this.soportes.push(soporte);
           }
+        }
+      }
+    });
+  }
+
+  loadSolicitantes(): void {
+    this.entradasHelper.getSolicitantes(this.fechaSolicitante).subscribe(res => {
+      while (this.ordenadores.length > 0) {
+        this.ordenadores.pop();
+      }
+      if (res !== null) {
+        for (const index of Object.keys(res.ListaOrdenadores.Ordenadores)) {
+          const ordenador = new OrdenadorGasto;
+          ordenador.NombreOrdenador = res.ListaOrdenadores.Ordenadores[index].NombreOrdenador;
+          ordenador.Id = res.ListaOrdenadores.Ordenadores[index].IdOrdenador;
+          ordenador.RolOrdenadorGasto = res.ListaOrdenadores.Ordenadores[index].CargoOrdenador;
+          this.ordenadores.push(ordenador);
         }
       }
     });
@@ -156,9 +191,10 @@ export class DonacionComponent implements OnInit {
     this.contratoForm.markAsDirty();
   }
 
-  onFacturaSubmit() {
-    this.validar = true;
-    this.facturaForm.markAsDirty();
+  onSolicitanteSubmit() {
+    if (this.ordenadorId !== 0) {
+      this.validar = true;
+    }
   }
 
   /**
@@ -190,6 +226,32 @@ export class DonacionComponent implements OnInit {
     }
   }
 
+  changeSolicitante(event) {
+    if (!this.solicitanteSelect) {
+      this.solicitanteSelect = !this.solicitanteSelect;
+    }
+
+    const date: Date = event;
+    const mes = parseInt(date.getUTCMonth().toString()) + 1;
+    if (mes < 10) {
+      this.fechaSolicitante = date.getFullYear() + '-0' + mes + '-' + date.getDate()
+    } else {
+      this.fechaSolicitante = date.getFullYear() + '-' + mes + '-' + date.getDate()
+    }
+
+    this.loadSolicitantes();
+  }
+
+  changeOrdenador() {
+    this.cargoOrdenador = '';
+    for (let i in this.ordenadores) {
+      if (this.ordenadores[i].NombreOrdenador === this.solicitanteForm.value.solicitanteCtrl) {
+        this.ordenadorId = this.ordenadores[i].Id;
+        this.cargoOrdenador = this.ordenadores[i].RolOrdenadorGasto;
+      }
+    }
+  }
+
   iniciarContrato() {
     const ordenadorAux = new OrdenadorGasto;
     const supervisorAux = new Supervisor;
@@ -213,25 +275,34 @@ export class DonacionComponent implements OnInit {
   onSubmit() {
     if (this.validar) {
       const entradaData = new Entrada;
-      // entradaData.TipoEntrada = 5;
+      const tipoEntrada = new TipoEntrada;
+
+      // CAMPOS OBLIGATORIOS
       entradaData.ActaRecibidoId = +this.actaRecibidoId;
-      entradaData.ContratoId = this.contratoEspecifico.NumeroContratoSuscrito;
-      entradaData.Importacion = true;
-      // entradaData.NumeroImportacion = this.facturaForm.value.facturaCtrl;
-      entradaData.FechaCreacion = new Date();
-      entradaData.FechaModificacion = new Date();
+      entradaData.Activo = true;
+      entradaData.Consecutivo = 'P8-4-2019'; // REVISAR
+      entradaData.DocumentoContableId = 1; // REVISAR
+      tipoEntrada.Id = 4;
+      entradaData.TipoEntradaId = tipoEntrada;
+      entradaData.Vigencia = this.vigencia.toString(); //REVISAR
       entradaData.Observacion = this.observacionForm.value.observacionCtrl;
-      // entradaData.Observacion = aux[3];
+      // CAMPOS REQUERIDOS PARA ADQUISICIÓN
+      entradaData.ContratoId = +this.contratoEspecifico.NumeroContratoSuscrito;
+      console.log(entradaData.ContratoId)
+      entradaData.Solicitante = +this.ordenadorId;
+      // // ENVIA LA ENTRADA AL MID
       // this.entradasHelper.postEntrada(entradaData).subscribe(res => {
-      //   console.info(entradaData + 'Rest' + res);
       //   if (res !== null) {
       //     this.pUpManager.showSuccesToast('Registro Exitoso');
-      //     this.pUpManager.showSuccessAlert('Entrada registrada satisfactoriamente!');
+      //     this.pUpManager.showSuccessAlert('Entrada registrada satisfactoriamente!' +
+      //       '\n ENTRADA N°: ' + entradaData.Consecutivo);
+
+      //     const navigationExtras: NavigationExtras = { state: { consecutivo: entradaData.Consecutivo } };
+      //     this.router.navigate(['/pages/reportes/registro-entradas'], navigationExtras);
+      //   } else {
+      //     this.pUpManager.showErrorAlert('No es posible hacer el registro.');
       //   }
       // });
-      // console.log(entradaData);
-      this.pUpManager.showSuccesToast('Registro Exitoso');
-      this.pUpManager.showSuccessAlert('Entrada registrada satisfactoriamente!');
     } else {
       this.pUpManager.showErrorAlert('No ha llenado todos los campos! No es posible hacer el registro.');
     }
