@@ -95,7 +95,6 @@ export class SobranteComponent implements OnInit {
   }
 
   onSoporteSubmit() {
-    console.log(this.ordenadorId)
     if (this.ordenadorId !== 0) {
       this.validar = true;
       this.soporteForm.markAsDirty();
