@@ -112,7 +112,6 @@ export class DonacionComponent implements OnInit {
   loadContratoEspecifico(): void {
     this.entradasHelper.getContrato(this.contratoInput, this.opcionvigencia).subscribe(res => {
       if (res !== null) {
-        console.log(res)
         const ordenadorAux = new OrdenadorGasto;
         const supervisorAux = new Supervisor;
         ordenadorAux.Id = res.contrato.ordenador_gasto.id;
@@ -230,21 +229,20 @@ export class DonacionComponent implements OnInit {
     if (!this.solicitanteSelect) {
       this.solicitanteSelect = !this.solicitanteSelect;
     }
-
     const date: Date = event;
-    const mes = parseInt(date.getUTCMonth().toString()) + 1;
+    const mes = parseInt(date.getUTCMonth().toString(), 10) + 1;
     if (mes < 10) {
-      this.fechaSolicitante = date.getFullYear() + '-0' + mes + '-' + date.getDate()
+      this.fechaSolicitante = date.getFullYear() + '-0' + mes + '-' + date.getDate();
     } else {
-      this.fechaSolicitante = date.getFullYear() + '-' + mes + '-' + date.getDate()
+      this.fechaSolicitante = date.getFullYear() + '-' + mes + '-' + date.getDate();
     }
-
     this.loadSolicitantes();
   }
 
   changeOrdenador() {
     this.cargoOrdenador = '';
-    for (let i in this.ordenadores) {
+    this.ordenadorId =  0;
+    for (const i in this.ordenadores) {
       if (this.ordenadores[i].NombreOrdenador === this.solicitanteForm.value.solicitanteCtrl) {
         this.ordenadorId = this.ordenadores[i].Id;
         this.cargoOrdenador = this.ordenadores[i].RolOrdenadorGasto;
@@ -284,25 +282,24 @@ export class DonacionComponent implements OnInit {
       entradaData.DocumentoContableId = 1; // REVISAR
       tipoEntrada.Id = 4;
       entradaData.TipoEntradaId = tipoEntrada;
-      entradaData.Vigencia = this.vigencia.toString(); //REVISAR
+      entradaData.Vigencia = this.vigencia.toString(); // REVISAR
       entradaData.Observacion = this.observacionForm.value.observacionCtrl;
       // CAMPOS REQUERIDOS PARA ADQUISICIÓN
       entradaData.ContratoId = +this.contratoEspecifico.NumeroContratoSuscrito;
-      console.log(entradaData.ContratoId)
       entradaData.Solicitante = +this.ordenadorId;
       // // ENVIA LA ENTRADA AL MID
-      // this.entradasHelper.postEntrada(entradaData).subscribe(res => {
-      //   if (res !== null) {
-      //     this.pUpManager.showSuccesToast('Registro Exitoso');
-      //     this.pUpManager.showSuccessAlert('Entrada registrada satisfactoriamente!' +
-      //       '\n ENTRADA N°: ' + entradaData.Consecutivo);
+      this.entradasHelper.postEntrada(entradaData).subscribe(res => {
+        if (res !== null) {
+          this.pUpManager.showSuccesToast('Registro Exitoso');
+          this.pUpManager.showSuccessAlert('Entrada registrada satisfactoriamente!' +
+            '\n ENTRADA N°: ' + entradaData.Consecutivo);
 
-      //     const navigationExtras: NavigationExtras = { state: { consecutivo: entradaData.Consecutivo } };
-      //     this.router.navigate(['/pages/reportes/registro-entradas'], navigationExtras);
-      //   } else {
-      //     this.pUpManager.showErrorAlert('No es posible hacer el registro.');
-      //   }
-      // });
+          const navigationExtras: NavigationExtras = { state: { consecutivo: entradaData.Consecutivo } };
+          this.router.navigate(['/pages/reportes/registro-entradas'], navigationExtras);
+        } else {
+          this.pUpManager.showErrorAlert('No es posible hacer el registro.');
+        }
+      });
     } else {
       this.pUpManager.showErrorAlert('No ha llenado todos los campos! No es posible hacer el registro.');
     }

@@ -1,4 +1,5 @@
 <h3 class="pt-4 pb-4">Entrada por Sobrante de Inventario</h3>
+<p class="font-weight-bold font-italic pb-2">Acta de recibido # {{ actaRecibidoId }}</p>
 
 <!-- FORMULARIO -->
 <nb-stepper #stepper orientation="horizontal">
@@ -6,32 +7,51 @@
   <!-- SOLICITANTE -->
   <nb-step [stepControl]="solicitanteForm" label="Solicitante">
     <h5>Solicitante</h5>
-    <form [formGroup]="solicitanteForm" (ngSubmit)="onSolicitanteSubmit()" class="step-container">
+    <form [formGroup]="solicitanteForm" class="step-container">
       <div class="row">
         <div class="form-group col-sm">
-          <label>Nombres y Apellidos</label>
+          <label>Vigencia</label>
           <div class="input-group">
-            <input nbInput type="text" placeholder="Nombre Completo" class="form-control"
-              formControlName="solicitanteCtrl"
+            <input nbInput shape="semi-round" placeholder="Selecciona la Fecha" formControlName="fechaCtrl"
+              class="form-control" [nbDatepicker]="formpicker" required>
+            <nb-datepicker (dateChange)="changeSolicitante($event)" #formpicker></nb-datepicker>
+          </div>
+        </div>
+        <div class="form-group col-sm">
+          <label>Ordenador de Gasto</label>
+          <div class="input-group">
+            <input nbInput (change)="changeOrdenador($event)" type="text" shape="semi-round"
+              placeholder="Ordenador de Gasto" class="form-control" [readonly]="!solicitanteSelect"
+              list="solicitanteList" formControlName="solicitanteCtrl"
               [ngClass]="{'form-control-danger': solicitanteForm.invalid && (solicitanteForm.dirty || solicitanteForm.touched)}" />
           </div>
         </div>
+        <datalist id="solicitanteList">
+          <option *ngFor="let item of ordenadores" value='{{ item.NombreOrdenador }}'></option>
+        </datalist>
+        <div class="form-group col-sm">
+          <label>Asignación</label>
+          <div class="input-group">
+            <input nbInput shape="semi-round" type="text" placeholder="Cargo" value="{{ cargoOrdenador }}"
+              class="form-control" [readonly]="true" />
+          </div>
+        </div>
       </div>
-      <button nbButton nbStepperNext>Siguiente</button>
+      <button type="button" (click)="onSolicitanteSubmit()" nbButton nbStepperNext>Siguiente</button>
     </form>
   </nb-step>
 
   <!-- SOPORTE -->
   <nb-step [stepControl]="soporteForm" label="Soporte">
     <h5>Soporte</h5>
-    <form [formGroup]="soporteForm" (ngSubmit)="onSoporteSubmit()" class="step-container">
+    <form [formGroup]="soporteForm" class="step-container">
       <div class="pb-3">
         <label>Acta de Producción</label>
         <input nbInput type="file" class="form-control-file" id="soporte" formControlName="soporteCtrl"
           [ngClass]="{'form-control-danger': soporteForm.invalid && (soporteForm.dirty || soporteForm.touched)}">
       </div>
       <button nbButton nbStepperPrevious>Anterior</button>
-      <button nbButton nbStepperNext>Siguiente</button>
+      <button type="button" (click)="onSoporteSubmit()" nbButton nbStepperNext>Siguiente</button>
     </form>
   </nb-step>
 
@@ -46,15 +66,27 @@
       </div>
     </div>
     <button nbButton nbStepperPrevious>Anterior</button>
+    <button type="button" nbButton nbStepperNext>Siguiente</button>
+  </nb-step>
+
+  <!-- FINALIZAR -->
+  <nb-step [hidden]="true">
+    <div class="step-container d-flex justify-content-center">
+      <h3>Datos Correctos!</h3>
+    </div>
+    <div class="step-container d-flex justify-content-center">
+      <p>Click en Registrar Entrada para continuar</p>
+    </div>
   </nb-step>
 
 </nb-stepper>
 
 <h5 class="pt-4">Elementos de Entrada</h5>
-<ngx-tabla-entradas></ngx-tabla-entradas>
+<ngx-tabla-entradas [actaRecibidoId]="actaRecibidoId"></ngx-tabla-entradas>
 
 <div class="justify-content-center float-right pt-4">
-  <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+  <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off"
+    (click)="onSubmit()">
     Registrar Entrada
   </button>
 </div>
