@@ -10,6 +10,7 @@ export class SobranteComponent implements OnInit {
 
   solicitanteForm: FormGroup;
   soporteForm: FormGroup;
+  observacionForm: FormGroup;
 
   constructor(private fb: FormBuilder) { }
 
@@ -19,6 +20,9 @@ export class SobranteComponent implements OnInit {
     });
     this.soporteForm = this.fb.group({
       soporteCtrl: ['', Validators.required],
+    });
+    this.observacionForm = this.fb.group({
+      observacionCtrl: ['', Validators.nullValidator],
     });
   }
 

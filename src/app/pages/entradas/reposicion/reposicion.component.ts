@@ -10,6 +10,7 @@ export class ReposicionComponent implements OnInit {
 
   elementoForm: FormGroup;
   soporteForm: FormGroup;
+  observacionForm: FormGroup;
 
   constructor(private fb: FormBuilder) { }
 
@@ -21,6 +22,9 @@ export class ReposicionComponent implements OnInit {
 
     this.soporteForm = this.fb.group({
       soporteCtrl: ['', Validators.required],
+    });
+    this.observacionForm = this.fb.group({
+      observacionCtrl: ['', Validators.nullValidator],
     });
   }
 

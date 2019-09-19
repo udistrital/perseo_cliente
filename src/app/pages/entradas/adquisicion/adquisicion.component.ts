@@ -21,6 +21,8 @@ export class AdquisicionComponent implements OnInit {
   contratoForm: FormGroup;
   facturaForm: FormGroup;
   observacionForm: FormGroup;
+  ordenadorForm: FormGroup;
+  supervisorForm: FormGroup;
   // Validadores
   checked: boolean;
   tipoContratoSelect: boolean;
@@ -71,6 +73,12 @@ export class AdquisicionComponent implements OnInit {
     });
     this.observacionForm = this.fb.group({
       observacionCtrl: ['', Validators.nullValidator],
+    });
+    this.ordenadorForm = this.fb.group({
+      ordenadorCtrl: ['', Validators.nullValidator],
+    });
+    this.supervisorForm = this.fb.group({
+      supervisorCtrl: ['', Validators.nullValidator],
     });
     this.getVigencia();
   }

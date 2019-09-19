@@ -20,6 +20,8 @@ export class TercerosComponent implements OnInit {
   contratoForm: FormGroup;
   facturaForm: FormGroup;
   observacionForm: FormGroup;
+  supervisorForm: FormGroup;
+  ordenadorForm: FormGroup;
   // Validadores
   checked: boolean;
   tipoContratoSelect: boolean;
@@ -70,6 +72,12 @@ export class TercerosComponent implements OnInit {
     });
     this.observacionForm = this.fb.group({
       observacionCtrl: ['', Validators.nullValidator],
+    });
+    this.supervisorForm = this.fb.group({
+      supervisorCtrl: ['', Validators.nullValidator],
+    });
+    this.ordenadorForm = this.fb.group({
+      ordenadorCtrl: ['', Validators.nullValidator],
     });
     this.getVigencia();
   }
