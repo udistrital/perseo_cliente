@@ -35,12 +35,56 @@
   },
   "GLOBAL": {
     "Acta_Recibido":{
-      "Consulta":{
-        "bla":"blk"
+      "CapturarElementos":{
+        "CargaMasivaTitle":"Carga Masiva",
+        "ValidadorPlaceholder":"El archivo debe tener extension (*.xlsx)",
+        "LimpiarEspacioButton":"Limpiar Espacio",
+        "CargarElementosButton":"Cargar Elementos",
+        "ArticulosRelacionadosTitle":"Articulos Relacionados",
+        "TipoBienHeader":"Tipo de Bien",
+        "TotalesFooter":"Totales",
+        "SubgrupoHeader":"Subgrupo",
+        "DescripcionHeader":"Descripcion",
+        "CantidadHeader":"Cantidad",
+        "MarcaHeader":"Marca",
+        "SerieHeader":"Serie",
+        "UnidadMedidaHeader":"Unidad de Medida",
+        "ValorUnitarioHeader":"Valor Unitario",
+        "SubtotalHeader":"Subtotal",
+        "DescuentoHeader":"Descuento",
+        "IVAHeader":"% IVA",
+        "ValorIVAHeader":"Valor de IVA",
+        "ValorTotalHeader":"ValorTotal",
+        "AgregarElemento":"Agregar Elemento",
+        "EliminarElemento":"Eliminar Elemento",
+        "ElementosCargadosTitleOK":"Elementos Cargados",
+        "ElementosCargadosTextOK":"Elementos Cargados Exitosamente",
+        "ElementosCargadosTitleNO":"Elementos No Cargados",
+        "ElementosCargadosTextNO":"Los elementos no han podido ser cargados, intenta mas tarde",
+        "EliminarElementosTitle":"Esta Seguro?",
+        "EliminarElementosText":"Esta seguro de eliminar el elemento seleccionado?"
+      },
+      "ConsultaActas":{
+        "ActasRecibidoTitle":"Actas de Recibido",
+        "NuevaActa":"Registrar Nueva Acta",
+        "ConsecutivoHeader":"Consecutivo",
+        "FechaCreacionHeader":"Fecha de Creacion",
+        "FechaModificacionHeader":"Fecha de Modificacion",
+        "FechaVistoBuenoHeader":"Fecha de Visto Bueno",
+        "RevisorHeader":"Ultimo Revisor",
+        "EstadoHeader":"Estado Actual",
+        "UbicacionHeader":"Ubicacion",
+        "ObservacionesHeader":"Observaciones",
+        "Registrada":"Registrada",
+        "Elaboracion":"En Elaboracion",
+        "Modificacion":"En Modificacion",
+        "Verificacion":"En Verificacion",
+        "Aceptada":"Aceptada",
+        "Asociada":"Asociada a Entrada",
+        "Anulada":"Anulada"
       }
+
     },
-
-
 
     "notificacion_estado": "notificacion_estado",
     "placeholder_notificacion_estado": "ej: notificacion_estado",
