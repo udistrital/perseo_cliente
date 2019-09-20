@@ -20,6 +20,7 @@ export class DonacionComponent implements OnInit {
   contratoForm: FormGroup;
   facturaForm: FormGroup;
   observacionForm: FormGroup;
+  solicitanteForm: FormGroup;
   // Validadores
   tipoContratoSelect: boolean;
   vigenciaSelect: boolean;
@@ -68,6 +69,9 @@ export class DonacionComponent implements OnInit {
     });
     this.observacionForm = this.fb.group({
       observacionCtrl: ['', Validators.nullValidator],
+    });
+    this.solicitanteForm = this.fb.group({
+      solicitanteCtrl: ['', Validators.nullValidator],
     });
     this.getVigencia();
   }

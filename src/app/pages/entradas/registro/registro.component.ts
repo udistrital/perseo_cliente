@@ -16,6 +16,7 @@ export class RegistroComponent implements OnInit {
   // Acta de recibido
   actas: Array<ActaRecibido>;
   actaSeleccionada: string;
+  opcionEntrada: string;
 
   settings = {
     hideSubHeader: false,
@@ -86,6 +87,7 @@ export class RegistroComponent implements OnInit {
     this.source = new LocalDataSource();
     this.actas = new Array<ActaRecibido>();
     this.actaSeleccionada = '';
+    this.opcionEntrada = '';
     this.loadActas();
   }
 

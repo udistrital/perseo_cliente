@@ -9,12 +9,24 @@ import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 export class ElaboracionPropiaComponent implements OnInit {
 
   soporteForm: FormGroup;
+  observacionForm: FormGroup;
+  ordenadorForm: FormGroup;
+  supervisorForm: FormGroup;
 
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
     this.soporteForm = this.fb.group({
       soporteCtrl: ['', Validators.required],
+    });
+    this.observacionForm = this.fb.group({
+      observacionCtrl: ['', Validators.nullValidator],
+    });
+    this.ordenadorForm = this.fb.group({
+      ordenadorCtrl: ['', Validators.nullValidator],
+    });
+    this.supervisorForm = this.fb.group({
+      supervisorCtrl: ['', Validators.nullValidator],
     });
   }
 
