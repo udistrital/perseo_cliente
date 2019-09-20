@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { LocalDataSource } from 'ngx-smart-table';
 import { Router } from '@angular/router';
+import { ActaRecibidoHelper } from '../../../helpers/acta_recibido/actaRecibidoHelper';
+import { PopUpManager } from '../../../managers/popUpManager';
+import { ActaRecibido } from '../../../@core/data/models/acta_recibido/acta_recibido';
+import { ConsultaActaRecibido } from '../../../@core/data/models/acta_recibido/consulta_actas';
+import { stringify } from '@angular/compiler/src/util';
+import { Ubicacion } from '../../../@core/data/models/acta_recibido/soporte_acta';
 
 @Component({
   selector: 'ngx-consulta-acta-recibido',
@@ -10,50 +16,39 @@ import { Router } from '@angular/router';
 })
 export class ConsultaActaRecibidoComponent implements OnInit {
 
-
+  actaSeleccionada: string;
+  estadoActaSeleccionada: string;
   source: LocalDataSource;
+  actas: Array<ConsultaActaRecibido>;
+  Ubicaciones: Array<Ubicacion>;
 
   settings = {
     actions: {
+      columnTitle: 'Acciones',
       custom: [
         {
           name: 'Ver',
-          title: '<i class="fas fa-eye" nbPopover="Ver" nbPopoverTrigger="hint" nbPopoverPlacement="bottom"></i>',
+          title: '<i class="fas fa-eye"></i>',
         },
         {
           name: 'Editar',
-          title: '<i class="fas fa-pencil-alt" nbPopover="Editar" nbPopoverTrigger="hint" nbPopoverPlacement="bottom"></i>',
-        },
-        {
-          name: 'Anular',
-          title: '<i class="fas fa-trash-alt" nbPopover="Anular" nbPopoverTrigger="hint" nbPopoverPlacement="bottom"></i>',
-        },
-        {
-          name: 'Enviar a Revision',
-          title: '<i class="fas fa-play" nbPopover="Enviar a Revisor" nbPopoverTrigger="hint" nbPopoverPlacement="bottom"></i>',
-        },
-        {
-          name: 'Enviar a Jefe de Area',
-          title: '<i class="fas fa-forward" nbPopover="Enviar a Jefe de Area" nbPopoverTrigger="hint" nbPopoverPlacement="bottom"></i>',
-        },
-        {
-          name: 'Verificar',
-          title: '<i class="fas fa-tasks" nbPopover="Verificar" nbPopoverTrigger="hint" nbPopoverPlacement="bottom"></i>',
+          title: '<i class="fas fa-pencil-alt"></i>',
         },
       ],
       position: 'right',
       add: false,
-      edit: true,
+      edit: false,
       delete: false,
     },
     columns: {
-      consecutivo: {
+      Id: {
         title: 'Consecutivo',
+        width: '90px',
         valuePrepareFunction: (value: any) => {
           return value;
         },
       },
-      fecha_creacion: {
+      FechaCreacion: {
         title: 'Fecha de Creacion',
         width: '70px',
         valuePrepareFunction: (value: any) => {
@@ -69,7 +64,23 @@ export class ConsultaActaRecibidoComponent implements OnInit {
           },
         },
       },
-      fecha_visto_bueno: {
+      FechaModificacion: {
+        title: 'Fecha de Modificacion',
+        width: '70px',
+        valuePrepareFunction: (value: any) => {
+          const date = value.split('T');
+          return date[0];
+        },
+        filter: {
+          type: 'daterange',
+          config: {
+            daterange: {
+              format: 'yyyy/mm/dd',
+            },
+          },
+        },
+      },
+      FechaVistoBueno: {
         title: 'Fecha Visto Bueno',
         width: '70px',
         valuePrepareFunction: (value: any) => {
@@ -85,13 +96,13 @@ export class ConsultaActaRecibidoComponent implements OnInit {
           },
         },
       },
-      revisor: {
+      RevisorId: {
         title: 'Revisor',
         valuePrepareFunction: (value: any) => {
           return value;
         },
       },
-      estado: {
+      Estado: {
         title: 'Estado',
         valuePrepareFunction: (value: any) => {
           return value;
@@ -101,52 +112,24 @@ export class ConsultaActaRecibidoComponent implements OnInit {
           config: {
             selectText: 'Select...',
             list: [
-              { value: '1', title: 'Registrada' },
-              { value: '2', title: 'En Elaboracion' },
-              { value: '3', title: 'En Revision' },
-              { value: '4', title: 'En Verificacion' },
-              { value: '5', title: 'Aceptada' },
-              { value: '6', title: 'Anulada' },
-
+              { value: 'Registrada', title: 'Registrada' },
+              { value: 'En Elaboracion', title: 'En Elaboracion' },
+              { value: 'En Modificacion', title: 'En Modificacion' },
+              { value: 'En Verificacion', title: 'En Verificacion' },
+              { value: 'Aceptada', title: 'Aceptada' },
+              { value: 'Asociada a Entrada', title: 'Asociada a Entrada' },
+              { value: 'Anulada', title: 'Anulada' },
             ],
           },
         },
       },
-      ubicacion: {
+      UbicacionId: {
         title: 'Ubicacion',
         valuePrepareFunction: (value: any) => {
           return value;
         },
       },
-      numero_factura: {
-        title: 'Numero Factura',
-        valuePrepareFunction: (value: any) => {
-          return value;
-        },
-      },
-      fecha_factura: {
-        title: 'Fecha de Factura',
-        width: '70px',
-        valuePrepareFunction: (value: any) => {
-          const date = value.split('T');
-          return date[0];
-        },
-        filter: {
-          type: 'daterange',
-          config: {
-            daterange: {
-              format: 'yyyy/mm/dd',
-            },
-          },
-        },
-      },
-      proveedor: {
-        title: 'Proveedor',
-        valuePrepareFunction: (value: any) => {
-          return value;
-        },
-      },
-      observaciones: {
+      Observaciones: {
         title: 'Observaciones',
         valuePrepareFunction: (value: any) => {
           return value;
@@ -154,104 +137,71 @@ export class ConsultaActaRecibidoComponent implements OnInit {
       },
     },
   };
-  data = [
-    {
-      id: '00-123',
-      consecutivo: '00-123',
-      fecha_creacion: '2019-08-11T22:37:36.760Z',
-      fecha_visto_bueno: '2019-06-11T22:37:36.760Z',
-      revisor: 'Revisor 1',
-      estado: 'Aprobada',
-      ubicacion: 'Laboratorios Ingenieria',
-      numero_factura: 'QW-124324-1234',
-      fecha_factura: '2019-08-11T22:37:36.760Z',
-      proveedor: 'Dell',
-      observaciones: 'lorem ipsum lorem ipsum lorem',
-    },
-    {
-      id: '00-123',
-      consecutivo: '00-123',
-      fecha_creacion: '2019-08-11T22:37:36.760Z',
-      fecha_visto_bueno: '2019-06-11T22:37:36.760Z',
-      revisor: 'Revisor 1',
-      estado: 'Aprobada',
-      ubicacion: 'Laboratorios Ingenieria',
-      numero_factura: 'QW-124324-1234',
-      fecha_factura: '2019-08-11T22:37:36.760Z',
-      proveedor: 'Dell',
-      observaciones: 'lorem ipsum lorem ipsum lorem',
-    },
-    {
-      id: '00-123',
-      consecutivo: '00-123',
-      fecha_creacion: '2019-08-11T22:37:36.760Z',
-      fecha_visto_bueno: '2019-06-11T22:37:36.760Z',
-      revisor: 'Revisor 1',
-      estado: 'Aprobada',
-      ubicacion: 'Laboratorios Ingenieria',
-      numero_factura: 'QW-124324-1234',
-      fecha_factura: '2019-08-11T22:37:36.760Z',
-      proveedor: 'Dell',
-      observaciones: 'lorem ipsum lorem ipsum lorem',
-    },
-    {
-      id: '00-123',
-      consecutivo: '00-123',
-      fecha_creacion: '2019-08-11T22:37:36.760Z',
-      fecha_visto_bueno: '2019-06-11T22:37:36.760Z',
-      revisor: 'Revisor 1',
-      estado: 'Aprobada',
-      ubicacion: 'Laboratorios Ingenieria',
-      numero_factura: 'QW-124324-1234',
-      fecha_factura: '2019-08-11T22:37:36.760Z',
-      proveedor: 'Dell',
-      observaciones: 'lorem ipsum lorem ipsum lorem',
-    },
-    {
-      id: '00-123',
-      consecutivo: '00-123',
-      fecha_creacion: '2019-08-11T22:37:36.760Z',
-      fecha_visto_bueno: '2019-06-11T22:37:36.760Z',
-      revisor: 'Revisor 1',
-      estado: 'Aprobada',
-      ubicacion: 'Laboratorios Ingenieria',
-      numero_factura: 'QW-124324-1234',
-      fecha_factura: '2019-08-11T22:37:36.760Z',
-      proveedor: 'Dell',
-      observaciones: 'lorem ipsum lorem ipsum lorem',
-    },
-    {
-      id: '00-123',
-      consecutivo: '00-123',
-      fecha_creacion: '2019-08-11T22:37:36.760Z',
-      fecha_visto_bueno: '2019-06-11T22:37:36.760Z',
-      revisor: 'Revisor 1',
-      estado: 'Aprobada',
-      ubicacion: 'Laboratorios Ingenieria',
-      numero_factura: 'QW-124324-1234',
-      fecha_factura: '2019-08-11T22:37:36.760Z',
-      proveedor: 'Dell',
-      observaciones: 'lorem ipsum lorem ipsum lorem',
-    },
-  ];
+  accion: string;
 
-  constructor(private translate: TranslateService, private router: Router) {
+
+
+  constructor(private translate: TranslateService,
+    private router: Router,
+    private actaRecibidoHelper: ActaRecibidoHelper,
+    private pUpManager: PopUpManager) {
+
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => { // Live reload
     });
     this.source = new LocalDataSource(); // create the source
+    this.actas = new Array<ConsultaActaRecibido>();
+
+
   }
   ngOnInit() {
-    this.source.load(this.data);
+    this.Traer_Parametros_Soporte();
   }
 
+  Traer_Parametros_Soporte() {
+    this.actaRecibidoHelper.getParametrosSoporte().subscribe(res => {
+      if (res !== null) {
+        this.loadActas(res[0].Ubicaciones);
+      }
+    });
+  }
   onCustom(event: any) {
-    alert(`Custom event '${event.action}' fired on row №: ${event.data.consecutivo}`);
-    if (event !== null) {
-      this.router.navigate(['/pages/acta_recibido/registro_acta_recibido', { id: event.data.consecutivo }]);
-    }
+
+    this.actaSeleccionada = `${event.data.Id}`;
+    this.estadoActaSeleccionada = `${event.data.Estado}`;
+    this.accion = `${event.action}`;
   }
   onRegister() {
     this.router.navigate(['/pages/acta_recibido/registro_acta_recibido']);
   }
 
+  loadActas(ubicaciones: Array<Ubicacion>): void {
+    this.actaRecibidoHelper.getActasRecibido2().subscribe(res => {
+      if (res !== null) {
+        const data = <Array<any>>res;
+        this.Ubicaciones = ubicaciones;
+        for (const datos in Object.keys(data)) {
+          if (data.hasOwnProperty(datos)) {
+            const acta = new ConsultaActaRecibido;
+            const ubicacion = this.Ubicaciones.find(ubicacion_ => ubicacion_.Id === data[datos].ActaRecibidoId.UbicacionId);
+            if (ubicacion == null) {
+              acta.UbicacionId = 'Ubicacion no Especificada';
+            } else {
+              acta.UbicacionId = ubicacion.Nombre;
+            }
+            acta.Activo = data[datos].ActaRecibidoId.Activo;
+            acta.FechaCreacion = data[datos].ActaRecibidoId.FechaCreacion;
+            acta.FechaModificacion = data[datos].ActaRecibidoId.FechaModificacion;
+            acta.FechaVistoBueno = data[datos].ActaRecibidoId.FechaVistoBueno;
+            acta.Id = data[datos].ActaRecibidoId.Id;
+            acta.Observaciones = data[datos].ActaRecibidoId.Observaciones;
+            acta.RevisorId = data[datos].ActaRecibidoId.RevisorId;
+            acta.Estado = data[datos].EstadoActaId.Nombre;
+            this.actas.push(acta);
+          }
+        }
+        this.source.load(this.actas);
+      }
+    });
+    this.actaSeleccionada = '';
+  }
 }

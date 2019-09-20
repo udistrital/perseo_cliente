@@ -20,8 +20,8 @@ export class TercerosComponent implements OnInit {
   contratoForm: FormGroup;
   facturaForm: FormGroup;
   observacionForm: FormGroup;
-  supervisorForm: FormGroup;
   ordenadorForm: FormGroup;
+  supervisorForm: FormGroup;
   // Validadores
   checked: boolean;
   tipoContratoSelect: boolean;
@@ -73,11 +73,11 @@ export class TercerosComponent implements OnInit {
     this.observacionForm = this.fb.group({
       observacionCtrl: ['', Validators.nullValidator],
     });
+    this.ordenadorForm = this.fb.group({
+      odenadorCtrl: ['', Validators.nullValidator],
+    });
     this.supervisorForm = this.fb.group({
       supervisorCtrl: ['', Validators.nullValidator],
-    });
-    this.ordenadorForm = this.fb.group({
-      ordenadorCtrl: ['', Validators.nullValidator],
     });
     this.getVigencia();
   }
@@ -131,7 +131,7 @@ export class TercerosComponent implements OnInit {
             const soporte = new SoporteActa;
             soporte.Id = res[index].Id;
             soporte.Consecutivo = res[index].Consecutivo;
-            soporte.Proveedor = res[index].ProveedorId;
+            soporte.ProveedorId = res[index].ProveedorId;
             soporte.FechaSoporte = res[index].FechaSoporte;
             this.soportes.push(soporte);
           }
@@ -211,7 +211,7 @@ export class TercerosComponent implements OnInit {
     const soporteId: string = event.target.options[event.target.options.selectedIndex].value;
     for (const i in this.soportes) {
       if (this.soportes[i].Id.toString() === soporteId) {
-        this.proveedor = this.soportes[i].Proveedor.toString();
+        this.proveedor = this.soportes[i].ProveedorId.toString();
         this.fechaFactura = this.soportes[i].FechaSoporte.toString();
       }
     }

@@ -8,9 +8,9 @@ import { MatTable } from '@angular/material';
 import 'hammerjs';
 import { ActaRecibidoHelper } from '../../../helpers/acta_recibido/actaRecibidoHelper';
 import { ActaRecibido } from '../../../@core/data/models/acta_recibido/acta_recibido';
-import { Elemento } from '../../../@core/data/models/acta_recibido/elemento';
+import { Elemento, Impuesto } from '../../../@core/data/models/acta_recibido/elemento';
 import { TipoBien } from '../../../@core/data/models/acta_recibido/tipo_bien';
-import { SoporteActa } from '../../../@core/data/models/acta_recibido/soporte_acta';
+import { SoporteActa, Proveedor, Ubicacion, Dependencia } from '../../../@core/data/models/acta_recibido/soporte_acta';
 import { EstadoActa } from '../../../@core/data/models/acta_recibido/estado_acta';
 import { EstadoElemento } from '../../../@core/data/models/acta_recibido/estado_elemento';
 import { HistoricoActa } from '../../../@core/data/models/acta_recibido/historico_acta';
@@ -18,6 +18,9 @@ import { TransaccionSoporteActa, TransaccionActaRecibido } from '../../../@core/
 import Swal from 'sweetalert2';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { Unidad } from '../../../@core/data/models/acta_recibido/unidades';
+import { CompleterService, CompleterData } from 'ng2-completer';
+import { HttpLoaderFactory } from '../../../app.module';
 
 
 
@@ -33,6 +36,11 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 export class RegistroActaRecibidoComponent implements OnInit {
 
   config: ToasterConfig;
+  searchStr: string;
+  searchStr2: string;
+  searchStr3: string;
+  protected dataService: CompleterData;
+  protected dataService2: CompleterData;
 
   // Mensajes de error
   errMess: any;
@@ -45,10 +53,10 @@ export class RegistroActaRecibidoComponent implements OnInit {
   firstForm: FormGroup;
   @ViewChild('fform') firstFormDirective;
   Datos: any;
+  DatosElementos: Array<any>;
   carga_agregada: boolean;
   index;
   selected = new FormControl(0);
-
   // Tablas parametricas
 
   Estados_Acta: Array<EstadoActa>;
@@ -56,11 +64,19 @@ export class RegistroActaRecibidoComponent implements OnInit {
   Estados_Elemento: Array<EstadoElemento>;
 
   // Modelos
-
   Acta: ActaRecibido;
-  Elementos_Soporte: Array<Elemento>;
+  Elementos__Soporte: Array<any>;
   Soportes_Acta: Array<SoporteActa>;
   Historico_Acta: HistoricoActa;
+  Unidades: Unidad[];
+  Proveedores: Proveedor[];
+  Ubicaciones: Ubicacion[];
+  Sedes: Ubicacion[];
+  Dependencias: Dependencia[];
+  DatosTotales: any;
+  Totales: Array<any>;
+  dataService3: CompleterData;
+  Tarifas_Iva: Impuesto[];
 
   constructor(
     private translate: TranslateService,
@@ -69,75 +85,179 @@ export class RegistroActaRecibidoComponent implements OnInit {
     private fb: FormBuilder,
     private Actas_Recibido: ActaRecibidoHelper,
     private toasterService: ToasterService,
+    private completerService: CompleterService,
 
   ) {
+
   }
   ngOnInit() {
-    this.Traer_Tipo_Bien();
-    this.Traer_Estados_Acta();
-    this.Traer_Estados_Elemento();
+    this.DatosElementos = new Array<any>();
+    this.Traer_Parametros_Elementos();
+    this.Traer_Parametros_Soporte();
     this.Cargar_Formularios();
+    this.Elementos__Soporte = new Array<any>();
   }
-  Traer_Estados_Acta() {
-    this.Estados_Acta = new Array<EstadoActa>();
-    this.Actas_Recibido.getEstadosActa().subscribe(res => {
+  Traer_Parametros_Elementos() {
+    this.Actas_Recibido.getParametros().subscribe(res => {
       if (res !== null) {
-        for (const index in res) {
-          if (res.hasOwnProperty(index)) {
-            const estados_acta = new EstadoActa;
-            estados_acta.Id = res[index].Id;
-            estados_acta.Nombre = res[index].Nombre;
-            estados_acta.CodigoAbreviacion = res[index].CodigoAbreviacion;
-            estados_acta.Descripcion = res[index].Descripcion;
-            estados_acta.FechaCreacion = res[index].FechaCreacion;
-            estados_acta.FechaModificacion = res[index].FechaModificacion;
-            estados_acta.NumeroOrden = res[index].NumeroOrden;
-            this.Estados_Acta.push(estados_acta);
-          }
-        }
+        this.Traer_Estados_Acta(res[0].EstadoActa);
+        this.Traer_Estados_Elemento(res[0].EstadoElemento);
+        this.Traer_Tipo_Bien(res[0].TipoBien);
+        this.Traer_Unidades(res[0].Unidades);
+        this.Traer_IVA(res[0].IVA);
       }
     });
   }
-  Traer_Tipo_Bien() {
-    this.Tipos_Bien = new Array<TipoBien>();
-    this.Actas_Recibido.getTipoBien().subscribe(res => {
+  Traer_Parametros_Soporte() {
+    this.Actas_Recibido.getParametrosSoporte().subscribe(res => {
       if (res !== null) {
-        for (const index in res) {
-          if (res.hasOwnProperty(index)) {
-            const tipo_bien = new TipoBien;
-            tipo_bien.Id = res[index].Id;
-            tipo_bien.Nombre = res[index].Nombre;
-            tipo_bien.CodigoAbreviacion = res[index].CodigoAbreviacion;
-            tipo_bien.Descripcion = res[index].Descripcion;
-            tipo_bien.FechaCreacion = res[index].FechaCreacion;
-            tipo_bien.FechaModificacion = res[index].FechaModificacion;
-            tipo_bien.NumeroOrden = res[index].NumeroOrden;
-            this.Tipos_Bien.push(tipo_bien);
-          }
-        }
+        this.Traer_Dependencias(res[0].Dependencias);
+        this.Traer_Proveedores();
+        this.Traer_Ubicaciones(res[0].Ubicaciones);
+        this.Traer_Sedes(res[0].Sedes);
       }
     });
   }
-  Traer_Estados_Elemento() {
+  Traer_Dependencias(res: any) {
+    this.Dependencias = new Array<Dependencia>();
+    for (const index in res) {
+      if (res.hasOwnProperty(index)) {
+        const dependencia = new Dependencia;
+        dependencia.Id = res[index].Id;
+        dependencia.TelefonoDependencia = res[index].TelefonoDependencia;
+        dependencia.CorreoElectronico = res[index].Correo;
+        dependencia.Nombre = res[index].Nombre;
+        this.Dependencias.push(dependencia);
+      }
+    }
+    this.dataService3 = this.completerService.local(this.Dependencias, 'Nombre', 'Nombre');
+  }
+  Traer_Proveedores() {
+    this.Proveedores = new Array<Proveedor>();
+    this.Actas_Recibido.getProveedores().subscribe(res => {
+      if (res !== null) {
+        for (const index in res) {
+          if (res.hasOwnProperty(index)) {
+            const proveedor = new Proveedor;
+            proveedor.Id = res[index].Id;
+            proveedor.NomProveedor = res[index].NomProveedor;
+            proveedor.Correo = res[index].Correo;
+            proveedor.NumDocumento = res[index].NumDocumento;
+            proveedor.TipoPersona = res[index].TipoPersona;
+            proveedor.compuesto = res[index].NumDocumento + ' - ' + res[index].NomProveedor;
+            this.Proveedores.push(proveedor);
+          }
+        }
+      }
+      this.dataService2 = this.completerService.local(this.Proveedores, 'compuesto', 'compuesto');
+    });
 
-    this.Estados_Elemento = new Array<EstadoElemento>();
-    this.Actas_Recibido.getEstadosElemento().subscribe(res => {
-      if (res !== null) {
-        for (const index in res) {
-          if (res.hasOwnProperty(index)) {
-            const estados_elemento = new EstadoElemento;
-            estados_elemento.Id = res[index].Id;
-            estados_elemento.Nombre = res[index].Nombre;
-            estados_elemento.CodigoAbreviacion = res[index].CodigoAbreviacion;
-            estados_elemento.Descripcion = res[index].Descripcion;
-            estados_elemento.FechaCreacion = res[index].FechaCreacion;
-            estados_elemento.FechaModificacion = res[index].FechaModificacion;
-            estados_elemento.NumeroOrden = res[index].NumeroOrden;
-            this.Estados_Elemento.push(estados_elemento);
-          }
-        }
+  }
+  Traer_Ubicaciones(res: any) {
+    this.Ubicaciones = new Array<Ubicacion>();
+    for (const index in res) {
+      if (res.hasOwnProperty(index)) {
+        const ubicacion = new Ubicacion;
+        ubicacion.Id = res[index].Id;
+        ubicacion.Codigo = res[index].Codigo;
+        ubicacion.Estado = res[index].Estado;
+        ubicacion.Nombre = res[index].Nombre;
+        this.Ubicaciones.push(ubicacion);
       }
-    });
+    }
+    this.dataService = this.completerService.local(this.Ubicaciones, 'Nombre', 'Nombre');
+  }
+  Traer_Sedes(res: any) {
+    this.Sedes = new Array<Ubicacion>();
+    for (const index in res) {
+      if (res.hasOwnProperty(index)) {
+        const ubicacion = new Ubicacion;
+        ubicacion.Id = res[index].Id;
+        ubicacion.Codigo = res[index].Codigo;
+        ubicacion.Estado = res[index].Estado;
+        ubicacion.Nombre = res[index].Nombre;
+        this.Sedes.push(ubicacion);
+      }
+    }
+  }
+  Traer_IVA(res: any) {
+    this.Tarifas_Iva = new Array<Impuesto>();
+    for (const index in res) {
+      if (res.hasOwnProperty(index)) {
+        const tarifas = new Impuesto;
+        tarifas.Id = res[index].Id;
+        tarifas.Activo = res[index].Activo;
+        tarifas.Tarifa = res[index].Tarifa;
+        tarifas.Decreto = res[index].Decreto;
+        tarifas.FechaCreacion = res[index].FechaCreacion;
+        tarifas.FechaModificacion = res[index].FechaModificacion;
+        tarifas.ImpuestoId = res[index].ImpuestoId.Id;
+        tarifas.Nombre = res[index].Tarifa.toString() + '% ' + res[index].ImpuestoId.CodigoAbreviacion;
+        this.Tarifas_Iva.push(tarifas);
+      }
+    }
+  }
+  Traer_Estados_Acta(res: any) {
+    this.Estados_Acta = new Array<EstadoActa>();
+    for (const index in res) {
+      if (res.hasOwnProperty(index)) {
+        const estados_acta = new EstadoActa;
+        estados_acta.Id = res[index].Id;
+        estados_acta.Nombre = res[index].Nombre;
+        estados_acta.CodigoAbreviacion = res[index].CodigoAbreviacion;
+        estados_acta.Descripcion = res[index].Descripcion;
+        estados_acta.FechaCreacion = res[index].FechaCreacion;
+        estados_acta.FechaModificacion = res[index].FechaModificacion;
+        estados_acta.NumeroOrden = res[index].NumeroOrden;
+        this.Estados_Acta.push(estados_acta);
+      }
+    }
+  }
+  Traer_Tipo_Bien(res: any) {
+    this.Tipos_Bien = new Array<TipoBien>();
+    for (const index in res) {
+      if (res.hasOwnProperty(index)) {
+        const tipo_bien = new TipoBien;
+        tipo_bien.Id = res[index].Id;
+        tipo_bien.Nombre = res[index].Nombre;
+        tipo_bien.CodigoAbreviacion = res[index].CodigoAbreviacion;
+        tipo_bien.Descripcion = res[index].Descripcion;
+        tipo_bien.FechaCreacion = res[index].FechaCreacion;
+        tipo_bien.FechaModificacion = res[index].FechaModificacion;
+        tipo_bien.NumeroOrden = res[index].NumeroOrden;
+        this.Tipos_Bien.push(tipo_bien);
+      }
+    }
+  }
+  Traer_Estados_Elemento(res: any) {
+    this.Estados_Elemento = new Array<EstadoElemento>();
+    for (const index in res) {
+      if (res.hasOwnProperty(index)) {
+        const estados_elemento = new EstadoElemento;
+        estados_elemento.Id = res[index].Id;
+        estados_elemento.Nombre = res[index].Nombre;
+        estados_elemento.CodigoAbreviacion = res[index].CodigoAbreviacion;
+        estados_elemento.Descripcion = res[index].Descripcion;
+        estados_elemento.FechaCreacion = res[index].FechaCreacion;
+        estados_elemento.FechaModificacion = res[index].FechaModificacion;
+        estados_elemento.NumeroOrden = res[index].NumeroOrden;
+        this.Estados_Elemento.push(estados_elemento);
+      }
+    }
+  }
+  Traer_Unidades(res: any) {
+    this.Unidades = new Array<Unidad>();
+    for (const index in res) {
+      if (res.hasOwnProperty(index)) {
+        const unidad = new Unidad;
+        unidad.Id = res[index].Id;
+        unidad.Unidad = res[index].Unidad;
+        unidad.Tipo = res[index].Tipo;
+        unidad.Descripcion = res[index].Descripcion;
+        unidad.Estado = res[index].Estado;
+        this.Unidades.push(unidad);
+      }
+    }
   }
   Cargar_Formularios() {
 
@@ -150,8 +270,8 @@ export class RegistroActaRecibidoComponent implements OnInit {
   }
   get Formulario_1(): FormGroup {
     return this.fb.group({
-      Sede: ['', Validators.required],
-      Dependencia: ['', Validators.required],
+      Sede: [''],
+      Dependencia: [''],
       Ubicacion: ['', Validators.required],
     });
   }
@@ -161,24 +281,24 @@ export class RegistroActaRecibidoComponent implements OnInit {
       Consecutivo: ['', Validators.required],
       Fecha_Factura: ['', Validators.required],
       Soporte: ['', Validators.required],
-      Elementos: this.fb.array([this.Elementos]),
+      Elementos: this.fb.array([]),
     });
   }
   get Elementos(): FormGroup {
     return this.fb.group({
-      TipoBienId: ['', Validators.required],
-      SubgrupoCatalogoId: ['', Validators.required],
-      Nombre: ['', Validators.required],
-      Cantidad: ['0', Validators.required],
-      Marca: ['', Validators.required],
-      Serie: ['', Validators.required],
-      UnidadMedida: ['', Validators.required],
-      ValorUnitario: ['0', Validators.required],
-      Subtotal: ['0', Validators.required],
-      Descuento: ['0', Validators.required],
-      PorcentajeIvaId: ['', Validators.required],
-      ValorIva: ['0', Validators.required],
-      ValorTotal: ['0', Validators.required],
+      TipoBienId: [''],
+      SubgrupoCatalogoId: [''],
+      Nombre: [''],
+      Cantidad: ['0'],
+      Marca: [''],
+      Serie: [''],
+      UnidadMedida: [''],
+      ValorUnitario: ['0'],
+      Subtotal: ['0'],
+      Descuento: ['0'],
+      PorcentajeIvaId: [''],
+      ValorIva: ['0'],
+      ValorTotal: ['0'],
     });
   }
   get Formulario_3(): FormGroup {
@@ -192,14 +312,6 @@ export class RegistroActaRecibidoComponent implements OnInit {
   deleteSoportes(index: number) {
     (this.firstForm.get('Formulario2') as FormArray).removeAt(index);
   }
-  addElementos(Soporte) {
-    Soporte.get('Elementos').push(this.Elementos);
-    this._matTable.forEach((mat) => mat.renderRows());
-  }
-  deleteElementos(Soporte, index: number) {
-    Soporte.get('Elementos').removeAt(index);
-    this._matTable.forEach((mat) => mat.renderRows());
-  }
   addTab() {
     this.addSoportes();
     this.selected.setValue(this.firstForm.get('Formulario2').value.length - 1);
@@ -210,39 +322,41 @@ export class RegistroActaRecibidoComponent implements OnInit {
   }
   onFirstSubmit() {
     this.Datos = this.firstForm.value;
-
     const Transaccion_Acta = new TransaccionActaRecibido();
-
     Transaccion_Acta.ActaRecibido = this.Registrar_Acta(this.Datos.Formulario1, this.Datos.Formulario3);
     Transaccion_Acta.UltimoEstado = this.Registrar_Estado_Acta(Transaccion_Acta.ActaRecibido, 2);
-
     const Soportes = new Array<TransaccionSoporteActa>();
-
-    for (const soporte of this.Datos.Formulario2) {
-
-      Soportes.push(this.Registrar_Soporte(soporte, soporte.Elementos, Transaccion_Acta.ActaRecibido));
-    }
-
-    Transaccion_Acta.SoportesActa = Soportes;
-
-
-
-    this.Actas_Recibido.postTransaccionActa(Transaccion_Acta).subscribe((res: any) => {
+    this.Datos.Formulario2.forEach((soporte, index) => {
+      Soportes.push(this.Registrar_Soporte(soporte, this.Elementos__Soporte[index], Transaccion_Acta.ActaRecibido));
 
     });
-
+    Transaccion_Acta.SoportesActa = Soportes;
+    this.Actas_Recibido.postTransaccionActa(Transaccion_Acta).subscribe((res: any) => {
+      if (res !== null) {
+        (Swal as any).fire({
+          type: 'success',
+          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' Registrada',
+          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' ha sido registrada exitosamente',
+        });
+        this.router.navigate(['/consulta-acta-recibido']);
+      } else {
+        (Swal as any).fire({
+          type: 'error',
+          title: 'Acta  No Registrada',
+          text: 'El acta no ha podido ser registrada, intenta mas tarde',
+        });
+      }
+    });
   }
-
   Registrar_Acta(Datos: any, Datos2: any): ActaRecibido {
 
     const Acta_de_Recibido = new ActaRecibido();
-
     Acta_de_Recibido.Id = null;
     Acta_de_Recibido.Activo = true;
     Acta_de_Recibido.FechaCreacion = new Date();
     Acta_de_Recibido.FechaModificacion = new Date();
     Acta_de_Recibido.RevisorId = 123;
-    Acta_de_Recibido.UbicacionId = parseFloat(Datos.Ubicacion);
+    Acta_de_Recibido.UbicacionId = this.Ubicaciones.find(ubicacion => ubicacion.Nombre === Datos.Ubicacion).Id;
     Acta_de_Recibido.Observaciones = Datos2.Datos_Adicionales;
 
     return Acta_de_Recibido;
@@ -272,43 +386,40 @@ export class RegistroActaRecibidoComponent implements OnInit {
     Soporte_Acta.FechaCreacion = new Date();
     Soporte_Acta.FechaModificacion = new Date();
     Soporte_Acta.FechaSoporte = Datos.Fecha_Factura;
-    Soporte_Acta.Proveedor = Datos.Proveedor;
+    Soporte_Acta.ProveedorId = this.Proveedores.find(proveedor => proveedor.NumDocumento === Datos.Proveedor).Id;
 
     Transaccion.SoporteActa = Soporte_Acta;
     Transaccion.Elementos = this.Registrar_Elementos(Elementos_, Soporte_Acta);
-
     return Transaccion;
   }
   Registrar_Elementos(Datos: any, Soporte: SoporteActa): Array<Elemento> {
     const Elementos_Soporte = new Array<Elemento>();
-
     for (const datos of Datos) {
 
       const Elemento__ = new Elemento;
       const valorTotal = (parseFloat(this.Pipe2Number(datos.Subtotal)) - parseFloat(this.Pipe2Number(datos.Descuento)));
 
       Elemento__.Id = null;
-      Elemento__.Nombre = datos.Nombre;
-      Elemento__.Cantidad = datos.Cantidad;
+      Elemento__.Nombre = datos.Descripcion;
+      Elemento__.Cantidad = parseFloat(this.Pipe2Number(datos.Cantidad));
       Elemento__.Marca = datos.Marca;
       Elemento__.Serie = datos.Serie;
-      Elemento__.UnidadMedida = datos.UnidadMedida;
+      Elemento__.UnidadMedida = this.Unidades.find(unidad => unidad.Id === parseFloat(datos.UnidadMedida)).Id;
       Elemento__.ValorUnitario = parseFloat(this.Pipe2Number(datos.ValorUnitario));
       Elemento__.Subtotal = parseFloat(this.Pipe2Number(datos.Subtotal));
       Elemento__.Descuento = parseFloat(this.Pipe2Number(datos.Descuento));
       Elemento__.ValorTotal = valorTotal;
-      Elemento__.PorcentajeIvaId = datos.PorcentajeIvaId;
+      Elemento__.PorcentajeIvaId = parseFloat(datos.PorcentajeIvaId);
       Elemento__.ValorIva = parseFloat(this.Pipe2Number(datos.ValorIva));
       Elemento__.ValorFinal = parseFloat(this.Pipe2Number(datos.ValorTotal));
       Elemento__.SubgrupoCatalogoId = parseFloat(datos.SubgrupoCatalogoId);
       Elemento__.Verificado = false;
-      Elemento__.TipoBienId = this.Tipos_Bien.find(bien => bien.Id === datos.TipoBienId);
+      Elemento__.TipoBienId = this.Tipos_Bien.find(bien => bien.Id === parseFloat(datos.TipoBienId));
       Elemento__.EstadoElementoId = this.Estados_Acta.find(estado => estado.Id === 1);
       Elemento__.SoporteActaId = Soporte;
       Elemento__.Activo = true;
       Elemento__.FechaCreacion = new Date();
       Elemento__.FechaModificacion = new Date();
-
       Elementos_Soporte.push(Elemento__);
 
     }
@@ -339,7 +450,6 @@ export class RegistroActaRecibidoComponent implements OnInit {
       return '0';
     }
   }
-
   valortotal(subtotal: string, descuento: string, iva: string) {
     return (parseFloat(subtotal) - parseFloat(descuento) + parseFloat(iva));
   }
@@ -349,26 +459,83 @@ export class RegistroActaRecibidoComponent implements OnInit {
   valor_iva(subtotal: string, descuento: string, porcentaje_iva: string) {
     return ((parseFloat(subtotal) - parseFloat(descuento)) * parseFloat(porcentaje_iva) / 100);
   }
+  ver(event: any, index: number) {
+    this.DatosElementos = event;
+    if (this.Elementos__Soporte === undefined) {
+      this.Elementos__Soporte = new Array<any>(this.DatosElementos);
+    } else {
+      if (index < (this.Elementos__Soporte.length)) {
+        this.Elementos__Soporte[index] = this.DatosElementos;
+      } else {
+        this.Elementos__Soporte.push(this.DatosElementos);
+      }
+    }
 
-  private showToast(type: string, title: string, body: string) {
-    this.config = new ToasterConfig({
-      // 'toast-top-full-width', 'toast-bottom-full-width', 'toast-top-left', 'toast-top-center'
-      positionClass: 'toast-top-center',
-      timeout: 5000,  // ms
-      newestOnTop: true,
-      tapToDismiss: false, // hide on click
-      preventDuplicates: true,
-      animation: 'slideDown', // 'fade', 'flyLeft', 'flyRight', 'slideDown', 'slideUp'
-      limit: 5,
-    });
-    const toast: Toast = {
-      type: type, // 'default', 'info', 'success', 'warning', 'error'
-      title: title,
-      body: body,
-      showCloseButton: true,
-      bodyOutputType: BodyOutputType.TrustedHtml,
-    };
-    this.toasterService.popAsync(toast);
   }
+  ver2(event: any, index: number) {
+    this.DatosTotales = event;
+    if (this.Totales === undefined) {
+      this.Totales = new Array<any>(this.DatosTotales);
+    } else {
+      if (index < (this.Totales.length)) {
+        this.Totales[index] = this.DatosTotales;
+      } else {
+        this.Totales.push(this.DatosTotales);
+      }
+    }
+  }
+  Revisar_Totales() {
+    (Swal as any).fire({
+      type: 'success',
+      title: 'Carga de Elementos',
+      text: 'Por favor verificar la carga de elementos, valores y totales asociados al soporte antes de generar el registro',
+    });
+  }
+  Revisar_Totales2() {
+    (Swal as any).fire({
+      title: 'Esta Seguro?',
+      text: 'Esta seguro de que los datos son veridicos?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No',
+    }).then((result) => {
+      if (result.value) {
+        this.onFirstSubmit();
+      }
+    });
+  }
+  getGranSubtotal() {
+    if (this.Totales !== []) {
+      return this.Totales.map(t => t.Subtotal).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
+    } else {
+      return '0';
+    }
+  }
+  getGranDescuentos() {
 
+    if (this.Totales !== []) {
+      return this.Totales.map(t => t.Descuento).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
+    } else {
+      return '0';
+    }
+  }
+  getGranValorIva() {
+
+    if (this.Totales !== []) {
+      return this.Totales.map(t => t.ValorIva).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
+    } else {
+      return '0';
+    }
+  }
+  getGranTotal() {
+
+    if (this.Totales !== []) {
+      return this.Totales.map(t => t.ValorTotal).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
+    } else {
+      return '0';
+    }
+  }
 }

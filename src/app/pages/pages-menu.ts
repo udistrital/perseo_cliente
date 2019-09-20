@@ -21,9 +21,17 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Edicion de Acta',
         link: '/pages/acta_recibido/edicion_acta_recibido',
       },
+      // {
+      //   title: 'Verificación de Acta',
+      //   link: '/pages/acta_recibido/verificacion_acta_recibido',
+      // },
+      // {
+      //   title: 'Ver Detalle',
+      //   link: '/pages/acta_recibido/ver_detalle',
+      // },
       {
-        title: 'Verificación de Acta',
-        link: '/pages/acta_recibido/verificacion_acta_recibido',
+        title: 'Capturar Elementos',
+        link: '/pages/acta_recibido/capturar_elementos',
       },
     ],
   },
