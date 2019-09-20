@@ -16,6 +16,7 @@ export class RegistroComponent implements OnInit {
   // Acta de recibido
   actas: Array<ActaRecibido>;
   actaSeleccionada: string;
+  opcionEntrada: string;
 
   settings = {
     hideSubHeader: false,

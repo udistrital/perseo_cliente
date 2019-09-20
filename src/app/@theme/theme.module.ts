@@ -51,6 +51,8 @@ import {
   TinyMCEComponent,
   ThemeSwitcherListComponent,
   ToggleSettingsButtonComponent,
+  SelectComponent,
+  NuxeoComponent,
 } from './components';
 import {
   CapitalizePipe,
@@ -130,6 +132,8 @@ const COMPONENTS = [
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
   ToggleSettingsButtonComponent,
+  SelectComponent,
+  NuxeoComponent,
 ];
 
 const ENTRY_COMPONENTS = [

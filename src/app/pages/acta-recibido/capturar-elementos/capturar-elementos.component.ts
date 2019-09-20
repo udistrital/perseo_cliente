@@ -28,6 +28,7 @@ export class CapturarElementosComponent implements OnInit {
   buffer: Uint8Array;
   Validador: boolean = false;
   Totales: DatosLocales;
+  loading: boolean = false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
