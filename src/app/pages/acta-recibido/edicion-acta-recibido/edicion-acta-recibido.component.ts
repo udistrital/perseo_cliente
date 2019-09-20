@@ -100,7 +100,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
       this.Actas_Recibido.getTransaccionActa(this._ActaId),
     ]);
     observable.subscribe(([ParametrosActa, ParametrosSoporte, Proveedores, Acta]) => {
-      console.log([ParametrosActa, ParametrosSoporte, Proveedores, Acta]);
+      // console.log([ParametrosActa, ParametrosSoporte, Proveedores, Acta]);
       this.Traer_Estados_Acta(ParametrosActa[0].EstadoActa);
       this.Traer_Estados_Elemento(ParametrosActa[0].EstadoElemento);
       this.Traer_Tipo_Bien(ParametrosActa[0].TipoBien);
@@ -273,7 +273,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
         Id: [Soporte.SoporteActa.Id],
         Proveedor: [
           this.Proveedores.find(proveedor => proveedor.Id.toString() === Soporte.SoporteActa.ProveedorId.toString()).NumDocumento,
-          Validators.required
+          Validators.required,
         ],
         Consecutivo: [Soporte.SoporteActa.Consecutivo, Validators.required],
         Fecha_Factura: [Soporte.SoporteActa.FechaSoporte, Validators.required],
@@ -312,7 +312,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
         Dependencia: ['', Validators.required],
         Ubicacion: [
           this.Ubicaciones.find(ubicacion => ubicacion.Id === transaccion_.ActaRecibido.UbicacionId).Nombre,
-          Validators.required
+          Validators.required,
         ],
       }),
       Formulario2: Form2,

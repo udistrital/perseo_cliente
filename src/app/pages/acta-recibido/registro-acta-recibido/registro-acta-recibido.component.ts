@@ -98,7 +98,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
       this.Actas_Recibido.getProveedores(),
     ]);
     observable.subscribe(([ParametrosActa, ParametrosSoporte, Proveedores]) => {
-      console.log([ParametrosActa, ParametrosSoporte, Proveedores]);
+      // console.log([ParametrosActa, ParametrosSoporte, Proveedores]);
       this.Traer_Estados_Acta(ParametrosActa[0].EstadoActa);
       this.Traer_Estados_Elemento(ParametrosActa[0].EstadoElemento);
       this.Traer_Tipo_Bien(ParametrosActa[0].TipoBien);
