@@ -75,7 +75,7 @@ export class AdquisicionComponent implements OnInit {
       observacionCtrl: ['', Validators.nullValidator],
     });
     this.ordenadorForm = this.fb.group({
-      odenadorCtrl: ['', Validators.nullValidator],
+      ordenadorCtrl: ['', Validators.nullValidator],
     });
     this.supervisorForm = this.fb.group({
       supervisorCtrl: ['', Validators.nullValidator],

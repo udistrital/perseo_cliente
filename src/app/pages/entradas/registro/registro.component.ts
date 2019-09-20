@@ -87,6 +87,7 @@ export class RegistroComponent implements OnInit {
     this.source = new LocalDataSource();
     this.actas = new Array<ActaRecibido>();
     this.actaSeleccionada = '';
+    this.opcionEntrada = '';
     this.loadActas();
   }
 

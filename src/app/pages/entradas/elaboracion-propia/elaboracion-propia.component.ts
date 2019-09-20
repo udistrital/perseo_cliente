@@ -10,7 +10,7 @@ export class ElaboracionPropiaComponent implements OnInit {
 
   soporteForm: FormGroup;
   observacionForm: FormGroup;
-  odenadorForm: FormGroup;
+  ordenadorForm: FormGroup;
   supervisorForm: FormGroup;
 
   constructor(private fb: FormBuilder) { }
@@ -22,8 +22,8 @@ export class ElaboracionPropiaComponent implements OnInit {
     this.observacionForm = this.fb.group({
       observacionCtrl: ['', Validators.nullValidator],
     });
-    this.odenadorForm = this.fb.group({
-      odenadorCtrl: ['', Validators.nullValidator],
+    this.ordenadorForm = this.fb.group({
+      ordenadorCtrl: ['', Validators.nullValidator],
     });
     this.supervisorForm = this.fb.group({
       supervisorCtrl: ['', Validators.nullValidator],
