@@ -19,16 +19,14 @@ import Swal from 'sweetalert2';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { CurrencyPipe } from '@angular/common';
-import { Unidad } from '../../../@core/data/models/acta_recibido/unidades';
-
 
 
 @Component({
-  selector: 'ngx-verificacion-acta-recibido',
-  templateUrl: './verificacion-acta-recibido.component.html',
-  styleUrls: ['./verificacion-acta-recibido.component.scss'],
+  selector: 'ngx-ver-detalle',
+  templateUrl: './ver-detalle.component.html',
+  styleUrls: ['./ver-detalle.component.scss'],
 })
-export class VerificacionActaRecibidoComponent implements OnInit {
+export class VerDetalleComponent implements OnInit {
 
 
   config: ToasterConfig;
@@ -62,7 +60,6 @@ export class VerificacionActaRecibidoComponent implements OnInit {
   Soportes_Acta: Array<SoporteActa>;
   Historico_Acta: HistoricoActa;
   Transaccion__: TransaccionActaRecibido;
-  Unidades: Unidad[];
 
   constructor(
     private translate: TranslateService,
@@ -152,24 +149,6 @@ export class VerificacionActaRecibidoComponent implements OnInit {
       }
     });
   }
-  Traer_Unidades() {
-    this.Unidades = new Array<Unidad>();
-    this.Actas_Recibido.getUnidades().subscribe(res => {
-      if (res !== null) {
-        for (const index in res) {
-          if (res.hasOwnProperty(index)) {
-            const unidad = new Unidad;
-            unidad.Id = res[index].Id;
-            unidad.Unidad = res[index].Unidad;
-            unidad.Tipo = res[index].Tipo;
-            unidad.Descripcion = res[index].Descripcion;
-            unidad.Estado = res[index].Estado;
-            this.Unidades.push(unidad);
-          }
-        }
-      }
-    });
-  }
   T_V(valor: string): string {
     return this.cp.transform(valor);
   }
@@ -234,59 +213,48 @@ export class VerificacionActaRecibidoComponent implements OnInit {
 
   onFirstSubmit() {
     this.Datos = this.firstForm.value;
+
     const Transaccion_Acta = new TransaccionActaRecibido();
+
     Transaccion_Acta.ActaRecibido = this.Registrar_Acta(this.Datos.Formulario1, this.Datos.Formulario3);
     Transaccion_Acta.UltimoEstado = this.Registrar_Estado_Acta(Transaccion_Acta.ActaRecibido, 5);
+
     const Soportes = new Array<TransaccionSoporteActa>();
+
     for (const soporte of this.Datos.Formulario2) {
+
       Soportes.push(this.Registrar_Soporte(soporte, soporte.Elementos, Transaccion_Acta.ActaRecibido));
     }
+
     Transaccion_Acta.SoportesActa = Soportes;
+
     this.Actas_Recibido.putTransaccionActa(Transaccion_Acta, Transaccion_Acta.ActaRecibido.Id).subscribe((res: any) => {
-      if (res !== null) {
-        (Swal as any).fire({
-          type: 'success',
-          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' Retornada',
-          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' ha sido retornada exitosamente',
-        });
-        this.router.navigate(['/consulta-acta-recibido']);
-      } else {
-        (Swal as any).fire({
-          type: 'error',
-          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' No Retornada',
-          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' no ha podido ser Retornada, intenta mas tarde',
-        });
-      }
+
     });
+
   }
 
   onFirstSubmit2() {
-
     this.Datos = this.firstForm.value;
+
     const Transaccion_Acta = new TransaccionActaRecibido();
+
     Transaccion_Acta.ActaRecibido = this.Registrar_Acta(this.Datos.Formulario1, this.Datos.Formulario3);
     Transaccion_Acta.UltimoEstado = this.Registrar_Estado_Acta(Transaccion_Acta.ActaRecibido, 3);
+
     const Soportes = new Array<TransaccionSoporteActa>();
+
     for (const soporte of this.Datos.Formulario2) {
+
       Soportes.push(this.Registrar_Soporte(soporte, soporte.Elementos, Transaccion_Acta.ActaRecibido));
     }
+
     Transaccion_Acta.SoportesActa = Soportes;
+
     this.Actas_Recibido.putTransaccionActa(Transaccion_Acta, Transaccion_Acta.ActaRecibido.Id).subscribe((res: any) => {
-      if (res !== null) {
-        (Swal as any).fire({
-          type: 'success',
-          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' Retornada',
-          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' ha sido retornada exitosamente',
-        });
-        this.router.navigate(['/consulta-acta-recibido']);
-      } else {
-        (Swal as any).fire({
-          type: 'error',
-          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' No Retornada',
-          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' no ha podido ser Retornada, intenta mas tarde',
-        });
-      }
+
     });
+
   }
 
   Registrar_Acta(Datos: any, Datos2: any): ActaRecibido {
@@ -307,6 +275,7 @@ export class VerificacionActaRecibidoComponent implements OnInit {
   Registrar_Estado_Acta(__: ActaRecibido, Estado: number): HistoricoActa {
 
     const Historico_ = new HistoricoActa();
+
     Historico_.Id = null;
     Historico_.ActaRecibidoId = __;
     Historico_.Activo = true;
@@ -320,6 +289,7 @@ export class VerificacionActaRecibidoComponent implements OnInit {
 
     const Soporte_Acta = new SoporteActa();
     const Transaccion = new TransaccionSoporteActa();
+
     Soporte_Acta.Id = parseFloat(Datos.Id);
     Soporte_Acta.ActaRecibidoId = __;
     Soporte_Acta.Activo = true;
@@ -328,6 +298,7 @@ export class VerificacionActaRecibidoComponent implements OnInit {
     Soporte_Acta.FechaModificacion = new Date();
     Soporte_Acta.FechaSoporte = Datos.Fecha_Factura;
     Soporte_Acta.ProveedorId = Datos.Proveedor;
+
     Transaccion.SoporteActa = Soporte_Acta;
     Transaccion.Elementos = this.Registrar_Elementos(Elementos_, Soporte_Acta);
 
@@ -356,7 +327,7 @@ export class VerificacionActaRecibidoComponent implements OnInit {
       Elemento__.ValorFinal = parseFloat(this.Pipe2Number(datos.ValorTotal));
       Elemento__.SubgrupoCatalogoId = parseFloat(datos.SubgrupoCatalogoId);
       Elemento__.Verificado = datos.Verificado;
-      Elemento__.TipoBienId = this.Tipos_Bien.find(bien => bien.Id === parseFloat(datos.TipoBienId));
+      Elemento__.TipoBienId = this.Tipos_Bien.find(bien => bien.Id === datos.TipoBienId);
       Elemento__.EstadoElementoId = this.Estados_Acta.find(estado => estado.Id === 2);
       Elemento__.SoporteActaId = Soporte;
       Elemento__.Activo = true;
@@ -383,8 +354,8 @@ export class VerificacionActaRecibidoComponent implements OnInit {
     'PorcentajeIvaId',
     'ValorIva',
     'ValorTotal',
-    'Acciones',
   ];
+
   Pipe2Number(any: String) {
     if (any !== null) {
       return any.replace(/[$,]/g, '');
@@ -392,47 +363,14 @@ export class VerificacionActaRecibidoComponent implements OnInit {
       return '0';
     }
   }
+
   valortotal(subtotal: string, descuento: string, iva: string) {
     return (parseFloat(subtotal) - parseFloat(descuento) + parseFloat(iva));
   }
   valorXcantidad(valor_unitario: string, cantidad: string) {
-    return (parseFloat(valor_unitario) * parseFloat(cantidad)).toString();
+    return (parseFloat(valor_unitario) * parseFloat(cantidad));
   }
   valor_iva(subtotal: string, descuento: string, porcentaje_iva: string) {
     return ((parseFloat(subtotal) - parseFloat(descuento)) * parseFloat(porcentaje_iva) / 100);
-  }
-  Revisar_Totales() {
-
-    (Swal as any).fire({
-      title: 'Esta Seguro?',
-      text: 'Esta seguro de que los datos estan verificados?',
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si',
-      cancelButtonText: 'No',
-    }).then((result) => {
-      if (result.value) {
-        this.onFirstSubmit();
-      }
-    });
-  }
-  Revisar_Totales2() {
-
-    (Swal as any).fire({
-      title: 'Esta Seguro?',
-      text: 'Esta seguro que desea devolver el acta?',
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si',
-      cancelButtonText: 'No',
-    }).then((result) => {
-      if (result.value) {
-        this.onFirstSubmit2();
-      }
-    });
   }
 }

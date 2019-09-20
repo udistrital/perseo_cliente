@@ -36,7 +36,7 @@ export class PopUpManager {
     }
 
     public showAlert(status, text) {
-        Swal({
+        (Swal as any).fire({
             type: status,
             title: status,
             text: text,
@@ -45,7 +45,7 @@ export class PopUpManager {
     }
 
     public showSuccessAlert(text) {
-        Swal({
+        (Swal as any).fire({
             type: 'success',
             title: this.translate.instant('GLOBAL.operacion_exitosa'),
             text: text,
@@ -54,7 +54,7 @@ export class PopUpManager {
     }
 
     public showErrorAlert(text) {
-        Swal({
+        (Swal as any).fire({
             type: 'error',
             title: this.translate.instant('GLOBAL.error'),
             text: text,

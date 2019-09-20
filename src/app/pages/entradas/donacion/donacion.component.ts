@@ -125,7 +125,7 @@ export class DonacionComponent implements OnInit {
             const soporte = new SoporteActa;
             soporte.Id = res[index].Id;
             soporte.Consecutivo = res[index].Consecutivo;
-            soporte.Proveedor = res[index].ProveedorId;
+            soporte.ProveedorId = res[index].ProveedorId;
             soporte.FechaSoporte = res[index].FechaSoporte;
             this.soportes.push(soporte);
           }
@@ -188,7 +188,7 @@ export class DonacionComponent implements OnInit {
     const soporteId: string = event.target.options[event.target.options.selectedIndex].value;
     for (const i in this.soportes) {
       if (this.soportes[i].Id.toString() === soporteId) {
-        this.proveedor = this.soportes[i].Proveedor.toString();
+        this.proveedor = this.soportes[i].ProveedorId.toString();
         this.fechaFactura = this.soportes[i].FechaSoporte.toString();
       }
     }

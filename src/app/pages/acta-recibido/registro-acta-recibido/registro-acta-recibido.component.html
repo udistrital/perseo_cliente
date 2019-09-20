@@ -5,39 +5,27 @@
       <nb-card-body *ngIf="firstForm">
         <mat-vertical-stepper [linear]="true" #stepper>
           <mat-step label="Datos Iniciales" formGroupName="Formulario1">
-            <nb-card>
+            <nb-card [nbSpinner]="!Sedes">
               <nb-card-header>Datos Iniciales de Recibido</nb-card-header>
               <nb-card-body>
                 <div class="row">
                   <div class="form-group col-sm">
                     <label>Sede</label>
-                    <select class="form-control" formControlName="Sede" required>
-                      <option>Sede 1</option>
-                      <option>Sede 2</option>
-                      <option>Sede 3</option>
-                      <option>Sede 4</option>
-                      <option>Sede 5</option>
+                    <select nbInput type="text" class="form-control" formControlName="Sede" required>
+                      <option *ngFor="let sede of Sedes" [(value)]="sede.Id">{{sede.Nombre}}</option>
                     </select>
                   </div>
                   <div class="form-group col-sm">
                     <label>Dependencia</label>
-                    <select class="form-control" formControlName="Dependencia" required>
-                      <option>Dependencia 1</option>
-                      <option>Dependencia 2</option>
-                      <option>Dependencia 3</option>
-                      <option>Dependencia 4</option>
-                      <option>Dependencia 5</option>
-                    </select>
+                      <ng2-completer inputClass="form-control" nbInput [(ngModel)]="searchStr3" [datasource]="dataService3"
+                      formControlName="Dependencia" [minSearchLength]="3">
+                    </ng2-completer>
                   </div>
                   <div class="form-group col-sm">
                     <label>Ubicación</label>
-                    <select class="form-control" formControlName="Ubicacion" required>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                    </select>
+                    <ng2-completer inputClass="form-control" nbInput [(ngModel)]="searchStr" [datasource]="dataService"
+                      formControlName="Ubicacion" [minSearchLength]="3">
+                    </ng2-completer>
                   </div>
                 </div>
               </nb-card-body>
@@ -63,15 +51,14 @@
                           <div class="row">
                             <div class="form-group col-sm">
                               <label>Proveedor</label>
-                              <div class="input-group">
-                                <input type="text" placeholder="NIT o Razón social" class="form-control"
-                                  formControlName="Proveedor" required>
-                              </div>
+                              <ng2-completer inputClass="form-control" placeholder="dfdfdfdf" nbInput [(ngModel)]="searchStr2"
+                                [datasource]="dataService2" formControlName="Proveedor" [minSearchLength]="3">
+                              </ng2-completer>
                             </div>
                             <div class="form-group col-sm">
                               <label>Consecutivo de Factura o de Soporte</label>
                               <div class="input-group">
-                                <input nbInput type="text" placeholder="Consecutivo" class="form-control"
+                                <input nbInput type="text" placeholder="{{ 'GLOBAL.placeholder_id' | translate}}" class="form-control"
                                   formControlName="Consecutivo" required>
                               </div>
                             </div>
@@ -93,177 +80,10 @@
                           </div>
                         </nb-card-body>
                       </nb-card>
-                      <nb-card>
-                        <nb-card-header>Articulos Relacionados</nb-card-header>
-                        <nb-card-body>
-                          <div class="example-container mat-elevation-z8">
-                            <table mat-table #MatTable formArrayName="Elementos" [dataSource]='soporte.get("Elementos").controls'>
 
-                              <!-- Tipo de Bien -->
-                              <ng-container matColumnDef="TipoBienId">
-                                <th mat-header-cell *matHeaderCellDef> Tipo de Bien </th>
-                                <td mat-cell  *matCellDef="let element; let rowIndex = index" 
-                                  [formGroupName]="rowIndex">
-                                  <select type="text" class="cell-2 form-control" [(ngModel)]="element.TipoBienId"
-                                  formControlName="TipoBienId" placeholder="Tipo de Bien" required>
-                                    <option *ngFor="let tipobien of Tipos_Bien" [value]="tipobien.Id">{{tipobien.Nombre}}</option>
-                                  </select>
-                                </td>
-                              </ng-container>
+                      <ngx-capturar-elementos (DatosTotales)="ver2($event,i)" (DatosEnviados)="ver($event, i)">
+                      </ngx-capturar-elementos>
 
-                              <!-- Subgrupo Catalogo -->
-                              <ng-container matColumnDef="SubgrupoCatalogoId">
-                                <th mat-header-cell *matHeaderCellDef> Subgrupo</th>
-                                <td mat-cell  *matCellDef="let element; let rowIndex = index" 
-                                  [formGroupName]="rowIndex">
-                                  
-                                  <select nbInput type="text" fieldSize="tiny" class="cell form-control" [(ngModel)]="element.SubgrupoCatalogoId"
-                                    formControlName="SubgrupoCatalogoId" placeholder="Subcatalogo" required>
-                                    <option>1232341</option>
-                                    <option>7674234</option>
-                                    <option>1933232</option>
-                                  </select>
-                                </td>
-                              </ng-container>
-
-                              <!-- Nombre Catalogo -->
-                              <ng-container matColumnDef="Nombre">
-                                <th mat-header-cell *matHeaderCellDef> Descripcion </th>
-                                <td mat-cell  *matCellDef="let element; let rowIndex = index" 
-                                  [formGroupName]="rowIndex">
-                                  
-                                  <input nbInput type="text" fieldSize="tiny" class="cell" formControlName="Nombre" [(ngModel)]="element.Nombre"
-                                    placeholder="Descripcion" required>
-
-                                </td>
-                              </ng-container>
-
-                              <!-- Cantidad Column -->
-                              <ng-container matColumnDef="Cantidad">
-                                <th mat-header-cell *matHeaderCellDef> Cantidad </th>
-                                <td mat-cell  *matCellDef="let element; let rowIndex = index" 
-                                  [formGroupName]="rowIndex">
-                                  
-                                  <input nbInput type="number" fieldSize="tiny" class="cell"  formControlName="Cantidad" [(ngModel)]="element.Cantidad"
-                                  placeholder="Cantidad" required>
-                                </td>
-                              </ng-container>
-
-                              <!-- Marca Column -->
-                              <ng-container matColumnDef="Marca">
-                                <th mat-header-cell *matHeaderCellDef> Marca </th>
-                                <td mat-cell  *matCellDef="let element; let rowIndex = index" 
-                                  [formGroupName]="rowIndex">
-                                  
-                                  <input nbInput type="text" fieldSize="tiny" class="cell"  formControlName="Marca" [(ngModel)]="element.Marca"
-                                    placeholder="Marca" required>
-                                </td>
-                              </ng-container>
-
-                              <!-- Serie Column -->
-                              <ng-container matColumnDef="Serie">
-                                <th mat-header-cell *matHeaderCellDef> Serie </th>
-                                <td mat-cell  *matCellDef="let element; let rowIndex = index" 
-                                  [formGroupName]="rowIndex">
-                                  
-                                  <input nbInput type="text" fieldSize="tiny" class="cell"  formControlName="Serie" [(ngModel)]="element.Serie"
-                                    placeholder="Serie" required>
-                                </td>
-                              </ng-container>
-
-                              <!-- UnidadMedida Column -->
-                              <ng-container matColumnDef="UnidadMedida">
-                                <th mat-header-cell *matHeaderCellDef> Unidad de Medida </th>
-                                <td mat-cell  *matCellDef="let element; let rowIndex = index" 
-                                  [formGroupName]="rowIndex">
-                                  
-                                  <input nbInput type="number" fieldSize="tiny" class="cell" [(ngModel)]="element.UnidadMedida"
-                                    formControlName="UnidadMedida" placeholder="Medida" required>
-                                </td>
-                              </ng-container>
-
-                              <!-- ValorUnitario Column -->
-                              <ng-container matColumnDef="ValorUnitario">
-                                <th mat-header-cell *matHeaderCellDef> Valor Unitario </th>
-                                <td mat-cell  *matCellDef="let element; let rowIndex = index" 
-                                  [formGroupName]="rowIndex">
-                                  
-                                  <input nbInput type="text" fieldSize="tiny" class="cell" [ngModel]="element.ValorUnitario | currency" (ngModelChange)="element.ValorUnitario = Pipe2Number($event)"
-                                    formControlName="ValorUnitario" placeholder="Valor Unitario" required>
-                                </td>
-                              </ng-container>
-
-                              <!-- Subtotal Column -->
-                              <ng-container matColumnDef="Subtotal">
-                                <th mat-header-cell *matHeaderCellDef> Subtotal </th>
-                                <td mat-cell  *matCellDef="let element; let rowIndex = index" 
-                                  [formGroupName]="rowIndex">
-                                  
-                                  <input nbInput type="text" fieldSize="tiny" class="cell"  formControlName="Subtotal" [ngModel]="valorXcantidad(element.ValorUnitario, element.Cantidad) | currency" (ngModelChange)="element.Subtotal = Pipe2Number($event)"
-                                    placeholder="Subtotal" required>
-                                </td>
-                              </ng-container>
-
-                              <!-- Descuento Column -->
-                              <ng-container matColumnDef="Descuento">
-                                <th mat-header-cell *matHeaderCellDef> Descuento </th>
-                                <td mat-cell  *matCellDef="let element; let rowIndex = index" 
-                                  [formGroupName]="rowIndex">
-                                  
-                                  <input nbInput type="text" fieldSize="tiny" class="cell"  formControlName="Descuento" [ngModel]="element.Descuento | currency" (ngModelChange)="element.Descuento = Pipe2Number($event)"
-                                    placeholder="Descuento" required>
-                                </td>
-                              </ng-container>
-
-                              <!-- PorcentajeIvaId Column -->
-                              <ng-container matColumnDef="PorcentajeIvaId">
-                                <th mat-header-cell *matHeaderCellDef> % IVA </th>
-                                <td mat-cell  *matCellDef="let element; let rowIndex = index" 
-                                  [formGroupName]="rowIndex">
-                                  
-                                  <input nbInput type="number" fieldSize="tiny" class="cell" [(ngModel)]="element.PorcentajeIvaId"
-                                    formControlName="PorcentajeIvaId" placeholder="% IVA" required>
-                                </td>
-                              </ng-container>
-
-                              <!-- ValorIva Column -->
-                              <ng-container matColumnDef="ValorIva">
-                                <th mat-header-cell *matHeaderCellDef> ValorIva </th>
-                                <td mat-cell  *matCellDef="let element; let rowIndex = index" 
-                                  [formGroupName]="rowIndex">
-                                 
-                                  <input nbInput type="text" fieldSize="tiny" class="cell" [ngModel]="valor_iva(element.Subtotal, element.Descuento, element.PorcentajeIvaId) | currency" (ngModelChange)="element.ValorIva = Pipe2Number($event)"
-                                    formControlName="ValorIva" placeholder="Valor Iva" required>
-                                </td>
-                              </ng-container>
-
-                              <!-- ValorTotal Column -->
-                              <ng-container matColumnDef="ValorTotal">
-                                <th mat-header-cell *matHeaderCellDef> ValorTotal </th>
-                                <td mat-cell  *matCellDef="let element; let rowIndex = index" 
-                                  [formGroupName]="rowIndex">
-                                  <input nbInput type="text" fieldSize="tiny" class="cell" [ngModel]="valortotal(element.Subtotal, element.Descuento, element.ValorIva) | currency" (ngModelChange)="element.ValorTotal = Pipe2Number($event)"
-                                    formControlName="ValorTotal" placeholder="Valor Total" required>
-                                </td>
-                              </ng-container>
-
-                              <!-- Acciones Column -->
-                              <ng-container matColumnDef="Acciones">
-                                <th mat-header-cell *matHeaderCellDef>
-                                  <i class="fas fa-plus-square fa-2x" (click)="addElementos(soporte)"></i>
-                                </th>
-                                <td mat-cell *matCellDef="let element; let rowIndex = index" 
-                                  [formGroupName]="rowIndex">
-                                  <i class="far fa-window-close fa-2x" (click)="deleteElementos(soporte,rowIndex)"></i>
-                                </td>
-                              </ng-container>
-
-                              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-                              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                            </table>
-                          </div>
-                        </nb-card-body>
-                      </nb-card>
                     </div>
                   </mat-tab>
                   <mat-tab [disabled]="true">
@@ -276,30 +96,31 @@
             </nb-card>
             <div class="justify-content-center">
               <button nbButton matStepperPrevious>Anterior</button>
-              <button nbButton matStepperNext [disabled]="!firstForm.get('Formulario1').valid || !firstForm.get('Formulario2').valid"
+              <button nbButton matStepperNext (click)="Revisar_Totales()"
+                [disabled]="!firstForm.get('Formulario1').valid || !firstForm.get('Formulario2').valid"
                 class="float-right">Siguiente</button>
             </div>
           </mat-step>
           <mat-step label="Datos Adicionales" formGroupName="Formulario3">
-            <nb-card>
+            <nb-card *ngIf="Totales">
               <nb-card-header>Gran Consolidado</nb-card-header>
               <nb-card-body>
                 <table class="table text-center">
                   <tr>
                     <td class="thead-dark">Gran Subtotal</td>
-                    <td>14'000.000</td>
+                    <td>{{getGranSubtotal() | currency}}</td>
                   </tr>
                   <tr>
                     <td class="thead-dark">Gran Descuentos</td>
-                    <td>0</td>
+                    <td>{{getGranDescuentos() | currency}}</td>
                   </tr>
                   <tr>
                     <td class="thead-dark">Gran IVA</td>
-                    <td>1'900.000</td>
+                    <td>{{getGranValorIva() | currency}}</td>
                   </tr>
                   <tr>
                     <td class="thead-dark">Gran Total</td>
-                    <td>15'900.000</td>
+                    <td>{{getGranTotal() | currency}}</td>
                   </tr>
                 </table>
               </nb-card-body>
@@ -319,14 +140,9 @@
             </nb-card>
             <div class="justify-content-center">
               <button nbButton matStepperPrevious>Anterior</button>
-              <button nbButton matStepperNext (click)="onFirstSubmit()" [disabled]="!firstForm.get('Formulario3').valid || !firstForm.get('Formulario2').valid || !firstForm.get('Formulario3').valid"
+              <button nbButton matStepperNext (click)="Revisar_Totales2()"
+                [disabled]="!firstForm.get('Formulario3').valid || !firstForm.get('Formulario2').valid || !firstForm.get('Formulario3').valid"
                 class="float-right">Guardar Cambios</button>
-            </div>
-          </mat-step>
-          <mat-step [hidden]="true" label="Registro Completado">
-            <div class="step-container">
-              <h3>Registro Completado!</h3>
-              <button nbButton (click)="stepper.reset()">Try again</button>
             </div>
           </mat-step>
         </mat-vertical-stepper>
@@ -334,3 +150,10 @@
     </nb-card>
   </form>
 </div>
+<!-- <div>
+  <code>
+    <pre>
+      {{firstForm.value | json}}
+    </pre>
+  </code>
+</div> -->

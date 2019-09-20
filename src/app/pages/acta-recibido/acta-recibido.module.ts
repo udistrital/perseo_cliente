@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { ThemeModule } from '../../@theme/theme.module';
 
 import { ActaRecibidoRoutingModule } from './acta-recibido-routing.module';
@@ -14,8 +14,10 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatStepperModule } from '@angular/material/stepper';
 import {MatTableModule} from '@angular/material/table';
 import { MatPaginatorModule, MatSortModule } from '@angular/material';
-import { TablaFacturaComponent } from './registro-acta-recibido/tabla-factura/tabla-factura.component';
 import { EdicionActaRecibidoComponent } from './edicion-acta-recibido/edicion-acta-recibido.component';
+import { VerDetalleComponent } from './ver-detalle/ver-detalle.component';
+import { CapturarElementosComponent } from './capturar-elementos/capturar-elementos.component';
+import { Ng2CompleterModule } from 'ng2-completer';
 
 
 @NgModule({
@@ -24,8 +26,9 @@ import { EdicionActaRecibidoComponent } from './edicion-acta-recibido/edicion-ac
     RegistroActaRecibidoComponent,
     VerificacionActaRecibidoComponent,
     ConsultaActaRecibidoComponent,
-    TablaFacturaComponent,
     EdicionActaRecibidoComponent,
+    VerDetalleComponent,
+    CapturarElementosComponent,
   ],
   imports: [
     CommonModule,
@@ -33,12 +36,16 @@ import { EdicionActaRecibidoComponent } from './edicion-acta-recibido/edicion-ac
     ThemeModule,
     Ng2SmartTableModule,
     TranslateModule,
+    Ng2CompleterModule,
     NbStepperModule,
     MatTabsModule,
     MatStepperModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+  ],
+  providers: [
+    CurrencyPipe,
   ],
 })
 export class ActaRecibidoModule { }

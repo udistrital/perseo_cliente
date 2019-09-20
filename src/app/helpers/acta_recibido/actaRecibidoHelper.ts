@@ -13,7 +13,7 @@ export class ActaRecibidoHelper {
         private pUpManager: PopUpManager) { }
 
     /**
-     * Contratos Get
+     * Actas de Recibido Get
      * If the response has errors in the OAS API it should show a popup message with an error.
      * If the response is successs, it returns the object's data.
      * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
@@ -32,6 +32,28 @@ export class ActaRecibidoHelper {
             ),
         );
     }
+
+/**
+     * Actas de Recibido Activas Get
+     * If the response has errors in the OAS API it should show a popup message with an error.
+     * If the response is successs, it returns the object's data.
+     * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
+     */
+    public getActasRecibido2() {
+        this.rqManager.setPath('ACTA_RECIBIDO_SERVICE');
+        return this.rqManager.get('historico_acta?query=Activo:true&limit=-1').pipe(
+            map(
+                (res) => {
+                    if (res === 'error') {
+                        this.pUpManager.showErrorAlert('No se pudo consultar las actas de recibido');
+                        return undefined;
+                    }
+                    return res;
+                },
+            ),
+        );
+    }
+
 
     /**
      * Elementos Acta Get
@@ -118,7 +140,7 @@ export class ActaRecibidoHelper {
     }
 
     /**
-     * Estados Acta Get
+     * Estados Elemento Acta Get
      * If the response has errors in the OAS API it should show a popup message with an error.
      * If the response is successs, it returns the object's data.
      * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
@@ -138,7 +160,7 @@ export class ActaRecibidoHelper {
         );
     }
     /**
-     * Estados Acta Get
+     * Elementos Transaccion Acta Get
      * If the response has errors in the OAS API it should show a popup message with an error.
      * If the response is successs, it returns the object's data.
      * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
@@ -159,7 +181,7 @@ export class ActaRecibidoHelper {
     }
 
     /**
-     * Estados Acta Get
+     * Transaccion Acta Post
      * If the response has errors in the OAS API it should show a popup message with an error.
      * If the response is successs, it returns the object's data.
      * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
@@ -171,6 +193,130 @@ export class ActaRecibidoHelper {
                 (res) => {
                     if (res['Type'] === 'error') {
                         this.pUpManager.showErrorAlert('No se pudo consultar el acta solicitada');
+                        return undefined;
+                    }
+                    return res;
+                },
+            ),
+        );
+    }
+
+    /**
+     * Transaccion Acta Post
+     * If the response has errors in the OAS API it should show a popup message with an error.
+     * If the response is successs, it returns the object's data.
+     * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
+     */
+    public putTransaccionActa(Transaccion, Id) {
+        this.rqManager.setPath('ACTA_RECIBIDO_SERVICE');
+        return this.rqManager.put2('transaccion_acta_recibido', Transaccion, Id).pipe(
+            map(
+                (res) => {
+                    if (res['Type'] === 'error') {
+                        this.pUpManager.showErrorAlert('No se pudo consultar el acta solicitada');
+                        return undefined;
+                    }
+                    return res;
+                },
+            ),
+        );
+    }
+
+    /**
+     * Conversion Archivo Post
+     * If the response has errors in the OAS API it should show a popup message with an error.
+     * If the response is successs, it returns the object's data.
+     * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
+     */
+    public postArchivo(Transaccion) {
+        this.rqManager.setPath('ARKA_SERVICE');
+        return this.rqManager.post('acta_recibido', Transaccion).pipe(
+            map(
+                (res) => {
+                    if (res['Type'] === 'error') {
+                        this.pUpManager.showErrorAlert('No se pudieron cargar los elementos');
+                        return undefined;
+                    }
+                    return res;
+                },
+            ),
+        );
+    }
+/**
+     * Unidades Get
+     * If the response has errors in the OAS API it should show a popup message with an error.
+     * If the response is successs, it returns the object's data.
+     * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
+     */
+    public getUnidades() {
+        this.rqManager.setPath('UNIDADES_SERVICE');
+        return this.rqManager.get('unidad?limit=-1').pipe(
+            map(
+                (res) => {
+                    if (res === 'error') {
+                        this.pUpManager.showErrorAlert('No se pudo consultar las unidades');
+                        return undefined;
+                    }
+                    return res;
+                },
+            ),
+        );
+    }
+    /**
+     * Conversion Archivo Get
+     * If the response has errors in the OAS API it should show a popup message with an error.
+     * If the response is successs, it returns the object's data.
+     * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
+     */
+    public getParametros() {
+        this.rqManager.setPath('ARKA_SERVICE');
+        return this.rqManager.get('acta_recibido').pipe(
+            map(
+                (res) => {
+                    if (res['Type'] === 'error') {
+                        this.pUpManager.showErrorAlert('No se pudieron cargar los parametros generales');
+                        return undefined;
+                    }
+                    return res;
+                },
+            ),
+        );
+    }
+
+    /**
+     * Conversion Archivo Get
+     * If the response has errors in the OAS API it should show a popup message with an error.
+     * If the response is successs, it returns the object's data.
+     * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
+     */
+    public getParametrosSoporte() {
+        this.rqManager.setPath('ARKA_SERVICE');
+        return this.rqManager.get('parametros_soporte').pipe(
+            map(
+                (res) => {
+                    if (res['Type'] === 'error') {
+                        this.pUpManager.showErrorAlert('No se pudieron cargar los parametros generales');
+                        return undefined;
+                    }
+                    return res;
+                },
+            ),
+        );
+    }
+
+    /**
+     * Conversion Archivo Get
+     * If the response has errors in the OAS API it should show a popup message with an error.
+     * If the response is successs, it returns the object's data.
+     * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
+     */
+    public getProveedores() {
+        this.rqManager.setPath('UNIDADES_SERVICE');
+        return this.rqManager.get('informacion_proveedor?limit=-1').pipe(
+            map(
+                (res) => {
+                    if (res['Type'] === 'error') {
+                        this.pUpManager.showErrorAlert('No se pudieron cargar los parametros generales');
                         return undefined;
                     }
                     return res;

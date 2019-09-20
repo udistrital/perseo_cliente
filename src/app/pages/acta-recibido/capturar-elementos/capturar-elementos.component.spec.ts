@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TablaFacturaComponent } from './tabla-factura.component';
+import { CapturarElementosComponent } from './capturar-elementos.component';
 
-describe('TablaFacturaComponent', () => {
-  let component: TablaFacturaComponent;
-  let fixture: ComponentFixture<TablaFacturaComponent>;
+describe('CapturarElementosComponent', () => {
+  let component: CapturarElementosComponent;
+  let fixture: ComponentFixture<CapturarElementosComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TablaFacturaComponent ],
+      declarations: [ CapturarElementosComponent ],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TablaFacturaComponent);
+    fixture = TestBed.createComponent(CapturarElementosComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
