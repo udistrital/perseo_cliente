@@ -259,12 +259,10 @@ export class EdicionActaRecibidoComponent implements OnInit {
     const elementos = new Array<any[]>();
 
     for (const Soporte of transaccion_.SoportesActa) {
-      console.log(transaccion_);
-      console.log(this.Proveedores.find(proveedor => proveedor.Id.toString() === Soporte.SoporteActa.ProveedorId.toString()).NumDocumento);
       const Formulario__2 = this.fb.group({
         Id: [Soporte.SoporteActa.Id],
         Proveedor: [
-          this.Proveedores.find(proveedor => proveedor.Id.toString() === Soporte.SoporteActa.ProveedorId.toString()).NumDocumento,
+          this.Proveedores.find(proveedor => proveedor.Id.toString() === Soporte.SoporteActa.ProveedorId.toString()).compuesto,
           Validators.required,
         ],
         Consecutivo: [Soporte.SoporteActa.Consecutivo, Validators.required],
