@@ -1,6 +1,6 @@
 <div class="col-lg-12">
   <nb-card *ngIf="actaSeleccionada === ''">
-    <nb-card-header>Actas de Recibido</nb-card-header>
+    <nb-card-header>{{'GLOBAL.Acta_Recibido.ConsultaActas.Title' | translate}}</nb-card-header>
     <nb-card-body>
       <ng2-smart-table [settings]="settings" [source]="source" (custom)="onCustom($event)"></ng2-smart-table>
     </nb-card-body>
@@ -8,8 +8,7 @@
       <div class="justify-content-center float-right">
         <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off"
           (click)="onRegister()">
-          <!--{{'GLOBAL.regresar' | translate}}-->
-          Registrar Nueva Acta
+          {{'GLOBAL.Acta_Recibido.ConsultaActas.NuevaActa' | translate}}
         </button>
       </div>
     </nb-card-footer>

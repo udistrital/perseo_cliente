@@ -88,6 +88,8 @@ export class RegistroActaRecibidoComponent implements OnInit {
     private completerService: CompleterService,
 
   ) {
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => { // Live reload
+    });
   }
   ngOnInit() {
     this.searchStr2 = new Array<string>();
@@ -310,7 +312,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
   }
   removeTab(i: number) {
     this.deleteSoportes(i);
-    this.searchStr2.splice(i,1);
+    this.searchStr2.splice(i, 1);
     this.selected.setValue(i - 1);
 
   }
@@ -329,15 +331,15 @@ export class RegistroActaRecibidoComponent implements OnInit {
       if (res !== null) {
         (Swal as any).fire({
           type: 'success',
-          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' Registrada',
-          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' ha sido registrada exitosamente',
+          title: this.translate.instant('GLOBAL.Acta_Recibido.RegistroActa.Acta') + `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.RegistroActa.RegistradaTitle'),
+          text: this.translate.instant('GLOBAL.Acta_Recibido.RegistroActa.Acta')+ `${res.ActaRecibido.Id}`+ this.translate.instant('GLOBAL.Acta_Recibido.RegistroActa.Registrada'),
         });
         this.router.navigate(['/consulta-acta-recibido?']);
       } else {
         (Swal as any).fire({
           type: 'error',
-          title: 'Acta  No Registrada',
-          text: 'El acta no ha podido ser registrada, intenta mas tarde',
+          title: this.translate.instant('GLOBAL.Acta_Recibido.RegistroActa.RegistradaTitleNO'),
+          text: this.translate.instant('GLOBAL.Acta_Recibido.RegistroActa.RegistradaNO'),
         });
       }
     });
@@ -481,15 +483,15 @@ export class RegistroActaRecibidoComponent implements OnInit {
   }
   Revisar_Totales() {
     (Swal as any).fire({
-      type: 'success',
-      title: 'Carga de Elementos',
-      text: 'Por favor verificar la carga de elementos, valores y totales asociados al soporte antes de generar el registro',
+      type: 'warning',
+      title: this.translate.instant('GLOBAL.Acta_Recibido.RegistroActa.CargaElementosTitle'),
+      text: this.translate.instant('GLOBAL.Acta_Recibido.RegistroActa.CargaElementos'),
     });
   }
   Revisar_Totales2() {
     (Swal as any).fire({
-      title: 'Esta Seguro?',
-      text: 'Esta seguro de que los datos son veridicos?',
+      title: this.translate.instant('GLOBAL.Acta_Recibido.RegistroActa.DatosVeridicosTitle'),
+      text: this.translate.instant('GLOBAL.Acta_Recibido.RegistroActa.DatosVeridicos'),
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',

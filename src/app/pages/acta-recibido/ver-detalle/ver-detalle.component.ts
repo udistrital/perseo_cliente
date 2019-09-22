@@ -78,6 +78,8 @@ export class VerDetalleComponent implements OnInit {
     private cp: CurrencyPipe,
 
   ) {
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => { // Live reload
+    });
   }
   ngOnInit() {
     const observable = combineLatest([
@@ -298,5 +300,8 @@ export class VerDetalleComponent implements OnInit {
     } else {
       return '0';
     }
+  }
+  volver(){
+    this.router.navigate(['/consulta_acta_recibido?'])
   }
 }

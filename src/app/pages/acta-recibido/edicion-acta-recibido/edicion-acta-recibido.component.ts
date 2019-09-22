@@ -89,6 +89,8 @@ export class EdicionActaRecibidoComponent implements OnInit {
     private toasterService: ToasterService,
     private completerService: CompleterService,
   ) {
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => { // Live reload
+    });
   }
   ngOnInit() {
     this.searchStr2 = new Array<string>();
@@ -382,15 +384,15 @@ export class EdicionActaRecibidoComponent implements OnInit {
       if (res !== null) {
         (Swal as any).fire({
           type: 'success',
-          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' Modificada',
-          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' ha sido modificada exitosamente',
+          title: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Acta')+ `${res.ActaRecibido.Id}`+ this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.ModificadaTitle'),
+          text: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Acta')+ `${res.ActaRecibido.Id}`+ this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Modificada'),
         });
-        this.router.navigate(['/consulta-acta-recibido']);
+        this.router.navigate(['/consulta-acta-recibido',{}]);
       } else {
         (Swal as any).fire({
           type: 'error',
-          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' No Modificada',
-          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' no ha podido ser modificada, intenta mas tarde',
+          title: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.ModificadaTitleNO'),
+          text: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.ModificadaNO'),
         });
       }
     });
@@ -411,15 +413,15 @@ export class EdicionActaRecibidoComponent implements OnInit {
       if (res !== null) {
         (Swal as any).fire({
           type: 'success',
-          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' Enviada',
-          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' ha sido enviada a verificacion exitosamente',
+          title: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Acta')+ `${res.ActaRecibido.Id}`+ this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.VerificacionTitle'),
+          text: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Acta')+ `${res.ActaRecibido.Id}`+ this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Verificada'),
         });
-        this.router.navigate(['/consulta-acta-recibido']);
+        this.router.navigate(['/consulta-acta-recibido',{}]);
       } else {
         (Swal as any).fire({
           type: 'error',
-          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' No Enviada',
-          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' no ha podido ser enviada, intenta mas tarde',
+          title: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.VerificadaTitleNO'),
+          text: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.VerificadaNO'),
         });
       }
     });
@@ -566,15 +568,15 @@ export class EdicionActaRecibidoComponent implements OnInit {
   }
   Revisar_Totales() {
     (Swal as any).fire({
-      type: 'success',
-      title: 'Carga de Elementos',
-      text: 'Por favor verificar la carga de elementos, valores y totales asociados al soporte antes de actualizar el registro',
+      type: 'warning',
+      title: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.CargaElementosTitle'),
+      text: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.CargaElementos'),
     });
   }
   Revisar_Totales2() {
     (Swal as any).fire({
-      title: 'Esta Seguro?',
-      text: 'Esta seguro de que desea guardar los cambios?',
+      title: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.DatosVeridicosTitle'),
+      text: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.DatosVeridicos'),
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -589,8 +591,8 @@ export class EdicionActaRecibidoComponent implements OnInit {
   }
   Revisar_Totales3() {
     (Swal as any).fire({
-      title: 'Esta Seguro?',
-      text: 'Esta seguro de que desea enviar el acta a verificacion?',
+      title: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.DatosVeridicosTitle'),
+      text: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.DatosVeridicos2'),
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
