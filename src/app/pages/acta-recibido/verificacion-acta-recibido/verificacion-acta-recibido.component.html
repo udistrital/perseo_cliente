@@ -79,10 +79,8 @@
                                 <th mat-header-cell *matHeaderCellDef> Tipo de Bien </th>
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
-                                  <select type="text" class="cell-2 form-control" 
-                                  formControlName="TipoBienId" placeholder="Tipo de Bien" readonly>
-                                    <option *ngFor="let tipobien of Tipos_Bien" [(value)]="tipobien.Id">{{tipobien.Nombre}}</option>
-                                  </select>
+                                  <input nbInput type="text" fieldSize="tiny" class="cell" 
+                                    formControlName="TipoBienId" placeholder="Subcatalogo" readonly>
                               </ng-container>
                               <!-- Subgrupo Catalogo -->
                               <ng-container matColumnDef="SubgrupoCatalogoId">
@@ -110,7 +108,7 @@
                                 <th mat-header-cell *matHeaderCellDef> Cantidad </th>
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
-                                  <input nbInput type="number" fieldSize="tiny" class="cell"  formControlName="Cantidad" 
+                                  <input nbInput type="text" fieldSize="tiny" class="cell"  formControlName="Cantidad" 
                                   placeholder="Cantidad" readonly>
                                 </td>
                               </ng-container>
@@ -140,7 +138,7 @@
                                 <th mat-header-cell *matHeaderCellDef> Unidad de Medida </th>
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
-                                  <input nbInput type="number" fieldSize="tiny" class="cell" 
+                                  <input nbInput type="text" fieldSize="tiny" class="cell" 
                                     formControlName="UnidadMedida" placeholder="Medida" readonly>
                                 </td>
                               </ng-container>
@@ -180,7 +178,7 @@
                                 <th mat-header-cell *matHeaderCellDef> % IVA </th>
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
-                                  <input nbInput type="number" fieldSize="tiny" class="cell" 
+                                  <input nbInput type="text" fieldSize="tiny" class="cell" 
                                     formControlName="PorcentajeIvaId" placeholder="% IVA" readonly>
                                 </td>
                               </ng-container>
@@ -232,19 +230,19 @@
                 <table class="table text-center">
                   <tr>
                     <td class="thead-dark">Gran Subtotal</td>
-                    <td>14'000.000</td>
+                    <td>{{getGranSubtotal() | currency}}</td>
                   </tr>
                   <tr>
                     <td class="thead-dark">Gran Descuentos</td>
-                    <td>0</td>
+                    <td>{{getGranDescuentos() | currency}}</td>
                   </tr>
                   <tr>
                     <td class="thead-dark">Gran IVA</td>
-                    <td>1'900.000</td>
+                    <td>{{getGranValorIva() | currency}}</td>
                   </tr>
                   <tr>
                     <td class="thead-dark">Gran Total</td>
-                    <td>15'900.000</td>
+                    <td>{{getGranTotal() | currency}}</td>
                   </tr>
                 </table>
               </nb-card-body>

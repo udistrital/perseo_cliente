@@ -23,7 +23,6 @@ export class ConsultaActaRecibidoComponent implements OnInit {
   Ubicaciones: Array<Ubicacion>;
 
   settings = {
-    hideSubHeader: true,
     noDataMessage: 'No se encontraron elementos asociados.',
     actions: {
       columnTitle: 'Acciones',
@@ -178,7 +177,6 @@ export class ConsultaActaRecibidoComponent implements OnInit {
   cargarCampos() {
 
     this.settings = {
-      hideSubHeader: true,
       noDataMessage: 'No se encontraron elementos asociados.',
       actions: {
         columnTitle: 'Acciones',
@@ -310,7 +308,6 @@ export class ConsultaActaRecibidoComponent implements OnInit {
       for (const index in res) {
         if (res.hasOwnProperty(index)) {
           const acta = new ConsultaActaRecibido;
-          console.log(res[index]);
           const ubicacion = this.Ubicaciones.find(ubicacion_ => ubicacion_.Id === res[index].ActaRecibidoId.UbicacionId);
           if (ubicacion == null) {
             acta.UbicacionId = 'Ubicacion no Especificada';

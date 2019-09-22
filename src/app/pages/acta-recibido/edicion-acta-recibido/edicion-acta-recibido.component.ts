@@ -373,9 +373,10 @@ export class EdicionActaRecibidoComponent implements OnInit {
     Transaccion_Acta.ActaRecibido = this.Registrar_Acta(this.Datos.Formulario1, this.Datos.Formulario3);
     Transaccion_Acta.UltimoEstado = this.Registrar_Estado_Acta(Transaccion_Acta.ActaRecibido, 3);
     const Soportes = new Array<TransaccionSoporteActa>();
-    for (const soporte of this.Datos.Formulario2) {
-      Soportes.push(this.Registrar_Soporte(soporte, soporte.Elementos, Transaccion_Acta.ActaRecibido));
-    }
+    this.Datos.Formulario2.forEach((soporte, index) => {
+      Soportes.push(this.Registrar_Soporte(soporte, this.Elementos__Soporte[index], Transaccion_Acta.ActaRecibido));
+
+    });
     Transaccion_Acta.SoportesActa = Soportes;
     this.Actas_Recibido.putTransaccionActa(Transaccion_Acta, Transaccion_Acta.ActaRecibido.Id).subscribe((res: any) => {
       if (res !== null) {
@@ -401,9 +402,10 @@ export class EdicionActaRecibidoComponent implements OnInit {
     Transaccion_Acta.ActaRecibido = this.Registrar_Acta(this.Datos.Formulario1, this.Datos.Formulario3);
     Transaccion_Acta.UltimoEstado = this.Registrar_Estado_Acta(Transaccion_Acta.ActaRecibido, 4);
     const Soportes = new Array<TransaccionSoporteActa>();
-    for (const soporte of this.Datos.Formulario2) {
-      Soportes.push(this.Registrar_Soporte(soporte, soporte.Elementos, Transaccion_Acta.ActaRecibido));
-    }
+    this.Datos.Formulario2.forEach((soporte, index) => {
+      Soportes.push(this.Registrar_Soporte(soporte, this.Elementos__Soporte[index], Transaccion_Acta.ActaRecibido));
+
+    });
     Transaccion_Acta.SoportesActa = Soportes;
     this.Actas_Recibido.putTransaccionActa(Transaccion_Acta, Transaccion_Acta.ActaRecibido.Id).subscribe((res: any) => {
       if (res !== null) {
@@ -433,7 +435,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
     Acta_de_Recibido.FechaCreacion = new Date();
     Acta_de_Recibido.FechaModificacion = new Date();
     Acta_de_Recibido.RevisorId = 123;
-    Acta_de_Recibido.UbicacionId = parseFloat(Datos.Ubicacion);
+    Acta_de_Recibido.UbicacionId = this.Ubicaciones.find(ubicacion => ubicacion.Nombre === Datos.Ubicacion).Id;
     Acta_de_Recibido.Observaciones = Datos2.Datos_Adicionales;
 
     return Acta_de_Recibido;

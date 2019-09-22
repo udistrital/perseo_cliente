@@ -140,9 +140,15 @@
             </nb-card>
             <div class="justify-content-center">
               <button nbButton matStepperPrevious>Anterior</button>
-              <button nbButton matStepperNext (click)="Revisar_Totales2()"
+              <button nbButton (click)="Revisar_Totales2()"
                 [disabled]="!firstForm.get('Formulario3').valid || !firstForm.get('Formulario2').valid || !firstForm.get('Formulario3').valid"
                 class="float-right">Guardar Cambios</button>
+            </div>
+            <div class="justify-content-center">
+             
+              <button nbButton (click)="Revisar_Totales3()"
+                [disabled]="!firstForm.get('Formulario3').valid || !firstForm.get('Formulario2').valid || !firstForm.get('Formulario3').valid"
+                class="float-right">Enviar a Verificacion</button>
             </div>
           </mat-step>
         </mat-vertical-stepper>
