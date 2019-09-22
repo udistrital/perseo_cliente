@@ -263,7 +263,7 @@ export class CapturarElementosComponent implements OnInit {
     const data = this.dataSource.data;
     data.push({
       Cantidad: '1',
-      Descripcion: '',
+      Nombre: '',
       Descuento: '0',
       Marca: '',
       NivelInventariosId: '1',

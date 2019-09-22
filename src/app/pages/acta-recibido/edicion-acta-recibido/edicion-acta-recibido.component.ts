@@ -31,7 +31,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
 
   config: ToasterConfig;
   searchStr: string;
-  searchStr2: string;
+  searchStr2: string[];
   searchStr3: string;
   protected dataService: CompleterData;
   protected dataService2: CompleterData;
@@ -91,6 +91,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
   ) {
   }
   ngOnInit() {
+    this.searchStr2 = new Array<string>();
     this.DatosElementos = new Array<any>();
     this.Elementos__Soporte = new Array<any>();
     const observable = combineLatest([
@@ -251,16 +252,6 @@ export class EdicionActaRecibidoComponent implements OnInit {
       }
     }
   }
-  Traer_Acta(Acta_Id: number) {
-    this.Transaccion__ = new TransaccionActaRecibido;
-    this.Actas_Recibido.getTransaccionActa(Acta_Id).subscribe(res => {
-      if (res !== null) {
-        this.Transaccion__ = res[0];
-
-        this.Cargar_Formularios(this.Transaccion__);
-      }
-    });
-  }
 
   Cargar_Formularios(transaccion_: TransaccionActaRecibido) {
 
@@ -268,7 +259,8 @@ export class EdicionActaRecibidoComponent implements OnInit {
     const elementos = new Array<any[]>();
 
     for (const Soporte of transaccion_.SoportesActa) {
-
+      console.log(transaccion_);
+      console.log(this.Proveedores.find(proveedor => proveedor.Id.toString() === Soporte.SoporteActa.ProveedorId.toString()).NumDocumento);
       const Formulario__2 = this.fb.group({
         Id: [Soporte.SoporteActa.Id],
         Proveedor: [
@@ -489,7 +481,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
       const valorTotal = (parseFloat(this.Pipe2Number(datos.Subtotal)) - parseFloat(this.Pipe2Number(datos.Descuento)));
 
       Elemento__.Id = parseFloat(Datos.Id);
-      Elemento__.Nombre = datos.Descripcion;
+      Elemento__.Nombre = datos.Nombre;
       Elemento__.Cantidad = parseFloat(this.Pipe2Number(datos.Cantidad));
       Elemento__.Marca = datos.Marca;
       Elemento__.Serie = datos.Serie;

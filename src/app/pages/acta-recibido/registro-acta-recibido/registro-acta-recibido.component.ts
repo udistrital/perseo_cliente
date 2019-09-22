@@ -37,7 +37,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
 
   config: ToasterConfig;
   searchStr: string;
-  searchStr2: string;
+  searchStr2: Array<string>;
   searchStr3: string;
   protected dataService: CompleterData;
   protected dataService2: CompleterData;
@@ -90,6 +90,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
   ) {
   }
   ngOnInit() {
+    this.searchStr2 = new Array<string>();
     this.DatosElementos = new Array<any>();
     this.Elementos__Soporte = new Array<any>();
     const observable = combineLatest([
@@ -126,6 +127,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
     this.dataService3 = this.completerService.local(this.Dependencias, 'Nombre', 'Nombre');
   }
   Traer_Proveedores_(res: any) {
+    this.Proveedores = new Array<Proveedor>();
     for (const index in res) {
       if (res.hasOwnProperty(index)) {
         const proveedor = new Proveedor;
@@ -301,11 +303,16 @@ export class RegistroActaRecibidoComponent implements OnInit {
   }
   addTab() {
     this.addSoportes();
+    this.searchStr2.push();
     this.selected.setValue(this.firstForm.get('Formulario2').value.length - 1);
+    console.log(this.dataService2);
+
   }
   removeTab(i: number) {
     this.deleteSoportes(i);
+    this.searchStr2.splice(i,1);
     this.selected.setValue(i - 1);
+
   }
   onFirstSubmit() {
     this.Datos = this.firstForm.value;
@@ -325,7 +332,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
           title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' Registrada',
           text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' ha sido registrada exitosamente',
         });
-        this.router.navigate(['/consulta-acta-recibido']);
+        this.router.navigate(['/consulta-acta-recibido?']);
       } else {
         (Swal as any).fire({
           type: 'error',
@@ -388,7 +395,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
       const valorTotal = (parseFloat(this.Pipe2Number(datos.Subtotal)) - parseFloat(this.Pipe2Number(datos.Descuento)));
 
       Elemento__.Id = null;
-      Elemento__.Nombre = datos.Descripcion;
+      Elemento__.Nombre = datos.Nombre;
       Elemento__.Cantidad = parseFloat(this.Pipe2Number(datos.Cantidad));
       Elemento__.Marca = datos.Marca;
       Elemento__.Serie = datos.Serie;
