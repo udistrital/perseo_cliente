@@ -180,7 +180,7 @@ export class VerDetalleComponent implements OnInit {
   Cargar_Formularios(transaccion_: TransaccionActaRecibido) {
     this.Acta = transaccion_;
     this.firstForm = new FormGroup({});
-    console.log(this.Acta);
+    // console.log(this.Acta);
 
     const Form2 = this.fb.array([]);
 
@@ -301,7 +301,7 @@ export class VerDetalleComponent implements OnInit {
       return '0';
     }
   }
-  volver(){
-    this.router.navigate(['/consulta_acta_recibido?'])
+  volver() {
+    this.router.navigate(['/consulta_acta_recibido?']);
   }
 }

@@ -384,10 +384,12 @@ export class EdicionActaRecibidoComponent implements OnInit {
       if (res !== null) {
         (Swal as any).fire({
           type: 'success',
-          title: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Acta')+ `${res.ActaRecibido.Id}`+ this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.ModificadaTitle'),
-          text: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Acta')+ `${res.ActaRecibido.Id}`+ this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Modificada'),
+          title: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Acta') +
+            `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.ModificadaTitle'),
+          text: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Acta') +
+            `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Modificada'),
         });
-        this.router.navigate(['/consulta-acta-recibido',{}]);
+        this.router.navigate(['/consulta-acta-recibido', {}]);
       } else {
         (Swal as any).fire({
           type: 'error',
@@ -413,10 +415,12 @@ export class EdicionActaRecibidoComponent implements OnInit {
       if (res !== null) {
         (Swal as any).fire({
           type: 'success',
-          title: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Acta')+ `${res.ActaRecibido.Id}`+ this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.VerificacionTitle'),
-          text: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Acta')+ `${res.ActaRecibido.Id}`+ this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Verificada'),
+          title: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Acta') +
+           `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.VerificadaTitle'),
+          text: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Acta') +
+           `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Verificada'),
         });
-        this.router.navigate(['/consulta-acta-recibido',{}]);
+        this.router.navigate(['/consulta-acta-recibido', {}]);
       } else {
         (Swal as any).fire({
           type: 'error',

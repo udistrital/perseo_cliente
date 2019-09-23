@@ -307,7 +307,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
     this.addSoportes();
     this.searchStr2.push();
     this.selected.setValue(this.firstForm.get('Formulario2').value.length - 1);
-    console.log(this.dataService2);
+    // console.log(this.dataService2);
 
   }
   removeTab(i: number) {
@@ -331,8 +331,10 @@ export class RegistroActaRecibidoComponent implements OnInit {
       if (res !== null) {
         (Swal as any).fire({
           type: 'success',
-          title: this.translate.instant('GLOBAL.Acta_Recibido.RegistroActa.Acta') + `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.RegistroActa.RegistradaTitle'),
-          text: this.translate.instant('GLOBAL.Acta_Recibido.RegistroActa.Acta')+ `${res.ActaRecibido.Id}`+ this.translate.instant('GLOBAL.Acta_Recibido.RegistroActa.Registrada'),
+          title: this.translate.instant('GLOBAL.Acta_Recibido.RegistroActa.Acta') +
+            `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.RegistroActa.RegistradaTitle'),
+          text: this.translate.instant('GLOBAL.Acta_Recibido.RegistroActa.Acta') +
+            `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.RegistroActa.Registrada'),
         });
         this.router.navigate(['/consulta-acta-recibido?']);
       } else {
