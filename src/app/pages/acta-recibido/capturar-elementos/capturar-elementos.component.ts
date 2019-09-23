@@ -12,9 +12,6 @@ import { DatosLocales, DatosLocales2 } from './datos_locales';
 import { Unidad } from '../../../@core/data/models/acta_recibido/unidades';
 import { Impuesto } from '../../../@core/data/models/acta_recibido/elemento';
 
-
-
-
 @Component({
   selector: 'ngx-capturar-elementos',
   templateUrl: './capturar-elementos.component.html',
@@ -63,6 +60,7 @@ export class CapturarElementosComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.DatosRecibidos);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      this.respuesta = this.DatosRecibidos;
     } else {
       this.dataSource = new MatTableDataSource();
       this.dataSource.paginator = this.paginator;
@@ -173,22 +171,24 @@ export class CapturarElementosComponent implements OnInit {
     this.actaRecibidoHelper.postArchivo(formModel).subscribe(res => {
 
       if (res !== null) {
-        (Swal as any).fire({
-          type: 'success',
-          title: 'Elementos Cargados',
-          text: 'Elementos cargados exitosamente',
-        });
 
         this.respuesta = res;
         this.dataSource.data = this.respuesta[0].Elementos;
         this.ver();
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+
+        (Swal as any).fire({
+          type: 'success',
+          title: this.translate.instant('GLOBAL.Acta_Recibido.CapturarElementos.ElementosCargadosTitleOK'),
+          text: this.translate.instant('GLOBAL.Acta_Recibido.CapturarElementos.ElementosCargadosTextOK'),
+        });
+
       } else {
         (Swal as any).fire({
           type: 'error',
-          title: 'Elementos No Cargados',
-          text: 'Los elementos no han sido cargados, intenta mas tarde',
+          title: this.translate.instant('GLOBAL.Acta_Recibido.CapturarElementos.ElementosCargadosTitleNO'),
+          text: this.translate.instant('GLOBAL.Acta_Recibido.CapturarElementos.ElementosCargadosTextNO'),
         });
       }
     });
@@ -290,8 +290,8 @@ export class CapturarElementosComponent implements OnInit {
   deleteElemento(index: number) {
 
     (Swal as any).fire({
-      title: 'Esta Seguro?',
-      text: 'Esta seguro de eliminar el elemento?',
+      title: this.translate.instant('GLOBAL.Acta_Recibido.CapturarElementos.EliminarElementosTitle'),
+      text: this.translate.instant('GLOBAL.Acta_Recibido.CapturarElementos.EliminarElementosText'),
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',

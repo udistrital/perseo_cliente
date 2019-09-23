@@ -23,6 +23,8 @@ export class ConsultaActaRecibidoComponent implements OnInit {
   Ubicaciones: Array<Ubicacion>;
 
   settings = {
+    hideSubHeader: true,
+    noDataMessage: 'No se encontraron elementos asociados.',
     actions: {
       columnTitle: 'Acciones',
       custom: [
@@ -42,14 +44,14 @@ export class ConsultaActaRecibidoComponent implements OnInit {
     },
     columns: {
       Id: {
-        title: 'Consecutivo',
+        title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.ConsecutivoHeader'),
         width: '90px',
         valuePrepareFunction: (value: any) => {
           return value;
         },
       },
       FechaCreacion: {
-        title: 'Fecha de Creacion',
+        title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.FechaCreacionHeader'),
         width: '70px',
         valuePrepareFunction: (value: any) => {
           const date = value.split('T');
@@ -65,7 +67,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
         },
       },
       FechaModificacion: {
-        title: 'Fecha de Modificacion',
+        title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.FechaModificacionHeader'),
         width: '70px',
         valuePrepareFunction: (value: any) => {
           const date = value.split('T');
@@ -81,7 +83,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
         },
       },
       FechaVistoBueno: {
-        title: 'Fecha Visto Bueno',
+        title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.FechaVistoBuenoHeader'),
         width: '70px',
         valuePrepareFunction: (value: any) => {
           const date = value.split('T');
@@ -97,13 +99,13 @@ export class ConsultaActaRecibidoComponent implements OnInit {
         },
       },
       RevisorId: {
-        title: 'Revisor',
+        title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.RevisorHeader'),
         valuePrepareFunction: (value: any) => {
           return value;
         },
       },
       Estado: {
-        title: 'Estado',
+        title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.EstadoHeader'),
         valuePrepareFunction: (value: any) => {
           return value;
         },
@@ -112,33 +114,34 @@ export class ConsultaActaRecibidoComponent implements OnInit {
           config: {
             selectText: 'Select...',
             list: [
-              { value: 'Registrada', title: 'Registrada' },
-              { value: 'En Elaboracion', title: 'En Elaboracion' },
-              { value: 'En Modificacion', title: 'En Modificacion' },
-              { value: 'En Verificacion', title: 'En Verificacion' },
-              { value: 'Aceptada', title: 'Aceptada' },
-              { value: 'Asociada a Entrada', title: 'Asociada a Entrada' },
-              { value: 'Anulada', title: 'Anulada' },
+              { value: 'Registrada', title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.Registrada') },
+              { value: 'En Elaboracion', title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.Elaboracion') },
+              { value: 'En Modificacion', title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.Modificacion') },
+              { value: 'En Verificacion', title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.Verificacion') },
+              { value: 'Aceptada', title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.Aceptada') },
+              { value: 'Asociada a Entrada', title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.Asociada') },
+              { value: 'Anulada', title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.Anulada') },
             ],
           },
         },
       },
       UbicacionId: {
-        title: 'Ubicacion',
+        title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.UbicacionHeader'),
         valuePrepareFunction: (value: any) => {
           return value;
         },
       },
       Observaciones: {
-        title: 'Observaciones',
+        title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.ObservacionesHeader'),
         valuePrepareFunction: (value: any) => {
           return value;
         },
       },
     },
   };
-  accion: string;
 
+
+  accion: string;
 
 
   constructor(private translate: TranslateService,
@@ -147,6 +150,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
     private pUpManager: PopUpManager) {
 
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => { // Live reload
+      this.cargarCampos();
     });
     this.source = new LocalDataSource(); // create the source
     this.actas = new Array<ConsultaActaRecibido>();
@@ -155,6 +159,127 @@ export class ConsultaActaRecibidoComponent implements OnInit {
   }
   ngOnInit() {
     this.Traer_Parametros_Soporte();
+  }
+
+  cargarCampos() {
+
+    this.settings = {
+      hideSubHeader: true,
+      noDataMessage: 'No se encontraron elementos asociados.',
+      actions: {
+        columnTitle: 'Acciones',
+        custom: [
+          {
+            name: 'Ver',
+            title: '<i class="fas fa-eye"></i>',
+          },
+          {
+            name: 'Editar',
+            title: '<i class="fas fa-pencil-alt"></i>',
+          },
+        ],
+        position: 'right',
+        add: false,
+        edit: false,
+        delete: false,
+      },
+      columns: {
+        Id: {
+          title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.ConsecutivoHeader'),
+          width: '90px',
+          valuePrepareFunction: (value: any) => {
+            return value;
+          },
+        },
+        FechaCreacion: {
+          title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.FechaCreacionHeader'),
+          width: '70px',
+          valuePrepareFunction: (value: any) => {
+            const date = value.split('T');
+            return date[0];
+          },
+          filter: {
+            type: 'daterange',
+            config: {
+              daterange: {
+                format: 'yyyy/mm/dd',
+              },
+            },
+          },
+        },
+        FechaModificacion: {
+          title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.FechaModificacionHeader'),
+          width: '70px',
+          valuePrepareFunction: (value: any) => {
+            const date = value.split('T');
+            return date[0];
+          },
+          filter: {
+            type: 'daterange',
+            config: {
+              daterange: {
+                format: 'yyyy/mm/dd',
+              },
+            },
+          },
+        },
+        FechaVistoBueno: {
+          title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.FechaVistoBuenoHeader'),
+          width: '70px',
+          valuePrepareFunction: (value: any) => {
+            const date = value.split('T');
+            return date[0];
+          },
+          filter: {
+            type: 'daterange',
+            config: {
+              daterange: {
+                format: 'yyyy/mm/dd',
+              },
+            },
+          },
+        },
+        RevisorId: {
+          title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.RevisorHeader'),
+          valuePrepareFunction: (value: any) => {
+            return value;
+          },
+        },
+        Estado: {
+          title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.EstadoHeader'),
+          valuePrepareFunction: (value: any) => {
+            return value;
+          },
+          filter: {
+            type: 'list',
+            config: {
+              selectText: 'Select...',
+              list: [
+                { value: 'Registrada', title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.Registrada') },
+                { value: 'En Elaboracion', title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.Elaboracion') },
+                { value: 'En Modificacion', title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.Modificacion') },
+                { value: 'En Verificacion', title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.Verificacion') },
+                { value: 'Aceptada', title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.Aceptada') },
+                { value: 'Asociada a Entrada', title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.Asociada') },
+                { value: 'Anulada', title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.Anulada') },
+              ],
+            },
+          },
+        },
+        UbicacionId: {
+          title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.UbicacionHeader'),
+          valuePrepareFunction: (value: any) => {
+            return value;
+          },
+        },
+        Observaciones: {
+          title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.ObservacionesHeader'),
+          valuePrepareFunction: (value: any) => {
+            return value;
+          },
+        },
+      },
+    };
   }
 
   Traer_Parametros_Soporte() {

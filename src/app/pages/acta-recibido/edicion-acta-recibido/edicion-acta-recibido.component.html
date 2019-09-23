@@ -1,43 +1,31 @@
-<div class="col-lg-12">
-  <form *ngIf="firstForm" [formGroup]="firstForm" #fform="ngForm" class="step-container">
+<div class="col-lg-12" *ngIf="firstForm">
+  <form [formGroup]="firstForm" #fform="ngForm" class="step-container">
     <nb-card>
-      <nb-card-header>Editar Acta Recibido</nb-card-header>
-      <nb-card-body *ngIf="firstForm">
+      <nb-card-header>Registrar Acta Recibido</nb-card-header>
+      <nb-card-body >
         <mat-vertical-stepper [linear]="true" #stepper>
           <mat-step label="Datos Iniciales" formGroupName="Formulario1">
-            <nb-card>
+            <nb-card [nbSpinner]="!Sedes">
               <nb-card-header>Datos Iniciales de Recibido</nb-card-header>
               <nb-card-body>
                 <div class="row">
                   <div class="form-group col-sm">
                     <label>Sede</label>
-                    <select class="form-control" formControlName="Sede" required>
-                      <option>Sede 1</option>
-                      <option>Sede 2</option>
-                      <option>Sede 3</option>
-                      <option>Sede 4</option>
-                      <option>Sede 5</option>
+                    <select nbInput type="text" class="form-control" formControlName="Sede" required>
+                      <option *ngFor="let sede of Sedes" [(value)]="sede.Id">{{sede.Nombre}}</option>
                     </select>
                   </div>
                   <div class="form-group col-sm">
                     <label>Dependencia</label>
-                    <select class="form-control" formControlName="Dependencia" required>
-                      <option>Dependencia 1</option>
-                      <option>Dependencia 2</option>
-                      <option>Dependencia 3</option>
-                      <option>Dependencia 4</option>
-                      <option>Dependencia 5</option>
-                    </select>
+                      <ng2-completer inputClass="form-control" nbInput [(ngModel)]="searchStr3" [datasource]="dataService3"
+                      formControlName="Dependencia" [minSearchLength]="3">
+                    </ng2-completer>
                   </div>
                   <div class="form-group col-sm">
                     <label>Ubicación</label>
-                    <select class="form-control" formControlName="Ubicacion" required>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                    </select>
+                    <ng2-completer inputClass="form-control" nbInput [(ngModel)]="searchStr" [datasource]="dataService"
+                      formControlName="Ubicacion" [minSearchLength]="3">
+                    </ng2-completer>
                   </div>
                 </div>
               </nb-card-body>
@@ -63,15 +51,14 @@
                           <div class="row">
                             <div class="form-group col-sm">
                               <label>Proveedor</label>
-                              <div class="input-group">
-                                <input type="text" placeholder="NIT o Razón social" class="form-control"
-                                  formControlName="Proveedor" required>
-                              </div>
+                              <ng2-completer inputClass="form-control" placeholder="dfdfdfdf" nbInput [(ngModel)]="searchStr2"
+                                [datasource]="dataService2" formControlName="Proveedor" [minSearchLength]="3">
+                              </ng2-completer>
                             </div>
                             <div class="form-group col-sm">
                               <label>Consecutivo de Factura o de Soporte</label>
                               <div class="input-group">
-                                <input nbInput type="text" placeholder="Consecutivo" class="form-control"
+                                <input nbInput type="text" placeholder="{{ 'GLOBAL.placeholder_id' | translate}}" class="form-control"
                                   formControlName="Consecutivo" required>
                               </div>
                             </div>
@@ -93,12 +80,10 @@
                           </div>
                         </nb-card-body>
                       </nb-card>
-                      <nb-card>
 
-                        <ngx-capturar-elementos [DatosRecibidos]="Elementos__Soporte[i]" (DatosEnviados)="ver($event, i)">
-                        </ngx-capturar-elementos>
+                      <ngx-capturar-elementos [DatosRecibidos]="Elementos__Soporte[i]" (DatosTotales)="ver2($event,i)" (DatosEnviados)="ver($event, i)">
+                      </ngx-capturar-elementos>
 
-                      </nb-card>
                     </div>
                   </mat-tab>
                   <mat-tab [disabled]="true">
@@ -117,25 +102,25 @@
             </div>
           </mat-step>
           <mat-step label="Datos Adicionales" formGroupName="Formulario3">
-            <nb-card>
+            <nb-card *ngIf="Totales">
               <nb-card-header>Gran Consolidado</nb-card-header>
               <nb-card-body>
                 <table class="table text-center">
                   <tr>
                     <td class="thead-dark">Gran Subtotal</td>
-                    <td>14'000.000</td>
+                    <td>{{getGranSubtotal() | currency}}</td>
                   </tr>
                   <tr>
                     <td class="thead-dark">Gran Descuentos</td>
-                    <td>0</td>
+                    <td>{{getGranDescuentos() | currency}}</td>
                   </tr>
                   <tr>
                     <td class="thead-dark">Gran IVA</td>
-                    <td>1'900.000</td>
+                    <td>{{getGranValorIva() | currency}}</td>
                   </tr>
                   <tr>
                     <td class="thead-dark">Gran Total</td>
-                    <td>15'900.000</td>
+                    <td>{{getGranTotal() | currency}}</td>
                   </tr>
                 </table>
               </nb-card-body>
@@ -154,7 +139,7 @@
               </nb-card-body>
             </nb-card>
             <div class="justify-content-center">
-              <button nbButton (click)="Revisar_Totales3()">Enviar a Verificacion</button>
+              <button nbButton matStepperPrevious>Anterior</button>
               <button nbButton matStepperNext (click)="Revisar_Totales2()"
                 [disabled]="!firstForm.get('Formulario3').valid || !firstForm.get('Formulario2').valid || !firstForm.get('Formulario3').valid"
                 class="float-right">Guardar Cambios</button>
@@ -165,3 +150,10 @@
     </nb-card>
   </form>
 </div>
+<!-- <div>
+  <code>
+    <pre>
+      {{firstForm.value | json}}
+    </pre>
+  </code>
+</div> -->
