@@ -139,6 +139,8 @@ export class ConsultaActaRecibidoComponent implements OnInit {
     },
   };
   accion: string;
+  actas2: any;
+  mostrar: boolean;
   constructor(private translate: TranslateService,
     private router: Router,
     private actaRecibidoHelper: ActaRecibidoHelper,
@@ -304,6 +306,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
   }
 
   loadActas(res: any): void {
+    this.mostrar = true;
     if (res !== undefined) {
       for (const index in res) {
         if (res.hasOwnProperty(index)) {
