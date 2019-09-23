@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, combineLatest } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { NuxeoService } from '../../../@core/utils/nuxeo.service';
@@ -88,34 +88,27 @@ export class RegistroActaRecibidoComponent implements OnInit {
     private completerService: CompleterService,
 
   ) {
-
   }
   ngOnInit() {
     this.DatosElementos = new Array<any>();
-    this.Traer_Parametros_Elementos();
-    this.Traer_Parametros_Soporte();
-    this.Cargar_Formularios();
     this.Elementos__Soporte = new Array<any>();
-  }
-  Traer_Parametros_Elementos() {
-    this.Actas_Recibido.getParametros().subscribe(res => {
-      if (res !== null) {
-        this.Traer_Estados_Acta(res[0].EstadoActa);
-        this.Traer_Estados_Elemento(res[0].EstadoElemento);
-        this.Traer_Tipo_Bien(res[0].TipoBien);
-        this.Traer_Unidades(res[0].Unidades);
-        this.Traer_IVA(res[0].IVA);
-      }
-    });
-  }
-  Traer_Parametros_Soporte() {
-    this.Actas_Recibido.getParametrosSoporte().subscribe(res => {
-      if (res !== null) {
-        this.Traer_Dependencias(res[0].Dependencias);
-        this.Traer_Proveedores();
-        this.Traer_Ubicaciones(res[0].Ubicaciones);
-        this.Traer_Sedes(res[0].Sedes);
-      }
+    const observable = combineLatest([
+      this.Actas_Recibido.getParametros(),
+      this.Actas_Recibido.getParametrosSoporte(),
+      this.Actas_Recibido.getProveedores(),
+    ]);
+    observable.subscribe(([ParametrosActa, ParametrosSoporte, Proveedores]) => {
+      // console.log([ParametrosActa, ParametrosSoporte, Proveedores]);
+      this.Traer_Estados_Acta(ParametrosActa[0].EstadoActa);
+      this.Traer_Estados_Elemento(ParametrosActa[0].EstadoElemento);
+      this.Traer_Tipo_Bien(ParametrosActa[0].TipoBien);
+      this.Traer_Unidades(ParametrosActa[0].Unidades);
+      this.Traer_IVA(ParametrosActa[0].IVA);
+      this.Traer_Dependencias(ParametrosSoporte[0].Dependencias);
+      this.Traer_Proveedores_(Proveedores);
+      this.Traer_Ubicaciones(ParametrosSoporte[0].Ubicaciones);
+      this.Traer_Sedes(ParametrosSoporte[0].Sedes);
+      this.Cargar_Formularios();
     });
   }
   Traer_Dependencias(res: any) {
@@ -132,26 +125,20 @@ export class RegistroActaRecibidoComponent implements OnInit {
     }
     this.dataService3 = this.completerService.local(this.Dependencias, 'Nombre', 'Nombre');
   }
-  Traer_Proveedores() {
-    this.Proveedores = new Array<Proveedor>();
-    this.Actas_Recibido.getProveedores().subscribe(res => {
-      if (res !== null) {
-        for (const index in res) {
-          if (res.hasOwnProperty(index)) {
-            const proveedor = new Proveedor;
-            proveedor.Id = res[index].Id;
-            proveedor.NomProveedor = res[index].NomProveedor;
-            proveedor.Correo = res[index].Correo;
-            proveedor.NumDocumento = res[index].NumDocumento;
-            proveedor.TipoPersona = res[index].TipoPersona;
-            proveedor.compuesto = res[index].NumDocumento + ' - ' + res[index].NomProveedor;
-            this.Proveedores.push(proveedor);
-          }
-        }
+  Traer_Proveedores_(res: any) {
+    for (const index in res) {
+      if (res.hasOwnProperty(index)) {
+        const proveedor = new Proveedor;
+        proveedor.Id = res[index].Id;
+        proveedor.NomProveedor = res[index].NomProveedor;
+        proveedor.Correo = res[index].Correo;
+        proveedor.NumDocumento = res[index].NumDocumento;
+        proveedor.TipoPersona = res[index].TipoPersona;
+        proveedor.compuesto = res[index].NumDocumento + ' - ' + res[index].NomProveedor;
+        this.Proveedores.push(proveedor);
       }
-      this.dataService2 = this.completerService.local(this.Proveedores, 'compuesto', 'compuesto');
-    });
-
+    }
+    this.dataService2 = this.completerService.local(this.Proveedores, 'compuesto', 'compuesto');
   }
   Traer_Ubicaciones(res: any) {
     this.Ubicaciones = new Array<Ubicacion>();
@@ -379,6 +366,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
     const Soporte_Acta = new SoporteActa();
     const Transaccion = new TransaccionSoporteActa();
 
+    const proveedor___ = Datos.Proveedor.split(' ');
     Soporte_Acta.Id = null;
     Soporte_Acta.ActaRecibidoId = Acta;
     Soporte_Acta.Activo = true;
@@ -386,7 +374,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
     Soporte_Acta.FechaCreacion = new Date();
     Soporte_Acta.FechaModificacion = new Date();
     Soporte_Acta.FechaSoporte = Datos.Fecha_Factura;
-    Soporte_Acta.ProveedorId = this.Proveedores.find(proveedor => proveedor.NumDocumento === Datos.Proveedor).Id;
+    Soporte_Acta.ProveedorId = this.Proveedores.find(proveedor => proveedor.NumDocumento.toString() === proveedor___[0].toString()).Id;
 
     Transaccion.SoporteActa = Soporte_Acta;
     Transaccion.Elementos = this.Registrar_Elementos(Elementos_, Soporte_Acta);
