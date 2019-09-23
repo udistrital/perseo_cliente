@@ -144,7 +144,7 @@ const PIPES = [
   PluralPipe,
   RoundPipe,
   TimingPipe,
-  NumberWithCommasPipe
+  NumberWithCommasPipe,
 ];
 
 const NB_THEME_PROVIDERS = [
