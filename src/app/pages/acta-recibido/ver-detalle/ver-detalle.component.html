@@ -1,50 +1,49 @@
 <div class="col-lg-12">
   <form [formGroup]="firstForm" #fform="ngForm" class="step-container" *ngIf="firstForm">
     <nb-card>
-      <nb-card-header>Verificacion del Acta Recibido</nb-card-header>
+      <nb-card-header>{{'GLOBAL.Acta_Recibido.DetalleActa.Title' | translate}}</nb-card-header>
       <nb-card-body >
             <nb-card formGroupName="Formulario1">
-              <nb-card-header>Datos Iniciales de Recibido</nb-card-header>
+              <nb-card-header>{{'GLOBAL.Acta_Recibido.DetalleActa.DatosTitle' | translate}}</nb-card-header>
               <nb-card-body>
                 <div class="row">
                   <div class="form-group col-sm">
-                    <label>Sede</label>
+                    <label>{{'GLOBAL.Acta_Recibido.DetalleActa.Sede' | translate}}</label>
                     <input class="form-control" formControlName="Sede" readonly>
                   </div>
                   <div class="form-group col-sm">
-                    <label>Dependencia</label>
+                    <label>{{'GLOBAL.Acta_Recibido.DetalleActa.Dependencia' | translate}}</label>
                     <input class="form-control" formControlName="Dependencia" readonly>
                   </div>
                   <div class="form-group col-sm">
-                    <label>Ubicación</label>
+                    <label>{{'GLOBAL.Acta_Recibido.DetalleActa.Ubicacion' | translate}}</label>
                     <input class="form-control" formControlName="Ubicacion" readonly>
                   </div>
                 </div>
               </nb-card-body>
             </nb-card>
             <nb-card formArrayName="Formulario2">
-              <nb-card-header>Datos de Soporte</nb-card-header>
+              <nb-card-header>{{'GLOBAL.Acta_Recibido.DetalleActa.SoporteTitle' | translate}}</nb-card-header>
               <nb-card-body>
                 <mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event)">
                   <mat-tab *ngFor="let soporte of firstForm.get('Formulario2').controls; let i = index"
                     [formGroupName]="i">
                     <ng-template mat-tab-label>
-                      Soporte &nbsp; {{i + 1}} 
+                        {{'GLOBAL.Acta_Recibido.DetalleActa.SoporteSubTitle' | translate}} &nbsp; {{i + 1}} 
                     </ng-template>
                     <div>
                       <nb-card>
-                        <nb-card-header>Datos de Soporte</nb-card-header>
                         <nb-card-body>
                           <div class="row">
                             <div class="form-group col-sm">
-                              <label>Proveedor</label>
+                              <label>{{'GLOBAL.Acta_Recibido.DetalleActa.Proveedor' | translate}}</label>
                               <div class="input-group">
                                 <input type="text" placeholder="NIT o Razón social" class="form-control"
                                   formControlName="Proveedor" readonly>
                               </div>
                             </div>
                             <div class="form-group col-sm">
-                              <label>Consecutivo de Factura o de Soporte</label>
+                              <label>{{'GLOBAL.Acta_Recibido.DetalleActa.Consecutivo' | translate}}</label>
                               <div class="input-group">
                                 <input nbInput type="text" placeholder="Consecutivo" class="form-control"
                                   formControlName="Consecutivo" readonly>
@@ -53,7 +52,7 @@
                           </div>
                           <div class="row">
                             <div class="form-group col-sm">
-                              <label>Fecha de Factura o de Soporte</label>
+                              <label>{{'GLOBAL.Acta_Recibido.DetalleActa.FechaSoporte' | translate}}</label>
                               <div class="input-group">
                                 <input nbInput placeholder="Selecciona la Fecha" class="form-control"
                                   [nbDatepicker]="formpicker" formControlName="Fecha_Factura" readonly>
@@ -61,7 +60,7 @@
                               </div>
                             </div>
                             <div class="form-group col-sm">
-                              <label>Factura o Soporte a Relacionar</label>
+                              <label>{{'GLOBAL.Acta_Recibido.DetalleActa.Soporte' | translate}}</label>
                               <input nbInput type="file" class="form-control-file" id="factura"
                                 formControlName="Soporte" required>
                             </div>
@@ -69,14 +68,14 @@
                         </nb-card-body>
                       </nb-card>
                       <nb-card>
-                        <nb-card-header>Articulos Relacionados</nb-card-header>
+                        <nb-card-header>{{'GLOBAL.Acta_Recibido.DetalleActa.ArticulosRelacionadosTitle' | translate}}</nb-card-header>
                         <nb-card-body>
                           <div class="example-container mat-elevation-z8">
                             <table mat-table #MatTable formArrayName="Elementos" [dataSource]='soporte.get("Elementos").controls'>
 
                               <!-- Tipo de Bien -->
                               <ng-container matColumnDef="TipoBienId">
-                                <th mat-header-cell *matHeaderCellDef> Tipo de Bien </th>
+                                <th mat-header-cell *matHeaderCellDef>{{'GLOBAL.Acta_Recibido.DetalleActa.TipoBienHeader' | translate}}</th>
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   <input nbInput type="text" fieldSize="tiny" class="cell" 
@@ -84,7 +83,7 @@
                               </ng-container>
                               <!-- Subgrupo Catalogo -->
                               <ng-container matColumnDef="SubgrupoCatalogoId">
-                                <th mat-header-cell *matHeaderCellDef> Subgrupo</th>
+                                <th mat-header-cell *matHeaderCellDef>{{'GLOBAL.Acta_Recibido.DetalleActa.SubgrupoHeader' | translate}}</th>
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   <input nbInput type="text" fieldSize="tiny" class="cell" 
@@ -94,7 +93,7 @@
 
                               <!-- Nombre Catalogo -->
                               <ng-container matColumnDef="Nombre">
-                                <th mat-header-cell *matHeaderCellDef> Descripcion </th>
+                                <th mat-header-cell *matHeaderCellDef>{{'GLOBAL.Acta_Recibido.DetalleActa.DescripcionHeader' | translate}}</th>
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   <input nbInput type="text" fieldSize="tiny" class="cell" formControlName="Nombre" 
@@ -105,7 +104,7 @@
 
                               <!-- Cantidad Column -->
                               <ng-container matColumnDef="Cantidad">
-                                <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+                                <th mat-header-cell *matHeaderCellDef>{{'GLOBAL.Acta_Recibido.DetalleActa.CantidadHeader' | translate}}</th>
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   <input nbInput type="text" fieldSize="tiny" class="cell"  formControlName="Cantidad" 
@@ -115,7 +114,7 @@
 
                               <!-- Marca Column -->
                               <ng-container matColumnDef="Marca">
-                                <th mat-header-cell *matHeaderCellDef> Marca </th>
+                                <th mat-header-cell *matHeaderCellDef>{{'GLOBAL.Acta_Recibido.DetalleActa.MarcaHeader' | translate}}</th>
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   <input nbInput type="text" fieldSize="tiny" class="cell"  formControlName="Marca"
@@ -125,7 +124,7 @@
 
                               <!-- Serie Column -->
                               <ng-container matColumnDef="Serie">
-                                <th mat-header-cell *matHeaderCellDef> Serie </th>
+                                <th mat-header-cell *matHeaderCellDef>{{'GLOBAL.Acta_Recibido.DetalleActa.SerieHeader' | translate}}</th>
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   <input nbInput type="text" fieldSize="tiny" class="cell"  formControlName="Serie"
@@ -135,7 +134,7 @@
 
                               <!-- UnidadMedida Column -->
                               <ng-container matColumnDef="UnidadMedida">
-                                <th mat-header-cell *matHeaderCellDef> Unidad de Medida </th>
+                                <th mat-header-cell *matHeaderCellDef>{{'GLOBAL.Acta_Recibido.DetalleActa.UnidadMedidaHeader' | translate}}</th>
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   <input nbInput type="text" fieldSize="tiny" class="cell" 
@@ -145,7 +144,7 @@
 
                               <!-- ValorUnitario Column -->
                               <ng-container matColumnDef="ValorUnitario">
-                                <th mat-header-cell *matHeaderCellDef> Valor Unitario </th>
+                                <th mat-header-cell *matHeaderCellDef>{{'GLOBAL.Acta_Recibido.DetalleActa.ValorUnitarioHeader' | translate}}</th>
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   <input nbInput type="text" fieldSize="tiny" class="cell" 
@@ -155,7 +154,7 @@
 
                               <!-- Subtotal Column -->
                               <ng-container matColumnDef="Subtotal">
-                                <th mat-header-cell *matHeaderCellDef> Subtotal </th>
+                                <th mat-header-cell *matHeaderCellDef>{{'GLOBAL.Acta_Recibido.DetalleActa.SubtotalHeader' | translate}}</th>
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   <input nbInput type="text" fieldSize="tiny" class="cell"  formControlName="Subtotal"
@@ -165,7 +164,7 @@
 
                               <!-- Descuento Column -->
                               <ng-container matColumnDef="Descuento">
-                                <th mat-header-cell *matHeaderCellDef> Descuento </th>
+                                <th mat-header-cell *matHeaderCellDef>{{'GLOBAL.Acta_Recibido.DetalleActa.DescuentoHeader' | translate}}</th>
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   <input nbInput type="text" fieldSize="tiny" class="cell"  formControlName="Descuento" 
@@ -175,7 +174,7 @@
 
                               <!-- PorcentajeIvaId Column -->
                               <ng-container matColumnDef="PorcentajeIvaId">
-                                <th mat-header-cell *matHeaderCellDef> % IVA </th>
+                                <th mat-header-cell *matHeaderCellDef>{{'GLOBAL.Acta_Recibido.DetalleActa.IVAHeader' | translate}}</th>
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   <input nbInput type="text" fieldSize="tiny" class="cell" 
@@ -185,7 +184,7 @@
 
                               <!-- ValorIva Column -->
                               <ng-container matColumnDef="ValorIva">
-                                <th mat-header-cell *matHeaderCellDef> ValorIva </th>
+                                <th mat-header-cell *matHeaderCellDef>{{'GLOBAL.Acta_Recibido.DetalleActa.ValorIVAHeader' | translate}}</th>
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   <input nbInput type="text" fieldSize="tiny" class="cell"
@@ -195,7 +194,7 @@
 
                               <!-- ValorTotal Column -->
                               <ng-container matColumnDef="ValorTotal">
-                                <th mat-header-cell *matHeaderCellDef> ValorTotal </th>
+                                <th mat-header-cell *matHeaderCellDef>{{'GLOBAL.Acta_Recibido.DetalleActa.ValorTotalHeader' | translate}}</th>
                                 <td mat-cell  *matCellDef="let element; let rowIndex = index" 
                                   [formGroupName]="rowIndex">
                                   <input nbInput type="text" fieldSize="tiny" class="cell" 
@@ -216,33 +215,33 @@
               </nb-card-body>
             </nb-card>
             <nb-card>
-              <nb-card-header>Gran Consolidado</nb-card-header>
+              <nb-card-header>{{'GLOBAL.Acta_Recibido.DetalleActa.Consolidado' | translate}}</nb-card-header>
               <nb-card-body>
                 <table class="table text-center">
                   <tr>
-                    <td class="thead-dark">Gran Subtotal</td>
+                    <td class="thead-dark">{{'GLOBAL.Acta_Recibido.DetalleActa.Subtotal' | translate}}</td>
                     <td>{{getGranSubtotal() | currency}}</td>
                   </tr>
                   <tr>
-                    <td class="thead-dark">Gran Descuentos</td>
+                    <td class="thead-dark">{{'GLOBAL.Acta_Recibido.DetalleActa.Descuento' | translate}}</td>
                     <td>{{getGranDescuentos() | currency}}</td>
                   </tr>
                   <tr>
-                    <td class="thead-dark">Gran IVA</td>
+                    <td class="thead-dark">{{'GLOBAL.Acta_Recibido.DetalleActa.ValorIva' | translate}}</td>
                     <td>{{getGranValorIva() | currency}}</td>
                   </tr>
                   <tr>
-                    <td class="thead-dark">Gran Total</td>
+                    <td class="thead-dark">{{'GLOBAL.Acta_Recibido.DetalleActa.Total' | translate}}</td>
                     <td>{{getGranTotal() | currency}}</td>
                   </tr>
                 </table>
               </nb-card-body>
             </nb-card>
             <nb-card formGroupName="Formulario3">
-              <nb-card-header>Datos Adicionales</nb-card-header>
+              <nb-card-header>{{'GLOBAL.Acta_Recibido.DetalleActa.DatosAdicionales' | translate}}</nb-card-header>
               <nb-card-body>
                 <div class="form-group  col-lg-12">
-                  <label>Observaciones</label>
+                  <label>{{'GLOBAL.Acta_Recibido.DetalleActa.Observaciones' | translate}}</label>
                   <div class="input-group">
                     <textarea rows="5"
                       placeholder="Proporciona datos adicionales que no se pueden expresar en el formulario"
