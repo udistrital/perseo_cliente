@@ -8,7 +8,7 @@ import { ActaRecibido } from '../../../@core/data/models/acta_recibido/acta_reci
 import { ConsultaActaRecibido } from '../../../@core/data/models/acta_recibido/consulta_actas';
 import { stringify } from '@angular/compiler/src/util';
 import { Ubicacion } from '../../../@core/data/models/acta_recibido/soporte_acta';
-
+import { Subscription, combineLatest, empty } from 'rxjs';
 @Component({
   selector: 'ngx-consulta-acta-recibido',
   templateUrl: './consulta-acta-recibido.component.html',
@@ -23,7 +23,6 @@ export class ConsultaActaRecibidoComponent implements OnInit {
   Ubicaciones: Array<Ubicacion>;
 
   settings = {
-    hideSubHeader: true,
     noDataMessage: 'No se encontraron elementos asociados.',
     actions: {
       columnTitle: 'Acciones',
@@ -139,32 +138,47 @@ export class ConsultaActaRecibidoComponent implements OnInit {
       },
     },
   };
-
-
   accion: string;
-
-
+  actas2: any;
+  mostrar: boolean;
   constructor(private translate: TranslateService,
     private router: Router,
     private actaRecibidoHelper: ActaRecibidoHelper,
     private pUpManager: PopUpManager) {
-
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => { // Live reload
       this.cargarCampos();
     });
     this.source = new LocalDataSource(); // create the source
     this.actas = new Array<ConsultaActaRecibido>();
-
-
   }
   ngOnInit() {
-    this.Traer_Parametros_Soporte();
-  }
+    const observable = combineLatest([
+      this.actaRecibidoHelper.getParametrosSoporte(),
+      this.actaRecibidoHelper.getActasRecibido2(),
+    ]);
+    observable.subscribe(([parametros, actas]) => {
+      this.Traer_Ubicaciones(parametros[0].Ubicaciones);
+      this.loadActas(actas);
+    });
 
+
+  }
+  Traer_Ubicaciones(res: any) {
+    this.Ubicaciones = new Array<Ubicacion>();
+    for (const index in res) {
+      if (res.hasOwnProperty(index)) {
+        const ubicacion = new Ubicacion;
+        ubicacion.Id = res[index].Id;
+        ubicacion.Codigo = res[index].Codigo;
+        ubicacion.Estado = res[index].Estado;
+        ubicacion.Nombre = res[index].Nombre;
+        this.Ubicaciones.push(ubicacion);
+      }
+    }
+  }
   cargarCampos() {
 
     this.settings = {
-      hideSubHeader: true,
       noDataMessage: 'No se encontraron elementos asociados.',
       actions: {
         columnTitle: 'Acciones',
@@ -281,14 +295,6 @@ export class ConsultaActaRecibidoComponent implements OnInit {
       },
     };
   }
-
-  Traer_Parametros_Soporte() {
-    this.actaRecibidoHelper.getParametrosSoporte().subscribe(res => {
-      if (res !== null) {
-        this.loadActas(res[0].Ubicaciones);
-      }
-    });
-  }
   onCustom(event: any) {
 
     this.actaSeleccionada = `${event.data.Id}`;
@@ -299,34 +305,31 @@ export class ConsultaActaRecibidoComponent implements OnInit {
     this.router.navigate(['/pages/acta_recibido/registro_acta_recibido']);
   }
 
-  loadActas(ubicaciones: Array<Ubicacion>): void {
-    this.actaRecibidoHelper.getActasRecibido2().subscribe(res => {
-      if (res !== null) {
-        const data = <Array<any>>res;
-        this.Ubicaciones = ubicaciones;
-        for (const datos in Object.keys(data)) {
-          if (data.hasOwnProperty(datos)) {
-            const acta = new ConsultaActaRecibido;
-            const ubicacion = this.Ubicaciones.find(ubicacion_ => ubicacion_.Id === data[datos].ActaRecibidoId.UbicacionId);
-            if (ubicacion == null) {
-              acta.UbicacionId = 'Ubicacion no Especificada';
-            } else {
-              acta.UbicacionId = ubicacion.Nombre;
-            }
-            acta.Activo = data[datos].ActaRecibidoId.Activo;
-            acta.FechaCreacion = data[datos].ActaRecibidoId.FechaCreacion;
-            acta.FechaModificacion = data[datos].ActaRecibidoId.FechaModificacion;
-            acta.FechaVistoBueno = data[datos].ActaRecibidoId.FechaVistoBueno;
-            acta.Id = data[datos].ActaRecibidoId.Id;
-            acta.Observaciones = data[datos].ActaRecibidoId.Observaciones;
-            acta.RevisorId = data[datos].ActaRecibidoId.RevisorId;
-            acta.Estado = data[datos].EstadoActaId.Nombre;
-            this.actas.push(acta);
+  loadActas(res: any): void {
+    this.mostrar = true;
+    if (res !== undefined) {
+      for (const index in res) {
+        if (res.hasOwnProperty(index)) {
+          const acta = new ConsultaActaRecibido;
+          const ubicacion = this.Ubicaciones.find(ubicacion_ => ubicacion_.Id === res[index].ActaRecibidoId.UbicacionId);
+          if (ubicacion == null) {
+            acta.UbicacionId = 'Ubicacion no Especificada';
+          } else {
+            acta.UbicacionId = ubicacion.Nombre;
           }
+          acta.Activo = res[index].ActaRecibidoId.Activo;
+          acta.FechaCreacion = res[index].ActaRecibidoId.FechaCreacion;
+          acta.FechaModificacion = res[index].ActaRecibidoId.FechaModificacion;
+          acta.FechaVistoBueno = res[index].ActaRecibidoId.FechaVistoBueno;
+          acta.Id = res[index].ActaRecibidoId.Id;
+          acta.Observaciones = res[index].ActaRecibidoId.Observaciones;
+          acta.RevisorId = res[index].ActaRecibidoId.RevisorId;
+          acta.Estado = res[index].EstadoActaId.Nombre;
+          this.actas.push(acta);
         }
-        this.source.load(this.actas);
       }
-    });
-    this.actaSeleccionada = '';
+      this.source.load(this.actas);
+      this.actaSeleccionada = '';
+    }
   }
 }
