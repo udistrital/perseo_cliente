@@ -7,7 +7,7 @@
   <!-- DATOS DE CONTRATO -->
   <nb-step [stepControl]="contratoForm" label="Contrato">
     <h5>Datos de Contrato</h5>
-    <form [formGroup]="contratoForm" (ngSubmit)="onContratoSubmit()" class="step-container">
+    <form [formGroup]="contratoForm" class="step-container">
       <div class="row">
         <div class="form-group col-sm">
           <label>Tipo de Contrato</label>
@@ -21,8 +21,8 @@
           <label>Vigencia</label>
           <select class="form-control" (change)="changeSelectVigencia($event)" [disabled]="!tipoContratoSelect">
             <option disabled selected>Seleccionar...</option>
-            <option value="{{ vigencia-1 }}">{{ vigencia-1 }}</option>
             <option value="{{ vigencia }}">{{ vigencia }}</option>
+            <option value="{{ vigencia-1 }}">{{ vigencia-1 }}</option>
           </select>
         </div>
         <div class="form-group col-sm">
@@ -37,7 +37,7 @@
           </datalist>
         </div>
       </div>
-      <button nbButton nbStepperNext>Siguiente</button>
+      <button type="button" (click)="onContratoSubmit()" nbButton nbStepperNext>Siguiente</button>
     </form>
   </nb-step>
 
@@ -96,7 +96,7 @@
 
   <!-- FACTURA -->
   <nb-step [stepControl]="facturaForm" label="Factura">
-    <form [formGroup]="facturaForm" (ngSubmit)="onFacturaSubmit()" class="step-container">
+    <form [formGroup]="facturaForm" class="step-container">
       <h5>Factura</h5>
       <div class="row">
         <div class="form-group col-sm">
@@ -127,20 +127,12 @@
         <div class="form-group col-sm">
           <label>Importación</label>
           <div class="input-group">
-            <nb-checkbox status="success" (click)="toggle($event)"></nb-checkbox>
-          </div>
-        </div>
-        <div class="form-group col-lg-8">
-          <label>Número de Registro Importación</label>
-          <div class="input-group">
-            <input nbInput type="text" shape="semi-round" placeholder="Número de Importación" class="form-control"
-              formControlName="facturaCtrl" [readonly]="!checked" [ngClass]="{' form-control-danger': facturaForm.invalid && (facturaForm.dirty ||
-              facturaForm.touched)}" />
+            <nb-checkbox status="success"></nb-checkbox>
           </div>
         </div>
       </div>
       <button nbButton nbStepperPrevious>Anterior</button>
-      <button nbButton nbStepperNext>Siguiente</button>
+      <button type="button" (click)="onFacturaSubmit()" nbButton nbStepperNext>Siguiente</button>
     </form>
   </nb-step>
 
@@ -157,7 +149,7 @@
         </div>
       </div>
       <button nbButton nbStepperPrevious>Anterior</button>
-      <button nbButton nbStepperNext>Siguiente</button>
+      <button type="button" nbButton nbStepperNext>Siguiente</button>
     </form>
   </nb-step>
 

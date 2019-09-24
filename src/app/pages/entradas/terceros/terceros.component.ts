@@ -8,6 +8,8 @@ import { PopUpManager } from '../../../managers/popUpManager';
 import { OrdenadorGasto } from '../../../@core/data/models/entrada/ordenador_gasto';
 import { Supervisor } from '../../../@core/data/models/entrada/supervisor';
 import { Entrada } from '../../../@core/data/models/entrada/entrada';
+import { TipoEntrada } from '../../../@core/data/models/entrada/tipo_entrada';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-terceros',
@@ -23,7 +25,6 @@ export class TercerosComponent implements OnInit {
   ordenadorForm: FormGroup;
   supervisorForm: FormGroup;
   // Validadores
-  checked: boolean;
   tipoContratoSelect: boolean;
   vigenciaSelect: boolean;
   // Año Actual
@@ -46,9 +47,8 @@ export class TercerosComponent implements OnInit {
 
   @Input() actaRecibidoId: string;
 
-  constructor(private entradasHelper: EntradaHelper, private actaRecibidoHelper: ActaRecibidoHelper,
+  constructor(private router: Router, private entradasHelper: EntradaHelper, private actaRecibidoHelper: ActaRecibidoHelper,
     private pUpManager: PopUpManager, private fb: FormBuilder) {
-    this.checked = false;
     this.tipoContratoSelect = false;
     this.vigenciaSelect = false;
     this.contratos = new Array<Contrato>();
@@ -113,9 +113,11 @@ export class TercerosComponent implements OnInit {
         supervisorAux.Id = res.contrato.supervisor.id;
         supervisorAux.Nombre = res.contrato.supervisor.nombre;
         supervisorAux.Cargo = res.contrato.supervisor.cargo;
+        supervisorAux.Dependencia = res.contrato.supervisor.dependencia_supervisor;
+        supervisorAux.Sede = res.contrato.supervisor.sede_supervisor;
         supervisorAux.DocumentoIdentificacion = res.contrato.supervisor.documento_identificacion;
         this.contratoEspecifico.OrdenadorGasto = ordenadorAux;
-        this.contratoEspecifico.NumeroContratoSuscrito = res.contrato.numero_contrato;
+        this.contratoEspecifico.NumeroContratoSuscrito = res.contrato.numero_contrato_suscrito;
         this.contratoEspecifico.TipoContrato = res.contrato.tipo_contrato;
         this.contratoEspecifico.FechaSuscripcion = res.contrato.fecha_suscripcion;
         this.contratoEspecifico.Supervisor = supervisorAux;
@@ -172,23 +174,6 @@ export class TercerosComponent implements OnInit {
   }
 
   /**
-   * Método para validar que se seleccionó el checkbox de importación.
-   * Si es activo, el formulario se vuelve requerido.
-   */
-  toggle(event) {
-    this.checked = event.target.checked;
-    if (this.checked) {
-      this.facturaForm = this.fb.group({
-        facturaCtrl: ['', Validators.required],
-      });
-    } else {
-      this.facturaForm = this.fb.group({
-        facturaCtrl: ['', Validators.nullValidator],
-      });
-    }
-  }
-
-  /**
    * Métodos para cambiar estados de los select.
    */
   changeSelectTipoContrato(event) {
@@ -240,27 +225,35 @@ export class TercerosComponent implements OnInit {
   onSubmit() {
     if (this.validar) {
       const entradaData = new Entrada;
-      entradaData.TipoEntrada = 5;
+      const tipoEntrada = new TipoEntrada;
+      // CAMPOS OBLIGATORIOS
       entradaData.ActaRecibidoId = +this.actaRecibidoId;
-      entradaData.ContratoId = this.contratoEspecifico.NumeroContratoSuscrito;
-      entradaData.Importacion = true;
-      entradaData.NumeroImportacion = this.facturaForm.value.facturaCtrl;
-      entradaData.FechaCreacion = new Date();
-      entradaData.FechaModificacion = new Date();
+      entradaData.Activo = true;
+      entradaData.Consecutivo = 'P8-7-2019'; // REVISAR
+      entradaData.DocumentoContableId = 1; // REVISAR
+      tipoEntrada.Id = 6;
+      entradaData.TipoEntradaId = tipoEntrada;
+      entradaData.Vigencia = this.vigencia.toString(); // REVISAR
       entradaData.Observacion = this.observacionForm.value.observacionCtrl;
-      // entradaData.Observacion = aux[3];
-      // this.entradasHelper.postEntrada(entradaData).subscribe(res => {
-      //   console.info(entradaData + 'Rest' + res);
-      //   if (res !== null) {
-      //     this.pUpManager.showSuccesToast('Registro Exitoso');
-      //     this.pUpManager.showSuccessAlert('Entrada registrada satisfactoriamente!');
-      //   }
-      // });
-      // console.log(entradaData);
-      this.pUpManager.showSuccesToast('Registro Exitoso');
-      this.pUpManager.showSuccessAlert('Entrada registrada satisfactoriamente!');
+      // CAMPOS REQUERIDOS PARA ADQUISICIÓN
+      entradaData.ContratoId = +this.contratoEspecifico.NumeroContratoSuscrito;
+      // entradaData.TerceroId = ?  REVISAR
+      // ENVIA LA ENTRADA AL MID
+      this.entradasHelper.postEntrada(entradaData).subscribe(res => {
+        if (res !== null) {
+          this.pUpManager.showSuccesToast('Registro Exitoso');
+          this.pUpManager.showSuccessAlert('Entrada registrada satisfactoriamente!' +
+            '\n ENTRADA N°: ' + entradaData.Consecutivo);
+
+          const navigationExtras: NavigationExtras = { state: { consecutivo: entradaData.Consecutivo } };
+          this.router.navigate(['/pages/reportes/registro-entradas'], navigationExtras);
+        } else {
+          this.pUpManager.showErrorAlert('No es posible hacer el registro.');
+        }
+      });
     } else {
       this.pUpManager.showErrorAlert('No ha llenado todos los campos! No es posible hacer el registro.');
     }
   }
+
 }

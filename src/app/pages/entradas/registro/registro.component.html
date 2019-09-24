@@ -5,6 +5,9 @@
     </nb-card-header>
     <nb-card-body>
 
+      <p class="h4 pb-4" *ngIf="actaSeleccionada === ''">Seleccione el acta de recibido a la cual desea realizarle
+        entrada dando clic en el ícono de acciones ubicado al costado derecho de la tabla.</p>
+
       <ng2-smart-table [settings]="settings" [source]="source" (custom)="onCustom($event)"
         *ngIf="actaSeleccionada === ''"></ng2-smart-table>
 
@@ -17,19 +20,14 @@
         <option>Sobrante de Inventario</option>
         <option>Terceros</option>
       </select>
-      <!-- 
-      <h5 class="pt-4" *ngIf="opcionEntrada != null">Consultar Acta de Recibido</h5>
-      <ngx-tabla-actas *ngIf="opcionEntrada != null"></ngx-tabla-actas> -->
 
       <ngx-adquisicion *ngIf="opcionEntrada === 'Adquisición'" [actaRecibidoId]="actaSeleccionada"></ngx-adquisicion>
       <ngx-reposicion *ngIf="opcionEntrada === 'Reposición'"></ngx-reposicion>
       <ngx-elaboracion-propia *ngIf="opcionEntrada === 'Elaboración Propia'"></ngx-elaboracion-propia>
       <ngx-donacion *ngIf="opcionEntrada === 'Donación'" [actaRecibidoId]="actaSeleccionada"></ngx-donacion>
-      <ngx-sobrante *ngIf="opcionEntrada === 'Sobrante de Inventario'"></ngx-sobrante>
+      <ngx-sobrante *ngIf="opcionEntrada === 'Sobrante de Inventario'" [actaRecibidoId]="actaSeleccionada">
+      </ngx-sobrante>
       <ngx-terceros *ngIf="opcionEntrada === 'Terceros'" [actaRecibidoId]="actaSeleccionada"></ngx-terceros>
-      <!-- 
-      <h5 class="pt-4" *ngIf="opcionEntrada != null">Elementos de Entrada</h5>
-      <ngx-tabla-entradas *ngIf="opcionEntrada != null"></ngx-tabla-entradas> -->
 
     </nb-card-body>
   </nb-card>
