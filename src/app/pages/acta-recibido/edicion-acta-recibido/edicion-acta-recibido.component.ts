@@ -642,16 +642,16 @@ export class EdicionActaRecibidoComponent implements OnInit {
   }
   usarLocalStorage() {
 
-    if (localStorage.Formulario == null){
+    if (localStorage.Formulario == null) {
       localStorage.setItem('Formulario', JSON.stringify(this.firstForm.value));
       localStorage.setItem('Elementos_Formulario', JSON.stringify(this.Elementos__Soporte));
-      console.log(JSON.parse(window.localStorage.Formulario));
-      console.log(JSON.parse(window.localStorage.Elementos_Formulario));
+      // console.log(JSON.parse(window.localStorage.Formulario));
+      // console.log(JSON.parse(window.localStorage.Elementos_Formulario));
     } else {
       localStorage.setItem('Formulario', JSON.stringify(this.firstForm.value));
       localStorage.setItem('Elementos_Formulario', JSON.stringify(this.Elementos__Soporte));
-      console.log(JSON.parse(window.localStorage.Formulario));
-      console.log(JSON.parse(window.localStorage.Elementos_Formulario));
-    } 
+      // console.log(JSON.parse(window.localStorage.Formulario));
+      // console.log(JSON.parse(window.localStorage.Elementos_Formulario));
+    }
   }
 }
