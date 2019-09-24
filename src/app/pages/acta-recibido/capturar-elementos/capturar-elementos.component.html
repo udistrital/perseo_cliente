@@ -5,7 +5,7 @@
       <nb-card-body>
         <div class="form-group col-sm">
           <input nbInput formControlname="archivo" type="file" id="archivo_icfes" (change)="onFileChange($event)"
-            class="form-control-file" #fileInput>
+            class="form-control-file" #fileInput ngxCurrencyNumber>
           <p *ngIf="!Validador">{{'GLOBAL.Acta_Recibido.CapturarElementos.ValidadorPlaceholder' | translate }}</p>
         </div>
         <button type="button" class="btn btn-primary"
@@ -126,7 +126,7 @@
             {{'GLOBAL.Acta_Recibido.CapturarElementos.ValorUnitarioHeader' | translate }} </th>
           <td mat-cell *matCellDef="let element; let rowIndex = index">
 
-            <input nbInput type="text" fieldSize="tiny" class="cell"
+            <input currencyMask nbInput type="text" fieldSize="tiny" class="cell"
               placeholder="{{'GLOBAL.Acta_Recibido.CapturarElementos.ValorUnitarioHeader' | translate }}"
               (ngModelChange)="element.Subtotal = valorXcantidad($event, element.Cantidad).toString();
               element.ValorIva = valor_iva(valorXcantidad($event, element.Cantidad).toString(),element.Descuento,element.PorcentajeIvaId).toString();
@@ -140,7 +140,7 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header>
             {{'GLOBAL.Acta_Recibido.CapturarElementos.SubtotalHeader' | translate }} </th>
           <td mat-cell *matCellDef="let element; let rowIndex = index">
-            <input nbInput type="text" fieldSize="tiny" class="cell"
+            <input currencyMask nbInput type="text" fieldSize="tiny" class="cell"
               placeholder="{{'GLOBAL.Acta_Recibido.CapturarElementos.SubtotalHeader' | translate }}" [(ngModel)]="element.Subtotal"
               readonly>
           </td>
@@ -154,7 +154,7 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header>
             {{'GLOBAL.Acta_Recibido.CapturarElementos.DescuentoHeader' | translate }} </th>
           <td mat-cell *matCellDef="let element; let rowIndex = index">
-            <input nbInput type="text" fieldSize="tiny" class="cell"
+            <input currencyMask nbInput type="text" fieldSize="tiny" class="cell"
               placeholder="{{'GLOBAL.Acta_Recibido.CapturarElementos.DescuentoHeader' | translate }}" [(ngModel)]="element.Descuento"
               (ngModelChange)="element.ValorIva = valor_iva(element.Subtotal,$event,element.PorcentajeIvaId).toString();
               element.ValorTotal = valortotal(element.Subtotal,$event,element.ValorIva).toString();" required>
@@ -183,7 +183,7 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header>
             {{'GLOBAL.Acta_Recibido.CapturarElementos.ValorIVAHeader' | translate }} </th>
           <td mat-cell *matCellDef="let element; let rowIndex = index">
-            <input nbInput type="text" fieldSize="tiny" class="cell"
+            <input currencyMask nbInput type="text" fieldSize="tiny" class="cell"
               placeholder="{{'GLOBAL.Acta_Recibido.CapturarElementos.ValorIVAHeader' | translate }}" [(ngModel)]="element.ValorIva"
               readonly>
           </td>
@@ -197,7 +197,7 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header>
             {{'GLOBAL.Acta_Recibido.CapturarElementos.ValorTotalHeader' | translate }}</th>
           <td mat-cell *matCellDef="let element; let rowIndex = index">
-            <input nbInput type="text" fieldSize="tiny" class="cell"
+            <input currencyMask nbInput type="text" fieldSize="tiny" class="cell"
               placeholder="{{'GLOBAL.Acta_Recibido.CapturarElementos.ValorTotalHeader' | translate }}"
               [(ngModel)]="element.ValorTotal" readonly>
           </td>

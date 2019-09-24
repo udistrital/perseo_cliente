@@ -291,15 +291,17 @@ export class VerificacionActaRecibidoComponent implements OnInit {
       if (res !== null) {
         (Swal as any).fire({
           type: 'success',
-          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' Retornada',
-          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' ha sido retornada exitosamente',
+          title: this.translate.instant('GLOBAL.Acta_Recibido.VerificacionActa.Acta') +
+            `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.VerificacionActa.VerificadaTitle'),
+          text: this.translate.instant('GLOBAL.Acta_Recibido.VerificacionActa.Acta') +
+            `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.VerificacionActa.Verificada'),
         });
-        this.router.navigate(['/consulta-acta-recibido']);
+        this.router.navigate(['/consulta-acta-recibido', {}]);
       } else {
         (Swal as any).fire({
           type: 'error',
-          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' No Retornada',
-          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' no ha podido ser Retornada, intenta mas tarde',
+          title: this.translate.instant('GLOBAL.Acta_Recibido.VerificacionActa.VerificadaTitleNO'),
+          text: this.translate.instant('GLOBAL.Acta_Recibido.VerificacionActa.VerificadaNO'),
         });
       }
     });
@@ -320,15 +322,17 @@ export class VerificacionActaRecibidoComponent implements OnInit {
       if (res !== null) {
         (Swal as any).fire({
           type: 'success',
-          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' Retornada',
-          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' ha sido retornada exitosamente',
+          title: this.translate.instant('GLOBAL.Acta_Recibido.VerificacionActa.Acta') +
+            `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.VerificacionActa.RechazadaTitle'),
+          text: this.translate.instant('GLOBAL.Acta_Recibido.VerificacionActa.Acta') +
+            `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.VerificacionActa.Rechazada'),
         });
-        this.router.navigate(['/consulta-acta-recibido']);
+        this.router.navigate(['/consulta-acta-recibido', {}]);
       } else {
         (Swal as any).fire({
           type: 'error',
-          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' No Retornada',
-          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' no ha podido ser Retornada, intenta mas tarde',
+          title: this.translate.instant('GLOBAL.Acta_Recibido.VerificacionActa.RechazadaTitleNO'),
+          text: this.translate.instant('GLOBAL.Acta_Recibido.VerificacionActa.RechazadaNO'),
         });
       }
     });
@@ -450,8 +454,8 @@ export class VerificacionActaRecibidoComponent implements OnInit {
   Revisar_Totales() {
 
     (Swal as any).fire({
-      title: 'Esta Seguro?',
-      text: 'Esta seguro de que los datos estan verificados?',
+      title: this.translate.instant('GLOBAL.Acta_Recibido.VerificacionActa.DatosVeridicos'),
+      text: this.translate.instant('GLOBAL.Acta_Recibido.VerificacionActa.VerificadaPre'),
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -467,8 +471,8 @@ export class VerificacionActaRecibidoComponent implements OnInit {
   Revisar_Totales2() {
 
     (Swal as any).fire({
-      title: 'Esta Seguro?',
-      text: 'Esta seguro que desea devolver el acta?',
+      title: this.translate.instant('GLOBAL.Acta_Recibido.VerificacionActa.DatosVeridicos'),
+      text: this.translate.instant('GLOBAL.Acta_Recibido.VerificacionActa.RechazadaPre'),
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',

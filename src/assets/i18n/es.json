@@ -242,7 +242,19 @@
         "ValorTotalHeader":"ValorTotal",
         "Verificar":"Verificar",
         "Rechazar":"Rechazar",
-        "Volver":"Volver"
+        "Volver":"Volver",
+        "Acta":"Acta N° ",
+        "DatosVeridicosTitle":"Esta Seguro?",
+        "VerificadaPre":"Esta seguro de que desea verificar el acta?",
+        "RechazadaPre":"Esta seguro de que desea rechazar el acta?",
+        "VerificadaTitle":" Verificada",
+        "Verificada":" ha sido verificada de forma exitosa",
+        "VerificadaTitleNO":"Acta No Verificada",
+        "VerificadaNO":"El Acta no ha podido ser verificada de forma exitosa, intenta mas tarde",
+        "RechazadaTitle":" Devuelta",
+        "Rechazada":" ha sido Devuelta de forma exitosa",
+        "RechazadaTitleNO":"Acta No Devuelta",
+        "RechazadaNO":"El Acta no ha podido ser Devuelta de forma exitosa, intenta mas tarde"
       }
 
     },

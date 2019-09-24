@@ -416,9 +416,9 @@ export class EdicionActaRecibidoComponent implements OnInit {
         (Swal as any).fire({
           type: 'success',
           title: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Acta') +
-           `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.VerificadaTitle'),
+            `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.VerificadaTitle'),
           text: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Acta') +
-           `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Verificada'),
+            `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Verificada'),
         });
         this.router.navigate(['/consulta-acta-recibido', {}]);
       } else {
@@ -639,5 +639,19 @@ export class EdicionActaRecibidoComponent implements OnInit {
     } else {
       return '0';
     }
+  }
+  usarLocalStorage() {
+
+    if (localStorage.Formulario == null){
+      localStorage.setItem('Formulario', JSON.stringify(this.firstForm.value));
+      localStorage.setItem('Elementos_Formulario', JSON.stringify(this.Elementos__Soporte));
+      console.log(JSON.parse(window.localStorage.Formulario));
+      console.log(JSON.parse(window.localStorage.Elementos_Formulario));
+    } else {
+      localStorage.setItem('Formulario', JSON.stringify(this.firstForm.value));
+      localStorage.setItem('Elementos_Formulario', JSON.stringify(this.Elementos__Soporte));
+      console.log(JSON.parse(window.localStorage.Formulario));
+      console.log(JSON.parse(window.localStorage.Elementos_Formulario));
+    } 
   }
 }

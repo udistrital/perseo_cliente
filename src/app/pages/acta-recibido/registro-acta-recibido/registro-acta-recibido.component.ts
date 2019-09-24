@@ -397,13 +397,15 @@ export class RegistroActaRecibidoComponent implements OnInit {
 
       const Elemento__ = new Elemento;
       const valorTotal = (parseFloat(this.Pipe2Number(datos.Subtotal)) - parseFloat(this.Pipe2Number(datos.Descuento)));
-
+      console.log(this.Unidades);
+      console.log(Datos);
+      console.log(this.Unidades.find(unidad => unidad.Id === parseInt(datos.UnidadMedida)))
       Elemento__.Id = null;
       Elemento__.Nombre = datos.Nombre;
       Elemento__.Cantidad = parseFloat(this.Pipe2Number(datos.Cantidad));
       Elemento__.Marca = datos.Marca;
       Elemento__.Serie = datos.Serie;
-      Elemento__.UnidadMedida = this.Unidades.find(unidad => unidad.Id === parseFloat(datos.UnidadMedida)).Id;
+      Elemento__.UnidadMedida = this.Unidades.find(unidad => unidad.Id === parseInt(datos.UnidadMedida)).Id;
       Elemento__.ValorUnitario = parseFloat(this.Pipe2Number(datos.ValorUnitario));
       Elemento__.Subtotal = parseFloat(this.Pipe2Number(datos.Subtotal));
       Elemento__.Descuento = parseFloat(this.Pipe2Number(datos.Descuento));

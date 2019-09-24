@@ -17,51 +17,50 @@
           <mat-step label="{{'GLOBAL.Acta_Recibido.EdicionActa.DatosTitle' | translate}}" formGroupName="Formulario1">
             <nb-card>
               <nb-card-body>
-                <div class="row">
+                <div class="row" (click)="usarLocalStorage()">
                   <div class="form-group col-sm">
                     <label>{{'GLOBAL.Acta_Recibido.EdicionActa.Sede' | translate}}</label>
-                    <select nbInput type="text" class="form-control" formControlName="Sede" required>
+                    <select nbInput type="text" class="form-control" formControlName="Sede" required (click)="usarLocalStorage()">
                       <option *ngFor="let sede of Sedes" [(value)]="sede.Id">{{sede.Nombre}}</option>
                     </select>
                   </div>
                   <div class="form-group col-sm">
                     <label>{{'GLOBAL.Acta_Recibido.EdicionActa.Dependencia' | translate}}</label>
-                    <ng2-completer inputClass="form-control" nbInput [datasource]="dataService3"
+                    <ng2-completer inputClass="form-control" nbInput [datasource]="dataService3" (keyup)="usarLocalStorage()" (click)="usarLocalStorage()"
                       formControlName="Dependencia" [minSearchLength]="3">
                     </ng2-completer>
                   </div>
                   <div class="form-group col-sm">
                     <label>{{'GLOBAL.Acta_Recibido.EdicionActa.Ubicacion' | translate}}</label>
-                    <ng2-completer inputClass="form-control" nbInput [datasource]="dataService"
-                      formControlName="Ubicacion" [minSearchLength]="3">
+                    <ng2-completer inputClass="form-control" nbInput [datasource]="dataService" (keyup)="usarLocalStorage()" (click)="usarLocalStorage()"
+                      formControlName="Ubicacion" [minSearchLength]="3"> 
                     </ng2-completer>
                   </div>
                 </div>
               </nb-card-body>
               <nb-card-footer>
-                  <button nbButton matStepperNext [disabled]="!firstForm.get('Formulario1').valid"
+                  <button nbButton matStepperNext [disabled]="!firstForm.get('Formulario1').valid" (click)="usarLocalStorage()"
                   class="float-right">{{'GLOBAL.Acta_Recibido.EdicionActa.SiguienteButton' | translate}}</button>
               </nb-card-footer>
             </nb-card>
           </mat-step>
           <mat-step label="Datos de Soporte" formArrayName="Formulario2">
             <nb-card>
-              <nb-card-header></nb-card-header>
               <nb-card-body>
                 <mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event)">
                   <mat-tab *ngFor="let soporte of firstForm.get('Formulario2').controls; let i = index"
                     [formGroupName]="i">
                     <ng-template mat-tab-label>
                       {{'GLOBAL.Acta_Recibido.EdicionActa.SoporteSubTitle' | translate}} &nbsp; {{i + 1}} &nbsp; &nbsp;
-                      &nbsp; &nbsp;<i class="fas fa-window-close" (click)="removeTab(i)"></i>
+                      &nbsp; &nbsp;<i class="fas fa-window-close" (click)="removeTab(i); usarLocalStorage()"></i>
                     </ng-template>
                     <div>
                       <nb-card>
-                        <nb-card-body>
+                        <nb-card-body (click)="usarLocalStorage()">
                           <div class="row">
                             <div class="form-group col-sm">
                               <label>{{'GLOBAL.Acta_Recibido.EdicionActa.Proveedor' | translate}}</label>
-                              <ng2-completer inputClass="form-control"
+                              <ng2-completer inputClass="form-control" (keyup)="usarLocalStorage()"
                                 placeholder="{{'GLOBAL.Acta_Recibido.EdicionActa.SeleccioneFiltro' | translate}}"
                                 nbInput [datasource]="dataService2" formControlName="Proveedor" [minSearchLength]="3">
                               </ng2-completer>
@@ -69,7 +68,7 @@
                             <div class="form-group col-sm">
                               <label>{{'GLOBAL.Acta_Recibido.EdicionActa.Consecutivo' | translate}}</label>
                               <div class="input-group">
-                                <input nbInput type="text"
+                                <input nbInput type="text" (keyup)="usarLocalStorage()"
                                   placeholder="{{'GLOBAL.Acta_Recibido.EdicionActa.Consecutivo' | translate}}"
                                   class="form-control" formControlName="Consecutivo" required>
                               </div>
@@ -79,17 +78,17 @@
                             <div class="form-group col-sm">
                               <label>{{'GLOBAL.Acta_Recibido.EdicionActa.FechaSoporte' | translate}}</label>
                               <div class="input-group">
-                                <input nbInput
+                                <input nbInput (click)="usarLocalStorage()" 
                                   placeholder="{{'GLOBAL.Acta_Recibido.EdicionActa.FechaFiltro' | translate}}"
                                   class="form-control" [nbDatepicker]="formpicker" formControlName="Fecha_Factura"
                                   required>
-                                <nb-datepicker #formpicker></nb-datepicker>
+                                <nb-datepicker (click)="usarLocalStorage()" #formpicker></nb-datepicker>
                               </div>
                             </div>
                             <div class="form-group col-sm">
                               <label>{{'GLOBAL.Acta_Recibido.EdicionActa.Soporte' | translate}}</label>
                               <input nbInput type="file" class="form-control-file" id="factura"
-                                formControlName="Soporte" required>
+                                formControlName="Soporte" (click)="usarLocalStorage()" required>
                             </div>
                           </div>
                         </nb-card-body>
@@ -103,7 +102,7 @@
                   </mat-tab>
                   <mat-tab [disabled]="true">
                     <ng-template mat-tab-label>
-                      <i class="fas fa-plus-square fa-2x" (click)="addTab()"></i>
+                      <i class="fas fa-plus-square fa-2x" (click)="addTab(); usarLocalStorage()"></i>
                     </ng-template>
                   </mat-tab>
                 </mat-tab-group>
@@ -112,7 +111,7 @@
                   <div class="justify-content-center">
                       <button nbButton
                         matStepperPrevious>{{'GLOBAL.Acta_Recibido.EdicionActa.AnteriorButton' | translate}}</button>
-                      <button nbButton matStepperNext (click)="Revisar_Totales()"
+                      <button nbButton matStepperNext (click)="Revisar_Totales(); usarLocalStorage()"
                         [disabled]="!firstForm.get('Formulario1').valid || !firstForm.get('Formulario2').valid"
                         class="float-right">{{'GLOBAL.Acta_Recibido.EdicionActa.SiguienteButton' | translate}}</button>
                     </div>
@@ -146,10 +145,10 @@
             <nb-card>
               <nb-card-header>{{'GLOBAL.Acta_Recibido.EdicionActa.DatosAdicionales' | translate}}</nb-card-header>
               <nb-card-body>
-                <div class="form-group  col-lg-12">
+                <div class="form-group  col-lg-12" (click)="usarLocalStorage()">
                   <label>{{'GLOBAL.Acta_Recibido.EdicionActa.Observaciones' | translate}}</label>
                   <div class="input-group">
-                    <textarea rows="5"
+                    <textarea rows="5" (keyup)="usarLocalStorage()"
                       placeholder="Proporciona datos adicionales que no se pueden expresar en el formulario"
                       class="form-control" formControlName="Datos_Adicionales" required></textarea>
                   </div>
