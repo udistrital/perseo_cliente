@@ -1,13 +1,12 @@
 <div class="col-lg-12">
   <nb-card>
     <nb-card-header>
-      <h1>Consultar Entradas</h1>
+      <h1>{{'GLOBAL.consultar_entrada' | translate}}</h1>
     </nb-card-header>
     <nb-card-body>
 
       <!-- CARD PARA MOSTRAR LAS SOLICITUDES *ngIf="!detalle" -->
-      <p class="h4 pb-4" *ngIf="!detalle">Lista de entradas realizadas. Para ver el detalle de la
-        entrada presione el ícono de acciones ubicado al costado derecho de la tabla.</p>
+      <p class="h4 pb-4" *ngIf="!detalle">{{'GLOBAL.mensaje_consulta_entrada' | translate}}</p>
 
       <ng2-smart-table [settings]="settings" [source]="source" (custom)="onCustom($event)" *ngIf="!detalle">
       </ng2-smart-table>
@@ -15,13 +14,13 @@
       <div class="justify-content-center float-right pt-4" *ngIf="!detalle">
         <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off"
           (click)="onRegister()">
-          Registrar Nueva Entrada
+          {{'GLOBAL.registrar_nueva_entrada' | translate}}
         </button>
       </div>
 
       <!-- CARD PARA MOSTRAR LOS DETALLES DE LAS SOLICITUDES -->
 
-      <h5 class="pb-4" *ngIf="detalle">Detalle Entrada</h5>
+      <h5 class="pb-4" *ngIf="detalle">{{'GLOBAL.detalle_entrada' | translate}}</h5>
 
       <div class="container">
 
@@ -85,13 +84,13 @@
 
       </div>
 
-      <h5 class="pt-4 pb-4" *ngIf="detalle">Elementos Entrada</h5>
+      <h5 class="pt-4 pb-4" *ngIf="detalle">{{'GLOBAL.elementos_entrada' | translate}}</h5>
 
       <ngx-tabla-entradas [actaRecibidoId]="actaRecibidoId" *ngIf="detalle"></ngx-tabla-entradas>
 
       <div class="pt-4">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="detalle = !detalle"
-          *ngIf="detalle">Volver
+          *ngIf="detalle">{{'GLOBAL.volver' | translate}}
         </button>
       </div>
 

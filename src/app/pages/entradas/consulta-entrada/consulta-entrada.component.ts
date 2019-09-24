@@ -7,6 +7,7 @@ import { Contrato } from '../../../@core/data/models/entrada/contrato';
 import { Supervisor } from '../../../@core/data/models/entrada/supervisor';
 import { OrdenadorGasto } from '../../../@core/data/models/entrada/ordenador_gasto';
 import { TipoEntrada } from '../../../@core/data/models/entrada/tipo_entrada';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 @Component({
   selector: 'ngx-consulta-entrada',
@@ -23,77 +24,81 @@ export class ConsultaEntradaComponent implements OnInit {
   consecutivoEntrada: string;
   entradaEspecifica: Entrada;
   contrato: Contrato;
+  settings: any;
 
-  settings = {
-    hideSubHeader: false,
-    noDataMessage: 'No se encontraron entradas asociadas.',
-    actions: {
-      columnTitle: 'Detalle',
-      position: 'right',
-      add: false,
-      edit: false,
-      delete: false,
-      custom: [
-        {
-          name: 'detalle',
-          title: '<i class="fas fa-eye" title="Ver"></i>',
-        },
-      ],
-    },
-    columns: {
-      Consecutivo: {
-        title: 'Consecutivo',
-      },
-      ActaRecibidoId: {
-        title: 'Acta de Recibido',
-      },
-      FechaCreacion: {
-        title: 'Fecha de Entrada',
-        width: '70px',
-        valuePrepareFunction: (value: any) => {
-          const date = value.split('T');
-          return date[0];
-        },
-        filter: {
-          type: 'daterange',
-          config: {
-            daterange: {
-              format: 'yyyy/mm/dd',
-            },
-          },
-        },
-      },
-      TipoEntradaId: {
-        title: 'Tipo Entrada',
-        valuePrepareFunction: (value: any) => {
-          return value.Nombre;
-        },
-        filter: {
-          type: 'list',
-          config: {
-            selectText: 'Seleccionar...',
-            list: [
-              { value: 'Adquisición', title: 'Adquisición' },
-              { value: 'Elaboración Propia', title: 'Elaboración Propia' },
-              { value: 'Donación', title: 'Donación' },
-              { value: 'Reposición', title: 'Reposición' },
-              { value: 'Sobrante', title: 'Sobrante' },
-              { value: 'Terceros', title: 'Terceros' },
-            ],
-          },
-        },
-      },
-    },
-  };
-
-  constructor(private router: Router, private entradasHelper: EntradaHelper) {
+  constructor(private router: Router, private entradasHelper: EntradaHelper, private translate: TranslateService) {
     this.source = new LocalDataSource();
     this.entradas = new Array<Entrada>();
     this.detalle = false;
     this.entradaEspecifica = new Entrada;
     this.contrato = new Contrato;
+    this.loadTablaSettings();
     this.iniciarParametros();
     this.loadEntradas();
+  }
+
+  loadTablaSettings() {
+    this.settings = {
+      hideSubHeader: false,
+      noDataMessage: this.translate.instant('GLOBAL.no_data'),
+      actions: {
+        columnTitle: this.translate.instant('GLOBAL.detalle'),
+        position: 'right',
+        add: false,
+        edit: false,
+        delete: false,
+        custom: [
+          {
+            name: this.translate.instant('GLOBAL.detalle'),
+            title: '<i class="fas fa-eye" title="Ver"></i>',
+          },
+        ],
+      },
+      columns: {
+        Consecutivo: {
+          title: this.translate.instant('GLOBAL.consecutivo'),
+        },
+        ActaRecibidoId: {
+          title: this.translate.instant('GLOBAL.acta_recibido'),
+        },
+        FechaCreacion: {
+          title: this.translate.instant('GLOBAL.fecha_entrada'),
+          width: '70px',
+          valuePrepareFunction: (value: any) => {
+            const date = value.split('T');
+            return date[0];
+          },
+          filter: {
+            type: 'daterange',
+            config: {
+              daterange: {
+                format: 'yyyy/mm/dd',
+              },
+            },
+          },
+        },
+        TipoEntradaId: {
+          title: this.translate.instant('GLOBAL.tipo_entrada'),
+          valuePrepareFunction: (value: any) => {
+            return value.Nombre;
+          },
+          filter: {
+            type: 'list',
+            config: {
+              selectText: this.translate.instant('GLOBAL.seleccionar') + '...',
+              list: [
+                { value: 'Adquisición', title: 'Adquisición' },
+                { value: 'Elaboración Propia', title: 'Elaboración Propia' },
+                { value: 'Donación', title: 'Donación' },
+                { value: 'Reposición', title: 'Reposición' },
+                { value: 'Sobrante', title: 'Sobrante' },
+                { value: 'Terceros', title: 'Terceros' },
+              ],
+            },
+          },
+        },
+      },
+    };
   }
 
   loadEntradas(): void {
@@ -191,6 +196,9 @@ export class ConsultaEntradaComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => { // Live reload
+      this.loadTablaSettings();
+    });
   }
 
 }
