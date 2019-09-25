@@ -35,7 +35,7 @@ export class RegistroEntradasComponent implements OnInit {
     if (this.consecutivo === '') {
       this.reportConfig = {
         documentLabel: 'prueba_arka',
-        eecutionRole: '/spagobi/user/admin',
+        executionRole: '/spagobi/user/admin',
         displayToolbar: true,
         displaySliders: true,
         iframe: {
@@ -45,10 +45,10 @@ export class RegistroEntradasComponent implements OnInit {
         },
       };
     } else {
-      const parametros = 'consecutivo=' + this.consecutivo;
+      const parametros = 'consecutivo=' + this.consecutivo + '&outputType=PDF';
       this.reportConfig = {
         documentLabel: 'prueba_arka',
-        eecutionRole: '/spagobi/user/admin',
+        executionRole: '/spagobi/user/admin',
         // parameters: {'PARAMETERS': 'param_1=1&param_2=2'},
         parameters: { 'PARAMETERS': parametros },
         displayToolbar: true,
