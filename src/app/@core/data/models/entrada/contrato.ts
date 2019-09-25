@@ -2,6 +2,7 @@ import { OrdenadorGasto } from './ordenador_gasto';
 import { Supervisor } from './supervisor';
 
 export class Contrato {
+    ContratoId: number;
     FechaSuscripcion: Date;
     Justificacion: string;
     TipoContrato: number;

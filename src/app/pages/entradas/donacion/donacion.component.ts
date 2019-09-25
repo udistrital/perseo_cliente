@@ -198,6 +198,10 @@ export class DonacionComponent implements OnInit {
     }
   }
 
+  onFacturaSubmit() {
+    this.validar = true;
+  }
+
   /**
   * Métodos para cambiar estados de los select.
   */

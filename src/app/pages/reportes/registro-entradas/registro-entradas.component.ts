@@ -13,6 +13,7 @@ export class RegistroEntradasComponent implements OnInit {
 
   config: ToasterConfig;
   consecutivo: string;
+  detalle: boolean;
 
   @ViewChild('spagoBIDocumentArea') spagoBIDocumentArea: ElementRef;
   @Input() reportConfig: any;
