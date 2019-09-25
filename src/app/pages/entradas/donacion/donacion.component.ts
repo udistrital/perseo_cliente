@@ -8,7 +8,6 @@ import { PopUpManager } from '../../../managers/popUpManager';
 import { OrdenadorGasto } from '../../../@core/data/models/entrada/ordenador_gasto';
 import { Supervisor } from '../../../@core/data/models/entrada/supervisor';
 import { Entrada } from '../../../@core/data/models/entrada/entrada';
-import { load } from '@angular/core/src/render3';
 import { TipoEntrada } from '../../../@core/data/models/entrada/tipo_entrada';
 import { NavigationExtras, Router } from '@angular/router';
 

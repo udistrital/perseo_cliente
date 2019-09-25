@@ -10,6 +10,7 @@ import { SoporteActa } from '../../../@core/data/models/acta_recibido/soporte_ac
 import { ActaRecibidoHelper } from '../../../helpers/acta_recibido/actaRecibidoHelper';
 import { TipoEntrada } from '../../../@core/data/models/entrada/tipo_entrada';
 import { Router, NavigationExtras } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ngx-adquisicion',

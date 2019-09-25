@@ -5,6 +5,7 @@ import { Elemento } from '../../../@core/data/models/acta_recibido/elemento';
 import { TipoBien } from '../../../@core/data/models/acta_recibido/tipo_bien';
 import { SoporteActa } from '../../../@core/data/models/acta_recibido/soporte_acta';
 import { ActaRecibidoHelper } from '../../../helpers/acta_recibido/actaRecibidoHelper';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 @Component({
   selector: 'ngx-tabla-entradas',
@@ -15,74 +16,14 @@ export class TablaEntradasComponent implements OnInit {
 
   source: LocalDataSource;
   elementos: Array<Elemento>;
+  settings: any;
 
   @Input() actaRecibidoId: string;
 
-  settings = {
-    hideSubHeader: true,
-    noDataMessage: 'No se encontraron elementos asociados.',
-    actions: {
-      columnTitle: 'Seleccionar',
-      position: 'right',
-      add: false,
-      edit: false,
-      delete: false,
-    },
-    columns: {
-      SoporteActaId: {
-        title: 'Factura',
-        valuePrepareFunction: (value: any) => {
-          return value.Consecutivo;
-        },
-      },
-      TipoBienId: {
-        title: 'Tipo de Bien',
-        valuePrepareFunction: (value: any) => {
-          return value.Nombre;
-        },
-      },
-      SubgrupoCatalogoId: {
-        title: 'Subgrupo',
-      },
-      Nombre: {
-        title: 'Descripcion',
-      },
-      Cantidad: {
-        title: 'Cantidad',
-      },
-      Marca: {
-        title: 'Marca',
-      },
-      Serie: {
-        title: 'Serie',
-      },
-      UnidadMedida: {
-        title: 'Unidad de Medida',
-      },
-      ValorUnitario: {
-        title: 'Valor Unitario',
-      },
-      Subtotal: {
-        title: 'Subtotal',
-      },
-      Descuento: {
-        title: 'Descuento',
-      },
-      PorcentajeIvaId: {
-        title: '%IVA',
-      },
-      ValorIva: {
-        title: 'Valor IVA',
-      },
-      ValorFinal: {
-        title: 'Valor Total',
-      },
-    },
-  };
-
-  constructor(private actaRecibidoHelper: ActaRecibidoHelper, private pUpManager: PopUpManager) {
+  constructor(private actaRecibidoHelper: ActaRecibidoHelper, private pUpManager: PopUpManager, private translate: TranslateService) {
     this.source = new LocalDataSource();
     this.elementos = new Array<Elemento>();
+    this.loadTablaSettings();
   }
 
   loadElementos(): void {
@@ -122,8 +63,75 @@ export class TablaEntradasComponent implements OnInit {
     });
   }
 
+  loadTablaSettings() {
+    this.settings = {
+      hideSubHeader: true,
+      noDataMessage: 'No se encontraron elementos asociados.',
+      actions: {
+        columnTitle: 'Seleccionar',
+        position: 'right',
+        add: false,
+        edit: false,
+        delete: false,
+      },
+      columns: {
+        SoporteActaId: {
+          title: this.translate.instant('GLOBAL.factura'),
+          valuePrepareFunction: (value: any) => {
+            return value.Consecutivo;
+          },
+        },
+        TipoBienId: {
+          title: this.translate.instant('GLOBAL.tipo_bien'),
+          valuePrepareFunction: (value: any) => {
+            return value.Nombre;
+          },
+        },
+        SubgrupoCatalogoId: {
+          title: this.translate.instant('GLOBAL.subgrupo'),
+        },
+        Nombre: {
+          title: this.translate.instant('GLOBAL.descripcion'),
+        },
+        Cantidad: {
+          title: this.translate.instant('GLOBAL.cantidad'),
+        },
+        Marca: {
+          title: this.translate.instant('GLOBAL.marca'),
+        },
+        Serie: {
+          title: this.translate.instant('GLOBAL.serie'),
+        },
+        UnidadMedida: {
+          title: this.translate.instant('GLOBAL.unidad_medida'),
+        },
+        ValorUnitario: {
+          title: this.translate.instant('GLOBAL.valor_unitario'),
+        },
+        Subtotal: {
+          title: this.translate.instant('GLOBAL.subtotal'),
+        },
+        Descuento: {
+          title: this.translate.instant('GLOBAL.descuento'),
+        },
+        PorcentajeIvaId: {
+          title: '%'+this.translate.instant('GLOBAL.iva'),
+        },
+        ValorIva: {
+          title: this.translate.instant('GLOBAL.valor_iva'),
+        },
+        ValorFinal: {
+          title: this.translate.instant('GLOBAL.valor_total'),
+        },
+      },
+    };
+  }
+
   ngOnInit() {
     this.loadElementos();
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => { // Live reload
+      this.loadTablaSettings();;
+    });
   }
 
 }
