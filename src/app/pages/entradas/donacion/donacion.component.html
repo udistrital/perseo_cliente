@@ -92,7 +92,7 @@
           <label>{{'GLOBAL.ordenador_gasto' | translate}}</label>
           <div class="input-group">
             <input nbInput (change)="changeOrdenador($event)" type="text" shape="semi-round"
-              placeholder="Ordenador de Gasto" class="form-control" [readonly]="!solicitanteSelect"
+              placeholder="{{'GLOBAL.ordenador_gasto' | translate}}" class="form-control" [readonly]="!solicitanteSelect"
               list="solicitanteList" formControlName="solicitanteCtrl"
               [ngClass]="{'form-control-danger': solicitanteForm.invalid && (solicitanteForm.dirty || solicitanteForm.touched)}" />
           </div>
@@ -103,7 +103,7 @@
         <div class="form-group col-sm">
           <label>{{'GLOBAL.asignacion' | translate}}</label>
           <div class="input-group">
-            <input nbInput shape="semi-round" type="text" placeholder="Cargo" value="{{ cargoOrdenador }}" class="form-control" [readonly]="true" />
+            <input nbInput shape="semi-round" type="text" placeholder="{{'GLOBAL.asignacion' | translate}}" value="{{ cargoOrdenador }}" class="form-control" [readonly]="true" />
           </div>
         </div>
       </div>

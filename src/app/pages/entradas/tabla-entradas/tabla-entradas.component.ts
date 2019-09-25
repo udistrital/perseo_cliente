@@ -115,7 +115,7 @@ export class TablaEntradasComponent implements OnInit {
           title: this.translate.instant('GLOBAL.descuento'),
         },
         PorcentajeIvaId: {
-          title: '%'+this.translate.instant('GLOBAL.iva'),
+          title: '%' + this.translate.instant('GLOBAL.iva'),
         },
         ValorIva: {
           title: this.translate.instant('GLOBAL.valor_iva'),
@@ -130,7 +130,7 @@ export class TablaEntradasComponent implements OnInit {
   ngOnInit() {
     this.loadElementos();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => { // Live reload
-      this.loadTablaSettings();;
+      this.loadTablaSettings();
     });
   }
 

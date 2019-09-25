@@ -3,7 +3,7 @@
     "TITLE": "CONFIGURACION",
     "SELECT": "Cambiar idioma",
     "LOGIN": "Iniciar sesion",
-    "LOGOUT": "Cerra sesion",
+    "LOGOUT": "Cerrar sesion",
     "THEME": "Tema"
   },
   "MENU": {
@@ -244,6 +244,9 @@
     "datos_correctos": "Correct Data",
     "mensaje_registrar": "Click on Register Entry to continue",
     "contrato": "Contract",
-    "solicitante": "Requesting"
+    "solicitante": "Requesting",
+    "soporte": "Support Document",
+    "acta_produccion": "Production Document",
+    "tercero_administracion": "Third in Administration"
   }
 }

@@ -18,7 +18,7 @@ export class RegistroComponent implements OnInit {
   actas: Array<ActaRecibido>;
   actaSeleccionada: string;
   settings: any;
-  
+
   constructor(private actaRecibidoHelper: ActaRecibidoHelper, private pUpManager: PopUpManager, private translate: TranslateService) {
     this.source = new LocalDataSource();
     this.actas = new Array<ActaRecibido>();
@@ -91,9 +91,8 @@ export class RegistroComponent implements OnInit {
           title: this.translate.instant('GLOBAL.observaciones'),
         },
       },
-    };  
+    };
   }
-
 
   ngOnInit() {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => { // Live reload
