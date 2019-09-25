@@ -31,7 +31,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
 
   config: ToasterConfig;
   searchStr: string;
-  searchStr2: string;
+  searchStr2: string[];
   searchStr3: string;
   protected dataService: CompleterData;
   protected dataService2: CompleterData;
@@ -89,8 +89,11 @@ export class EdicionActaRecibidoComponent implements OnInit {
     private toasterService: ToasterService,
     private completerService: CompleterService,
   ) {
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => { // Live reload
+    });
   }
   ngOnInit() {
+    this.searchStr2 = new Array<string>();
     this.DatosElementos = new Array<any>();
     this.Elementos__Soporte = new Array<any>();
     const observable = combineLatest([
@@ -251,16 +254,6 @@ export class EdicionActaRecibidoComponent implements OnInit {
       }
     }
   }
-  Traer_Acta(Acta_Id: number) {
-    this.Transaccion__ = new TransaccionActaRecibido;
-    this.Actas_Recibido.getTransaccionActa(Acta_Id).subscribe(res => {
-      if (res !== null) {
-        this.Transaccion__ = res[0];
-
-        this.Cargar_Formularios(this.Transaccion__);
-      }
-    });
-  }
 
   Cargar_Formularios(transaccion_: TransaccionActaRecibido) {
 
@@ -268,11 +261,10 @@ export class EdicionActaRecibidoComponent implements OnInit {
     const elementos = new Array<any[]>();
 
     for (const Soporte of transaccion_.SoportesActa) {
-
       const Formulario__2 = this.fb.group({
         Id: [Soporte.SoporteActa.Id],
         Proveedor: [
-          this.Proveedores.find(proveedor => proveedor.Id.toString() === Soporte.SoporteActa.ProveedorId.toString()).NumDocumento,
+          this.Proveedores.find(proveedor => proveedor.Id.toString() === Soporte.SoporteActa.ProveedorId.toString()).compuesto,
           Validators.required,
         ],
         Consecutivo: [Soporte.SoporteActa.Consecutivo, Validators.required],
@@ -383,23 +375,26 @@ export class EdicionActaRecibidoComponent implements OnInit {
     Transaccion_Acta.ActaRecibido = this.Registrar_Acta(this.Datos.Formulario1, this.Datos.Formulario3);
     Transaccion_Acta.UltimoEstado = this.Registrar_Estado_Acta(Transaccion_Acta.ActaRecibido, 3);
     const Soportes = new Array<TransaccionSoporteActa>();
-    for (const soporte of this.Datos.Formulario2) {
-      Soportes.push(this.Registrar_Soporte(soporte, soporte.Elementos, Transaccion_Acta.ActaRecibido));
-    }
+    this.Datos.Formulario2.forEach((soporte, index) => {
+      Soportes.push(this.Registrar_Soporte(soporte, this.Elementos__Soporte[index], Transaccion_Acta.ActaRecibido));
+
+    });
     Transaccion_Acta.SoportesActa = Soportes;
     this.Actas_Recibido.putTransaccionActa(Transaccion_Acta, Transaccion_Acta.ActaRecibido.Id).subscribe((res: any) => {
       if (res !== null) {
         (Swal as any).fire({
           type: 'success',
-          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' Modificada',
-          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' ha sido modificada exitosamente',
+          title: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Acta') +
+            `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.ModificadaTitle'),
+          text: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Acta') +
+            `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Modificada'),
         });
-        this.router.navigate(['/consulta-acta-recibido']);
+        this.router.navigate(['/consulta-acta-recibido', {}]);
       } else {
         (Swal as any).fire({
           type: 'error',
-          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' No Modificada',
-          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' no ha podido ser modificada, intenta mas tarde',
+          title: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.ModificadaTitleNO'),
+          text: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.ModificadaNO'),
         });
       }
     });
@@ -411,23 +406,26 @@ export class EdicionActaRecibidoComponent implements OnInit {
     Transaccion_Acta.ActaRecibido = this.Registrar_Acta(this.Datos.Formulario1, this.Datos.Formulario3);
     Transaccion_Acta.UltimoEstado = this.Registrar_Estado_Acta(Transaccion_Acta.ActaRecibido, 4);
     const Soportes = new Array<TransaccionSoporteActa>();
-    for (const soporte of this.Datos.Formulario2) {
-      Soportes.push(this.Registrar_Soporte(soporte, soporte.Elementos, Transaccion_Acta.ActaRecibido));
-    }
+    this.Datos.Formulario2.forEach((soporte, index) => {
+      Soportes.push(this.Registrar_Soporte(soporte, this.Elementos__Soporte[index], Transaccion_Acta.ActaRecibido));
+
+    });
     Transaccion_Acta.SoportesActa = Soportes;
     this.Actas_Recibido.putTransaccionActa(Transaccion_Acta, Transaccion_Acta.ActaRecibido.Id).subscribe((res: any) => {
       if (res !== null) {
         (Swal as any).fire({
           type: 'success',
-          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' Enviada',
-          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' ha sido enviada a verificacion exitosamente',
+          title: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Acta') +
+           `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.VerificadaTitle'),
+          text: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Acta') +
+           `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Verificada'),
         });
-        this.router.navigate(['/consulta-acta-recibido']);
+        this.router.navigate(['/consulta-acta-recibido', {}]);
       } else {
         (Swal as any).fire({
           type: 'error',
-          title: 'Acta N° ' + `${res.ActaRecibido.Id}` + ' No Enviada',
-          text: 'El acta N° ' + `${res.ActaRecibido.Id}` + ' no ha podido ser enviada, intenta mas tarde',
+          title: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.VerificadaTitleNO'),
+          text: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.VerificadaNO'),
         });
       }
     });
@@ -443,7 +441,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
     Acta_de_Recibido.FechaCreacion = new Date();
     Acta_de_Recibido.FechaModificacion = new Date();
     Acta_de_Recibido.RevisorId = 123;
-    Acta_de_Recibido.UbicacionId = parseFloat(Datos.Ubicacion);
+    Acta_de_Recibido.UbicacionId = this.Ubicaciones.find(ubicacion => ubicacion.Nombre === Datos.Ubicacion).Id;
     Acta_de_Recibido.Observaciones = Datos2.Datos_Adicionales;
 
     return Acta_de_Recibido;
@@ -489,7 +487,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
       const valorTotal = (parseFloat(this.Pipe2Number(datos.Subtotal)) - parseFloat(this.Pipe2Number(datos.Descuento)));
 
       Elemento__.Id = parseFloat(Datos.Id);
-      Elemento__.Nombre = datos.Descripcion;
+      Elemento__.Nombre = datos.Nombre;
       Elemento__.Cantidad = parseFloat(this.Pipe2Number(datos.Cantidad));
       Elemento__.Marca = datos.Marca;
       Elemento__.Serie = datos.Serie;
@@ -574,15 +572,15 @@ export class EdicionActaRecibidoComponent implements OnInit {
   }
   Revisar_Totales() {
     (Swal as any).fire({
-      type: 'success',
-      title: 'Carga de Elementos',
-      text: 'Por favor verificar la carga de elementos, valores y totales asociados al soporte antes de actualizar el registro',
+      type: 'warning',
+      title: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.CargaElementosTitle'),
+      text: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.CargaElementos'),
     });
   }
   Revisar_Totales2() {
     (Swal as any).fire({
-      title: 'Esta Seguro?',
-      text: 'Esta seguro de que desea guardar los cambios?',
+      title: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.DatosVeridicosTitle'),
+      text: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.DatosVeridicos'),
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -597,8 +595,8 @@ export class EdicionActaRecibidoComponent implements OnInit {
   }
   Revisar_Totales3() {
     (Swal as any).fire({
-      title: 'Esta Seguro?',
-      text: 'Esta seguro de que desea enviar el acta a verificacion?',
+      title: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.DatosVeridicosTitle'),
+      text: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.DatosVeridicos2'),
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',

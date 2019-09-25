@@ -37,7 +37,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Entradas',
-    icon: 'nb-compose',
+    icon: 'nb-list',
     children: [
       {
         title: 'Consultar Entradas',
@@ -78,6 +78,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'Aprobación de Baja de Bien',
         link: '/pages/movimientos/aprobacion_baja_bien',
+      },
+    ],
+  },
+  {
+    title: 'Reportes',
+    icon: 'nb-compose',
+    children: [
+      {
+        title: 'Entradas',
+        link: '/pages/reportes/registro-entradas',
       },
     ],
   },

@@ -1,14 +1,18 @@
+import { TipoEntrada } from './tipo_entrada';
+
 export class Entrada {
+    Id: number;
     Solicitante: number;
     Observacion: string;
     Importacion: boolean;
     FechaCreacion: Date;
     FechaModificacion: Date;
     Activo: boolean;
-    TipoEntrada: number;
+    TipoEntradaId: TipoEntrada;
     ActaRecibidoId: number;
     ContratoId: number;
-    MovimientoId: number; // REVISAR
+    ElementoId: number; // REVISAR
     DocumentoContableId: number; // REVISAR
-    NumeroImportacion: number; // REVISAR
+    Consecutivo: string;
+    Vigencia: string;
 }

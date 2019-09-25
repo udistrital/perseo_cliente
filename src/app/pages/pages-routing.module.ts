@@ -29,6 +29,10 @@ const routes: Routes = [{
       loadChildren: './salidas/salidas.module#SalidasModule',
     },
     {
+      path: 'reportes',
+      loadChildren: './reportes/reportes.module#ReportesModule',
+    },
+    {
       path: '',
       redirectTo: 'dashboard',
       pathMatch: 'full',
