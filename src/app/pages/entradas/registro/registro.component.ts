@@ -19,7 +19,7 @@ export class RegistroComponent implements OnInit {
   actaSeleccionada: string;
   settings: any;
   opcionEntrada: string;
- 
+
   constructor(private actaRecibidoHelper: ActaRecibidoHelper, private pUpManager: PopUpManager, private translate: TranslateService) {
     this.source = new LocalDataSource();
     this.actas = new Array<ActaRecibido>();
