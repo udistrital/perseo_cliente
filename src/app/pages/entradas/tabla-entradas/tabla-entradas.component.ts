@@ -108,8 +108,11 @@ export class TablaEntradasComponent implements OnInit {
         Serie: {
           title: this.translate.instant('GLOBAL.serie'),
         },
-        UnidadMedida: {
+        UnidadMedidaId: {
           title: this.translate.instant('GLOBAL.unidad_medida'),
+          valuePrepareFunction: (value: any) => {
+            return value.Unidad;
+          },
         },
         ValorUnitario: {
           title: this.translate.instant('GLOBAL.valor_unitario'),
@@ -122,6 +125,9 @@ export class TablaEntradasComponent implements OnInit {
         },
         PorcentajeIvaId: {
           title: '%' + this.translate.instant('GLOBAL.iva'),
+          valuePrepareFunction: (value: any) => {
+            return value.Tarifa;
+          },
         },
         ValorIva: {
           title: this.translate.instant('GLOBAL.valor_iva'),
