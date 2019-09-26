@@ -10,7 +10,10 @@
       <ng2-smart-table [settings]="settings" [source]="source" (custom)="onCustom($event)"
         *ngIf="actaSeleccionada === ''"></ng2-smart-table>
 
+      <p class="h4 pb-4" *ngIf="actaSeleccionada != ''">{{'GLOBAL.mensaje_seleccionar_entrada' | translate}}</p>
+
       <h5 *ngIf="actaSeleccionada != ''">{{'GLOBAL.tipo_entrada' | translate}}</h5>
+
       <select class="form-control mb-4" [(ngModel)]="opcionEntrada" *ngIf="actaSeleccionada != ''">
         <option>Adquisición</option>
         <option>Reposición</option>

@@ -247,6 +247,8 @@
     "solicitante": "Solicitante",
     "soporte": "Soporte",
     "acta_produccion": "Acta de Producción",
-    "tercero_administracion": "Tercero en Administración"
+    "tercero_administracion": "Tercero en Administración",
+    "error": "Error",
+    "mensaje_seleccionar_entrada": "Seleccione el tipo de entrada que desea realizar"
   }
 }

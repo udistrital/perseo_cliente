@@ -106,7 +106,7 @@ export class ConsultaEntradaComponent implements OnInit {
       if (res !== null) {
         const data = <Array<any>>res;
         for (const datos in Object.keys(data)) {
-          if (data.hasOwnProperty(datos)) {
+          if (data.hasOwnProperty(datos) && data[datos].ActaRecibidoId !== undefined) {
             const entrada = new Entrada;
             entrada.ActaRecibidoId = data[datos].ActaRecibidoId;
             entrada.ContratoId = data[datos].ContratoId;

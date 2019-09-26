@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { LocalDataSource } from 'ngx-smart-table';
 import { PopUpManager } from '../../../managers/popUpManager';
-import { Elemento } from '../../../@core/data/models/acta_recibido/elemento';
+import { ElementoActa } from '../../../@core/data/models/acta_recibido/elemento';
 import { TipoBien } from '../../../@core/data/models/acta_recibido/tipo_bien';
 import { SoporteActa } from '../../../@core/data/models/acta_recibido/soporte_acta';
 import { ActaRecibidoHelper } from '../../../helpers/acta_recibido/actaRecibidoHelper';
@@ -15,14 +15,14 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 export class TablaEntradasComponent implements OnInit {
 
   source: LocalDataSource;
-  elementos: Array<Elemento>;
+  elementos: Array<ElementoActa>;
   settings: any;
 
   @Input() actaRecibidoId: string;
 
   constructor(private actaRecibidoHelper: ActaRecibidoHelper, private pUpManager: PopUpManager, private translate: TranslateService) {
     this.source = new LocalDataSource();
-    this.elementos = new Array<Elemento>();
+    this.elementos = new Array<ElementoActa>();
     this.loadTablaSettings();
   }
 
@@ -31,20 +31,25 @@ export class TablaEntradasComponent implements OnInit {
       if (res !== null) {
         const data = <Array<any>>res;
         for (const datos in Object.keys(data)) {
-          if (data.hasOwnProperty(datos)) {
-            const elemento = new Elemento;
+          if (data.hasOwnProperty(datos) && data[datos].Id !== undefined) {
+            const elemento = new ElementoActa;
             const tipoBien = new TipoBien;
             const soporteActa = new SoporteActa;
+
             elemento.Nombre = data[datos].Nombre;
             elemento.Cantidad = data[datos].Cantidad;
             elemento.Marca = data[datos].Marca;
             elemento.Serie = data[datos].Serie;
-            elemento.UnidadMedida = data[datos].UnidadMedida.Unidad;
+
+            elemento.UnidadMedidaId = data[datos].UnidadMedida;
+
             elemento.ValorUnitario = data[datos].ValorUnitario;
             elemento.Subtotal = data[datos].Subtotal;
             elemento.Descuento = data[datos].Descuento;
             elemento.ValorTotal = data[datos].ValorTotal;
+
             elemento.PorcentajeIvaId = data[datos].PorcentajeIvaId;
+
             elemento.ValorIva = data[datos].ValorIva;
             elemento.ValorFinal = data[datos].ValorFinal;
             elemento.Descuento = data[datos].Descuento;
@@ -55,6 +60,7 @@ export class TablaEntradasComponent implements OnInit {
             soporteActa.Consecutivo = data[datos].SoporteActaId.Consecutivo;
             elemento.SoporteActaId = soporteActa;
             elemento.SubgrupoCatalogoId = data[datos].SubgrupoCatalogoId;
+
             this.elementos.push(elemento);
           }
         }

@@ -247,6 +247,8 @@
     "solicitante": "Requesting",
     "soporte": "Support Document",
     "acta_produccion": "Production Document",
-    "tercero_administracion": "Third in Administration"
+    "tercero_administracion": "Third in Administration",
+    "error": "Error",
+    "mensaje_seleccionar_entrada": "Select the type of entry you want to make"
   }
 }
