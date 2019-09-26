@@ -394,7 +394,6 @@ export class RegistroActaRecibidoComponent implements OnInit {
   Registrar_Elementos(Datos: any, Soporte: SoporteActa): Array<Elemento> {
     const Elementos_Soporte = new Array<Elemento>();
     for (const datos of Datos) {
-
       const Elemento__ = new Elemento;
       const valorTotal = (parseFloat(this.Pipe2Number(datos.Subtotal)) - parseFloat(this.Pipe2Number(datos.Descuento)));
       // console.log(this.Unidades);
@@ -444,12 +443,13 @@ export class RegistroActaRecibidoComponent implements OnInit {
     'Acciones',
   ];
 
-  Pipe2Number(any: String) {
-    if (any !== null) {
-      return any.replace(/[$,]/g, '');
-    } else {
-      return '0';
-    }
+  Pipe2Number(any: string) {
+    // if (any !== null) {
+    //  return any.replace(/[$,]/g, '');
+    // } else {
+    //   return '0';
+    // }
+    return any
   }
   valortotal(subtotal: string, descuento: string, iva: string) {
     return (parseFloat(subtotal) - parseFloat(descuento) + parseFloat(iva));
@@ -471,6 +471,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
         this.Elementos__Soporte.push(this.DatosElementos);
       }
     }
+    console.log(this.Elementos__Soporte);
 
   }
   ver2(event: any, index: number) {

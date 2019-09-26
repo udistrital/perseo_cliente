@@ -557,6 +557,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
         this.Elementos__Soporte.push(this.DatosElementos);
       }
     }
+    console.log(this.Elementos__Soporte);
   }
   ver2(event: any, index: number) {
     this.DatosTotales = event;
@@ -642,16 +643,16 @@ export class EdicionActaRecibidoComponent implements OnInit {
   }
   usarLocalStorage() {
 
-    if (localStorage.Formulario == null) {
-      localStorage.setItem('Formulario', JSON.stringify(this.firstForm.value));
-      localStorage.setItem('Elementos_Formulario', JSON.stringify(this.Elementos__Soporte));
-      // console.log(JSON.parse(window.localStorage.Formulario));
-      // console.log(JSON.parse(window.localStorage.Elementos_Formulario));
+    if (sessionStorage.Formulario == null) {
+      sessionStorage.setItem('Formulario', JSON.stringify(this.firstForm.value));
+      sessionStorage.setItem('Elementos_Formulario', JSON.stringify(this.Elementos__Soporte));
+      // console.log(JSON.parse(window.sessionStorage.Formulario));
+      // console.log(JSON.parse(window.sessionStorage.Elementos_Formulario));
     } else {
-      localStorage.setItem('Formulario', JSON.stringify(this.firstForm.value));
-      localStorage.setItem('Elementos_Formulario', JSON.stringify(this.Elementos__Soporte));
-      // console.log(JSON.parse(window.localStorage.Formulario));
-      // console.log(JSON.parse(window.localStorage.Elementos_Formulario));
+      sessionStorage.setItem('Formulario', JSON.stringify(this.firstForm.value));
+      sessionStorage.setItem('Elementos_Formulario', JSON.stringify(this.Elementos__Soporte));
+      // console.log(JSON.parse(window.sessionStorage.Formulario));
+      // console.log(JSON.parse(window.sessionStorage.Elementos_Formulario));
     }
   }
 }
