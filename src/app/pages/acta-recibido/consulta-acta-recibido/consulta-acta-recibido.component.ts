@@ -307,7 +307,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
 
   loadActas(res: any): void {
     this.mostrar = true;
-    if (res !== undefined) {
+    if (res !== undefined && res !== []) {
       for (const index in res) {
         if (res.hasOwnProperty(index)) {
           const acta = new ConsultaActaRecibido;
@@ -329,6 +329,9 @@ export class ConsultaActaRecibidoComponent implements OnInit {
         }
       }
       this.source.load(this.actas);
+      this.actaSeleccionada = '';
+    } else {
+      this.source.load([]);
       this.actaSeleccionada = '';
     }
   }

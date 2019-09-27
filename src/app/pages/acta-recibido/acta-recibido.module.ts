@@ -18,6 +18,7 @@ import { EdicionActaRecibidoComponent } from './edicion-acta-recibido/edicion-ac
 import { VerDetalleComponent } from './ver-detalle/ver-detalle.component';
 import { CapturarElementosComponent } from './capturar-elementos/capturar-elementos.component';
 import { Ng2CompleterModule } from 'ng2-completer';
+import { NgxCurrencyModule } from 'ngx-currency';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { Ng2CompleterModule } from 'ng2-completer';
   ],
   imports: [
     CommonModule,
+    NgxCurrencyModule,
     ActaRecibidoRoutingModule,
     ThemeModule,
     Ng2SmartTableModule,

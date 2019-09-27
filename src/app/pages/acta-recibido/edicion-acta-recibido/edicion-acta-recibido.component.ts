@@ -416,9 +416,9 @@ export class EdicionActaRecibidoComponent implements OnInit {
         (Swal as any).fire({
           type: 'success',
           title: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Acta') +
-           `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.VerificadaTitle'),
+            `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.VerificadaTitle'),
           text: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Acta') +
-           `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Verificada'),
+            `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Verificada'),
         });
         this.router.navigate(['/consulta-acta-recibido', {}]);
       } else {
@@ -557,6 +557,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
         this.Elementos__Soporte.push(this.DatosElementos);
       }
     }
+    // console.log(this.Elementos__Soporte);
   }
   ver2(event: any, index: number) {
     this.DatosTotales = event;
@@ -638,6 +639,20 @@ export class EdicionActaRecibidoComponent implements OnInit {
       return this.Totales.map(t => t.ValorTotal).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
     } else {
       return '0';
+    }
+  }
+  usarLocalStorage() {
+
+    if (sessionStorage.Formulario == null) {
+      sessionStorage.setItem('Formulario', JSON.stringify(this.firstForm.value));
+      sessionStorage.setItem('Elementos_Formulario', JSON.stringify(this.Elementos__Soporte));
+      // console.log(JSON.parse(window.sessionStorage.Formulario));
+      // console.log(JSON.parse(window.sessionStorage.Elementos_Formulario));
+    } else {
+      sessionStorage.setItem('Formulario', JSON.stringify(this.firstForm.value));
+      sessionStorage.setItem('Elementos_Formulario', JSON.stringify(this.Elementos__Soporte));
+      // console.log(JSON.parse(window.sessionStorage.Formulario));
+      // console.log(JSON.parse(window.sessionStorage.Elementos_Formulario));
     }
   }
 }
