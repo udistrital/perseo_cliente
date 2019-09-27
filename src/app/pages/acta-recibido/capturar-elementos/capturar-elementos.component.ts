@@ -224,7 +224,7 @@ export class CapturarElementosComponent implements OnInit {
     if (this.dataSource.data.length !== 0) {
       this.Totales.Descuento = this.dataSource.data.map(t => t.Descuento).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
       const total = this.dataSource.data.map(t => t.Descuento).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
-      if (total >= 0.00){
+      if (total >= 0.00) {
         return total;
       } else {
         return '0';
@@ -239,7 +239,7 @@ export class CapturarElementosComponent implements OnInit {
     if (this.dataSource.data.length !== 0) {
       this.Totales.Subtotal = this.dataSource.data.map(t => t.Subtotal).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
       const total = this.dataSource.data.map(t => t.Subtotal).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
-      if (total >> 0.00){
+      if (total >> 0.00) {
         return total;
       } else {
         return '0';
@@ -254,7 +254,7 @@ export class CapturarElementosComponent implements OnInit {
     if (this.dataSource.data.length !== 0) {
       this.Totales.ValorIva = this.dataSource.data.map(t => t.ValorIva).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
       const total = this.dataSource.data.map(t => t.ValorIva).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
-      if (total >= 0.00){
+      if (total >= 0.00) {
         return total;
       } else {
         return '0';
@@ -269,7 +269,7 @@ export class CapturarElementosComponent implements OnInit {
     if (this.dataSource.data.length !== 0) {
       this.Totales.ValorTotal = this.dataSource.data.map(t => t.ValorTotal).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
       const total = this.dataSource.data.map(t => t.ValorTotal).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
-      if (total >= 0.00){
+      if (total >= 0.00) {
         return total;
       } else {
         return '0';
@@ -329,7 +329,7 @@ export class CapturarElementosComponent implements OnInit {
 
   valortotal(subtotal: string, descuento: string, iva: string) {
     const total = (parseFloat(subtotal) - parseFloat(descuento) + parseFloat(iva));
-      if (total >= 0.00){
+      if (total >= 0.00) {
         return total;
       } else {
         return 0;
@@ -337,7 +337,7 @@ export class CapturarElementosComponent implements OnInit {
   }
   valorXcantidad(valor_unitario: string, cantidad: string) {
     const total = (parseFloat(valor_unitario) * parseFloat(cantidad));
-    if (total >= 0.00){
+    if (total >= 0.00) {
       return total;
     } else {
       return '0';
@@ -347,7 +347,7 @@ export class CapturarElementosComponent implements OnInit {
     const tarifa = porcentaje_iva;
     const impuesto = this.Tarifas_Iva.find(tarifa_ => tarifa_.Id.toString() === tarifa.toString()).Tarifa;
     const total = ((parseFloat(subtotal) - parseFloat(descuento)) * impuesto / 100);
-    if (total >= 0.00){
+    if (total >= 0.00) {
       return total;
     } else {
       return '0';

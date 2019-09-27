@@ -118,14 +118,14 @@ export class RegistroActaRecibidoComponent implements OnInit {
         this.Cargar_Formularios();
       } else {
         const formulario = JSON.parse(sessionStorage.Formulario_Registro);
-        console.log(sessionStorage.Formulario_Registro);
-        console.log(sessionStorage.Elementos_Formulario_Registro);
-        var elementos;
-        if (sessionStorage.Elementos_FormularioRegistro === []){
-          elementos = []
+        // console.log(sessionStorage.Formulario_Registro);
+        // console.log(sessionStorage.Elementos_Formulario_Registro);
+        let elementos;
+        if (sessionStorage.Elementos_FormularioRegistro === []) {
+          elementos = [];
         } else {
           elementos = JSON.parse(sessionStorage.getItem('Elementos_Formulario_Registro'));
-          console.log(elementos);
+          // console.log(elementos);
         }
         (Swal as any).fire({
           type: 'warning',
@@ -148,17 +148,17 @@ export class RegistroActaRecibidoComponent implements OnInit {
               cancelButtonColor: '#3085d6',
               confirmButtonText: 'Si, Nuevo Registro',
               cancelButtonText: 'No, Usar Anterior',
-            }).then((result) => {
-              if (result.value){
+            }).then((result: any) => {
+              if (result.value) {
                 sessionStorage.removeItem('Formulario_Registro');
                 sessionStorage.removeItem('Elementos_Formulario_Registro');
                 this.Cargar_Formularios();
               } else {
                 this.Cargar_Formularios2(formulario, elementos);
               }
-            }); 
+            });
           }
-        }); 
+        });
       }
     });
   }
@@ -315,7 +315,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
     for (const Soporte of transaccion_.Formulario2) {
       const Formulario__2 = this.fb.group({
         Id: [''],
-        Proveedor: [Soporte.Proveedor, Validators.required,],
+        Proveedor: [Soporte.Proveedor, Validators.required],
         Consecutivo: [Soporte.Consecutivo, Validators.required],
         Fecha_Factura: [Soporte.Fecha_Factura, Validators.required],
         Soporte: ['', Validators.required],
@@ -527,7 +527,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
     // } else {
     //   return '0';
     // }
-    return any
+    return any;
   }
   valortotal(subtotal: string, descuento: string, iva: string) {
     return (parseFloat(subtotal) - parseFloat(descuento) + parseFloat(iva));

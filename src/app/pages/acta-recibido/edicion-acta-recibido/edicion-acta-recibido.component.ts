@@ -557,7 +557,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
         this.Elementos__Soporte.push(this.DatosElementos);
       }
     }
-    console.log(this.Elementos__Soporte);
+    // console.log(this.Elementos__Soporte);
   }
   ver2(event: any, index: number) {
     this.DatosTotales = event;
