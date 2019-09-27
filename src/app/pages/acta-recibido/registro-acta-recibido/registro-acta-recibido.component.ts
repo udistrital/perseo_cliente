@@ -21,6 +21,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Unidad } from '../../../@core/data/models/acta_recibido/unidades';
 import { CompleterService, CompleterData } from 'ng2-completer';
 import { HttpLoaderFactory } from '../../../app.module';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 
 
@@ -95,6 +96,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
     this.searchStr2 = new Array<string>();
     this.DatosElementos = new Array<any>();
     this.Elementos__Soporte = new Array<any>();
+
     const observable = combineLatest([
       this.Actas_Recibido.getParametros(),
       this.Actas_Recibido.getParametrosSoporte(),
@@ -111,7 +113,53 @@ export class RegistroActaRecibidoComponent implements OnInit {
       this.Traer_Proveedores_(Proveedores);
       this.Traer_Ubicaciones(ParametrosSoporte[0].Ubicaciones);
       this.Traer_Sedes(ParametrosSoporte[0].Sedes);
-      this.Cargar_Formularios();
+
+      if (sessionStorage.Formulario_Registro == null) {
+        this.Cargar_Formularios();
+      } else {
+        const formulario = JSON.parse(sessionStorage.Formulario_Registro);
+        console.log(sessionStorage.Formulario_Registro);
+        console.log(sessionStorage.Elementos_Formulario_Registro);
+        var elementos;
+        if (sessionStorage.Elementos_FormularioRegistro === []){
+          elementos = []
+        } else {
+          elementos = JSON.parse(sessionStorage.getItem('Elementos_Formulario_Registro'));
+          console.log(elementos);
+        }
+        (Swal as any).fire({
+          type: 'warning',
+          title: 'Registro sin completar',
+          text: 'Existe un registro nuevo sin terminar, que desea hacer?',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'Seguir con anterior',
+          cancelButtonText: 'Nuevo Registro, se eliminara el registro anterior',
+        }).then((result) => {
+          if (result.value) {
+            this.Cargar_Formularios2(formulario, elementos);
+          } else {
+            (Swal as any).fire({
+              type: 'warning',
+              title: 'Ultima Palabra?',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#3085d6',
+              confirmButtonText: 'Si, Nuevo Registro',
+              cancelButtonText: 'No, Usar Anterior',
+            }).then((result) => {
+              if (result.value){
+                sessionStorage.removeItem('Formulario_Registro');
+                sessionStorage.removeItem('Elementos_Formulario_Registro');
+                this.Cargar_Formularios();
+              } else {
+                this.Cargar_Formularios2(formulario, elementos);
+              }
+            }); 
+          }
+        }); 
+      }
     });
   }
   Traer_Dependencias(res: any) {
@@ -259,6 +307,37 @@ export class RegistroActaRecibidoComponent implements OnInit {
     });
     this.carga_agregada = true;
   }
+  Cargar_Formularios2(transaccion_: any, elementos_: any) {
+
+    const Form2 = this.fb.array([]);
+    const elementos = new Array<any[]>();
+
+    for (const Soporte of transaccion_.Formulario2) {
+      const Formulario__2 = this.fb.group({
+        Id: [''],
+        Proveedor: [Soporte.Proveedor, Validators.required,],
+        Consecutivo: [Soporte.Consecutivo, Validators.required],
+        Fecha_Factura: [Soporte.Fecha_Factura, Validators.required],
+        Soporte: ['', Validators.required],
+      });
+      Form2.push(Formulario__2);
+    }
+    this.Elementos__Soporte = elementos_;
+
+    this.firstForm = this.fb.group({
+      Formulario1: this.fb.group({
+        Id: [''],
+        Sede: [transaccion_.Formulario1.Sede, Validators.required],
+        Dependencia: [transaccion_.Formulario1.Dependencia, Validators.required],
+        Ubicacion: [transaccion_.Formulario1.Ubicacion, Validators.required],
+      }),
+      Formulario2: Form2,
+      Formulario3: this.fb.group({
+        Datos_Adicionales: [transaccion_.Formulario3.Datos_Adicionales, Validators.required],
+      }),
+    });
+    this.carga_agregada = true;
+  }
   get Formulario_1(): FormGroup {
     return this.fb.group({
       Sede: [''],
@@ -272,7 +351,6 @@ export class RegistroActaRecibidoComponent implements OnInit {
       Consecutivo: ['', Validators.required],
       Fecha_Factura: ['', Validators.required],
       Soporte: ['', Validators.required],
-      Elementos: this.fb.array([]),
     });
   }
   get Elementos(): FormGroup {
@@ -471,7 +549,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
         this.Elementos__Soporte.push(this.DatosElementos);
       }
     }
-    console.log(this.Elementos__Soporte);
+    this.usarLocalStorage();
 
   }
   ver2(event: any, index: number) {
@@ -506,6 +584,8 @@ export class RegistroActaRecibidoComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.onFirstSubmit();
+        sessionStorage.removeItem('Formulario_Registro');
+        sessionStorage.removeItem('Elementos_Formulario_Registro');
       }
     });
   }
@@ -538,6 +618,16 @@ export class RegistroActaRecibidoComponent implements OnInit {
       return this.Totales.map(t => t.ValorTotal).reduce((acc, value) => parseFloat(acc) + parseFloat(value));
     } else {
       return '0';
+    }
+  }
+  usarLocalStorage() {
+
+    if (sessionStorage.Formulario_Registro == null) {
+      sessionStorage.setItem('Formulario_Registro', JSON.stringify(this.firstForm.value));
+      sessionStorage.setItem('Elementos_Formulario_Registro', JSON.stringify(this.Elementos__Soporte));
+    } else {
+      sessionStorage.setItem('Formulario_Registro', JSON.stringify(this.firstForm.value));
+      sessionStorage.setItem('Elementos_Formulario_Registro', JSON.stringify(this.Elementos__Soporte));
     }
   }
 }

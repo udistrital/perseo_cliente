@@ -70,7 +70,7 @@
                               <div class="input-group">
                                 <input nbInput type="text" (keyup)="usarLocalStorage()"
                                   placeholder="{{'GLOBAL.Acta_Recibido.EdicionActa.Consecutivo' | translate}}"
-                                  class="form-control" formControlName="Consecutivo" required>
+                                  class="form-control" formControlName="Consecutivo" (keyup)="usarLocalStorage()" required>
                               </div>
                             </div>
                           </div>
@@ -80,7 +80,7 @@
                               <div class="input-group">
                                 <input nbInput (click)="usarLocalStorage()" 
                                   placeholder="{{'GLOBAL.Acta_Recibido.EdicionActa.FechaFiltro' | translate}}"
-                                  class="form-control" [nbDatepicker]="formpicker" formControlName="Fecha_Factura"
+                                  class="form-control" [nbDatepicker]="formpicker" (keyup)="usarLocalStorage()" formControlName="Fecha_Factura"
                                   required>
                                 <nb-datepicker (click)="usarLocalStorage()" #formpicker></nb-datepicker>
                               </div>

@@ -17,29 +17,29 @@
           <mat-step label="{{'GLOBAL.Acta_Recibido.RegistroActa.DatosTitle' | translate}}" formGroupName="Formulario1">
             <nb-card [nbSpinner]="!Sedes">
               <nb-card-body class="bla">
-                <div class="row">
+                <div class="row" (click)="usarLocalStorage()">
                   <div class="form-group col-sm">
                     <label>{{'GLOBAL.Acta_Recibido.RegistroActa.Sede' | translate}}</label>
-                    <select nbInput type="text" class="form-control" formControlName="Sede" required>
+                    <select nbInput type="text" class="form-control" formControlName="Sede" (click)="usarLocalStorage()" required>
                       <option *ngFor="let sede of Sedes" [(value)]="sede.Id">{{sede.Nombre}}</option>
                     </select>
                   </div>
                   <div class="form-group col-sm">
                     <label>{{'GLOBAL.Acta_Recibido.RegistroActa.Dependencia' | translate}}</label>
-                    <ng2-completer inputClass="form-control" nbInput [datasource]="dataService3"
+                    <ng2-completer inputClass="form-control" nbInput (keyup)="usarLocalStorage()" [datasource]="dataService3"
                       formControlName="Dependencia" [minSearchLength]="3">
                     </ng2-completer>
                   </div>
                   <div class="form-group col-sm">
                     <label>{{'GLOBAL.Acta_Recibido.RegistroActa.Ubicacion' | translate}}</label>
-                    <ng2-completer inputClass="form-control" nbInput [datasource]="dataService"
+                    <ng2-completer inputClass="form-control" nbInput (keyup)="usarLocalStorage()" [datasource]="dataService"
                       formControlName="Ubicacion" [minSearchLength]="3">
                     </ng2-completer>
                   </div>
                 </div>
               </nb-card-body>
               <nb-card-footer>
-                <button nbButton matStepperNext [disabled]="!firstForm.get('Formulario1').valid"
+                <button nbButton matStepperNext [disabled]="!firstForm.get('Formulario1').valid" (click)="usarLocalStorage()"
                   class="float-right">{{'GLOBAL.Acta_Recibido.RegistroActa.SiguienteButton' | translate}}</button>
               </nb-card-footer>
             </nb-card>
@@ -54,17 +54,17 @@
                     [formGroupName]="i">
                     <ng-template mat-tab-label>
                       {{'GLOBAL.Acta_Recibido.RegistroActa.SoporteSubTitle' | translate}} &nbsp; {{i + 1}} &nbsp; &nbsp;
-                      &nbsp; &nbsp;<i class="fas fa-window-close" (click)="removeTab(i)"></i>
+                      &nbsp; &nbsp;<i class="fas fa-window-close" (click)="removeTab(i); usarLocalStorage()"></i>
                     </ng-template>
                     <div>
                       <nb-card>
-                        <nb-card-body>
+                        <nb-card-body (click)="usarLocalStorage()">
                           <div class="row">
                             <div class="form-group col-sm">
                               <label>{{'GLOBAL.Acta_Recibido.RegistroActa.Proveedor' | translate}}</label>
                               <ng2-completer inputClass="form-control"
                                 placeholder="{{'GLOBAL.Acta_Recibido.RegistroActa.SeleccioneFiltro' | translate}}"
-                                nbInput [datasource]="dataService2" formControlName="Proveedor" [minSearchLength]="3">
+                                nbInput [datasource]="dataService2" formControlName="Proveedor" (keyup)="usarLocalStorage()" [minSearchLength]="3">
                               </ng2-completer>
                             </div>
                             <div class="form-group col-sm">
@@ -72,7 +72,7 @@
                               <div class="input-group">
                                 <input nbInput type="text"
                                   placeholder="{{'GLOBAL.Acta_Recibido.RegistroActa.SeleccioneFiltro' | translate}}"
-                                  class="form-control" formControlName="Consecutivo" required>
+                                  class="form-control" formControlName="Consecutivo" (keyup)="usarLocalStorage()" required>
                               </div>
                             </div>
                           </div>
@@ -82,28 +82,28 @@
                               <div class="input-group">
                                 <input nbInput
                                   placeholder="{{'GLOBAL.Acta_Recibido.RegistroActa.FechaFiltro' | translate}}"
-                                  class="form-control" [nbDatepicker]="formpicker" formControlName="Fecha_Factura"
+                                  class="form-control" [nbDatepicker]="formpicker" (keyup)="usarLocalStorage()" formControlName="Fecha_Factura"
                                   required>
                                 <nb-datepicker #formpicker></nb-datepicker>
                               </div>
                             </div>
                             <div class="form-group col-sm">
                               <label>{{'GLOBAL.Acta_Recibido.RegistroActa.Soporte' | translate}}</label>
-                              <input nbInput type="file" class="form-control-file" id="factura"
+                              <input nbInput type="file" class="form-control-file"(keyup)="usarLocalStorage()" id="factura"
                                 formControlName="Soporte" required>
                             </div>
                           </div>
                         </nb-card-body>
                       </nb-card>
 
-                      <ngx-capturar-elementos (DatosTotales)="ver2($event,i)" (DatosEnviados)="ver($event, i)">
+                      <ngx-capturar-elementos (click)="usarLocalStorage()" [DatosRecibidos]="Elementos__Soporte[i]" (DatosTotales)="ver2($event,i)" (DatosEnviados)="ver($event, i)">
                       </ngx-capturar-elementos>
 
                     </div>
                   </mat-tab>
                   <mat-tab [disabled]="true">
                     <ng-template mat-tab-label>
-                      <i class="fas fa-plus-square fa-2x" (click)="addTab()"></i>
+                      <i class="fas fa-plus-square fa-2x" (click)="addTab(); usarLocalStorage()"></i>
                     </ng-template>
                   </mat-tab>
                 </mat-tab-group>
@@ -112,7 +112,7 @@
                 <div class="justify-content-center">
                   <button nbButton
                     matStepperPrevious>{{'GLOBAL.Acta_Recibido.RegistroActa.AnteriorButton' | translate}}</button>
-                  <button nbButton matStepperNext (click)="Revisar_Totales()"
+                  <button nbButton matStepperNext (click)="Revisar_Totales(); usarLocalStorage()"
                     [disabled]="!firstForm.get('Formulario1').valid || !firstForm.get('Formulario2').valid"
                     class="float-right">{{'GLOBAL.Acta_Recibido.RegistroActa.SiguienteButton' | translate}}</button>
                 </div>
@@ -151,7 +151,7 @@
                   <label>{{'GLOBAL.Acta_Recibido.RegistroActa.Observaciones' | translate}}</label>
                   <div class="input-group">
                     <textarea rows="5" placeholder="{{'GLOBAL.Acta_Recibido.RegistroActa.Observaciones2' | translate}}"
-                      class="form-control" formControlName="Datos_Adicionales" required></textarea>
+                      class="form-control" formControlName="Datos_Adicionales" (keyup)="usarLocalStorage()" required></textarea>
                   </div>
                 </div>
               </nb-card-body>
