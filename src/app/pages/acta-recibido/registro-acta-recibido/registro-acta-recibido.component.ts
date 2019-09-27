@@ -148,8 +148,8 @@ export class RegistroActaRecibidoComponent implements OnInit {
               cancelButtonColor: '#3085d6',
               confirmButtonText: 'Si, Nuevo Registro',
               cancelButtonText: 'No, Usar Anterior',
-            }).then((result: any) => {
-              if (result.value) {
+            }).then((result2) => {
+              if (result2.value) {
                 sessionStorage.removeItem('Formulario_Registro');
                 sessionStorage.removeItem('Elementos_Formulario_Registro');
                 this.Cargar_Formularios();
