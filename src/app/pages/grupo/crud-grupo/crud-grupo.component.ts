@@ -34,7 +34,7 @@ export class CrudGrupoComponent implements OnInit {
   constructor(
     private translate: TranslateService,
     private catalogoElementosService: CatalogoElementosHelper,
-    private toasterService: ToasterService
+    private toasterService: ToasterService,
     ) {
     this.formGrupo = FORM_GRUPO;
     this.construirForm();

@@ -33,7 +33,7 @@ export class CrudCatalogoComponent implements OnInit {
   constructor(
     private translate: TranslateService,
     private catalogoElementosService: CatalogoElementosHelper,
-    private toasterService: ToasterService
+    private toasterService: ToasterService,
     ) {
     this.formCatalogo = FORM_CATALOGO;
     this.construirForm();
