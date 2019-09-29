@@ -30,7 +30,11 @@ export class CrudCatalogoComponent implements OnInit {
   regCatalogo: any;
   clean: boolean;
 
-  constructor(private translate: TranslateService, private catalogoElementosService: CatalogoElementosHelper, private toasterService: ToasterService) {
+  constructor(
+    private translate: TranslateService,
+    private catalogoElementosService: CatalogoElementosHelper,
+    private toasterService: ToasterService
+    ) {
     this.formCatalogo = FORM_CATALOGO;
     this.construirForm();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -56,7 +60,7 @@ export class CrudCatalogoComponent implements OnInit {
     for (let index = 0; index < this.formCatalogo.campos.length; index++) {
       const element = this.formCatalogo.campos[index];
       if (element.nombre === nombre) {
-        return index
+        return index;
       }
     }
     return 0;

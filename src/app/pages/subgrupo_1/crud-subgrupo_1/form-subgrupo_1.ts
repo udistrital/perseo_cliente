@@ -54,4 +54,4 @@ export let FORM_SUBGRUPO_1 = {
         opciones: [],
     },
     ],
-}
+};

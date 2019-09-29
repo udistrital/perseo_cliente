@@ -69,6 +69,7 @@
 
     "no-missing-end-of-source-newline": true,
 
-    "max-line-length": 120
+    "max-line-length": 120,
+    "no-output-rename": true
   }
 }

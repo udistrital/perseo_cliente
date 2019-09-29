@@ -61,4 +61,4 @@ export let FORM_CATALOGO = {
         tipo: 'checkbox',
     },
     ],
-}
+};

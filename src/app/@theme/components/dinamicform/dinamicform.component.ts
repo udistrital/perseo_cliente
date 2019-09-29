@@ -82,7 +82,7 @@ export class DinamicformComponent implements OnInit, OnChanges {
               }
             }
           });
-          this.setPercentage()
+          this.setPercentage();
         }
       }
     }
@@ -104,7 +104,7 @@ export class DinamicformComponent implements OnInit, OnChanges {
   onChange(event, c) {
     console.info(c.valor);
     if (c.valor !== undefined) {
-      c.urlTemp = URL.createObjectURL(event.srcElement.files[0])
+      c.urlTemp = URL.createObjectURL(event.srcElement.files[0]);
       c.url = this.cleanURL(c.urlTemp);
       c.valor = event.srcElement.files[0];
       console.info(c);
@@ -270,7 +270,7 @@ export class DinamicformComponent implements OnInit, OnChanges {
     const dataTemp = {
       data: result,
       button: c.nombre,
-    }
+    };
     this.resultAux.emit(dataTemp);
   }
 

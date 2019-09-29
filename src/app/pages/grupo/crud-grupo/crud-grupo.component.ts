@@ -31,7 +31,11 @@ export class CrudGrupoComponent implements OnInit {
   regGrupo: any;
   clean: boolean;
 
-  constructor(private translate: TranslateService, private catalogoElementosService: CatalogoElementosHelper, private toasterService: ToasterService) {
+  constructor(
+    private translate: TranslateService,
+    private catalogoElementosService: CatalogoElementosHelper,
+    private toasterService: ToasterService
+    ) {
     this.formGrupo = FORM_GRUPO;
     this.construirForm();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -68,7 +72,7 @@ export class CrudGrupoComponent implements OnInit {
     for (let index = 0; index < this.formGrupo.campos.length; index++) {
       const element = this.formGrupo.campos[index];
       if (element.nombre === nombre) {
-        return index
+        return index;
       }
     }
     return 0;

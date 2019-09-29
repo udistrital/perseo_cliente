@@ -19,7 +19,11 @@ export class ListSubgrupo2Component implements OnInit {
 
   source: LocalDataSource = new LocalDataSource();
 
-  constructor(private translate: TranslateService, private catalogoElementosService: CatalogoElementosHelper, private toasterService: ToasterService) {
+  constructor(
+    private translate: TranslateService,
+    private catalogoElementosService: CatalogoElementosHelper,
+    private toasterService: ToasterService
+    ) {
     this.loadData();
     this.cargarCampos();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
