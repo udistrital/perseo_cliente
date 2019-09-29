@@ -114,6 +114,53 @@ export class EdicionActaRecibidoComponent implements OnInit {
       this.Traer_Ubicaciones(ParametrosSoporte[0].Ubicaciones);
       this.Traer_Sedes(ParametrosSoporte[0].Sedes);
       this.Cargar_Formularios(Acta[0]);
+
+      if (sessionStorage.Formulario_Edicion == null) {
+        this.Cargar_Formularios(Acta[0]);
+      } else {
+        const formulario = JSON.parse(sessionStorage.Formulario_Edicion);
+        // console.log(sessionStorage.Formulario_Registro);
+        // console.log(sessionStorage.Elementos_Formulario_Registro);
+        let elementos;
+        if (sessionStorage.Elementos_Formulario_Edicion === []) {
+          elementos = [];
+        } else {
+          elementos = JSON.parse(sessionStorage.getItem('Elementos_Formulario_Registro'));
+          // console.log(elementos);
+        }
+        // (Swal as any).fire({
+        //   type: 'warning',
+        //   title: 'Registro sin completar',
+        //   text: 'Existe un registro nuevo sin terminar, que desea hacer?',
+        //   showCancelButton: true,
+        //   confirmButtonColor: '#3085d6',
+        //   cancelButtonColor: '#3085d6',
+        //   confirmButtonText: 'Seguir con anterior',
+        //   cancelButtonText: 'Nuevo Registro, se eliminara el registro anterior',
+        // }).then((result) => {
+        //   if (result.value) {
+        //     this.Cargar_Formularios2(formulario, elementos);
+        //   } else {
+        //     (Swal as any).fire({
+        //       type: 'warning',
+        //       title: 'Ultima Palabra?',
+        //       showCancelButton: true,
+        //       confirmButtonColor: '#3085d6',
+        //       cancelButtonColor: '#3085d6',
+        //       confirmButtonText: 'Si, Nuevo Registro',
+        //       cancelButtonText: 'No, Usar Anterior',
+        //     }).then((result2) => {
+        //       if (result2.value) {
+        //         sessionStorage.removeItem('Formulario_Registro');
+        //         sessionStorage.removeItem('Elementos_Formulario_Registro');
+        //         this.Cargar_Formularios();
+        //       } else {
+        //         this.Cargar_Formularios2(formulario, elementos);
+        //       }
+        //     });
+        //   }
+        // });
+      }
     });
   }
   Traer_Dependencias(res: any) {
@@ -643,16 +690,12 @@ export class EdicionActaRecibidoComponent implements OnInit {
   }
   usarLocalStorage() {
 
-    if (sessionStorage.Formulario == null) {
-      sessionStorage.setItem('Formulario', JSON.stringify(this.firstForm.value));
-      sessionStorage.setItem('Elementos_Formulario', JSON.stringify(this.Elementos__Soporte));
-      // console.log(JSON.parse(window.sessionStorage.Formulario));
-      // console.log(JSON.parse(window.sessionStorage.Elementos_Formulario));
+    if (sessionStorage.Formulario_Registro == null) {
+      sessionStorage.setItem('Formulario_Edicion', JSON.stringify(this.firstForm.value));
+      sessionStorage.setItem('Elementos_Formulario_Edicion', JSON.stringify(this.Elementos__Soporte));
     } else {
-      sessionStorage.setItem('Formulario', JSON.stringify(this.firstForm.value));
-      sessionStorage.setItem('Elementos_Formulario', JSON.stringify(this.Elementos__Soporte));
-      // console.log(JSON.parse(window.sessionStorage.Formulario));
-      // console.log(JSON.parse(window.sessionStorage.Elementos_Formulario));
+      sessionStorage.setItem('Formulario_Edicion', JSON.stringify(this.firstForm.value));
+      sessionStorage.setItem('Elementos_Formulario_Edicion', JSON.stringify(this.Elementos__Soporte));
     }
   }
 }

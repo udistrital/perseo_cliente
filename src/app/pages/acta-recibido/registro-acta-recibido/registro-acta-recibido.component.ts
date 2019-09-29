@@ -121,7 +121,7 @@ export class RegistroActaRecibidoComponent implements OnInit {
         // console.log(sessionStorage.Formulario_Registro);
         // console.log(sessionStorage.Elementos_Formulario_Registro);
         let elementos;
-        if (sessionStorage.Elementos_FormularioRegistro === []) {
+        if (sessionStorage.Elementos_Formulario_Registro === []) {
           elementos = [];
         } else {
           elementos = JSON.parse(sessionStorage.getItem('Elementos_Formulario_Registro'));
