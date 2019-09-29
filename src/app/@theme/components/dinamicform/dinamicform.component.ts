@@ -14,11 +14,11 @@ export class DinamicformComponent implements OnInit, OnChanges {
   @Input('normalform') normalform: any;
   @Input('modeloData') modeloData: any;
   @Input('clean') clean: boolean;
-  @Output('result') result: EventEmitter<any> = new EventEmitter();
-  @Output('resultAux') resultAux: EventEmitter<any> = new EventEmitter();
-  @Output('resultSmart') resultSmart: EventEmitter<any> = new EventEmitter();
-  @Output('interlaced') interlaced: EventEmitter<any> = new EventEmitter();
-  @Output('percentage') percentage: EventEmitter<any> = new EventEmitter();
+  @Output() result: EventEmitter<any> = new EventEmitter();
+  @Output() resultAux: EventEmitter<any> = new EventEmitter();
+  @Output() resultSmart: EventEmitter<any> = new EventEmitter();
+  @Output() interlaced: EventEmitter<any> = new EventEmitter();
+  @Output() percentage: EventEmitter<any> = new EventEmitter();
   data: any;
   @ViewChild(MatDatepicker) datepicker: MatDatepicker<Date>;
 
