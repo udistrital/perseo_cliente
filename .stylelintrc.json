@@ -57,8 +57,6 @@
     "selector-type-case": "lower",
     "selector-max-id": 0,
     "no-missing-end-of-source-newline": true,
-    "max-line-length": 120,
-    "no-output-rename": true,
-    "no-input-rename": true
+    "max-line-length": 120
   }
 }
