@@ -126,8 +126,8 @@ export class TablaEntradasComponent implements OnInit {
             const formatter = new Intl.NumberFormat('en-US', {
               style: 'currency',
               currency: 'USD',
-              minimumFractionDigits: 2
-            })
+              minimumFractionDigits: 2,
+            });
             return formatter.format(value);
           },
         },
@@ -137,8 +137,8 @@ export class TablaEntradasComponent implements OnInit {
             const formatter = new Intl.NumberFormat('en-US', {
               style: 'currency',
               currency: 'USD',
-              minimumFractionDigits: 2
-            })
+              minimumFractionDigits: 2,
+            });
             return formatter.format(value);
           },
         },
@@ -148,8 +148,8 @@ export class TablaEntradasComponent implements OnInit {
             const formatter = new Intl.NumberFormat('en-US', {
               style: 'currency',
               currency: 'USD',
-              minimumFractionDigits: 2
-            })
+              minimumFractionDigits: 2,
+            });
             return formatter.format(value);
           },
         },
@@ -165,8 +165,8 @@ export class TablaEntradasComponent implements OnInit {
             const formatter = new Intl.NumberFormat('en-US', {
               style: 'currency',
               currency: 'USD',
-              minimumFractionDigits: 2
-            })
+              minimumFractionDigits: 2,
+            });
             return formatter.format(value);
           },
         },
@@ -176,8 +176,8 @@ export class TablaEntradasComponent implements OnInit {
             const formatter = new Intl.NumberFormat('en-US', {
               style: 'currency',
               currency: 'USD',
-              minimumFractionDigits: 2
-            })
+              minimumFractionDigits: 2,
+            });
             return formatter.format(value);
           },
         },

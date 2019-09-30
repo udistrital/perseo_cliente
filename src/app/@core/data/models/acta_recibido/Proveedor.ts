@@ -17,7 +17,7 @@ export class Proveedor {
     TipoCuentaBancaria: string;
     NumCuentaBancaria: string;
     IdEntidadBancaria: number;
-    FechaRegistro : string;
+    FechaRegistro: string;
     FechaUltimaModificacion: string;
     NomProveedor: string;
     Anexorut: string;
