@@ -90,7 +90,7 @@ export class TablaEntradasComponent implements OnInit {
         TipoBienId: {
           title: this.translate.instant('GLOBAL.tipo_bien'),
           valuePrepareFunction: (value: any) => {
-            return value.Nombre;
+            return value.Nombre.toUpperCase( );
           },
         },
         SubgrupoCatalogoId: {
@@ -98,12 +98,18 @@ export class TablaEntradasComponent implements OnInit {
         },
         Nombre: {
           title: this.translate.instant('GLOBAL.descripcion'),
+          valuePrepareFunction: (value: any) => {
+            return value.toUpperCase( );
+          },
         },
         Cantidad: {
           title: this.translate.instant('GLOBAL.cantidad'),
         },
         Marca: {
           title: this.translate.instant('GLOBAL.marca'),
+          valuePrepareFunction: (value: any) => {
+            return value.toUpperCase( );
+          },
         },
         Serie: {
           title: this.translate.instant('GLOBAL.serie'),
@@ -116,12 +122,36 @@ export class TablaEntradasComponent implements OnInit {
         },
         ValorUnitario: {
           title: this.translate.instant('GLOBAL.valor_unitario'),
+          valuePrepareFunction: (value: any) => {
+            const formatter = new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'USD',
+              minimumFractionDigits: 2
+            })
+            return formatter.format(value);
+          },
         },
         Subtotal: {
           title: this.translate.instant('GLOBAL.subtotal'),
+          valuePrepareFunction: (value: any) => {
+            const formatter = new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'USD',
+              minimumFractionDigits: 2
+            })
+            return formatter.format(value);
+          },
         },
         Descuento: {
           title: this.translate.instant('GLOBAL.descuento'),
+          valuePrepareFunction: (value: any) => {
+            const formatter = new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'USD',
+              minimumFractionDigits: 2
+            })
+            return formatter.format(value);
+          },
         },
         PorcentajeIvaId: {
           title: '%' + this.translate.instant('GLOBAL.iva'),
@@ -131,9 +161,25 @@ export class TablaEntradasComponent implements OnInit {
         },
         ValorIva: {
           title: this.translate.instant('GLOBAL.valor_iva'),
+          valuePrepareFunction: (value: any) => {
+            const formatter = new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'USD',
+              minimumFractionDigits: 2
+            })
+            return formatter.format(value);
+          },
         },
         ValorFinal: {
           title: this.translate.instant('GLOBAL.valor_total'),
+          valuePrepareFunction: (value: any) => {
+            const formatter = new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'USD',
+              minimumFractionDigits: 2
+            })
+            return formatter.format(value);
+          },
         },
       },
     };

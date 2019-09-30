@@ -19,8 +19,8 @@ export class ActaRecibidoHelper {
      * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
      */
     public getActasRecibido() {
-        this.rqManager.setPath('ACTA_RECIBIDO_SERVICE');
-        return this.rqManager.get('historico_acta?query=EstadoActaId.Id:5,Activo:True&limit=-1').pipe(
+        this.rqManager.setPath('ARKA_SERVICE');
+        return this.rqManager.get('/acta_recibido/get_actas_recibido_tipo/5').pipe(
             map(
                 (res) => {
                     if (res === 'error') {
@@ -62,8 +62,8 @@ export class ActaRecibidoHelper {
      * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
      */
     public getSoporte(actaId) {
-        this.rqManager.setPath('ACTA_RECIBIDO_SERVICE');
-        return this.rqManager.get('soporte_acta?query=ActaRecibidoId:' + actaId + ',ActaRecibidoId.Activo:True&limit=-1').pipe(
+        this.rqManager.setPath('ARKA_SERVICE');
+        return this.rqManager.get('acta_recibido/get_soportes_acta/' + actaId).pipe(
             map(
                 (res) => {
                     if (res === 'error') {

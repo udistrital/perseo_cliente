@@ -30,7 +30,7 @@ export class RegistroComponent implements OnInit {
   loadTablaSettings() {
     this.settings = {
       hideSubHeader: false,
-      noDataMessage: this.translate.instant('GLOBAL.no_data'),
+      noDataMessage: this.translate.instant('GLOBAL.no_data_actas_entrada'),
       actions: {
         columnTitle: this.translate.instant('GLOBAL.acciones'),
         position: 'right',

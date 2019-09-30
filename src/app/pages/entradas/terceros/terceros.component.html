@@ -19,7 +19,8 @@
         </div>
         <div class="form-group col-sm">
           <label>{{'GLOBAL.vigencia' | translate}}</label>
-          <select class="form-control" (change)="changeSelectVigencia($event)" [disabled]="!tipoContratoSelect">
+          <select class="form-control" (change)="changeSelectVigencia($event)" [disabled]="!tipoContratoSelect"
+            formControlName="vigenciaCtrl">
             <option disabled selected>{{'GLOBAL.seleccionar' | translate}}...</option>
             <option value="{{ vigencia }}">{{ vigencia }}</option>
             <option value="{{ vigencia-1 }}">{{ vigencia-1 }}</option>

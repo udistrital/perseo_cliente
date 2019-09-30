@@ -19,7 +19,8 @@
         </div>
         <div class="form-group col-sm">
           <label>{{'GLOBAL.vigencia' | translate}}</label>
-          <select class="form-control" (change)="changeSelectVigencia($event)" [disabled]="!tipoContratoSelect">
+          <select class="form-control" (change)="changeSelectVigencia($event)" [disabled]="!tipoContratoSelect"
+            formControlName="vigenciaCtrl">
             <option disabled selected>{{'GLOBAL.seleccionar' | translate}}...</option>
             <option value="{{ vigencia }}">{{ vigencia }}</option>
             <option value="{{ vigencia-1 }}">{{ vigencia-1 }}</option>
@@ -28,8 +29,9 @@
         <div class="form-group col-sm">
           <label>{{'GLOBAL.numero_contrato' | translate}}</label>
           <div class="input-group">
-            <input nbInput type="text" shape="semi-round" placeholder="{{'GLOBAL.placeholder_contrato' | translate}}" class="form-control"
-              [readonly]="!vigenciaSelect || !tipoContratoSelect" list="contratosList" formControlName="contratoCtrl"
+            <input nbInput type="text" shape="semi-round" placeholder="{{'GLOBAL.placeholder_contrato' | translate}}"
+              class="form-control" [readonly]="!vigenciaSelect || !tipoContratoSelect" list="contratosList"
+              formControlName="contratoCtrl"
               [ngClass]="{'form-control-danger': contratoForm.invalid && (contratoForm.dirty || contratoForm.touched)}" />
           </div>
           <datalist id="contratosList">
@@ -37,7 +39,8 @@
           </datalist>
         </div>
       </div>
-      <button type="button" (click)="onContratoSubmit()" nbButton nbStepperNext>{{'GLOBAL.siguiente' | translate}}</button>
+      <button type="button" (click)="onContratoSubmit()" nbButton
+        nbStepperNext>{{'GLOBAL.siguiente' | translate}}</button>
     </form>
   </nb-step>
 
@@ -111,15 +114,15 @@
         <div class="form-group col-sm">
           <label>{{'GLOBAL.proveedor' | translate}}</label>
           <div class="input-group">
-            <input nbInput type="text" shape="semi-round" placeholder="{{'GLOBAL.razon_social' | translate}}" class="form-control"
-              value="{{proveedor}}" [readonly]="true" />
+            <input nbInput type="text" shape="semi-round" placeholder="{{'GLOBAL.razon_social' | translate}}"
+              class="form-control" value="{{proveedor}}" [readonly]="true" />
           </div>
         </div>
         <div class="form-group col-sm">
           <label>{{'GLOBAL.fecha_factura' | translate}}</label>
           <div class="input-group">
-            <input nbInput type="text" shape="semi-round" placeholder="{{'GLOBAL.fecha_factura' | translate}}" class="form-control"
-              value="{{ fechaFactura }}" [readonly]="true">
+            <input nbInput type="text" shape="semi-round" placeholder="{{'GLOBAL.fecha_factura' | translate}}"
+              class="form-control" value="{{ fechaFactura }}" [readonly]="true">
           </div>
         </div>
       </div>
@@ -127,12 +130,13 @@
         <div class="form-group col-sm">
           <label>{{'GLOBAL.importacion' | translate}}</label>
           <div class="input-group">
-            <nb-checkbox status="success"></nb-checkbox>
+            <nb-checkbox status="success" (change)="changeCheck()"></nb-checkbox>
           </div>
         </div>
       </div>
       <button nbButton nbStepperPrevious>{{'GLOBAL.anterior' | translate}}</button>
-      <button type="button" (click)="onFacturaSubmit()" nbButton nbStepperNext>{{'GLOBAL.siguiente' | translate}}</button>
+      <button type="button" (click)="onFacturaSubmit()" nbButton
+        nbStepperNext>{{'GLOBAL.siguiente' | translate}}</button>
     </form>
   </nb-step>
 
@@ -143,8 +147,8 @@
       <div class="row">
         <div class="form-group  col-lg-12">
           <div class="input-group">
-            <textarea rows="5" shape="semi-round" placeholder="{{'GLOBAL.observaciones' | translate}}" class="form-control"
-              formControlName="observacionCtrl"></textarea>
+            <textarea rows="5" shape="semi-round" placeholder="{{'GLOBAL.observaciones' | translate}}"
+              class="form-control" formControlName="observacionCtrl"></textarea>
           </div>
         </div>
       </div>
