@@ -36,7 +36,7 @@ export let FORM_CATALOGO = {
     {
         etiqueta: 'mat-date',
         claseGrid: 'col-6',
-        nombre: 'Fechainicio',
+        nombre: 'FechaInicio',
         label_i18n: 'fechainicio',
         placeholder_i18n: 'fechainicio',
         requerido: true,
@@ -45,7 +45,7 @@ export let FORM_CATALOGO = {
     {
         etiqueta: 'mat-date',
         claseGrid: 'col-6',
-        nombre: 'Fechafin',
+        nombre: 'FechaFin',
         label_i18n: 'fechafin',
         placeholder_i18n: 'fechafin',
         requerido: true,

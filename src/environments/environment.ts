@@ -20,7 +20,9 @@ export const environment = {
   UNIDADES_SERVICE: 'http://pruebasapi.intranetoas.udistrital.edu.co:8104/v1/',
   ACTA_RECIBIDO_SERVICE: 'http://10.20.2.143:8080/v1/',
   ARKA_SERVICE: 'http://10.20.2.143:8084/v1/',
+  CATALOGO_ELEMENTOS_SERVICE: 'http://10.20.2.134:8087/v1/',
 
+  // CATALOGO_ELEMENTOS_SERVICE: 'http://localhost:8087/v1/',
   // ACTA_RECIBIDO_SERVICE: 'http://localhost:8080/v1/',
   // ARKA_SERVICE: 'http://localhost:8084/v1/',
 

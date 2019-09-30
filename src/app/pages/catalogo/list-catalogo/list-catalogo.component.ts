@@ -70,14 +70,14 @@ export class ListCatalogoComponent implements OnInit {
             return value;
           },
         },
-        Fechainicio: {
+        FechaInicio: {
           title: this.translate.instant('GLOBAL.fechainicio'),
           // type: 'Date;',
           valuePrepareFunction: (value) => {
             return value;
           },
         },
-        Fechafin: {
+        FechaFin: {
           title: this.translate.instant('GLOBAL.fechafin'),
           // type: 'Date;',
           valuePrepareFunction: (value) => {
@@ -103,6 +103,7 @@ export class ListCatalogoComponent implements OnInit {
     this.catalogoElementosService.getCatalogo().subscribe(res => {
       if (res !== null) {
         const data = <Array<any>>res;
+        console.log(data);
         this.source.load(data);
           }
     });

@@ -3,7 +3,7 @@ export class Catalogo {
   Id: number;
   Nombre: string;
   Descripcion: string;
-  Fechainicio: Date;
-  Fechafin: Date;
+  FechaInicio: Date;
+  FechaFin: Date;
   Activo: boolean;
 }

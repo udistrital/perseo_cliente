@@ -69,10 +69,10 @@ export class CrudCatalogoComponent implements OnInit {
 
   public loadCatalogo(): void {
     if (this.catalogo_id !== undefined && this.catalogo_id !== 0) {
-      this.catalogoElementosService.getCatalogoById('catalogo/?query=id:' + this.catalogo_id)
+      this.catalogoElementosService.getCatalogoById(this.catalogo_id)
         .subscribe(res => {
           if (res !== null) {
-            this.info_catalogo = <Catalogo>res[0];
+            this.info_catalogo = <Catalogo>res;
           }
         });
     } else  {
@@ -118,6 +118,7 @@ export class CrudCatalogoComponent implements OnInit {
     .then((willDelete) => {
       if (willDelete.value) {
         this.info_catalogo = <Catalogo>catalogo;
+        console.log(this.info_catalogo);
         this.catalogoElementosService.postCatalogo(this.info_catalogo)
           .subscribe(res => {
             this.info_catalogo = <Catalogo><unknown>res;

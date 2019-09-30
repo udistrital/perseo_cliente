@@ -19,11 +19,11 @@ export class CatalogoElementosHelper {
      */
     public getCatalogo() {
         this.rqManager.setPath('CATALOGO_ELEMENTOS_SERVICE');
-        return this.rqManager.get('historico_acta?query=EstadoActaId.Nombre:Aceptada,ActaRecibidoId.Activo:True').pipe(
+        return this.rqManager.get('catalogo?limit=-1').pipe(
             map(
                 (res) => {
                     if (res === 'error') {
-                        this.pUpManager.showErrorAlert('No se pudo consultar las actas de recibido');
+                        this.pUpManager.showErrorAlert('No se pudo consultar los catalogos');
                         return undefined;
                     }
                     return res;
@@ -37,13 +37,13 @@ export class CatalogoElementosHelper {
      * If the response is successs, it returns the object's data.
      * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
      */
-    public getCatalogoById(actaId) {
-        this.rqManager.setPath('ACTA_RECIBIDO_SERVICE');
-        return this.rqManager.get('elemento?query=SoporteActaId.ActaRecibidoId.Id:' + actaId + ',SoporteActaId.ActaRecibidoId.Activo:True').pipe(
+    public getCatalogoById(catalogoId) {
+        this.rqManager.setPath('CATALOGO_ELEMENTOS_SERVICE');
+        return this.rqManager.get('catalogo/'+ catalogoId).pipe(
             map(
                 (res) => {
                     if (res === 'error') {
-                        this.pUpManager.showErrorAlert('No se pudo consultar los elementos');
+                        this.pUpManager.showErrorAlert('No se pudo consultar el catalogo');
                         return undefined;
                     }
                     return res;
@@ -60,7 +60,7 @@ export class CatalogoElementosHelper {
      */
     public postCatalogo(Transaccion) {
         this.rqManager.setPath('CATALOGO_ELEMENTOS_SERVICE');
-        return this.rqManager.post('transaccion_acta_recibido', Transaccion).pipe(
+        return this.rqManager.post('catalogo', Transaccion).pipe(
             map(
                 (res) => {
                     if (res['Type'] === 'error') {
@@ -81,7 +81,7 @@ export class CatalogoElementosHelper {
      */
     public putCatalogo(Transaccion, Id) {
         this.rqManager.setPath('CATALOGO_ELEMENTOS_SERVICE');
-        return this.rqManager.put2('transaccion_acta_recibido', Transaccion, Id).pipe(
+        return this.rqManager.put2('catalogo', Transaccion, Id).pipe(
             map(
                 (res) => {
                     if (res['Type'] === 'error') {
@@ -102,7 +102,7 @@ export class CatalogoElementosHelper {
      */
     public deleteCatalogo(Transaccion) {
         this.rqManager.setPath('CATALOGO_ELEMENTOS_SERVICE');
-        return this.rqManager.delete('transaccion_acta_recibido', Transaccion).pipe(
+        return this.rqManager.delete('catalogo', Transaccion).pipe(
             map(
                 (res) => {
                     if (res['Type'] === 'error') {
@@ -123,11 +123,11 @@ export class CatalogoElementosHelper {
      */
     public getGrupo() {
         this.rqManager.setPath('CATALOGO_ELEMENTOS_SERVICE');
-        return this.rqManager.get('historico_acta?query=EstadoActaId.Nombre:Aceptada,ActaRecibidoId.Activo:True').pipe(
+        return this.rqManager.get('subgrupo_catalogo?query=Activo:True').pipe(
             map(
                 (res) => {
                     if (res === 'error') {
-                        this.pUpManager.showErrorAlert('No se pudo consultar las actas de recibido');
+                        this.pUpManager.showErrorAlert('No se pudo consultar los grupos');
                         return undefined;
                     }
                     return res;
@@ -141,9 +141,9 @@ export class CatalogoElementosHelper {
      * If the response is successs, it returns the object's data.
      * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
      */
-    public getGrupoById(actaId) {
-        this.rqManager.setPath('ACTA_RECIBIDO_SERVICE');
-        return this.rqManager.get('elemento?query=SoporteActaId.ActaRecibidoId.Id:' + actaId + ',SoporteActaId.ActaRecibidoId.Activo:True').pipe(
+    public getGrupoById(grupoId) {
+        this.rqManager.setPath('CATALOGO_ELEMENTOS_SERVICE');
+        return this.rqManager.get('subgrupo_catalogo?query=SubgrupoId.Id:' + grupoId + ',Activo:True,').pipe(
             map(
                 (res) => {
                     if (res === 'error') {
@@ -164,11 +164,11 @@ export class CatalogoElementosHelper {
      */
     public postGrupo(Transaccion) {
         this.rqManager.setPath('CATALOGO_ELEMENTOS_SERVICE');
-        return this.rqManager.post('transaccion_acta_recibido', Transaccion).pipe(
+        return this.rqManager.post('tr_grupo', Transaccion).pipe(
             map(
                 (res) => {
                     if (res['Type'] === 'error') {
-                        this.pUpManager.showErrorAlert('No se pudo consultar el acta solicitada');
+                        this.pUpManager.showErrorAlert('No se pudo consultar el grupo asociado');
                         return undefined;
                     }
                     return res;
@@ -185,11 +185,11 @@ export class CatalogoElementosHelper {
      */
     public putGrupo(Transaccion, Id) {
         this.rqManager.setPath('CATALOGO_ELEMENTOS_SERVICE');
-        return this.rqManager.put2('transaccion_acta_recibido', Transaccion, Id).pipe(
+        return this.rqManager.put2('tr_grupo', Transaccion, Id).pipe(
             map(
                 (res) => {
                     if (res['Type'] === 'error') {
-                        this.pUpManager.showErrorAlert('No se pudo consultar el acta solicitada');
+                        this.pUpManager.showErrorAlert('No se pudo actualizar el grupo asociado');
                         return undefined;
                     }
                     return res;
@@ -206,11 +206,11 @@ export class CatalogoElementosHelper {
      */
     public deleteGrupo(Transaccion) {
         this.rqManager.setPath('CATALOGO_ELEMENTOS_SERVICE');
-        return this.rqManager.delete('transaccion_acta_recibido', Transaccion).pipe(
+        return this.rqManager.delete('tr_grupo', Transaccion).pipe(
             map(
                 (res) => {
                     if (res['Type'] === 'error') {
-                        this.pUpManager.showErrorAlert('No se pudo consultar el acta solicitada');
+                        this.pUpManager.showErrorAlert('No se pudo borrar el grupo');
                         return undefined;
                     }
                     return res;
@@ -227,7 +227,7 @@ export class CatalogoElementosHelper {
      */
     public getSubgrupo() {
         this.rqManager.setPath('CATALOGO_ELEMENTOS_SERVICE');
-        return this.rqManager.get('historico_acta?query=EstadoActaId.Nombre:Aceptada,ActaRecibidoId.Activo:True').pipe(
+        return this.rqManager.get('subgrupo_subgrupo?query=Activo:True').pipe(
             map(
                 (res) => {
                     if (res === 'error') {
@@ -245,9 +245,9 @@ export class CatalogoElementosHelper {
      * If the response is successs, it returns the object's data.
      * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
      */
-    public getSubgrupoById(actaId) {
-        this.rqManager.setPath('ACTA_RECIBIDO_SERVICE');
-        return this.rqManager.get('elemento?query=SoporteActaId.ActaRecibidoId.Id:' + actaId + ',SoporteActaId.ActaRecibidoId.Activo:True').pipe(
+    public getSubgrupoById(subgrupoId) {
+        this.rqManager.setPath('CATALOGO_ELEMENTOS_SERVICE');
+        return this.rqManager.get('subgrupo_subgrupo?query=Activo:True,SubgrupoHijoId.Id:'+subgrupoId).pipe(
             map(
                 (res) => {
                     if (res === 'error') {
@@ -268,7 +268,7 @@ export class CatalogoElementosHelper {
      */
     public postSubgrupo(Transaccion) {
         this.rqManager.setPath('CATALOGO_ELEMENTOS_SERVICE');
-        return this.rqManager.post('transaccion_acta_recibido', Transaccion).pipe(
+        return this.rqManager.post('tr_subgrupo', Transaccion).pipe(
             map(
                 (res) => {
                     if (res['Type'] === 'error') {
@@ -289,7 +289,7 @@ export class CatalogoElementosHelper {
      */
     public putSubgrupo(Transaccion, Id) {
         this.rqManager.setPath('CATALOGO_ELEMENTOS_SERVICE');
-        return this.rqManager.put2('transaccion_acta_recibido', Transaccion, Id).pipe(
+        return this.rqManager.put2('tr_subgrupo', Transaccion, Id).pipe(
             map(
                 (res) => {
                     if (res['Type'] === 'error') {
@@ -310,7 +310,7 @@ export class CatalogoElementosHelper {
      */
     public deleteSubgrupo(Transaccion) {
         this.rqManager.setPath('CATALOGO_ELEMENTOS_SERVICE');
-        return this.rqManager.delete('transaccion_acta_recibido', Transaccion).pipe(
+        return this.rqManager.delete('tr_subgrupo', Transaccion).pipe(
             map(
                 (res) => {
                     if (res['Type'] === 'error') {
