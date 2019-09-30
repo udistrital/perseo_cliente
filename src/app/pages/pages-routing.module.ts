@@ -33,6 +33,10 @@ const routes: Routes = [{
       loadChildren: './reportes/reportes.module#ReportesModule',
     },
     {
+      path: 'catalogo_bienes',
+      loadChildren: './catalogo-bienes/catalogo-bienes.module#CatalogoBienesModule',
+    },
+    {
       path: '',
       redirectTo: 'dashboard',
       pathMatch: 'full',

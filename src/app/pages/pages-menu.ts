@@ -91,4 +91,14 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
+  {
+    title: 'Catalogo de Bienes',
+    icon: 'nb-compose',
+    children: [
+      {
+        title: 'Consultar Catálogo',
+        link: '/pages/catalogo_bienes/consulta_catalogo',
+      },
+    ],
+  },
 ];
