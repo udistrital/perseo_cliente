@@ -118,7 +118,7 @@ export class CrudCatalogoComponent implements OnInit {
     .then((willDelete) => {
       if (willDelete.value) {
         this.info_catalogo = <Catalogo>catalogo;
-        console.log(this.info_catalogo);
+        // console.log(this.info_catalogo);
         this.catalogoElementosService.postCatalogo(this.info_catalogo)
           .subscribe(res => {
             this.info_catalogo = <Catalogo><unknown>res;

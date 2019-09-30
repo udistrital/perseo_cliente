@@ -103,7 +103,7 @@ export class ListCatalogoComponent implements OnInit {
     this.catalogoElementosService.getCatalogo().subscribe(res => {
       if (res !== null) {
         const data = <Array<any>>res;
-        console.log(data);
+        // console.log(data);
         this.source.load(data);
           }
     });

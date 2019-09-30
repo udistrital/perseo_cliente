@@ -39,7 +39,7 @@ export class CatalogoElementosHelper {
      */
     public getCatalogoById(catalogoId) {
         this.rqManager.setPath('CATALOGO_ELEMENTOS_SERVICE');
-        return this.rqManager.get('catalogo/'+ catalogoId).pipe(
+        return this.rqManager.get('catalogo/' + catalogoId).pipe(
             map(
                 (res) => {
                     if (res === 'error') {
@@ -247,7 +247,7 @@ export class CatalogoElementosHelper {
      */
     public getSubgrupoById(subgrupoId) {
         this.rqManager.setPath('CATALOGO_ELEMENTOS_SERVICE');
-        return this.rqManager.get('subgrupo_subgrupo?query=Activo:True,SubgrupoHijoId.Id:'+subgrupoId).pipe(
+        return this.rqManager.get('subgrupo_subgrupo?query=Activo:True,SubgrupoHijoId.Id:' + subgrupoId).pipe(
             map(
                 (res) => {
                     if (res === 'error') {
