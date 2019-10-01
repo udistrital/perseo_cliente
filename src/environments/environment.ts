@@ -20,7 +20,7 @@ export const environment = {
   ACTA_RECIBIDO_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/acta_recibido_crud/v1/',
   ENTRADAS_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/entradas_crud/v1/',
   ARKA_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/arka_mid/v1/',
-  CATALOGO_BIENES_SERVICE: 'http://192.168.99.100:8087/v1/',
+  CATALOGO_BIENES_SERVICE: 'http://10.20.2.134:8087/v1/',
   UNIDADES_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/administrativa_amazon_api/v1/',
   SPAGOBI: {
     PROTOCOL: 'https',

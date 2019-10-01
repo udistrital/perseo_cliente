@@ -32,4 +32,25 @@ export class CatalogoBienesHelper {
         );
     }
 
+    /**
+     * Catalogo Get
+     * If the response has errors in the OAS API it should show a popup message with an error.
+     * If the response is successs, it returns the object's data.
+     * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
+     */
+    public getCatalogos() {
+        this.rqManager.setPath('CATALOGO_BIENES_SERVICE');
+        return this.rqManager.get('catalogo').pipe(
+            map(
+                (res) => {
+                    if (res === 'error') {
+                        this.pUpManager.showErrorAlert('No se pudo consultar el catálogo de bienes');
+                        return undefined;
+                    }
+                    return res;
+                },
+            ),
+        );
+    }
+
 }

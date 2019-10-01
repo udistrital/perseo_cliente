@@ -1,19 +1,20 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NbSortDirection, NbSortRequest, NbTreeGridDataSource, NbTreeGridDataSourceBuilder } from '@nebular/theme';
 import { CatalogoBienesHelper } from '../../../helpers/catalogo_bienes/catalogoBienesHelper';
+import { Catalogo } from '../../../@core/data/models/catalogo/catalogo';
 
 interface TreeNode<T> {
-  Grupo: T;
-  Subgrupo?: TreeNode<T>[];
+  data: T;
+  children?: TreeNode<T>[];
   expanded?: boolean;
 }
 
-interface Catalogo {
+interface CatalogoArbol {
   Id: number;
   Nombre: string;
   Descripcion: string;
-  Fecha_creacion: string;
-  Fecha_modificacion: string;
+  FechaCreacion: Date;
+  FechaModificacion: Date;
   Activo: boolean;
 }
 
@@ -24,19 +25,23 @@ interface Catalogo {
 })
 export class ConsultaCatalogoComponent implements OnInit {
 
-  private data: TreeNode<Catalogo>[];
+  private data: TreeNode<CatalogoArbol>[];
+  private catalogos: Array<Catalogo>;
 
-  customColumn = 'Nombre';
-  defaultColumns = ['Descripcion'];
+  customColumn = 'Id';
+  defaultColumns = ['Nombre', 'Descripcion', 'FechaCreacion', 'FechaModificacion', 'Activo'];
+  //customColumn = 'Nombre';
+  //defaultColumns = ['Descripcion'];
   allColumns = [this.customColumn, ...this.defaultColumns];
 
-  dataSource: NbTreeGridDataSource<Catalogo>;
+  dataSource: NbTreeGridDataSource<CatalogoArbol>;
 
   sortColumn: string;
   sortDirection: NbSortDirection = NbSortDirection.NONE;
 
-  constructor(private dataSourceBuilder: NbTreeGridDataSourceBuilder<Catalogo>, private catalogoHelper: CatalogoBienesHelper) {
-    this.loadTreeCatalogo();
+  constructor(private dataSourceBuilder: NbTreeGridDataSourceBuilder<CatalogoArbol>, private catalogoHelper: CatalogoBienesHelper) {
+    this.catalogos = new Array<Catalogo>();
+    this.loadCatalogos();
   }
 
   ngOnInit() {
@@ -60,13 +65,31 @@ export class ConsultaCatalogoComponent implements OnInit {
     return minWithForMultipleColumns + (nextColumnStep * index);
   }
 
-  loadTreeCatalogo() {
-    this.catalogoHelper.getArbolCatalogo(1).subscribe((res) => {
+  loadCatalogos() {
+    this.catalogoHelper.getCatalogos().subscribe((res) => {
+      if (res !== null) {
+        const data = <Array<Catalogo>>res;
+        for (const datos in Object.keys(data)) {
+          if (data.hasOwnProperty(datos)) {
+            this.catalogos.push(data[datos]);
+          }
+        }
+      }
+    });
+  }
+
+  loadTreeCatalogo(catalogo) {
+    this.catalogoHelper.getArbolCatalogo(catalogo).subscribe((res) => {
+      console.log(this.data)
       this.data = res;
-      console.log(res)
+      console.log(this.data)
       this.dataSource = this.dataSourceBuilder.create(this.data);
       console.log(this.dataSource)
     });
+  }
+
+  onChange(catalogo) {
+    this.loadTreeCatalogo(catalogo);
   }
 
 }
