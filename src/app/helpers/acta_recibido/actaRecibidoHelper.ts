@@ -313,7 +313,7 @@ export class ActaRecibidoHelper {
      */
     public getProveedores() {
         this.rqManager.setPath('UNIDADES_SERVICE');
-        return this.rqManager.get('informacion_proveedor?limit=-1').pipe(
+        return this.rqManager.get('informacion_proveedor?limit=-1&fields=Id,NumDocumento,NomProveedor').pipe(
             map(
                 (res) => {
                     if (res['Type'] === 'error') {
