@@ -2,7 +2,7 @@ import { TipoBien } from './tipo_bien';
 import { EstadoElemento } from './estado_elemento';
 import { SoporteActa } from './soporte_acta';
 import { UnidadMedida } from '../unidad_medida/unidad_medida';
-import { ParametrosGobierno } from '../parametros_goierno/parametros_gobierno';
+import { ParametrosGobierno } from '../parametros_gobierno/parametros_gobierno';
 
 export class Elemento {
     Id: number;
