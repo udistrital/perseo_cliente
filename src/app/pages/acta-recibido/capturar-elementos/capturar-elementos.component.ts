@@ -60,6 +60,11 @@ export class CapturarElementosComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.respuesta = this.DatosRecibidos;
+      this.getDescuentos();
+      this.getSubtotales();
+      this.getIVA();
+      this.getTotales();
+      this.ver();
     } else {
       this.dataSource = new MatTableDataSource();
       this.dataSource.paginator = this.paginator;

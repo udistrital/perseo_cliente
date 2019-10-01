@@ -106,9 +106,7 @@ export class VerDetalleComponent implements OnInit {
         const proveedor = new Proveedor;
         proveedor.Id = res[index].Id;
         proveedor.NomProveedor = res[index].NomProveedor;
-        proveedor.Correo = res[index].Correo;
         proveedor.NumDocumento = res[index].NumDocumento;
-        proveedor.TipoPersona = res[index].TipoPersona;
         proveedor.compuesto = res[index].NumDocumento + ' - ' + res[index].NomProveedor;
         this.Proveedores.push(proveedor);
       }
