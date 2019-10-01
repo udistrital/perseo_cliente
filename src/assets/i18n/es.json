@@ -3,7 +3,7 @@
     "TITLE": "CONFIGURACION",
     "SELECT": "Cambiar idioma",
     "LOGIN": "Iniciar sesion",
-    "LOGOUT": "Cerra sesion",
+    "LOGOUT": "Cerrar sesion",
     "THEME": "Tema"
   },
   "MENU": {
@@ -351,7 +351,8 @@
     "tipo_entrada": "Tipo Entrada",
     "detalle": "Detalle",
     "seleccionar": "Seleccionar",
-    "no_data": "No se encontraron entradas asociadas.",
+    "no_data_entradas": "No se encontraron entradas asociadas.",
+    "no_data_actas_entrada": "No se encontraron actas de recibido aprobadas para realizar una entrada",
     "detalle_entrada": "Detalle Entrada",
     "registrar_nueva_entrada": "Registrar Nueva Entrada",
     "elementos_entrada": "Elementos Entrada",
@@ -403,6 +404,11 @@
     "datos_correctos": "Datos Correctos",
     "mensaje_registrar": "Click en Registrar Entrada para continuar",
     "contrato": "Contrato",
-    "solicitante": "Solicitante"
+    "solicitante": "Solicitante",
+    "soporte": "Soporte",
+    "acta_produccion": "Acta de Producción",
+    "tercero_administracion": "Tercero en Administración",
+    "error": "Error",
+    "mensaje_seleccionar_entrada": "Seleccione el tipo de entrada que desea realizar"
   }
 }

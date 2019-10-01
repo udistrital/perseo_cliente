@@ -1,4 +1,5 @@
 import { ActaRecibido } from './acta_recibido';
+import { Proveedor } from './Proveedor';
 
 export class SoporteActa {
     Id: number;
@@ -11,14 +12,6 @@ export class SoporteActa {
     FechaModificacion: Date;
 }
 
-export class Proveedor {
-    Id: number;
-    NomProveedor: string;
-    NumDocumento: string;
-    TipoPersona: string;
-    Correo: string;
-    compuesto: string;
-}
 export class Ubicacion {
     Id: number;
     Codigo: string;
@@ -32,3 +25,13 @@ export class Dependencia {
     CorreoElectronico: string;
 }
 
+export class SoporteActaProveedor {
+    Id: number;
+    Consecutivo: number;
+    Proveedor: Proveedor; // CAMBIAR POR MODELO CUANDO SE PUEDA CONSULTAR
+    FechaSoporte: Date;
+    ActaRecibidoId: ActaRecibido;
+    Activo: boolean;
+    FechaCreacion: Date;
+    FechaModificacion: Date;
+}

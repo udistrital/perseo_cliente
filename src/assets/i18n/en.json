@@ -3,7 +3,7 @@
     "TITLE": "CONFIGURACION",
     "SELECT": "Cambiar idioma",
     "LOGIN": "Iniciar sesion",
-    "LOGOUT": "Cerra sesion",
+    "LOGOUT": "Cerrar sesion",
     "THEME": "Tema"
   },
   "MENU": {
@@ -349,7 +349,8 @@
     "tipo_entrada": "Entry Type",
     "detalle": "Detail",
     "seleccionar": "Select",
-    "no_data": "No Data Found.",
+    "no_data_entradas": "No associated entries found.",
+    "no_data_actas_entrada": "No received documents were found approved for making an entry",
     "detalle_entrada": "Entry Detail",
     "registrar_nueva_entrada": "New Entry",
     "elementos_entrada": "Entry Elements",
@@ -401,6 +402,11 @@
     "datos_correctos": "Correct Data",
     "mensaje_registrar": "Click on Register Entry to continue",
     "contrato": "Contract",
-    "solicitante": "Requesting"
+    "solicitante": "Requesting",
+    "soporte": "Support Document",
+    "acta_produccion": "Production Document",
+    "tercero_administracion": "Third in Administration",
+    "error": "Error",
+    "mensaje_seleccionar_entrada": "Select the type of entry you want to make"
   }
 }

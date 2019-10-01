@@ -61,6 +61,15 @@
 
         <div class="row">
           <div class="col">
+            <p *ngIf="detalle && contrato.ContratoId !== 0">Ordenador de Gasto: {{ contrato.OrdenadorGasto.NombreOrdenador }}</p>
+          </div>
+          <div class="col">
+            <p *ngIf="detalle && contrato.ContratoId !== 0">Cargo: {{ contrato.OrdenadorGasto.RolOrdenadorGasto }}</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
             <p *ngIf="detalle && contrato.ContratoId !== 0">Supervisor: {{ contrato.Supervisor.Nombre }}</p>
           </div>
           <div class="col">
@@ -77,7 +86,8 @@
 
         <div class="row">
           <div class="col">
-            <p *ngIf="detalle && entradaEspecifica.Observacion !== ''">Observaciones: {{ entradaEspecifica.Observacion }}</p>
+            <p *ngIf="detalle && entradaEspecifica.Observacion !== ''">Observaciones:
+              {{ entradaEspecifica.Observacion }}</p>
             <p *ngIf="detalle && entradaEspecifica.Observacion === ''">Observaciones: N/A</p>
           </div>
         </div>

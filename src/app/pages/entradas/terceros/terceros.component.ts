@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Contrato } from '../../../@core/data/models/entrada/contrato';
-import { SoporteActa } from '../../../@core/data/models/acta_recibido/soporte_acta';
+import { SoporteActa, SoporteActaProveedor } from '../../../@core/data/models/acta_recibido/soporte_acta';
 import { EntradaHelper } from '../../../helpers/entradas/entradaHelper';
 import { ActaRecibidoHelper } from '../../../helpers/acta_recibido/actaRecibidoHelper';
 import { PopUpManager } from '../../../managers/popUpManager';
@@ -36,7 +36,7 @@ export class TercerosComponent implements OnInit {
   // Número de Contrato
   contratoInput: string;
   // Soportes
-  soportes: Array<SoporteActa>;
+  soportes: Array<SoporteActaProveedor>;
   proveedor: string;
   fechaFactura: string;
   observaciones: string;
@@ -53,7 +53,7 @@ export class TercerosComponent implements OnInit {
     this.vigenciaSelect = false;
     this.contratos = new Array<Contrato>();
     this.contratoEspecifico = new Contrato;
-    this.soportes = new Array<SoporteActa>();
+    this.soportes = new Array<SoporteActaProveedor>();
     this.proveedor = '';
     this.fechaFactura = '';
     this.validar = false;
@@ -66,6 +66,7 @@ export class TercerosComponent implements OnInit {
         Validators.required,
         Validators.pattern('^[0-9]{2,4}$')],
       ],
+      vigenciaCtrl: ['', [Validators.required]],
     });
     this.facturaForm = this.fb.group({
       facturaCtrl: ['', Validators.nullValidator],
@@ -130,10 +131,10 @@ export class TercerosComponent implements OnInit {
       if (res !== null) {
         for (const index in res) {
           if (res.hasOwnProperty(index)) {
-            const soporte = new SoporteActa;
+            const soporte = new SoporteActaProveedor;
             soporte.Id = res[index].Id;
             soporte.Consecutivo = res[index].Consecutivo;
-            soporte.ProveedorId = res[index].ProveedorId;
+            soporte.Proveedor = res[index].ProveedorId;
             soporte.FechaSoporte = res[index].FechaSoporte;
             this.soportes.push(soporte);
           }
@@ -196,8 +197,9 @@ export class TercerosComponent implements OnInit {
     const soporteId: string = event.target.options[event.target.options.selectedIndex].value;
     for (const i in this.soportes) {
       if (this.soportes[i].Id.toString() === soporteId) {
-        this.proveedor = this.soportes[i].ProveedorId.toString();
-        this.fechaFactura = this.soportes[i].FechaSoporte.toString();
+        this.proveedor = this.soportes[i].Proveedor.NomProveedor;
+        const date = this.soportes[i].FechaSoporte.toString().split('T');
+        this.fechaFactura = date[0];
       }
     }
   }
@@ -233,7 +235,7 @@ export class TercerosComponent implements OnInit {
       entradaData.DocumentoContableId = 1; // REVISAR
       tipoEntrada.Id = 6;
       entradaData.TipoEntradaId = tipoEntrada;
-      entradaData.Vigencia = this.vigencia.toString(); // REVISAR
+      entradaData.Vigencia = this.contratoForm.value.vigenciaCtrl;
       entradaData.Observacion = this.observacionForm.value.observacionCtrl;
       // CAMPOS REQUERIDOS PARA ADQUISICIÓN
       entradaData.ContratoId = +this.contratoEspecifico.NumeroContratoSuscrito;
