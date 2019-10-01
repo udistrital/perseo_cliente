@@ -15,8 +15,6 @@ export class Proveedor {
     Id: number;
     NomProveedor: string;
     NumDocumento: string;
-    TipoPersona: string;
-    Correo: string;
     compuesto: string;
 }
 export class Ubicacion {
