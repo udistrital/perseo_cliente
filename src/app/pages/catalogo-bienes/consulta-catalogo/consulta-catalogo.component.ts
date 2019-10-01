@@ -21,7 +21,7 @@ interface CatalogoArbol {
 @Component({
   selector: 'ngx-consulta-catalogo',
   templateUrl: './consulta-catalogo.component.html',
-  styleUrls: ['./consulta-catalogo.component.scss']
+  styleUrls: ['./consulta-catalogo.component.scss'],
 })
 export class ConsultaCatalogoComponent implements OnInit {
 
@@ -30,8 +30,8 @@ export class ConsultaCatalogoComponent implements OnInit {
 
   customColumn = 'Id';
   defaultColumns = ['Nombre', 'Descripcion', 'FechaCreacion', 'FechaModificacion', 'Activo'];
-  //customColumn = 'Nombre';
-  //defaultColumns = ['Descripcion'];
+  // customColumn = 'Nombre';
+  // defaultColumns = ['Descripcion'];
   allColumns = [this.customColumn, ...this.defaultColumns];
 
   dataSource: NbTreeGridDataSource<CatalogoArbol>;
@@ -80,11 +80,11 @@ export class ConsultaCatalogoComponent implements OnInit {
 
   loadTreeCatalogo(catalogo) {
     this.catalogoHelper.getArbolCatalogo(catalogo).subscribe((res) => {
-      console.log(this.data)
+      // console.log(this.data)
       this.data = res;
-      console.log(this.data)
+      // console.log(this.data)
       this.dataSource = this.dataSourceBuilder.create(this.data);
-      console.log(this.dataSource)
+      // console.log(this.dataSource)
     });
   }
 
