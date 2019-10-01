@@ -94,7 +94,7 @@
         <div class="form-group col-sm">
           <label>{{'GLOBAL.ordenador_gasto' | translate}}</label>
           <div class="input-group">
-            <input nbInput (change)="changeOrdenador($event)" type="text" shape="semi-round"
+            <input nbInput (change)="changeOrdenador()" type="text" shape="semi-round"
               placeholder="{{'GLOBAL.ordenador_gasto' | translate}}" class="form-control"
               [readonly]="!solicitanteSelect" list="solicitanteList" formControlName="solicitanteCtrl"
               [ngClass]="{'form-control-danger': solicitanteForm.invalid && (solicitanteForm.dirty || solicitanteForm.touched)}" />
