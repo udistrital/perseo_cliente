@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ngx-smart-table';
-import { ActaRecibido } from '../../../@core/data/models/acta_recibido/acta_recibido';
+import { ActaRecibido, ActaRecibidoUbicacion } from '../../../@core/data/models/acta_recibido/acta_recibido';
 import { PopUpManager } from '../../../managers/popUpManager';
 import { ActaRecibidoHelper } from '../../../helpers/acta_recibido/actaRecibidoHelper';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
@@ -15,14 +15,12 @@ export class RegistroComponent implements OnInit {
   // Datos Tabla
   source: LocalDataSource;
   // Acta de recibido
-  actas: Array<ActaRecibido>;
   actaSeleccionada: string;
   settings: any;
   opcionEntrada: string;
 
   constructor(private actaRecibidoHelper: ActaRecibidoHelper, private pUpManager: PopUpManager, private translate: TranslateService) {
     this.source = new LocalDataSource();
-    this.actas = new Array<ActaRecibido>();
     this.actaSeleccionada = '';
     this.loadTablaSettings();
     this.loadActas();
@@ -31,7 +29,7 @@ export class RegistroComponent implements OnInit {
   loadTablaSettings() {
     this.settings = {
       hideSubHeader: false,
-      noDataMessage: this.translate.instant('GLOBAL.no_data'),
+      noDataMessage: this.translate.instant('GLOBAL.no_data_actas_entrada'),
       actions: {
         columnTitle: this.translate.instant('GLOBAL.acciones'),
         position: 'right',
@@ -84,17 +82,25 @@ export class RegistroComponent implements OnInit {
         },
         UbicacionId: {
           title: this.translate.instant('GLOBAL.ubicacion'),
+          valuePrepareFunction: (value: any) => {
+            return value.Nombre.toUpperCase( );
+          },
         },
-        CodigoAbreviacion: {
+        EstadoActaId: {
           title: this.translate.instant('GLOBAL.estado'),
+          valuePrepareFunction: (value: any) => {
+            return value.CodigoAbreviacion.toUpperCase( );
+          },
         },
         Observaciones: {
           title: this.translate.instant('GLOBAL.observaciones'),
+          valuePrepareFunction: (value: any) => {
+            return value.toUpperCase( );
+          },
         },
       },
     };
   }
-
 
   ngOnInit() {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => { // Live reload
@@ -105,23 +111,8 @@ export class RegistroComponent implements OnInit {
   loadActas(): void {
     this.actaRecibidoHelper.getActasRecibido().subscribe(res => {
       if (res !== null) {
-        const data = <Array<any>>res;
-        for (const datos in Object.keys(data)) {
-          if (data.hasOwnProperty(datos) && data[datos].ActaRecibidoId !== null) {
-            const acta = new ActaRecibido;
-            acta.Activo = data[datos].ActaRecibidoId.Activo;
-            acta.FechaCreacion = data[datos].ActaRecibidoId.FechaCreacion;
-            acta.FechaModificacion = data[datos].ActaRecibidoId.FechaModificacion;
-            acta.FechaVistoBueno = data[datos].ActaRecibidoId.FechaVistoBueno;
-            acta.Id = data[datos].ActaRecibidoId.Id;
-            acta.Observaciones = data[datos].ActaRecibidoId.Observaciones;
-            acta.RevisorId = data[datos].ActaRecibidoId.RevisorId;
-            acta.UbicacionId = data[datos].ActaRecibidoId.UbicacionId;
-            acta.CodigoAbreviacion = data[datos].EstadoActaId.CodigoAbreviacion;
-            this.actas.push(acta);
-          }
-        }
-        this.source.load(this.actas);
+        const data = <Array<ActaRecibidoUbicacion>>res;
+        this.source.load(data);
       }
     });
   }
