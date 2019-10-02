@@ -19,6 +19,9 @@ import { VerDetalleComponent } from './ver-detalle/ver-detalle.component';
 import { CapturarElementosComponent } from './capturar-elementos/capturar-elementos.component';
 import { Ng2CompleterModule } from 'ng2-completer';
 import { NgxCurrencyModule } from 'ngx-currency';
+import { rootReducer } from '../../@core/store/rootReducer';
+import { Store, StoreModule } from '@ngrx/store';
+import { ListService } from '../../@core/store/services/list.service';
 
 
 @NgModule({
@@ -33,6 +36,7 @@ import { NgxCurrencyModule } from 'ngx-currency';
   ],
   imports: [
     CommonModule,
+    StoreModule.forRoot(rootReducer),
     NgxCurrencyModule,
     ActaRecibidoRoutingModule,
     ThemeModule,
@@ -48,6 +52,7 @@ import { NgxCurrencyModule } from 'ngx-currency';
   ],
   providers: [
     CurrencyPipe,
+    ListService,
   ],
 })
 export class ActaRecibidoModule { }

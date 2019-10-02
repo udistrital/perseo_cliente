@@ -1,7 +1,3 @@
-table {
-  width: 100%;
-  text-align: right;
-}
 .filter {
   width: 100%;
 }
@@ -35,17 +31,19 @@ table {
 .cell {
   height: 50px;
   width: 150px;
-  text-align: right;
+  text-align: left;
+}
+.bla {
+  scrollbar-width: 1rem;
 }
 .cell-2 {
   height: 50px;
-  width: 130px;
+  width: 150px;
   text-align: right;
 }
 table {
   width: 100%;
-  table-layout: fixed;
-  text-align: right;
+  text-align: center;
 }
 th,
 td {

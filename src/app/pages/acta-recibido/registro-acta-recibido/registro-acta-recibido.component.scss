@@ -20,26 +20,28 @@
     height: 400px;
     overflow: auto;
   }
-  .cell {
-    height: 50px;
-    width: 150px;
-  }
   .bla {
     position: relative;
     z-index: 1;
   }
+  .cell {
+    height: 50px;
+    width: 150px;
+    text-align: right;
+  }
   .cell-2 {
     height: 50px;
-    width: 130px;
+    width: 150px;
+    text-align: left;
+  }
+  .cell-3 {
+    height: 40px;
+    width: 150px;
+    text-align: right;
   }
   table {
     width: 100%;
-    table-layout: fixed;
-  }
-  th, td {
-    
-    width: 170px;
-    
+    text-align: center;
   }
   
   

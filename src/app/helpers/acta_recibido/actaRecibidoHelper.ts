@@ -20,7 +20,7 @@ export class ActaRecibidoHelper {
      */
     public getActasRecibido() {
         this.rqManager.setPath('ARKA_SERVICE');
-        return this.rqManager.get('/acta_recibido/get_actas_recibido_tipo/5').pipe(
+        return this.rqManager.get('acta_recibido/get_actas_recibido_tipo/5').pipe(
             map(
                 (res) => {
                     if (res === 'error') {
@@ -313,7 +313,7 @@ export class ActaRecibidoHelper {
      */
     public getProveedores() {
         this.rqManager.setPath('UNIDADES_SERVICE');
-        return this.rqManager.get('informacion_proveedor?limit=-1').pipe(
+        return this.rqManager.get('informacion_proveedor?fields=Id,NumDocumento,NomProveedor&limit=-1').pipe(
             map(
                 (res) => {
                     if (res['Type'] === 'error') {
@@ -325,6 +325,4 @@ export class ActaRecibidoHelper {
             ),
         );
     }
-
-
 }

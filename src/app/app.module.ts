@@ -64,6 +64,9 @@ import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { CdkStepperModule } from '@angular/cdk/stepper';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { NbToastrModule } from '@nebular/theme';
+import { ListService } from './@core/store/services/list.service';
+import { Store, StoreModule } from '@ngrx/store';
+import { rootReducer } from './@core/store/rootReducer';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -127,6 +130,7 @@ export class MaterialModule {}
   declarations: [AppComponent],
   imports: [
     CdkTableModule,
+    StoreModule.forRoot(rootReducer),
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -152,6 +156,7 @@ export class MaterialModule {}
   ],
   bootstrap: [AppComponent],
   providers: [ImplicitAutenticationService,
+    ListService,
     { provide: APP_BASE_HREF, useValue: '/' },
   ],
 })
