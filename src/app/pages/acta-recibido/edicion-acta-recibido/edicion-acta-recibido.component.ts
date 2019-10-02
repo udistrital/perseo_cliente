@@ -20,6 +20,10 @@ import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-t
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Unidad } from '../../../@core/data/models/acta_recibido/unidades';
 import { CompleterData, CompleterService } from 'ng2-completer';
+import { Store } from '@ngrx/store';
+import { IAppState } from '../../../@core/store/app.state';
+import { ListService } from '../../../@core/store/services/list.service';
+
 
 
 @Component({
@@ -71,7 +75,7 @@ export class EdicionActaRecibidoComponent implements OnInit {
 
   observable: any;
 
-  Proveedores: Proveedor[];
+  Proveedores: any;
   Ubicaciones: Ubicacion[];
   Sedes: Ubicacion[];
   Dependencias: Dependencia[];
@@ -88,80 +92,45 @@ export class EdicionActaRecibidoComponent implements OnInit {
     private Actas_Recibido: ActaRecibidoHelper,
     private toasterService: ToasterService,
     private completerService: CompleterService,
+    private store: Store<IAppState>,
+    private listService: ListService,
+
   ) {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => { // Live reload
     });
+    this.listService.findProveedores();
+    this.loadLists();
   }
   ngOnInit() {
-    this.searchStr2 = new Array<string>();
-    this.DatosElementos = new Array<any>();
-    this.Elementos__Soporte = new Array<any>();
-    const observable = combineLatest([
-      this.Actas_Recibido.getParametros(),
-      this.Actas_Recibido.getParametrosSoporte(),
-      this.Actas_Recibido.getProveedores(),
-      this.Actas_Recibido.getTransaccionActa(this._ActaId),
-    ]);
-    observable.subscribe(([ParametrosActa, ParametrosSoporte, Proveedores, Acta]) => {
-      // console.log([ParametrosActa, ParametrosSoporte, Proveedores, Acta]);
-      this.Traer_Estados_Acta(ParametrosActa[0].EstadoActa);
-      this.Traer_Estados_Elemento(ParametrosActa[0].EstadoElemento);
-      this.Traer_Tipo_Bien(ParametrosActa[0].TipoBien);
-      this.Traer_Unidades(ParametrosActa[0].Unidades);
-      this.Traer_IVA(ParametrosActa[0].IVA);
-      this.Traer_Dependencias(ParametrosSoporte[0].Dependencias);
-      this.Traer_Proveedores_(Proveedores);
-      this.Traer_Ubicaciones(ParametrosSoporte[0].Ubicaciones);
-      this.Traer_Sedes(ParametrosSoporte[0].Sedes);
-      this.Cargar_Formularios(Acta[0]);
+  }
+  public loadLists() {
+    this.store.select((state) => state).subscribe(
+      (list) => {
+        this.Proveedores = list.listProveedores[0];
+        this.dataService2 = this.completerService.local(this.Proveedores, 'compuesto', 'compuesto');
+        this.searchStr2 = new Array<string>();
+        this.DatosElementos = new Array<any>();
+        this.Elementos__Soporte = new Array<any>();
+        const observable = combineLatest([
+          this.Actas_Recibido.getParametros(),
+          this.Actas_Recibido.getParametrosSoporte(),
+          this.Actas_Recibido.getTransaccionActa(this._ActaId),
+        ]);
+        observable.subscribe(([ParametrosActa, ParametrosSoporte, Acta]) => {
+          // console.log([ParametrosActa, ParametrosSoporte, Proveedores, Acta]);
+          this.Traer_Estados_Acta(ParametrosActa[0].EstadoActa);
+          this.Traer_Estados_Elemento(ParametrosActa[0].EstadoElemento);
+          this.Traer_Tipo_Bien(ParametrosActa[0].TipoBien);
+          this.Traer_Unidades(ParametrosActa[0].Unidades);
+          this.Traer_IVA(ParametrosActa[0].IVA);
+          this.Traer_Dependencias(ParametrosSoporte[0].Dependencias);
+          this.Traer_Ubicaciones(ParametrosSoporte[0].Ubicaciones);
+          this.Traer_Sedes(ParametrosSoporte[0].Sedes);
+          this.Cargar_Formularios(Acta[0]);
 
-      if (sessionStorage.Formulario_Edicion == null) {
-        this.Cargar_Formularios(Acta[0]);
-      } else {
-        const formulario = JSON.parse(sessionStorage.Formulario_Edicion);
-        // console.log(sessionStorage.Formulario_Registro);
-        // console.log(sessionStorage.Elementos_Formulario_Registro);
-        let elementos;
-        if (sessionStorage.Elementos_Formulario_Edicion === []) {
-          elementos = [];
-        } else {
-          elementos = JSON.parse(sessionStorage.getItem('Elementos_Formulario_Registro'));
-          // console.log(elementos);
-        }
-        // (Swal as any).fire({
-        //   type: 'warning',
-        //   title: 'Registro sin completar',
-        //   text: 'Existe un registro nuevo sin terminar, que desea hacer?',
-        //   showCancelButton: true,
-        //   confirmButtonColor: '#3085d6',
-        //   cancelButtonColor: '#3085d6',
-        //   confirmButtonText: 'Seguir con anterior',
-        //   cancelButtonText: 'Nuevo Registro, se eliminara el registro anterior',
-        // }).then((result) => {
-        //   if (result.value) {
-        //     this.Cargar_Formularios2(formulario, elementos);
-        //   } else {
-        //     (Swal as any).fire({
-        //       type: 'warning',
-        //       title: 'Ultima Palabra?',
-        //       showCancelButton: true,
-        //       confirmButtonColor: '#3085d6',
-        //       cancelButtonColor: '#3085d6',
-        //       confirmButtonText: 'Si, Nuevo Registro',
-        //       cancelButtonText: 'No, Usar Anterior',
-        //     }).then((result2) => {
-        //       if (result2.value) {
-        //         sessionStorage.removeItem('Formulario_Registro');
-        //         sessionStorage.removeItem('Elementos_Formulario_Registro');
-        //         this.Cargar_Formularios();
-        //       } else {
-        //         this.Cargar_Formularios2(formulario, elementos);
-        //       }
-        //     });
-        //   }
-        // });
-      }
-    });
+        });
+      },
+    );
   }
   Traer_Dependencias(res: any) {
     this.Dependencias = new Array<Dependencia>();
@@ -177,22 +146,22 @@ export class EdicionActaRecibidoComponent implements OnInit {
     }
     this.dataService3 = this.completerService.local(this.Dependencias, 'Nombre', 'Nombre');
   }
-  Traer_Proveedores_(res: any) {
-    this.Proveedores = new Array<Proveedor>();
+  // Traer_Proveedores_(res: any) {
+  //   this.Proveedores = new Array<Proveedor>();
 
-    for (const index in res) {
-      if (res.hasOwnProperty(index)) {
-        const proveedor = new Proveedor;
-        proveedor.Id = res[index].Id;
-        proveedor.NomProveedor = res[index].NomProveedor;
-        proveedor.NumDocumento = res[index].NumDocumento;
-        proveedor.compuesto = res[index].NumDocumento + ' - ' + res[index].NomProveedor;
-        this.Proveedores.push(proveedor);
-      }
-    }
+  //   for (const index in res) {
+  //     if (res.hasOwnProperty(index)) {
+  //       const proveedor = new Proveedor;
+  //       proveedor.Id = res[index].Id;
+  //       proveedor.NomProveedor = res[index].NomProveedor;
+  //       proveedor.NumDocumento = res[index].NumDocumento;
+  //       proveedor.compuesto = res[index].NumDocumento + ' - ' + res[index].NomProveedor;
+  //       this.Proveedores.push(proveedor);
+  //     }
+  //   }
 
-    this.dataService2 = this.completerService.local(this.Proveedores, 'compuesto', 'compuesto');
-  }
+  //   this.dataService2 = this.completerService.local(this.Proveedores, 'compuesto', 'compuesto');
+  // }
   Traer_Ubicaciones(res: any) {
     this.Ubicaciones = new Array<Ubicacion>();
     for (const index in res) {

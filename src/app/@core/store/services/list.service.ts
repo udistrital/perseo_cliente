@@ -27,7 +27,7 @@ export class ListService {
                     res[index].compuesto = res[index].NumDocumento + ' - ' + res[index].NomProveedor;
                   }
                 }
-
+                // console.log('ok');
                 this.addList(REDUCER_LIST.Proveedores, res);
 
               },
