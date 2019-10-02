@@ -20,7 +20,7 @@ export class ActaRecibidoHelper {
      */
     public getActasRecibido() {
         this.rqManager.setPath('ARKA_SERVICE');
-        return this.rqManager.get('/acta_recibido/get_actas_recibido_tipo/5').pipe(
+        return this.rqManager.get('acta_recibido/get_actas_recibido_tipo/5').pipe(
             map(
                 (res) => {
                     if (res === 'error') {
