@@ -6,6 +6,8 @@ import { CatalogoBienesRoutingModule, routedComponents } from './catalogo-bienes
 import { CatalogoBienesComponent } from './catalogo-bienes.component';
 import { ConsultaCatalogoComponent } from './consulta-catalogo/consulta-catalogo.component';
 import { NbTreeGridModule } from '@nebular/theme';
+import { ArbolComponent } from './arbol/arbol.component';
+import { TreeModule } from 'angular-tree-component';
 
 
 @NgModule({
@@ -13,12 +15,14 @@ import { NbTreeGridModule } from '@nebular/theme';
     ...routedComponents,
     CatalogoBienesComponent,
     ConsultaCatalogoComponent,
+    ArbolComponent,
   ],
   imports: [
     CommonModule,
     CatalogoBienesRoutingModule,
     NbTreeGridModule,
     ThemeModule,
+    TreeModule.forRoot(),
   ],
 })
 export class CatalogoBienesModule { }
