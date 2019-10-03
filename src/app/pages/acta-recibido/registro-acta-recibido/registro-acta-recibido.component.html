@@ -26,13 +26,13 @@
                   </div>
                   <div class="form-group col-sm">
                     <label>{{'GLOBAL.Acta_Recibido.RegistroActa.Dependencia' | translate}}</label>
-                    <ng2-completer inputClass="form-control" nbInput (keyup)="usarLocalStorage()" [datasource]="dataService3"
+                    <ng2-completer inputClass="form-control" nbInput (keyup)="usarLocalStorage()" [clearUnselected]="true" [datasource]="dataService3"
                       formControlName="Dependencia" [minSearchLength]="3">
                     </ng2-completer>
                   </div>
                   <div class="form-group col-sm">
                     <label>{{'GLOBAL.Acta_Recibido.RegistroActa.Ubicacion' | translate}}</label>
-                    <ng2-completer inputClass="form-control" nbInput (keyup)="usarLocalStorage()" [datasource]="dataService"
+                    <ng2-completer inputClass="form-control" [clearUnselected]="true" nbInput (keyup)="usarLocalStorage()" [datasource]="dataService"
                       formControlName="Ubicacion" [minSearchLength]="3">
                     </ng2-completer>
                   </div>
@@ -62,7 +62,7 @@
                           <div class="row">
                             <div class="form-group col-sm">
                               <label>{{'GLOBAL.Acta_Recibido.RegistroActa.Proveedor' | translate}}</label>
-                              <ng2-completer inputClass="form-control"
+                              <ng2-completer inputClass="form-control" [clearUnselected]="true"
                                 placeholder="{{'GLOBAL.Acta_Recibido.RegistroActa.SeleccioneFiltro' | translate}}"
                                 nbInput [datasource]="dataService2" formControlName="Proveedor" (keyup)="usarLocalStorage()" [minSearchLength]="3">
                               </ng2-completer>
