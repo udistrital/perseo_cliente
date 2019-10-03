@@ -20,7 +20,7 @@ interface CatalogoArbol {
 @Component({
   selector: 'ngx-arbol',
   templateUrl: './arbol.component.html',
-  styleUrls: ['./arbol.component.scss']
+  styleUrls: ['./arbol.component.scss'],
 })
 export class ArbolComponent implements OnInit {
 

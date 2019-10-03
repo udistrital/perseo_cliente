@@ -8,9 +8,9 @@ describe('ArbolComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ArbolComponent ]
+      declarations: [ArbolComponent],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
