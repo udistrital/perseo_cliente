@@ -453,7 +453,7 @@ export class VerificacionActaRecibidoComponent implements OnInit {
   Revisar_Totales() {
 
     (Swal as any).fire({
-      title: this.translate.instant('GLOBAL.Acta_Recibido.VerificacionActa.DatosVeridicos'),
+      title: this.translate.instant('GLOBAL.Acta_Recibido.VerificacionActa.DatosVeridicosTitle'),
       text: this.translate.instant('GLOBAL.Acta_Recibido.VerificacionActa.VerificadaPre'),
       type: 'warning',
       showCancelButton: true,
@@ -470,7 +470,7 @@ export class VerificacionActaRecibidoComponent implements OnInit {
   Revisar_Totales2() {
 
     (Swal as any).fire({
-      title: this.translate.instant('GLOBAL.Acta_Recibido.VerificacionActa.DatosVeridicos'),
+      title: this.translate.instant('GLOBAL.Acta_Recibido.VerificacionActa.DatosVeridicosTitle'),
       text: this.translate.instant('GLOBAL.Acta_Recibido.VerificacionActa.RechazadaPre'),
       type: 'warning',
       showCancelButton: true,
