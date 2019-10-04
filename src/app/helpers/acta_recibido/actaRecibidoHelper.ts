@@ -230,7 +230,7 @@ export class ActaRecibidoHelper {
      */
     public postArchivo(Transaccion) {
         this.rqManager.setPath('ARKA_SERVICE');
-        return this.rqManager.post('acta_recibido', Transaccion).pipe(
+        return this.rqManager.post2('acta_recibido', Transaccion).pipe(
             map(
                 (res) => {
                     if (res['Type'] === 'error') {
@@ -313,6 +313,27 @@ export class ActaRecibidoHelper {
     public getProveedores() {
         this.rqManager.setPath('UNIDADES_SERVICE');
         return this.rqManager.get('informacion_proveedor?fields=Id,NumDocumento,NomProveedor&limit=-1').pipe(
+            map(
+                (res) => {
+                    if (res['Type'] === 'error') {
+                        this.pUpManager.showErrorAlert('No se pudieron cargar los parametros generales');
+                        return undefined;
+                    }
+                    return res;
+                },
+            ),
+        );
+    }
+
+    /**
+     * Conversion Archivo Get
+     * If the response has errors in the OAS API it should show a popup message with an error.
+     * If the response is successs, it returns the object's data.
+     * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
+     */
+    public getProveedor(idProveedor) {
+        this.rqManager.setPath('UNIDADES_SERVICE');
+        return this.rqManager.get('informacion_proveedor/' + idProveedor + '?fields=Id,NumDocumento,NomProveedor').pipe(
             map(
                 (res) => {
                     if (res['Type'] === 'error') {

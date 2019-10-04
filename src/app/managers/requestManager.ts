@@ -17,10 +17,16 @@ import { HttpErrorManager } from './errorManager';
 export class RequestManager {
   private path: string;
   public httpOptions: any;
+  public httpOptions2: any;
   constructor(private http: HttpClient, private errManager: HttpErrorManager) {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Accept': 'application/json',
+      }),
+    };
+    this.httpOptions2 = {
+      headers: new HttpHeaders({
+        'Content-Type': 'multipart/form-data',
       }),
     };
   }
@@ -74,6 +80,19 @@ export class RequestManager {
       catchError(this.errManager.handleError),
     );
   }
+
+  /**
+   * Perform a POST http request
+   * @param endpoint service's end-point
+   * @param element data to send as JSON
+   * @returns Observable<any>
+   */
+  post2(endpoint, element) {
+    return this.http.post<any>(`${this.path}${endpoint}`, element, this.httpOptions2).pipe(
+      catchError(this.errManager.handleError),
+    );
+  }
+
 
   /**
    * Perform a PUT http request
