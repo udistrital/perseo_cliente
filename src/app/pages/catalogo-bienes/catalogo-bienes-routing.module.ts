@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CatalogoBienesComponent } from './catalogo-bienes.component';
 import { ConsultaCatalogoComponent } from './consulta-catalogo/consulta-catalogo.component';
 import { Routes, RouterModule } from '@angular/router';
+import { RegistroCatalogoComponent } from './registro-catalogo/registro-catalogo.component';
 
 const routes: Routes = [{
   path: '',
@@ -10,6 +11,10 @@ const routes: Routes = [{
     {
       path: 'consulta_catalogo',
       component: ConsultaCatalogoComponent,
+    },
+    {
+      path: 'registro_catalogo',
+      component: RegistroCatalogoComponent,
     },
   ],
 }];

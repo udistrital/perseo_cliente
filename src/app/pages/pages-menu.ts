@@ -159,6 +159,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Consultar Catálogo',
         link: '/pages/catalogo_bienes/consulta_catalogo',
       },
+      {
+        title: 'Registro Catálogo',
+        link: '/pages/catalogo_bienes/registro_catalogo',
+      },
     ],
   },
 ];

@@ -8,6 +8,7 @@ import { ConsultaCatalogoComponent } from './consulta-catalogo/consulta-catalogo
 import { NbTreeGridModule } from '@nebular/theme';
 import { ArbolComponent, FsIconAComponent} from './arbol/arbol.component';
 import { TreeModule } from 'angular-tree-component';
+import { RegistroCatalogoComponent } from './registro-catalogo/registro-catalogo.component';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { TreeModule } from 'angular-tree-component';
     ConsultaCatalogoComponent,
     ArbolComponent,
     FsIconAComponent,
+    RegistroCatalogoComponent,
   ],
   imports: [
     CommonModule,

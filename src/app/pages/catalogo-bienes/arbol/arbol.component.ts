@@ -28,6 +28,7 @@ export class ArbolComponent implements OnInit {
   customColumn = 'Id';
   defaultColumns = ['Nombre', 'Descripcion'];
   allColumns = [this.customColumn, ...this.defaultColumns];
+  
 
   dataSource: NbTreeGridDataSource<CatalogoArbol>;
 
@@ -64,6 +65,7 @@ export class ArbolComponent implements OnInit {
     this.catalogoHelper.getArbolCatalogo(this.catalogoId).subscribe((res) => {
       if (res !== null) {
         this.data = res;
+        console.log(this.data);
         this.dataSource = this.dataSourceBuilder.create(this.data);
       }
     });
