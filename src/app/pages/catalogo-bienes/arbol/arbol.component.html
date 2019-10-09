@@ -4,7 +4,7 @@
 <table [nbTreeGrid]="dataSource" [nbSort]="dataSource" (sort)="updateSort($event)">
 
   <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns"></tr>
-  <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns" (click)="getSelectedRow2(row.data)" selectDirective></tr>
+  <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns" (click)="getSelectedRow2(row.data)" ngxSelectDirective></tr>
 
   <ng-container [nbTreeGridColumnDef]="customColumn">
     <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(customColumn)" *nbTreeGridHeaderCellDef>

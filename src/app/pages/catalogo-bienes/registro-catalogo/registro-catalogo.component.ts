@@ -10,9 +10,9 @@ import { Catalogo } from '../../../@core/data/models/catalogo';
 import { PopUpManager } from '../../../managers/popUpManager';
 
 @Component({
-  selector: 'registro-catalogo',
+  selector: 'ngx-registro-catalogo',
   templateUrl: './registro-catalogo.component.html',
-  styleUrls: ['./registro-catalogo.component.scss']
+  styleUrls: ['./registro-catalogo.component.scss'],
 })
 export class RegistroCatalogoComponent implements OnInit {
   config: ToasterConfig;
@@ -70,7 +70,7 @@ export class RegistroCatalogoComponent implements OnInit {
   loadCatalogos() {
     this.catalogoElementosService.getCatalogo().subscribe((res) => {
       if (res !== null) {
-        console.log(res);
+        // console.log(res);
         const data = <Array<Catalogo>>res;
         for (const datos in Object.keys(data)) {
           if (data.hasOwnProperty(datos)) {
@@ -98,7 +98,7 @@ export class RegistroCatalogoComponent implements OnInit {
     this.uid_3 = undefined;
     this.uid_4 = id;
   }
-  QuitarVista(){
+  QuitarVista() {
     this.uid_1 = undefined;
     this.uid_2 = undefined;
     this.uid_3 = undefined;
@@ -121,7 +121,7 @@ export class RegistroCatalogoComponent implements OnInit {
           this.uid_4 = undefined;
         }
       });
-    console.log(event);
+    // console.log(event);
   }
 
   cleanForm() {
