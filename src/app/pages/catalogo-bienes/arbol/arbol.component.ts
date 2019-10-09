@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, EventEmitter, Output } from '@angular/core';
 import { CatalogoBienesHelper } from '../../../helpers/catalogo_bienes/catalogoBienesHelper';
 import { NbTreeGridDataSource, NbSortDirection, NbSortRequest, NbTreeGridDataSourceBuilder } from '@nebular/theme';
 
@@ -25,7 +25,7 @@ interface CatalogoArbol {
 export class ArbolComponent implements OnInit {
 
   data: TreeNode<CatalogoArbol>[];
-  customColumn = 'Id';
+  customColumn = 'Codigo';
   defaultColumns = ['Nombre', 'Descripcion'];
   allColumns = [this.customColumn, ...this.defaultColumns];
   
@@ -36,6 +36,8 @@ export class ArbolComponent implements OnInit {
   sortDirection: NbSortDirection = NbSortDirection.NONE;
 
   @Input() catalogoId: number;
+
+  @Output() grupo = new EventEmitter<CatalogoArbol>();
 
   constructor(private dataSourceBuilder: NbTreeGridDataSourceBuilder<CatalogoArbol>, private catalogoHelper: CatalogoBienesHelper) { }
 
@@ -59,6 +61,10 @@ export class ArbolComponent implements OnInit {
     const minWithForMultipleColumns = 400;
     const nextColumnStep = 100;
     return minWithForMultipleColumns + (nextColumnStep * index);
+  }
+
+  getSelectedRow2(selectedRow) {
+    this.grupo.emit(selectedRow);
   }
 
   loadTreeCatalogo() {

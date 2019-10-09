@@ -9,6 +9,9 @@ import { NbTreeGridModule } from '@nebular/theme';
 import { ArbolComponent, FsIconAComponent} from './arbol/arbol.component';
 import { TreeModule } from 'angular-tree-component';
 import { RegistroCatalogoComponent } from './registro-catalogo/registro-catalogo.component';
+import { ToasterModule } from 'angular2-toaster';
+import { CrudGrupoComponent } from './crud-grupo/crud-grupo.component';
+import { CrudSubgrupo1Component } from './crud-subgrupo_1/crud-subgrupo_1.component';
 
 
 @NgModule({
@@ -19,9 +22,12 @@ import { RegistroCatalogoComponent } from './registro-catalogo/registro-catalogo
     ArbolComponent,
     FsIconAComponent,
     RegistroCatalogoComponent,
+    CrudGrupoComponent,
+    CrudSubgrupo1Component,
   ],
   imports: [
     CommonModule,
+    ToasterModule,
     CatalogoBienesRoutingModule,
     NbTreeGridModule,
     ThemeModule,

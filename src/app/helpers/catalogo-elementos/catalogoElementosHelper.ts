@@ -143,7 +143,7 @@ export class CatalogoElementosHelper {
      */
     public getGrupoById(grupoId) {
         this.rqManager.setPath('CATALOGO_ELEMENTOS_SERVICE');
-        return this.rqManager.get('subgrupo_catalogo?query=SubgrupoId.Id:' + grupoId + ',Activo:True,').pipe(
+        return this.rqManager.get('subgrupo_catalogo?query=SubgrupoId.Id:' + grupoId + ',Activo:True').pipe(
             map(
                 (res) => {
                     if (res === 'error') {
@@ -185,7 +185,7 @@ export class CatalogoElementosHelper {
      */
     public putGrupo(Transaccion, Id) {
         this.rqManager.setPath('CATALOGO_ELEMENTOS_SERVICE');
-        return this.rqManager.put2('tr_grupo', Transaccion, Id).pipe(
+        return this.rqManager.put2('subgrupo', Transaccion, Id).pipe(
             map(
                 (res) => {
                     if (res['Type'] === 'error') {
@@ -289,7 +289,7 @@ export class CatalogoElementosHelper {
      */
     public putSubgrupo(Transaccion, Id) {
         this.rqManager.setPath('CATALOGO_ELEMENTOS_SERVICE');
-        return this.rqManager.put2('tr_subgrupo', Transaccion, Id).pipe(
+        return this.rqManager.put2('subgrupo', Transaccion, Id).pipe(
             map(
                 (res) => {
                     if (res['Type'] === 'error') {

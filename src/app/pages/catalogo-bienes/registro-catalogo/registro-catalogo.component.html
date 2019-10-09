@@ -1,3 +1,72 @@
-<p>
-  registro-catalogo works!
-</p>
+<div class="row">
+  <nb-card class="col-md-6 col-lg-6 col-xxxl-6">
+    <nb-card-header>
+      {{'GLOBAL.catalogo' | translate}}
+    </nb-card-header>
+    <nb-card-body>
+      <div>
+        <select class="form-control mb-4" (change)="onChange($event.target.value)">
+          <option disabled selected>{{'GLOBAL.seleccionar' | translate}}...</option>
+          <option *ngFor="let item of catalogos" value="{{ item.Id }}">{{ item.Nombre }}</option>
+        </select>
+        <ngx-arbol *ngIf="catalogoId !== 0" [catalogoId]="catalogoId" (grupo)="receiveMessage($event)"></ngx-arbol>
+      </div>
+    </nb-card-body>
+    <nb-card-footer *ngIf="catalogoId !== 0">
+      <div>
+        <button nbButton class="float-right" (click)="AgregarGrupo(1)">Agregar Grupo</button>
+      </div>
+    </nb-card-footer>
+  </nb-card>
+  <div class="col-md-6 col-lg-6 col-xxxl-6">
+    <nb-card *ngIf="uid_1">
+      <nb-card-header>
+        Modificar Grupo
+      </nb-card-header>
+      <ngx-crud-grupo [grupo_id]="uid_1"></ngx-crud-grupo>
+      <nb-card-footer>
+        <div>
+            <button nbButton (click)="QuitarVista()">Deshacer</button>
+          <button nbButton class="float-right" (click)="AgregarSubgrupo(1)">Agregar Subgrupo</button>
+        </div>
+      </nb-card-footer>
+    </nb-card>
+
+    <nb-card *ngIf="uid_2">
+      <nb-card-header>
+        Modificar Subgrupo
+      </nb-card-header>
+      <ngx-crud-subgrupo-1 [subgrupo_1_id]="uid_2"></ngx-crud-subgrupo-1>
+      <nb-card-footer>
+        <div>
+            <button nbButton (click)="QuitarVista()">Deshacer</button>
+          <button nbButton class="float-right" (click)="AgregarSubgrupo(1)">Agregar Subgrupo</button>
+        </div>
+      </nb-card-footer>
+    </nb-card>
+
+    <nb-card *ngIf="uid_3">
+      <nb-card-header>
+        Crear Grupo
+      </nb-card-header>
+      <ngx-crud-grupo [catalogo_id]="catalogoId"></ngx-crud-grupo>
+      <nb-card-footer>
+          <div>
+              <button nbButton (click)="QuitarVista()">Deshacer</button>
+          </div>
+        </nb-card-footer>
+    </nb-card>
+
+    <nb-card *ngIf="uid_4">
+      <nb-card-header>
+        Crear Subgrupo
+      </nb-card-header>
+      <ngx-crud-subgrupo-1 [subgrupo_Padre]="subgrupoPadre"></ngx-crud-subgrupo-1>
+      <nb-card-footer>
+          <div>
+              <button nbButton (click)="QuitarVista()">Deshacer</button>
+          </div>
+        </nb-card-footer>
+    </nb-card>
+  </div>
+</div>
