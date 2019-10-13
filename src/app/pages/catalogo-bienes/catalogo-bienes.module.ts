@@ -23,7 +23,7 @@ import { TreeModule } from 'angular-tree-component';
     CatalogoBienesRoutingModule,
     NbTreeGridModule,
     ThemeModule,
-    TreeModule.forRoot(),
+    //TreeModule.forRoot(),
   ],
 })
 export class CatalogoBienesModule { }
