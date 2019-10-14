@@ -75,7 +75,6 @@ export class VerDetalleComponent implements OnInit {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private Actas_Recibido: ActaRecibidoHelper,
-    private toasterService: ToasterService,
     private cp: CurrencyPipe,
 
   ) {
@@ -301,6 +300,6 @@ export class VerDetalleComponent implements OnInit {
     }
   }
   volver() {
-    this.router.navigate(['/consulta_acta_recibido?']);
+    window.location.reload();
   }
 }

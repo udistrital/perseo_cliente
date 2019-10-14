@@ -81,7 +81,9 @@
         "Verificacion":"On Verification",
         "Aceptada":"Acepted",
         "Asociada":"Entrance Associated",
-        "Anulada":"Anulada"
+        "Anulada":"Closed",
+        "OpcionNoValida":"Invalid Option",
+        "OpcionNoValida2":"Invalid Option for this Certificate"
       },
       "RegistroActa":{
         "Title": "Register Receipt Certificate",

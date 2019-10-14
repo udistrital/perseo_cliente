@@ -81,7 +81,9 @@
         "Verificacion":"En Verificacion",
         "Aceptada":"Aceptada",
         "Asociada":"Asociada a Entrada",
-        "Anulada":"Anulada"
+        "Anulada":"Anulada",
+        "OpcionNoValida":"Opcion No Valida",
+        "OpcionNoValida2":"Opcion No Valida para el Estado de esta Acta"
       },
       "RegistroActa":{
         "Title": "Registrar Acta de Recibido",
