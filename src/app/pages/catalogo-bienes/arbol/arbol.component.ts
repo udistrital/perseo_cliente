@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { CatalogoBienesHelper } from '../../../helpers/catalogo_bienes/catalogoBienesHelper';
 import { NbTreeGridDataSource, NbSortDirection, NbSortRequest, NbTreeGridDataSourceBuilder } from '@nebular/theme';
+import { Observable } from 'rxjs';
 
 interface TreeNode<T> {
   data: T;
@@ -15,6 +16,7 @@ interface CatalogoArbol {
   FechaCreacion: Date;
   FechaModificacion: Date;
   Activo: boolean;
+  Codigo: number;
 }
 
 @Component({
@@ -25,22 +27,40 @@ interface CatalogoArbol {
 export class ArbolComponent implements OnInit {
 
   data: TreeNode<CatalogoArbol>[];
-  customColumn = 'Id';
+  customColumn = 'Codigo';
   defaultColumns = ['Nombre', 'Descripcion'];
   allColumns = [this.customColumn, ...this.defaultColumns];
+
 
   dataSource: NbTreeGridDataSource<CatalogoArbol>;
 
   sortColumn: string;
   sortDirection: NbSortDirection = NbSortDirection.NONE;
 
+  catalogoSeleccionado: number;
+
   @Input() catalogoId: number;
+  @Input() updateSignal: Observable<string[]>;
+  @Output() grupo = new EventEmitter<CatalogoArbol>();
+  @Output() subgrupo = new EventEmitter<CatalogoArbol>();
 
   constructor(private dataSourceBuilder: NbTreeGridDataSourceBuilder<CatalogoArbol>, private catalogoHelper: CatalogoBienesHelper) { }
 
   ngOnInit() {
-    this.loadTreeCatalogo();
+    this.catalogoSeleccionado = 0;
   }
+
+  ngOnChanges(changes) {
+    if (this.catalogoId !== this.catalogoSeleccionado) {
+      this.loadTreeCatalogo();
+      this.catalogoSeleccionado = this.catalogoId;
+    }
+    if (changes['updateSignal'] && this.updateSignal) {
+      this.updateSignal.subscribe(() => {
+        this.loadTreeCatalogo();
+      });
+    }
+}
 
   updateSort(sortRequest: NbSortRequest): void {
     this.sortColumn = sortRequest.column;
@@ -60,6 +80,10 @@ export class ArbolComponent implements OnInit {
     return minWithForMultipleColumns + (nextColumnStep * index);
   }
 
+  getSelectedRow2(selectedRow) {
+    this.grupo.emit(selectedRow);
+  }
+
   loadTreeCatalogo() {
     this.catalogoHelper.getArbolCatalogo(this.catalogoId).subscribe((res) => {
       if (res !== null) {
@@ -67,6 +91,10 @@ export class ArbolComponent implements OnInit {
         this.dataSource = this.dataSourceBuilder.create(this.data);
       }
     });
+  }
+
+  getSelectedRow(selectedRow) {
+    this.subgrupo.emit(selectedRow);
   }
 
 }

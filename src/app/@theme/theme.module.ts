@@ -157,6 +157,7 @@ import { TranslatePipe, TranslateModule } from '@ngx-translate/core';
 import { MatDatepickerModule } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';
+import { SelectDirective } from './directives/mouse-over-tree';
 
 const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
 
@@ -215,6 +216,7 @@ const COMPONENTS = [
   ToggleSettingsButtonComponent,
   SelectComponent,
   NuxeoComponent,
+  SelectDirective,
 ];
 
 const ENTRY_COMPONENTS = [

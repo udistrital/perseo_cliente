@@ -24,6 +24,7 @@ import { CompleterData, CompleterService } from 'ng2-completer';
 import { Store } from '@ngrx/store';
 import { IAppState } from '../../../@core/store/app.state';
 import { ListService } from '../../../@core/store/services/list.service';
+import { combineAll } from 'rxjs-compat/operator/combineAll';
 
 
 
@@ -112,23 +113,24 @@ export class EdicionActaRecibidoComponent implements OnInit {
         this.searchStr2 = new Array<string>();
         this.DatosElementos = new Array<any>();
         this.Elementos__Soporte = new Array<any>();
-        const observable = combineLatest([
+        const observable$ = combineLatest([
           this.Actas_Recibido.getParametros(),
           this.Actas_Recibido.getParametrosSoporte(),
           this.Actas_Recibido.getTransaccionActa(this._ActaId),
         ]);
-        observable.subscribe(([ParametrosActa, ParametrosSoporte, Acta]) => {
-          // console.log([ParametrosActa, ParametrosSoporte, Proveedores, Acta]);
-          this.Traer_Estados_Acta(ParametrosActa[0].EstadoActa);
-          this.Traer_Estados_Elemento(ParametrosActa[0].EstadoElemento);
-          this.Traer_Tipo_Bien(ParametrosActa[0].TipoBien);
-          this.Traer_Unidades(ParametrosActa[0].Unidades);
-          this.Traer_IVA(ParametrosActa[0].IVA);
-          this.Traer_Dependencias(ParametrosSoporte[0].Dependencias);
-          this.Traer_Ubicaciones(ParametrosSoporte[0].Ubicaciones);
-          this.Traer_Sedes(ParametrosSoporte[0].Sedes);
-          this.Cargar_Formularios(Acta[0]);
-
+        observable$.subscribe(([ParametrosActa, ParametrosSoporte, Acta]) => {
+          // console.log([ParametrosActa, ParametrosSoporte, Acta]);
+          if (Acta[0].SoportesActa !== null) {
+            this.Traer_Estados_Acta(ParametrosActa[0].EstadoActa);
+            this.Traer_Estados_Elemento(ParametrosActa[0].EstadoElemento);
+            this.Traer_Tipo_Bien(ParametrosActa[0].TipoBien);
+            this.Traer_Unidades(ParametrosActa[0].Unidades);
+            this.Traer_IVA(ParametrosActa[0].IVA);
+            this.Traer_Dependencias(ParametrosSoporte[0].Dependencias);
+            this.Traer_Ubicaciones(ParametrosSoporte[0].Ubicaciones);
+            this.Traer_Sedes(ParametrosSoporte[0].Sedes);
+            this.Cargar_Formularios(Acta[0]);
+          }
         });
       },
     );

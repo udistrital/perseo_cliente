@@ -295,7 +295,7 @@ export class VerificacionActaRecibidoComponent implements OnInit {
           text: this.translate.instant('GLOBAL.Acta_Recibido.VerificacionActa.Acta') +
             `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.VerificacionActa.Verificada'),
         });
-        this.router.navigate(['/consulta-acta-recibido', {}]);
+        window.location.reload();
       } else {
         (Swal as any).fire({
           type: 'error',
@@ -326,7 +326,7 @@ export class VerificacionActaRecibidoComponent implements OnInit {
           text: this.translate.instant('GLOBAL.Acta_Recibido.VerificacionActa.Acta') +
             `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.VerificacionActa.Rechazada'),
         });
-        this.router.navigate(['/consulta-acta-recibido', {}]);
+        window.location.reload();
       } else {
         (Swal as any).fire({
           type: 'error',
@@ -517,6 +517,5 @@ export class VerificacionActaRecibidoComponent implements OnInit {
     }
   }
   volver() {
-    this.router.navigate(['/consulta_acta_recibido']);
   }
 }

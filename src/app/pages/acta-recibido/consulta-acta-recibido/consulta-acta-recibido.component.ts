@@ -9,6 +9,7 @@ import { ConsultaActaRecibido } from '../../../@core/data/models/acta_recibido/c
 import { stringify } from '@angular/compiler/src/util';
 import { Ubicacion } from '../../../@core/data/models/acta_recibido/soporte_acta';
 import { Subscription, combineLatest, empty } from 'rxjs';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'ngx-consulta-acta-recibido',
   templateUrl: './consulta-acta-recibido.component.html',
@@ -22,122 +23,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
   actas: Array<ConsultaActaRecibido>;
   Ubicaciones: Array<Ubicacion>;
 
-  settings = {
-    noDataMessage: 'No se encontraron elementos asociados.',
-    actions: {
-      columnTitle: 'Acciones',
-      custom: [
-        {
-          name: 'Ver',
-          title: '<i class="fas fa-eye"></i>',
-        },
-        {
-          name: 'Editar',
-          title: '<i class="fas fa-pencil-alt"></i>',
-        },
-      ],
-      position: 'right',
-      add: false,
-      edit: false,
-      delete: false,
-    },
-    columns: {
-      Id: {
-        title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.ConsecutivoHeader'),
-        width: '90px',
-        valuePrepareFunction: (value: any) => {
-          return value;
-        },
-      },
-      FechaCreacion: {
-        title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.FechaCreacionHeader'),
-        width: '70px',
-        valuePrepareFunction: (value: any) => {
-          const date = value.split('T');
-          return date[0];
-        },
-        filter: {
-          type: 'daterange',
-          config: {
-            daterange: {
-              format: 'yyyy/mm/dd',
-            },
-          },
-        },
-      },
-      FechaModificacion: {
-        title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.FechaModificacionHeader'),
-        width: '70px',
-        valuePrepareFunction: (value: any) => {
-          const date = value.split('T');
-          return date[0];
-        },
-        filter: {
-          type: 'daterange',
-          config: {
-            daterange: {
-              format: 'yyyy/mm/dd',
-            },
-          },
-        },
-      },
-      FechaVistoBueno: {
-        title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.FechaVistoBuenoHeader'),
-        width: '70px',
-        valuePrepareFunction: (value: any) => {
-          const date = value.split('T');
-          return date[0];
-        },
-        filter: {
-          type: 'daterange',
-          config: {
-            daterange: {
-              format: 'yyyy/mm/dd',
-            },
-          },
-        },
-      },
-      RevisorId: {
-        title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.RevisorHeader'),
-        valuePrepareFunction: (value: any) => {
-          return value;
-        },
-      },
-      Estado: {
-        title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.EstadoHeader'),
-        valuePrepareFunction: (value: any) => {
-          return value;
-        },
-        filter: {
-          type: 'list',
-          config: {
-            selectText: 'Select...',
-            list: [
-              { value: 'Registrada', title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.Registrada') },
-              { value: 'En Elaboracion', title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.Elaboracion') },
-              { value: 'En Modificacion', title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.Modificacion') },
-              { value: 'En Verificacion', title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.Verificacion') },
-              { value: 'Aceptada', title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.Aceptada') },
-              { value: 'Asociada a Entrada', title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.Asociada') },
-              { value: 'Anulada', title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.Anulada') },
-            ],
-          },
-        },
-      },
-      UbicacionId: {
-        title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.UbicacionHeader'),
-        valuePrepareFunction: (value: any) => {
-          return value;
-        },
-      },
-      Observaciones: {
-        title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.ObservacionesHeader'),
-        valuePrepareFunction: (value: any) => {
-          return value;
-        },
-      },
-    },
-  };
+  settings: any;
   accion: string;
   actas2: any;
   mostrar: boolean;
@@ -145,9 +31,11 @@ export class ConsultaActaRecibidoComponent implements OnInit {
     private router: Router,
     private actaRecibidoHelper: ActaRecibidoHelper,
     private pUpManager: PopUpManager) {
+
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => { // Live reload
       this.cargarCampos();
     });
+    this.cargarCampos();
     this.source = new LocalDataSource(); // create the source
     this.actas = new Array<ConsultaActaRecibido>();
   }
@@ -190,6 +78,10 @@ export class ConsultaActaRecibidoComponent implements OnInit {
           {
             name: 'Editar',
             title: '<i class="fas fa-pencil-alt"></i>',
+          },
+          {
+            name: 'Verificar',
+            title: '<i class="fas fa-play"></i>',
           },
         ],
         position: 'right',
@@ -297,9 +189,252 @@ export class ConsultaActaRecibidoComponent implements OnInit {
   }
   onCustom(event: any) {
 
-    this.actaSeleccionada = `${event.data.Id}`;
-    this.estadoActaSeleccionada = `${event.data.Estado}`;
-    this.accion = `${event.action}`;
+    switch (event.data.Estado.toString()) {
+      case 'Registrada': {
+        switch (event.action.toString()) {
+          case 'Ver': {
+            this.actaSeleccionada = `${event.data.Id}`;
+            this.estadoActaSeleccionada = `${event.data.Estado}`;
+            this.accion = `${event.action}`;
+            break;
+          }
+          case 'Editar': {
+            this.actaSeleccionada = `${event.data.Id}`;
+            this.estadoActaSeleccionada = `${event.data.Estado}`;
+            this.accion = `${event.action}`;
+            break;
+          }
+          case 'Verificar': {
+            this.actaSeleccionada = `${event.data.Id}`;
+            this.estadoActaSeleccionada = `${event.data.Estado}`;
+            this.accion = `${event.action}`;
+            break;
+          }
+          default: {
+            (Swal as any).fire({
+              type: 'warning',
+              title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida'),
+              text: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida2'),
+            });
+            break;
+          }
+        }
+        break;
+      }
+      case 'En Elaboracion': {
+        switch (event.action.toString()) {
+          case 'Ver': {
+            this.actaSeleccionada = `${event.data.Id}`;
+            this.estadoActaSeleccionada = `${event.data.Estado}`;
+            this.accion = `${event.action}`;
+            break;
+          }
+          case 'Editar': {
+            this.actaSeleccionada = `${event.data.Id}`;
+            this.estadoActaSeleccionada = `${event.data.Estado}`;
+            this.accion = `${event.action}`;
+            break;
+          }
+          case 'Verificar': {
+            this.actaSeleccionada = `${event.data.Id}`;
+            this.estadoActaSeleccionada = `${event.data.Estado}`;
+            this.accion = `${event.action}`;
+            break;
+          }
+          default: {
+            (Swal as any).fire({
+              type: 'warning',
+              title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida'),
+              text: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida2'),
+            });
+            break;
+          }
+        }
+        break;
+      }
+      case 'En Modificacion': {
+        switch (event.action.toString()) {
+          case 'Ver': {
+            this.actaSeleccionada = `${event.data.Id}`;
+            this.estadoActaSeleccionada = `${event.data.Estado}`;
+            this.accion = `${event.action}`;
+            break;
+          }
+          case 'Editar': {
+            this.actaSeleccionada = `${event.data.Id}`;
+            this.estadoActaSeleccionada = `${event.data.Estado}`;
+            this.accion = `${event.action}`;
+            break;
+          }
+          case 'Verificar': {
+            this.actaSeleccionada = `${event.data.Id}`;
+            this.estadoActaSeleccionada = `${event.data.Estado}`;
+            this.accion = `${event.action}`;
+            break;
+          }
+          default: {
+            (Swal as any).fire({
+              type: 'warning',
+              title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida'),
+              text: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida2'),
+            });
+            break;
+          }
+        }
+        break;
+      }
+      case 'Aceptada': {
+        switch (event.action.toString()) {
+          case 'Ver': {
+            this.actaSeleccionada = `${event.data.Id}`;
+            this.estadoActaSeleccionada = `${event.data.Estado}`;
+            this.accion = `${event.action}`;
+            break;
+          }
+          case 'Editar': {
+            (Swal as any).fire({
+              type: 'warning',
+              title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida'),
+              text: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida2'),
+            });
+            break;
+          }
+          case 'Verificar': {
+            (Swal as any).fire({
+              type: 'warning',
+              title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida'),
+              text: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida2'),
+            });
+            break;
+          }
+          default: {
+            (Swal as any).fire({
+              type: 'warning',
+              title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida'),
+              text: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida2'),
+            });
+            break;
+          }
+        }
+        break;
+      }
+      case 'Asociada a Entrada': {
+        switch (event.action.toString()) {
+          case 'Ver': {
+            this.actaSeleccionada = `${event.data.Id}`;
+            this.estadoActaSeleccionada = `${event.data.Estado}`;
+            this.accion = `${event.action}`;
+            break;
+          }
+          case 'Editar': {
+            (Swal as any).fire({
+              type: 'warning',
+              title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida'),
+              text: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida2'),
+            });
+            break;
+          }
+          case 'Verificar': {
+            (Swal as any).fire({
+              type: 'warning',
+              title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida'),
+              text: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida2'),
+            });
+            break;
+          }
+          default: {
+            (Swal as any).fire({
+              type: 'warning',
+              title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida'),
+              text: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida2'),
+            });
+            break;
+          }
+        }
+        break;
+      }
+      case 'En verificacion': {
+        switch (event.action.toString()) {
+          case 'Ver': {
+            this.actaSeleccionada = `${event.data.Id}`;
+            this.estadoActaSeleccionada = `${event.data.Estado}`;
+            this.accion = `${event.action}`;
+            break;
+          }
+          case 'Editar': {
+            (Swal as any).fire({
+              type: 'warning',
+              title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida'),
+              text: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida2'),
+            });
+            break;
+          }
+          case 'Verificar': {
+            this.actaSeleccionada = `${event.data.Id}`;
+            this.estadoActaSeleccionada = `${event.data.Estado}`;
+            this.accion = `${event.action}`;
+            break;
+          }
+          default: {
+            (Swal as any).fire({
+              type: 'warning',
+              title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida'),
+              text: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida2'),
+            });
+            break;
+          }
+        }
+        break;
+      }
+      case 'Anulada': {
+        switch (event.action.toString()) {
+          case 'Ver': {
+            this.actaSeleccionada = `${event.data.Id}`;
+            this.estadoActaSeleccionada = `${event.data.Estado}`;
+            this.accion = `${event.action}`;
+            break;
+          }
+          case 'Editar': {
+            (Swal as any).fire({
+              type: 'warning',
+              title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida'),
+              text: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida2'),
+            });
+            break;
+          }
+          case 'Verificar': {
+            (Swal as any).fire({
+              type: 'warning',
+              title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida'),
+              text: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida2'),
+            });
+            break;
+          }
+          default: {
+            (Swal as any).fire({
+              type: 'warning',
+              title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida'),
+              text: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida2'),
+            });
+            break;
+          }
+        }
+        break;
+      }
+      default: {
+        (Swal as any).fire({
+          type: 'warning',
+          title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida'),
+          text: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida2'),
+        });
+        break;
+      }
+    }
+  }
+  onBack() {
+    this.actaSeleccionada = '';
+    this.estadoActaSeleccionada = '';
+    this.accion = '';
   }
   onRegister() {
     this.router.navigate(['/pages/acta_recibido/registro_acta_recibido']);
