@@ -31,7 +31,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
     private router: Router,
     private actaRecibidoHelper: ActaRecibidoHelper,
     private pUpManager: PopUpManager) {
-    
+
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => { // Live reload
       this.cargarCampos();
     });
@@ -73,15 +73,15 @@ export class ConsultaActaRecibidoComponent implements OnInit {
         custom: [
           {
             name: 'Ver',
-            title: '<i class="fas fa-eye"></i>'
+            title: '<i class="fas fa-eye"></i>',
           },
           {
             name: 'Editar',
-            title: '<i class="fas fa-pencil-alt"></i>'
+            title: '<i class="fas fa-pencil-alt"></i>',
           },
           {
             name: 'Verificar',
-            title: '<i class="fas fa-play"></i>'
+            title: '<i class="fas fa-play"></i>',
           },
         ],
         position: 'right',
@@ -249,7 +249,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
             });
             break;
           }
-        } 
+        }
         break;
       }
       case 'En Modificacion': {
@@ -418,7 +418,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
             });
             break;
           }
-        } 
+        }
         break;
       }
       default: {

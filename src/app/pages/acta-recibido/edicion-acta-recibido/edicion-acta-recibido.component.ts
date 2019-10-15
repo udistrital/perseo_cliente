@@ -119,8 +119,8 @@ export class EdicionActaRecibidoComponent implements OnInit {
           this.Actas_Recibido.getTransaccionActa(this._ActaId),
         ]);
         observable$.subscribe(([ParametrosActa, ParametrosSoporte, Acta]) => {
-          console.log([ParametrosActa, ParametrosSoporte, Acta]);
-          if (Acta[0].SoportesActa !== null){
+          // console.log([ParametrosActa, ParametrosSoporte, Acta]);
+          if (Acta[0].SoportesActa !== null) {
             this.Traer_Estados_Acta(ParametrosActa[0].EstadoActa);
             this.Traer_Estados_Elemento(ParametrosActa[0].EstadoElemento);
             this.Traer_Tipo_Bien(ParametrosActa[0].TipoBien);
