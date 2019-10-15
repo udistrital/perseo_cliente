@@ -45,53 +45,8 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/catalogo/list-catalogo',
       },
       {
-        title: 'CRUD Catalogo',
+        title: 'Gestión de Catalogo',
         link: '/pages/catalogo/crud-catalogo',
-      },
-    ],
-  },
-  {
-    title: 'Grupo',
-    icon: 'nb-compose',
-    link: '/pages/grupo',
-    children: [
-      {
-        title: 'Lista Grupo',
-        link: '/pages/grupo/list-grupo',
-      },
-      {
-        title: 'CRUD Grupo',
-        link: '/pages/grupo/crud-grupo',
-      },
-    ],
-  },
-  {
-    title: 'Subgrupo 1',
-    icon: 'nb-compose',
-    link: '/pages/subgrupo_1',
-    children: [
-      {
-        title: 'Lista Subgrupo 1',
-        link: '/pages/subgrupo_1/list-subgrupo_1',
-      },
-      {
-        title: 'CRUD Subgrupo 1',
-        link: '/pages/subgrupo_1/crud-subgrupo_1',
-      },
-    ],
-  },
-  {
-    title: 'Subgrupo 2',
-    icon: 'nb-compose',
-    link: '/pages/subgrupo_2',
-    children: [
-      {
-        title: 'Lista Subgrupo 2',
-        link: '/pages/subgrupo_2/list-subgrupo_2',
-      },
-      {
-        title: 'CRUD Subgrupo 2',
-        link: '/pages/subgrupo_2/crud-subgrupo_2',
       },
     ],
   },
@@ -152,7 +107,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
   {
-    title: 'Catalogo de Bienes',
+    title: 'Catalogo de Elementos',
     icon: 'nb-compose',
     children: [
       {
@@ -160,7 +115,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/catalogo_bienes/consulta_catalogo',
       },
       {
-        title: 'Registro Catálogo',
+        title: 'Construcción de Catálogo',
         link: '/pages/catalogo_bienes/registro_catalogo',
       },
     ],

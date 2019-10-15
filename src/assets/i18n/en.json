@@ -258,7 +258,10 @@
       }
 
     },
-
+    
+    "search": "Search",
+    "catalogo": "Catalogue",
+    "grupo": "Group",
     "notificacion_estado": "notificacion_estado",
     "placeholder_notificacion_estado": "ej: notificacion_estado",
     "id": "id",
@@ -360,6 +363,7 @@
     "factura": "Bill",
     "tipo_bien": "Type of Asset",
     "subgrupo": "Subgroup",
+    "subgrupo_1": "Subgroup",
     "cantidad": "Quantity",
     "marca": "Brand Name",
     "serie": "Serie",

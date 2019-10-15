@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, ViewChild, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { CatalogoBienesHelper } from '../../../helpers/catalogo_bienes/catalogoBienesHelper';
 import { NbTreeGridDataSource, NbSortDirection, NbSortRequest, NbTreeGridDataSourceBuilder } from '@nebular/theme';
+import { Observable } from 'rxjs';
 
 interface TreeNode<T> {
   data: T;
@@ -15,6 +16,7 @@ interface CatalogoArbol {
   FechaCreacion: Date;
   FechaModificacion: Date;
   Activo: boolean;
+  Codigo: number;
 }
 
 @Component({
@@ -35,15 +37,30 @@ export class ArbolComponent implements OnInit {
   sortColumn: string;
   sortDirection: NbSortDirection = NbSortDirection.NONE;
 
-  @Input() catalogoId: number;
+  catalogoSeleccionado: number;
 
+  @Input() catalogoId: number;
+  @Input() updateSignal: Observable<string[]>;
   @Output() grupo = new EventEmitter<CatalogoArbol>();
+  @Output() subgrupo = new EventEmitter<CatalogoArbol>();
 
   constructor(private dataSourceBuilder: NbTreeGridDataSourceBuilder<CatalogoArbol>, private catalogoHelper: CatalogoBienesHelper) { }
 
   ngOnInit() {
-    this.loadTreeCatalogo();
+    this.catalogoSeleccionado = 0;
   }
+
+  ngOnChanges(changes) {
+    if (this.catalogoId !== this.catalogoSeleccionado) {
+      this.loadTreeCatalogo();
+      this.catalogoSeleccionado = this.catalogoId;
+    }
+    if (changes['updateSignal'] && this.updateSignal) {
+      this.updateSignal.subscribe(() => {
+        this.loadTreeCatalogo();
+      });
+    }
+}
 
   updateSort(sortRequest: NbSortRequest): void {
     this.sortColumn = sortRequest.column;
@@ -71,10 +88,13 @@ export class ArbolComponent implements OnInit {
     this.catalogoHelper.getArbolCatalogo(this.catalogoId).subscribe((res) => {
       if (res !== null) {
         this.data = res;
-        // console.log(this.data);
         this.dataSource = this.dataSourceBuilder.create(this.data);
       }
     });
+  }
+
+  getSelectedRow(selectedRow) {
+    this.subgrupo.emit(selectedRow);
   }
 
 }

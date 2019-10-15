@@ -10,7 +10,7 @@
       <option *ngFor="let item of catalogos" value="{{ item.Id }}">{{ item.Nombre }}</option>
     </select>
 
-    <ngx-arbol *ngIf="catalogoId !== 0" [catalogoId]="catalogoId"></ngx-arbol>
+    <ngx-arbol *ngIf="catalogoId !== 0" [catalogoId]="catalogoId" [updateSignal]="eventChange"></ngx-arbol>
 
   </nb-card-body>
 </nb-card>
