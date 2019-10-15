@@ -31,7 +31,6 @@ import { CrudSubgrupo1Component } from './crud-subgrupo_1/crud-subgrupo_1.compon
     CatalogoBienesRoutingModule,
     NbTreeGridModule,
     ThemeModule,
-    TreeModule.forRoot(),
   ],
 })
 export class CatalogoBienesModule { }
