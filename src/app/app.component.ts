@@ -6,6 +6,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AnalyticsService } from './@core/utils/analytics.service';
 import {TranslateService} from '@ngx-translate/core';
+import 'hammerjs';
 
 @Component({
   selector: 'ngx-app',

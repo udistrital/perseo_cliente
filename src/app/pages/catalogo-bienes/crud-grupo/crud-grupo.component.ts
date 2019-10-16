@@ -110,12 +110,10 @@ export class CrudGrupoComponent implements OnInit {
     const opt: any = {
       title: 'Update?',
       text: 'Update Grupo!',
-      icon: 'warning',
-      buttons: true,
-      dangerMode: true,
+      type: 'warning',
       showCancelButton: true,
     };
-    (Swal as any)(opt)
+    (Swal as any).fire(opt)
       .then((willDelete) => {
         if (willDelete.value) {
           this.info_grupo = <Grupo>grupo;
@@ -133,12 +131,10 @@ export class CrudGrupoComponent implements OnInit {
     const opt: any = {
       title: 'Create?',
       text: 'Create Grupo!',
-      icon: 'warning',
-      buttons: true,
-      dangerMode: true,
+      type: 'warning',
       showCancelButton: true,
     };
-    (Swal as any)(opt)
+    (Swal as any).fire(opt)
       .then((willDelete) => {
         if (willDelete.value) {
           const grupoPost = new GrupoTransaccion;

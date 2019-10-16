@@ -110,12 +110,10 @@ export class CrudSubgrupo1Component implements OnInit {
     const opt: any = {
       title: 'Update?',
       text: 'Update Subgrupo1!',
-      icon: 'warning',
-      buttons: true,
-      dangerMode: true,
+      type: 'warning',
       showCancelButton: true,
     };
-    (Swal as any)(opt)
+    (Swal as any).fire(opt)
       .then((willDelete) => {
         if (willDelete.value) {
           this.info_subgrupo_1 = <Subgrupo>subgrupo1;
@@ -133,12 +131,10 @@ export class CrudSubgrupo1Component implements OnInit {
     const opt: any = {
       title: 'Create?',
       text: 'Create Subgrupo!',
-      icon: 'warning',
-      buttons: true,
-      dangerMode: true,
+      type: 'warning',
       showCancelButton: true,
     };
-    (Swal as any)(opt)
+    (Swal as any).fire(opt)
       .then((willDelete) => {
         if (willDelete.value) {
           const subgrupoPost = new SubgrupoTransaccion;
