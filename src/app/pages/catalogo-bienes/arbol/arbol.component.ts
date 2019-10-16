@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnChanges } from '@angular/core';
 import { CatalogoBienesHelper } from '../../../helpers/catalogo_bienes/catalogoBienesHelper';
 import { NbTreeGridDataSource, NbSortDirection, NbSortRequest, NbTreeGridDataSourceBuilder } from '@nebular/theme';
 import { Observable } from 'rxjs';
@@ -24,7 +24,7 @@ interface CatalogoArbol {
   templateUrl: './arbol.component.html',
   styleUrls: ['./arbol.component.scss'],
 })
-export class ArbolComponent implements OnInit {
+export class ArbolComponent implements OnInit, OnChanges {
 
   data: TreeNode<CatalogoArbol>[];
   customColumn = 'Codigo';
