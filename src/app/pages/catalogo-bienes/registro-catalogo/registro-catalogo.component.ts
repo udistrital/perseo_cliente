@@ -81,6 +81,11 @@ export class RegistroCatalogoComponent implements OnInit {
     });
   }
 
+  recargarCatalogo(event){
+    console.log(event);
+    this.eventChange.emit(true);
+  }
+
   onChange(catalogo) {
     this.catalogoId = catalogo;
   }
