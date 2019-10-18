@@ -50,7 +50,7 @@ export let FORM_GRUPO = {
         placeholder_i18n: 'tipo_bien',
         requerido: true,
         tipo: 'TipoBien',
-        // key: 'Name',
+        key: 'Nombre',
         opciones: [],
     },
     ],

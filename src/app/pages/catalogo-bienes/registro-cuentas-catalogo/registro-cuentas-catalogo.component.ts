@@ -1,18 +1,16 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Subgrupo } from '../../../@core/data/models/catalogo/subgrupo';
+import { Subgrupo} from '../../../@core/data/models/catalogo/subgrupo';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { CatalogoElementosHelper } from '../../../helpers/catalogo-elementos/catalogoElementosHelper';
-import { Grupo } from '../../../@core/data/models/catalogo/grupo';
+import { Grupo} from '../../../@core/data/models/catalogo/grupo';
 import { Catalogo } from '../../../@core/data/models/catalogo';
 
-
 @Component({
-  selector: 'ngx-registro-catalogo',
-  templateUrl: './registro-catalogo.component.html',
-  styleUrls: ['./registro-catalogo.component.scss'],
+  selector: 'registro-cuentas-catalogo',
+  templateUrl: './registro-cuentas-catalogo.component.html',
+  styleUrls: ['./registro-cuentas-catalogo.component.scss']
 })
-export class RegistroCatalogoComponent implements OnInit {
-
+export class RegistroCuentasCatalogoComponent implements OnInit {
   grupo_id: number;
 
   @Output() eventChange = new EventEmitter();
@@ -109,5 +107,7 @@ export class RegistroCatalogoComponent implements OnInit {
           this.uid_4 = undefined;
         }
       });
+    // console.log(event);
   }
+
 }
