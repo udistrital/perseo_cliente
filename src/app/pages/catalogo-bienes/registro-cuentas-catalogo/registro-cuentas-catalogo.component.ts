@@ -63,7 +63,7 @@ export class RegistroCuentasCatalogoComponent implements OnInit {
   }
 
   recargarCatalogo(event) {
-    //console.log(event);
+    // console.log(event);
     this.eventChange.emit(true);
   }
 

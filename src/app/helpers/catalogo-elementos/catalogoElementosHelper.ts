@@ -413,7 +413,7 @@ export class CatalogoElementosHelper {
      * If the response is successs, it returns the object's data.
      * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
      */
-    public putMovimiento(Movimiento,id_movimiento) {
+    public putMovimiento(Movimiento, id_movimiento) {
         this.rqManager.setPath('CATALOGO_ELEMENTOS_SERVICE');
         return this.rqManager.put2('cuentas_subgrupo', Movimiento, id_movimiento).pipe(
             map(
