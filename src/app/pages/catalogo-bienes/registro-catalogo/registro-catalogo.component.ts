@@ -64,8 +64,8 @@ export class RegistroCatalogoComponent implements OnInit {
     });
   }
 
-  recargarCatalogo(event){
-    console.log(event);
+  recargarCatalogo(event) {
+    //console.log(event);
     this.eventChange.emit(true);
   }
 

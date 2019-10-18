@@ -8,7 +8,7 @@ describe('RegistroCuentasCatalogoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RegistroCuentasCatalogoComponent ]
+      declarations: [ RegistroCuentasCatalogoComponent ],
     })
     .compileComponents();
   }));

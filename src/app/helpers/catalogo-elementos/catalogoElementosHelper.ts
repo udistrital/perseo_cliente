@@ -352,7 +352,7 @@ export class CatalogoElementosHelper {
      */
     public getPlanCuentas(naturaleza) {
         this.rqManager.setPath('FINANCIERA_SERVICE');
-        return this.rqManager.get('cuenta_contable?query=Naturaleza:'+naturaleza+'&limit=-1').pipe(
+        return this.rqManager.get('cuenta_contable?query=Naturaleza:' + naturaleza + '&limit=-1').pipe(
             map(
                 (res) => {
                     if (res === 'error') {
@@ -371,9 +371,9 @@ export class CatalogoElementosHelper {
      * If the response is successs, it returns the object's data.
      * @returns  <Observable> data of the object registered at the DB. undefined if the request has errors
      */
-    public getMovimiento(id_Subgrupo,idmovimiento) {
+    public getMovimiento(id_Subgrupo, idmovimiento) {
         this.rqManager.setPath('CATALOGO_ELEMENTOS_SERVICE');
-        return this.rqManager.get('cuentas_subgrupo?query=SubgrupoId.Id:'+id_Subgrupo+',SubtipoMovimientoId:'+idmovimiento).pipe(
+        return this.rqManager.get('cuentas_subgrupo?query=SubgrupoId.Id:' + id_Subgrupo + ',SubtipoMovimientoId:' + idmovimiento).pipe(
             map(
                 (res) => {
                     if (res === 'error') {
@@ -394,7 +394,7 @@ export class CatalogoElementosHelper {
      */
     public postMovimiento(Movimiento) {
         this.rqManager.setPath('CATALOGO_ELEMENTOS_SERVICE');
-        return this.rqManager.post('cuentas_subgrupo',Movimiento).pipe(
+        return this.rqManager.post('cuentas_subgrupo', Movimiento).pipe(
             map(
                 (res) => {
                     if (res['Type'] === 'error') {
@@ -415,7 +415,7 @@ export class CatalogoElementosHelper {
      */
     public putMovimiento(Movimiento,id_movimiento) {
         this.rqManager.setPath('CATALOGO_ELEMENTOS_SERVICE');
-        return this.rqManager.put2('cuentas_subgrupo',Movimiento, id_movimiento).pipe(
+        return this.rqManager.put2('cuentas_subgrupo', Movimiento, id_movimiento).pipe(
             map(
                 (res) => {
                     if (res['Type'] === 'error') {
@@ -436,7 +436,7 @@ export class CatalogoElementosHelper {
      */
     public deleteMovimiento(Movimiento) {
         this.rqManager.setPath('CATALOGO_ELEMENTOS_SERVICE');
-        return this.rqManager.delete('cuentas_subgrupo',Movimiento).pipe(
+        return this.rqManager.delete('cuentas_subgrupo', Movimiento).pipe(
             map(
                 (res) => {
                     if (res['Type'] === 'error') {

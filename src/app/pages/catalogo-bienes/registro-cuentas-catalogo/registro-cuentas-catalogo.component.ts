@@ -6,9 +6,9 @@ import { Grupo} from '../../../@core/data/models/catalogo/grupo';
 import { Catalogo } from '../../../@core/data/models/catalogo';
 
 @Component({
-  selector: 'registro-cuentas-catalogo',
+  selector: 'ngx-registro-cuentas-catalogo',
   templateUrl: './registro-cuentas-catalogo.component.html',
-  styleUrls: ['./registro-cuentas-catalogo.component.scss']
+  styleUrls: ['./registro-cuentas-catalogo.component.scss'],
 })
 export class RegistroCuentasCatalogoComponent implements OnInit {
   grupo_id: number;
@@ -62,8 +62,8 @@ export class RegistroCuentasCatalogoComponent implements OnInit {
     });
   }
 
-  recargarCatalogo(event){
-    console.log(event);
+  recargarCatalogo(event) {
+    //console.log(event);
     this.eventChange.emit(true);
   }
 

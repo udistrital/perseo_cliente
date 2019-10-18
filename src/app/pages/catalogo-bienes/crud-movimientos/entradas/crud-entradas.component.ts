@@ -55,7 +55,7 @@ export class CrudEntradasComponent implements OnInit {
 
   construirForm() {
 
-    this.formMovimiento.titulo = this.translate.instant('GLOBAL.'+this.movimiento_id);
+    this.formMovimiento.titulo = this.translate.instant('GLOBAL.' + this.movimiento_id);
     this.formMovimiento.btn = this.translate.instant('GLOBAL.guardar');
     for (let i = 0; i < this.formMovimiento.campos.length; i++) {
       this.formMovimiento.campos[i].label = this.translate.instant('GLOBAL.' + this.formMovimiento.campos[i].label_i18n);
@@ -91,7 +91,7 @@ export class CrudEntradasComponent implements OnInit {
 
   public loadCuentaGrupo(): void {
     if (this.subgrupo_id !== undefined && this.subgrupo_id !== 0) {
-      this.catalogoElementosService.getMovimiento(this.subgrupo_id,this.movimiento_id)
+      this.catalogoElementosService.getMovimiento(this.subgrupo_id, this.movimiento_id)
         .subscribe(res => {
           if (Object.keys(res[0]).length !== 0) {
             this.info_movimiento = <CuentaGrupo>res[0];

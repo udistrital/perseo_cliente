@@ -188,7 +188,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
     };
   }
   onCustom(event: any) {
-    console.log(event.data);
+    // // console.log(event.data);
     switch (event.data.Estado.toString()) {
       case 'Registrada': {
         switch (event.action.toString()) {
@@ -196,24 +196,24 @@ export class ConsultaActaRecibidoComponent implements OnInit {
             this.actaSeleccionada = `${event.data.Id}`;
             this.estadoActaSeleccionada = `${event.data.Estado}`;
             this.accion = `${event.action}`;
-            console.log(this.accion);
-            console.log(this.actaSeleccionada);
+            // // console.log(this.accion);
+            // // console.log(this.actaSeleccionada);
             break;
           }
           case 'Editar': {
             this.actaSeleccionada = `${event.data.Id}`;
             this.estadoActaSeleccionada = `${event.data.Estado}`;
             this.accion = `${event.action}`;
-            console.log(this.accion);
-            console.log(this.actaSeleccionada);
+            // console.log(this.accion);
+            // console.log(this.actaSeleccionada);
             break;
           }
           case 'Verificar': {
             this.actaSeleccionada = `${event.data.Id}`;
             this.estadoActaSeleccionada = `${event.data.Estado}`;
             this.accion = `${event.action}`;
-            console.log(this.accion);
-            console.log(this.actaSeleccionada);
+            // console.log(this.accion);
+            // console.log(this.actaSeleccionada);
             break;
           }
           default: {
@@ -222,7 +222,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
               title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida'),
               text: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida2'),
             });
-            console.log('default');
+            // console.log('default');
             break;
           }
         }
@@ -234,24 +234,24 @@ export class ConsultaActaRecibidoComponent implements OnInit {
             this.actaSeleccionada = `${event.data.Id}`;
             this.estadoActaSeleccionada = `${event.data.Estado}`;
             this.accion = `${event.action}`;
-            console.log(this.accion);
-            console.log(this.actaSeleccionada);
+            // console.log(this.accion);
+            // console.log(this.actaSeleccionada);
             break;
           }
           case 'Editar': {
             this.actaSeleccionada = `${event.data.Id}`;
             this.estadoActaSeleccionada = `${event.data.Estado}`;
             this.accion = `${event.action}`;
-            console.log(this.accion);
-            console.log(this.actaSeleccionada);
+            // console.log(this.accion);
+            // console.log(this.actaSeleccionada);
             break;
           }
           case 'Verificar': {
             this.actaSeleccionada = `${event.data.Id}`;
             this.estadoActaSeleccionada = `${event.data.Estado}`;
             this.accion = `${event.action}`;
-            console.log(this.accion);
-            console.log(this.actaSeleccionada);
+            // console.log(this.accion);
+            // console.log(this.actaSeleccionada);
             break;
           }
           default: {
@@ -260,7 +260,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
               title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida'),
               text: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida2'),
             });
-            console.log('default');
+            // console.log('default');
             break;
           }
         }
@@ -272,24 +272,24 @@ export class ConsultaActaRecibidoComponent implements OnInit {
             this.actaSeleccionada = `${event.data.Id}`;
             this.estadoActaSeleccionada = `${event.data.Estado}`;
             this.accion = `${event.action}`;
-            console.log(this.accion);
-            console.log(this.actaSeleccionada);
+            // console.log(this.accion);
+            // console.log(this.actaSeleccionada);
             break;
           }
           case 'Editar': {
             this.actaSeleccionada = `${event.data.Id}`;
             this.estadoActaSeleccionada = `${event.data.Estado}`;
             this.accion = `${event.action}`;
-            console.log(this.accion);
-            console.log(this.actaSeleccionada);
+            // console.log(this.accion);
+            // console.log(this.actaSeleccionada);
             break;
           }
           case 'Verificar': {
             this.actaSeleccionada = `${event.data.Id}`;
             this.estadoActaSeleccionada = `${event.data.Estado}`;
             this.accion = `${event.action}`;
-            console.log(this.accion);
-            console.log(this.actaSeleccionada);
+            // console.log(this.accion);
+            // console.log(this.actaSeleccionada);
             break;
           }
           default: {
@@ -298,7 +298,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
               title: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida'),
               text: this.translate.instant('GLOBAL.Acta_Recibido.ConsultaActas.OpcionNoValida2'),
             });
-            console.log('default');
+            // console.log('default');
             break;
           }
         }
@@ -310,8 +310,8 @@ export class ConsultaActaRecibidoComponent implements OnInit {
             this.actaSeleccionada = `${event.data.Id}`;
             this.estadoActaSeleccionada = `${event.data.Estado}`;
             this.accion = `${event.action}`;
-            console.log(this.accion);
-            console.log(this.actaSeleccionada);
+            // console.log(this.accion);
+            // console.log(this.actaSeleccionada);
             break;
           }
           case 'Editar': {
@@ -347,8 +347,8 @@ export class ConsultaActaRecibidoComponent implements OnInit {
             this.actaSeleccionada = `${event.data.Id}`;
             this.estadoActaSeleccionada = `${event.data.Estado}`;
             this.accion = `${event.action}`;
-            console.log(this.accion);
-            console.log(this.actaSeleccionada);
+            // console.log(this.accion);
+            // console.log(this.actaSeleccionada);
             break;
           }
           case 'Editar': {
@@ -384,8 +384,8 @@ export class ConsultaActaRecibidoComponent implements OnInit {
             this.actaSeleccionada = `${event.data.Id}`;
             this.estadoActaSeleccionada = `${event.data.Estado}`;
             this.accion = `${event.action}`;
-            console.log(this.accion);
-            console.log(this.actaSeleccionada);
+            // console.log(this.accion);
+            // console.log(this.actaSeleccionada);
             break;
           }
           case 'Editar': {
@@ -419,7 +419,7 @@ export class ConsultaActaRecibidoComponent implements OnInit {
             this.actaSeleccionada = `${event.data.Id}`;
             this.estadoActaSeleccionada = `${event.data.Estado}`;
             this.accion = `${event.action}`;
-            console.log(this.accion);
+            // console.log(this.accion);
             break;
           }
           case 'Editar': {
