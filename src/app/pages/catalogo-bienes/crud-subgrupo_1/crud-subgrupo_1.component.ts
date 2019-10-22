@@ -156,7 +156,7 @@ export class CrudSubgrupo1Component implements OnInit {
   }
 
   validarForm(event) {
-    console.log(event);
+    // console.log(event);
     if (event.valid) {
       if (this.info_subgrupo_1 === undefined) {
         this.createSubgrupo1(event.data.Subgrupo);

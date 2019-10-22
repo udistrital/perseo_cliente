@@ -78,7 +78,7 @@ export class CrudEntradasComponent implements OnInit {
           this.formMovimiento.campos[this.getIndexForm('CuentaDebitoId')].opciones = list.listPlanCuentasDebito[0];
           this.formMovimiento.campos[this.getIndexForm('CuentaCreditoId')].opciones = list.listPlanCuentasCredito[0];
         }
-      }
+      },
     );
   }
 
@@ -109,10 +109,10 @@ export class CrudEntradasComponent implements OnInit {
   }
   public loadCuentaGrupo(): void {
     if (this.subgrupo_id.Id !== undefined && this.subgrupo_id.Id !== 0) {
-      console.log(this.movimiento_id);
+      // console.log(this.movimiento_id);
       this.catalogoElementosService.getMovimiento(this.subgrupo_id.Id, this.movimiento_id)
         .subscribe(res => {
-          console.log(res[0].CuentaCreditoId);
+          // console.log(res[0].CuentaCreditoId);
           if (Object.keys(res[0]).length !== 0) {
             const cuentasAsociadas = new CuentasFormulario();
             this.respuesta = <CuentaGrupo>res[0];
@@ -123,7 +123,7 @@ export class CrudEntradasComponent implements OnInit {
             cuentasAsociadas.CuentaCreditoId = cuentaCredito;
             cuentasAsociadas.CuentaDebitoId = cuentaDebito;
             this.info_movimiento = cuentasAsociadas;
-            console.log(this.info_movimiento);
+            // console.log(this.info_movimiento);
           } else {
             this.info_movimiento = undefined;
             this.clean = !this.clean;
@@ -146,7 +146,7 @@ export class CrudEntradasComponent implements OnInit {
     (Swal as any).fire(opt)
       .then((willDelete) => {
         if (willDelete.value) {
-          console.log(grupo);
+          // console.log(grupo);
           const Cuentas = <CuentasFormulario>grupo;
           this.respuesta.CuentaCreditoId = Cuentas.CuentaCreditoId.Id;
           this.respuesta.CuentaDebitoId = Cuentas.CuentaDebitoId.Id;
@@ -170,7 +170,7 @@ export class CrudEntradasComponent implements OnInit {
     (Swal as any).fire(opt)
       .then((willDelete) => {
         if (willDelete.value) {
-          console.log(grupo);
+          // console.log(grupo);
           const Cuentas = <CuentasFormulario>grupo;
           const Movimiento = new CuentaGrupo();
           Movimiento.CuentaCreditoId = Cuentas.CuentaCreditoId.Id;
