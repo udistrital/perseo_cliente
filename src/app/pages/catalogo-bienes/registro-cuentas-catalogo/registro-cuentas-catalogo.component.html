@@ -12,61 +12,12 @@
         <ngx-arbol *ngIf="catalogoId !== 0" [catalogoId]="catalogoId" (grupo)="receiveMessage($event)" [updateSignal]="eventChange"></ngx-arbol>
       </div>
     </nb-card-body>
-    <nb-card-footer *ngIf="catalogoId !== 0">
-      <div>
-        <button nbButton class="float-right" (click)="AgregarGrupo(1)">Agregar Grupo</button>
-      </div>
-    </nb-card-footer>
   </nb-card>
   <div class="col-md-6 col-lg-6 col-xxxl-6">
     <nb-card *ngIf="uid_1">
-      <nb-card-header>
-        Modificar Grupo
-      </nb-card-header>
-      <ngx-crud-grupo [grupo_id]="uid_1" (eventChange)="recargarCatalogo($event)"></ngx-crud-grupo>
-      <nb-card-footer>
-        <div>
-            <button nbButton (click)="QuitarVista()">Deshacer</button>
-          <button nbButton class="float-right" (click)="AgregarSubgrupo(1)">Agregar Subgrupo</button>
-        </div>
-      </nb-card-footer>
-    </nb-card>
-
-    <nb-card *ngIf="uid_2">
-      <nb-card-header>
-        Modificar Subgrupo
-      </nb-card-header>
-      <ngx-crud-subgrupo-1 [subgrupo_1_id]="uid_2" (eventChange)="recargarCatalogo($event)"></ngx-crud-subgrupo-1>
-      <nb-card-footer>
-        <div>
-            <button nbButton (click)="QuitarVista()">Deshacer</button>
-          <button nbButton class="float-right" (click)="AgregarSubgrupo(1)">Agregar Subgrupo</button>
-        </div>
-      </nb-card-footer>
-    </nb-card>
-
-    <nb-card *ngIf="uid_3">
-      <nb-card-header>
-        Crear Grupo
-      </nb-card-header>
-      <ngx-crud-grupo [catalogo_id]="catalogoId" (eventChange)="recargarCatalogo($event)"></ngx-crud-grupo>
-      <nb-card-footer>
-          <div>
-              <button nbButton (click)="QuitarVista()">Deshacer</button>
-          </div>
-        </nb-card-footer>
-    </nb-card>
-
-    <nb-card *ngIf="uid_4">
-      <nb-card-header>
-        Crear Subgrupo
-      </nb-card-header>
-      <ngx-crud-subgrupo-1 [subgrupo_Padre]="subgrupoPadre" (eventChange)="recargarCatalogo($event)"></ngx-crud-subgrupo-1>
-      <nb-card-footer>
-          <div>
-              <button nbButton (click)="QuitarVista()">Deshacer</button>
-          </div>
-        </nb-card-footer>
+      <!-- <ngx-crud-entradas [subgrupo_id]="uid_1" [movimiento_id]="1" (eventChange)="recargarCatalogo($event)" ></ngx-crud-entradas> -->
+      <ngx-crud-salidas [subgrupo_id]=uid_1 [movimiento_id]="2" (eventChange)="recargarCatalogo($event)"></ngx-crud-salidas>
+      <!-- <ngx-crud-depreciacion [subgrupo_id]=uid_1 [movimiento_id]="3" (eventChange)="recargarCatalogo($event)"></ngx-crud-depreciacion> -->
     </nb-card>
   </div>
 </div>

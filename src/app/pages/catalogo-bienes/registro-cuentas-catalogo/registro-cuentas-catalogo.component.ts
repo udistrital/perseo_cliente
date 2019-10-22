@@ -4,6 +4,10 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { CatalogoElementosHelper } from '../../../helpers/catalogo-elementos/catalogoElementosHelper';
 import { Grupo} from '../../../@core/data/models/catalogo/grupo';
 import { Catalogo } from '../../../@core/data/models/catalogo';
+import Swal from 'sweetalert2';
+import { Store } from '@ngrx/store';
+import { IAppState } from '../../../@core/store/app.state';
+import { ListService } from '../../../@core/store/services/list.service';
 
 @Component({
   selector: 'ngx-registro-cuentas-catalogo',
@@ -23,22 +27,27 @@ export class RegistroCuentasCatalogoComponent implements OnInit {
   catalogoId: number;
   subgrupoPadre: Subgrupo;
   subgrupoHijo: Subgrupo;
-  uid_1: number;
+  uid_1: Subgrupo;
   ModificarGrupo: boolean;
-  uid_2: number;
-  uid_3: number;
-  uid_4: number;
+  uid_2: Subgrupo;
+  uid_3: Subgrupo;
+  uid_4: Subgrupo;
+  Movimiento: number;
 
 
   constructor(
     private translate: TranslateService,
     private catalogoElementosService: CatalogoElementosHelper,
+    private store: Store<IAppState>,
+    private listService: ListService,
   ) {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
     });
     this.catalogos = new Array<Catalogo>();
     this.catalogoId = 0;
     this.loadCatalogos();
+    this.listService.findPlanCuentasDebito();
+    this.listService.findPlanCuentasCredito();
   }
 
   ngOnInit() {
@@ -71,19 +80,6 @@ export class RegistroCuentasCatalogoComponent implements OnInit {
     this.catalogoId = catalogo;
   }
 
-  AgregarGrupo(id: number) {
-    this.uid_1 = undefined;
-    this.uid_2 = undefined;
-    this.uid_3 = id;
-    this.uid_4 = undefined;
-  }
-
-  AgregarSubgrupo(id: number) {
-    this.uid_1 = undefined;
-    this.uid_2 = undefined;
-    this.uid_3 = undefined;
-    this.uid_4 = id;
-  }
   QuitarVista() {
     this.uid_1 = undefined;
     this.uid_2 = undefined;
@@ -92,19 +88,21 @@ export class RegistroCuentasCatalogoComponent implements OnInit {
   }
   receiveMessage(event) {
     this.subgrupoPadre = event;
-    this.info_grupo = <Grupo>event;
-    this.catalogoElementosService.getGrupoById(event.Id).subscribe(
+    this.catalogoElementosService.getSubgrupoById(event.Id).subscribe(
       res => {
+        console.log(res[0]);
         if (Object.keys(res[0]).length !== 0) {
-          this.uid_1 = event.Id;
+          this.uid_1 = event;
           this.uid_2 = undefined;
           this.uid_3 = undefined;
           this.uid_4 = undefined;
+          this.Movimiento = 1;
         } else {
           this.uid_1 = undefined;
-          this.uid_2 = event.Id;
+          this.uid_2 = event;
           this.uid_3 = undefined;
           this.uid_4 = undefined;
+          this.Movimiento = 1;
         }
       });
     // console.log(event);

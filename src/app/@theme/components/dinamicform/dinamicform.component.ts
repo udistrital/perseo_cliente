@@ -41,7 +41,7 @@ export class DinamicformComponent implements OnInit, OnChanges {
       if (changes.modeloData.currentValue !== undefined) {
         this.modeloData = changes.modeloData.currentValue;
         if (this.normalform.campos) {
-          this.normalform.campos.forEach(element => {
+          this.normalform.campos.forEach((element: any) => {
             for (const i in this.modeloData) {
               if (this.modeloData.hasOwnProperty(i)) {
                 if (i === element.nombre && this.modeloData[i] !== null) {
@@ -102,7 +102,7 @@ export class DinamicformComponent implements OnInit, OnChanges {
   }
 
   onChange(event, c) {
-    console.info(c.valor);
+
     if (c.valor !== undefined) {
       c.urlTemp = URL.createObjectURL(event.srcElement.files[0]);
       c.url = this.cleanURL(c.urlTemp);
@@ -218,20 +218,25 @@ export class DinamicformComponent implements OnInit, OnChanges {
     this.data.files = [];
     this.data.valid = true;
 
-    this.normalform.campos.forEach(d => {
+    this.normalform.campos.forEach((d: any) => {
       requeridos = d.requerido ? requeridos + 1 : requeridos;
-      if (this.validCampo(d)) {
-        if (d.etiqueta === 'file') {
-          result[d.nombre] = { nombre: d.nombre, file: d.File };
-          // result[d.nombre].push({ nombre: d.name, file: d.valor });
-        } else if (d.etiqueta === 'select') {
-          result[d.nombre] = d.relacion ? d.valor : d.valor.Id;
+      console.log(d);
+      if (this.normalform.btn) {
+        console.log('ok');
+        if (this.validCampo(d)) {
+          if (d.etiqueta === 'file') {
+            result[d.nombre] = { nombre: d.nombre, file: d.File };
+            // result[d.nombre].push({ nombre: d.name, file: d.valor });
+          } else if (d.etiqueta === 'select') {
+            result[d.nombre] = d.relacion ? d.valor : d.valor.Id;
+          } else {
+            result[d.nombre] = d.valor;
+          }
+          console.log(result);
+          resueltos = d.requerido ? resueltos + 1 : resueltos;
         } else {
-          result[d.nombre] = d.valor;
+          this.data.valid = false;
         }
-        resueltos = d.requerido ? resueltos + 1 : resueltos;
-      } else {
-        this.data.valid = false;
       }
     });
 
@@ -252,7 +257,7 @@ export class DinamicformComponent implements OnInit, OnChanges {
 
     this.result.emit(this.data);
     if (this.data.valid)
-    this.percentage.emit(this.data.percentage);
+      this.percentage.emit(this.data.percentage);
     return this.data;
   }
 

@@ -1,8 +1,8 @@
 export let FORM_ENTRADA = {
-    titulo: 'Entrada',
+    titulo: 'Salida',
     tipo_formulario: 'mini',
-    btn: 'Guardar',
     alertas: true,
+
     modelo: 'CuentasFormulario',
     campos: [
 

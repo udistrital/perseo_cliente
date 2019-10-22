@@ -2,7 +2,7 @@ import { Catalogo } from '../../../../@core/data/models/catalogo/catalogo';
 import { Grupo, GrupoTransaccion } from '../../../../@core/data/models/catalogo/grupo';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TipoBien } from '../../../../@core/data/models/acta_recibido/tipo_bien';
-import { FORM_ENTRADA } from './form-entrada';
+import { FORM_ENTRADA } from './form-salidas';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
@@ -14,20 +14,19 @@ import { Store } from '@ngrx/store';
 import { IAppState } from '../../../../@core/store/app.state';
 import { ListService } from '../../../../@core/store/services/list.service';
 import { Subgrupo } from '../../../../@core/data/models/catalogo/subgrupo';
-
-
 @Component({
-  selector: 'ngx-crud-entradas',
-  templateUrl: './crud-entradas.component.html',
-  styleUrls: ['./crud-entradas.component.scss'],
+  selector: 'ngx-crud-salidas',
+  templateUrl: './crud-salidas.component.html',
+  styleUrls: ['./crud-salidas.component.scss'],
 })
 
-export class CrudEntradasComponent implements OnInit {
+export class CrudSalidasComponent implements OnInit {
   config: ToasterConfig;
   subgrupo_id: Subgrupo;
   movimiento_id: number;
   respuesta: CuentaGrupo;
   Subgrupo: Subgrupo;
+  ok: boolean;
 
   @Input('subgrupo_id')
   set name(subgrupo_id: Subgrupo) {
@@ -45,7 +44,7 @@ export class CrudEntradasComponent implements OnInit {
 
   @Output() eventChange = new EventEmitter();
 
-  info_movimiento: CuentasFormulario;
+  info_movimiento: any;
   formMovimiento: any;
   regMovimiento: any;
   clean: boolean;
@@ -112,7 +111,6 @@ export class CrudEntradasComponent implements OnInit {
       console.log(this.movimiento_id);
       this.catalogoElementosService.getMovimiento(this.subgrupo_id.Id, this.movimiento_id)
         .subscribe(res => {
-          console.log(res[0].CuentaCreditoId);
           if (Object.keys(res[0]).length !== 0) {
             const cuentasAsociadas = new CuentasFormulario();
             this.respuesta = <CuentaGrupo>res[0];
@@ -123,7 +121,6 @@ export class CrudEntradasComponent implements OnInit {
             cuentasAsociadas.CuentaCreditoId = cuentaCredito;
             cuentasAsociadas.CuentaDebitoId = cuentaDebito;
             this.info_movimiento = cuentasAsociadas;
-            console.log(this.info_movimiento);
           } else {
             this.info_movimiento = undefined;
             this.clean = !this.clean;

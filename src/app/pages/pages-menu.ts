@@ -91,6 +91,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Construcción de Catálogo',
         link: '/pages/catalogo_bienes/registro_catalogo',
       },
+      {
+        title: 'Asignacion de Cuentas',
+        link: '/pages/catalogo_bienes/registro_cuentas_catalogo',
+      },
     ],
   },
 ];

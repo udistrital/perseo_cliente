@@ -1,4 +1,5 @@
 import { Subgrupo } from './subgrupo';
+import { Cuenta } from './cuenta_contable';
 
 export class CuentaGrupo {
     Id: number;
@@ -9,4 +10,8 @@ export class CuentaGrupo {
     FechaModificacion: Date;
     Activo: boolean;
     SubgrupoId: Subgrupo;
+}
+export class CuentasFormulario {
+    CuentaCreditoId: Cuenta;
+    CuentaDebitoId: Cuenta;
 }

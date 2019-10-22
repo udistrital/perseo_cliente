@@ -2,7 +2,7 @@ import { Catalogo } from '../../../../@core/data/models/catalogo/catalogo';
 import { Grupo, GrupoTransaccion } from '../../../../@core/data/models/catalogo/grupo';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TipoBien } from '../../../../@core/data/models/acta_recibido/tipo_bien';
-import { FORM_ENTRADA } from './form-entrada';
+import { FORM_ENTRADA } from './form-depreciacion';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
@@ -17,12 +17,12 @@ import { Subgrupo } from '../../../../@core/data/models/catalogo/subgrupo';
 
 
 @Component({
-  selector: 'ngx-crud-entradas',
-  templateUrl: './crud-entradas.component.html',
-  styleUrls: ['./crud-entradas.component.scss'],
+  selector: 'ngx-crud-depreciacion',
+  templateUrl: './crud-depreciacion.component.html',
+  styleUrls: ['./crud-depreciacion.component.scss'],
 })
 
-export class CrudEntradasComponent implements OnInit {
+export class CrudDepreciacionComponent implements OnInit {
   config: ToasterConfig;
   subgrupo_id: Subgrupo;
   movimiento_id: number;
@@ -220,5 +220,4 @@ export class CrudEntradasComponent implements OnInit {
     };
     this.toasterService.popAsync(toast);
   }
-
 }

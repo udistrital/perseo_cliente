@@ -1,14 +1,14 @@
-export let FORM_GRUPO = {
-    titulo: 'Grupo',
+export let FORM_ENTRADA = {
+    titulo: 'Depreciacion',
     tipo_formulario: 'mini',
     btn: 'Guardar',
     alertas: true,
-    modelo: 'CuentaGrupo',
+    modelo: 'CuentasFormulario',
     campos: [
 
         {
             etiqueta: 'select',
-            claseGrid: 'col-lg-12 col-md-12 col-sm-12 col-xs-12',
+            claseGrid: 'col-6',
             nombre: 'CuentaCreditoId',
             label_i18n: 'cuenta_credito',
             placeholder_i18n: 'cuenta_credito',
