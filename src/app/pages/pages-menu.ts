@@ -81,21 +81,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
   {
-    title: 'Subgrupo 2',
-    icon: 'nb-compose',
-    link: '/pages/subgrupo_2',
-    children: [
-      {
-        title: 'Lista Subgrupo 2',
-        link: '/pages/subgrupo_2/list-subgrupo_2',
-      },
-      {
-        title: 'CRUD Subgrupo 2',
-        link: '/pages/subgrupo_2/crud-subgrupo_2',
-      },
-    ],
-  },
-  {
     title: 'Entradas',
     icon: 'nb-list',
     children: [
