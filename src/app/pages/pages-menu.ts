@@ -17,37 +17,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Registro de Acta',
         link: '/pages/acta_recibido/registro_acta_recibido',
       },
-      // {
-      //   title: 'Edicion de Acta',
-      //   link: '/pages/acta_recibido/edicion_acta_recibido',
-      // },
-      // {
-      //   title: 'Verificación de Acta',
-      //   link: '/pages/acta_recibido/verificacion_acta_recibido',
-      // },
-      // {
-      //   title: 'Ver Detalle',
-      //   link: '/pages/acta_recibido/ver_detalle',
-      // },
-      // {
-      //   title: 'Capturar Elementos',
-      //   link: '/pages/acta_recibido/capturar_elementos',
-      // },
-    ],
-  },
-  {
-    title: 'Catalogo',
-    icon: 'nb-compose',
-    link: '/pages/catalogo',
-    children: [
-      {
-        title: 'Lista Catalogo',
-        link: '/pages/catalogo/list-catalogo',
-      },
-      {
-        title: 'Gestión de Catalogo',
-        link: '/pages/catalogo/crud-catalogo',
-      },
     ],
   },
   {
@@ -111,12 +80,20 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'nb-compose',
     children: [
       {
-        title: 'Consultar Catálogo',
+        title: 'Lista de Catalogos',
+        link: '/pages/catalogo/list-catalogo',
+      },
+      {
+        title: 'Detalle de Catálogo',
         link: '/pages/catalogo_bienes/consulta_catalogo',
       },
       {
         title: 'Construcción de Catálogo',
         link: '/pages/catalogo_bienes/registro_catalogo',
+      },
+      {
+        title: 'Asignacion de Cuentas',
+        link: '/pages/catalogo_bienes/registro_cuentas_catalogo',
       },
     ],
   },
