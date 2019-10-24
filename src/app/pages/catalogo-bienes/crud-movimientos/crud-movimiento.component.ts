@@ -30,7 +30,7 @@ export class CrudMovimientoComponent implements OnInit, OnChanges {
   movimiento_id: number;
   respuesta: CuentaGrupo;
   Subgrupo: Subgrupo;
-  
+
 
   @Input('subgrupo_id')
   set name(subgrupo_id: Subgrupo) {
@@ -59,7 +59,7 @@ export class CrudMovimientoComponent implements OnInit, OnChanges {
     private store: Store<IAppState>,
     private listService: ListService,
   ) {
-    let form = this.clone(FORM_MOVIMIENTO);
+    const form = this.clone(FORM_MOVIMIENTO);
     this.formMovimiento = form;
     this.listService.findPlanCuentasDebito();
     this.listService.findPlanCuentasCredito();
@@ -73,7 +73,7 @@ export class CrudMovimientoComponent implements OnInit, OnChanges {
     this.loadLists();
     this.loadCuentaGrupo();
   }
-  ngOnChanges(){
+  ngOnChanges() {
     this.construirForm();
     this.loadLists();
     this.loadCuentaGrupo();
@@ -83,7 +83,7 @@ export class CrudMovimientoComponent implements OnInit, OnChanges {
     let buf; // the cloned object
     if (Obj instanceof Array) {
       buf = []; // create an empty array
-      var i = Obj.length;
+      let i = Obj.length;
       while (i --) {
         buf[i] = this.clone(Obj[i]); // recursively clone the elements
       }
@@ -93,7 +93,7 @@ export class CrudMovimientoComponent implements OnInit, OnChanges {
       for (const k in Obj) {
         if (Obj.hasOwnProperty(k)) { // filter out another array's index
           buf[k] = this.clone(Obj[k]); // recursively clone the value
-        }     
+        }
       }
       return buf;
     } else {
@@ -114,7 +114,7 @@ export class CrudMovimientoComponent implements OnInit, OnChanges {
 
   construirForm() {
     if (this.movimiento_id !== undefined) {
-      
+
       // this.formulario.normalform = {...this.formulario.normalform, ...{ titulo: this.translate.instant('GLOBAL.' + this.movimiento_id)}} ;
       this.formMovimiento.titulo = this.translate.instant('GLOBAL.' + this.movimiento_id);
       // this.formMovimiento.btn = this.translate.instant('GLOBAL.guardar');
@@ -141,7 +141,7 @@ export class CrudMovimientoComponent implements OnInit, OnChanges {
     return 0;
   }
   public loadCuentaGrupo(): void {
-    console.log(this.subgrupo_id.Id);
+    // console.log(this.subgrupo_id.Id);
     if (this.subgrupo_id.Id !== undefined && this.subgrupo_id.Id !== 0) {
       // console.log(this.movimiento_id);
       this.catalogoElementosService.getMovimiento(this.subgrupo_id.Id, this.movimiento_id)

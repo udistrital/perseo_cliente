@@ -62,7 +62,7 @@ export class DinamicformComponent implements OnInit, OnChanges {
                           if (this.modeloData[i].Id !== null) {
                             if (e1.Id === this.modeloData[i].Id) {
                               element.valor = e1;
-                            } 
+                            }
                           }
                         });
                       }
@@ -290,8 +290,7 @@ export class DinamicformComponent implements OnInit, OnChanges {
         } else {
           this.data.valid = false;
         }
-      }
-      else{
+      } else {
         if (this.validCampo2(d)) {
           if (d.etiqueta === 'file') {
             result[d.nombre] = { nombre: d.nombre, file: d.File };

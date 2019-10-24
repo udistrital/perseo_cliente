@@ -127,7 +127,7 @@ export class CrudSubgrupo1Component implements OnInit {
   }
 
   createSubgrupo1(subgrupo: any): void {
-    console.log(subgrupo);
+    // console.log(subgrupo);
     const opt: any = {
       title: 'Create?',
       text: 'Create Subgrupo!',
@@ -143,7 +143,7 @@ export class CrudSubgrupo1Component implements OnInit {
           subgrupoHijo.push(subgrupo);
           subgrupoPost.SubgrupoPadre = this.subgrupoPadre;
           subgrupoPost.SubgrupoHijo = subgrupoHijo;
-          console.log(subgrupoPost);
+          // console.log(subgrupoPost);
           this.catalogoElementosService.postSubgrupo(subgrupoPost)
             .subscribe(res => {
               this.info_subgrupo_1 = <Subgrupo><unknown>res;
