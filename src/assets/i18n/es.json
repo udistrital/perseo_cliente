@@ -81,7 +81,9 @@
         "Verificacion":"En Verificacion",
         "Aceptada":"Aceptada",
         "Asociada":"Asociada a Entrada",
-        "Anulada":"Anulada"
+        "Anulada":"Anulada",
+        "OpcionNoValida":"Opcion No Valida",
+        "OpcionNoValida2":"Opcion No Valida para el Estado de esta Acta"
       },
       "RegistroActa":{
         "Title": "Registrar Acta de Recibido",
@@ -259,6 +261,9 @@
 
     },
 
+    "search": "Buscar",
+    "catalogo": "Catálogo",
+    "grupo": "Grupo",
     "notificacion_estado": "notificacion_estado",
     "placeholder_notificacion_estado": "ej: notificacion_estado",
     "id": "id",
@@ -360,6 +365,7 @@
     "factura": "Factura",
     "tipo_bien": "Tipo de Bien",
     "subgrupo": "Subgrupo",
+    "subgrupo_1": "Subgrupo",
     "cantidad": "Cantidad",
     "marca": "Marca",
     "serie": "Serie",

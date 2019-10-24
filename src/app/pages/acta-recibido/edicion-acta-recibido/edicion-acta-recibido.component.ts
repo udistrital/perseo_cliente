@@ -24,6 +24,7 @@ import { CompleterData, CompleterService } from 'ng2-completer';
 import { Store } from '@ngrx/store';
 import { IAppState } from '../../../@core/store/app.state';
 import { ListService } from '../../../@core/store/services/list.service';
+import { combineAll } from 'rxjs-compat/operator/combineAll';
 
 
 
@@ -55,10 +56,14 @@ export class EdicionActaRecibidoComponent implements OnInit {
   carga_agregada: boolean;
   index;
   selected = new FormControl(0);
+  _Acta_Id: number;
 
   // Tablas parametricas
 
-  @Input('Id_Acta') _ActaId: number;
+  @Input('Id_Acta')
+  set name2(id: number) {
+    this._Acta_Id = id;
+  }
   Estados_Acta: Array<EstadoActa>;
   Tipos_Bien: Array<TipoBien>;
   Estados_Elemento: Array<EstadoElemento>;
@@ -99,10 +104,10 @@ export class EdicionActaRecibidoComponent implements OnInit {
   ) {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => { // Live reload
     });
-    this.listService.findProveedores();
-    this.loadLists();
   }
   ngOnInit() {
+    this.listService.findProveedores();
+    this.loadLists();
   }
   public loadLists() {
     this.store.select((state) => state).subscribe(
@@ -115,20 +120,21 @@ export class EdicionActaRecibidoComponent implements OnInit {
         const observable = combineLatest([
           this.Actas_Recibido.getParametros(),
           this.Actas_Recibido.getParametrosSoporte(),
-          this.Actas_Recibido.getTransaccionActa(this._ActaId),
+          this.Actas_Recibido.getTransaccionActa(this._Acta_Id),
         ]);
         observable.subscribe(([ParametrosActa, ParametrosSoporte, Acta]) => {
-          // console.log([ParametrosActa, ParametrosSoporte, Proveedores, Acta]);
-          this.Traer_Estados_Acta(ParametrosActa[0].EstadoActa);
-          this.Traer_Estados_Elemento(ParametrosActa[0].EstadoElemento);
-          this.Traer_Tipo_Bien(ParametrosActa[0].TipoBien);
-          this.Traer_Unidades(ParametrosActa[0].Unidades);
-          this.Traer_IVA(ParametrosActa[0].IVA);
-          this.Traer_Dependencias(ParametrosSoporte[0].Dependencias);
-          this.Traer_Ubicaciones(ParametrosSoporte[0].Ubicaciones);
-          this.Traer_Sedes(ParametrosSoporte[0].Sedes);
-          this.Cargar_Formularios(Acta[0]);
-
+          // console.log([ParametrosActa, ParametrosSoporte, Acta]);
+          if (Acta[0].SoportesActa !== null) {
+            this.Traer_Estados_Acta(ParametrosActa[0].EstadoActa);
+            this.Traer_Estados_Elemento(ParametrosActa[0].EstadoElemento);
+            this.Traer_Tipo_Bien(ParametrosActa[0].TipoBien);
+            this.Traer_Unidades(ParametrosActa[0].Unidades);
+            this.Traer_IVA(ParametrosActa[0].IVA);
+            this.Traer_Dependencias(ParametrosSoporte[0].Dependencias);
+            this.Traer_Ubicaciones(ParametrosSoporte[0].Ubicaciones);
+            this.Traer_Sedes(ParametrosSoporte[0].Sedes);
+            this.Cargar_Formularios(Acta[0]);
+          }
         });
       },
     );
@@ -403,8 +409,11 @@ export class EdicionActaRecibidoComponent implements OnInit {
             `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.ModificadaTitle'),
           text: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Acta') +
             `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Modificada'),
+        }).then((willDelete) => {
+          if (willDelete.value) {
+            window.location.reload();
+          }
         });
-        this.router.navigate(['/consulta-acta-recibido', {}]);
       } else {
         (Swal as any).fire({
           type: 'error',
@@ -434,8 +443,11 @@ export class EdicionActaRecibidoComponent implements OnInit {
             `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.VerificadaTitle'),
           text: this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Acta') +
             `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.EdicionActa.Verificada'),
+        }).then((willDelete) => {
+          if (willDelete.value) {
+            window.location.reload();
+          }
         });
-        this.router.navigate(['/consulta-acta-recibido', {}]);
       } else {
         (Swal as any).fire({
           type: 'error',

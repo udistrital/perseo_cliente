@@ -172,7 +172,7 @@ export class CapturarElementosComponent implements OnInit {
 
   readThis(): void {
 
-    const formModel = this.prepareSave();
+    const formModel: FormData = this.prepareSave();
     this.actaRecibidoHelper.postArchivo(formModel).subscribe(res => {
 
       if (res !== null) {

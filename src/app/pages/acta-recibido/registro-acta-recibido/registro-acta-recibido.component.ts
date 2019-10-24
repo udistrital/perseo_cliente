@@ -95,7 +95,6 @@ export class RegistroActaRecibidoComponent implements OnInit {
     private listService: ListService,
 
 
-
   ) {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => { // Live reload
     });
@@ -432,7 +431,6 @@ export class RegistroActaRecibidoComponent implements OnInit {
           text: this.translate.instant('GLOBAL.Acta_Recibido.RegistroActa.Acta') +
             `${res.ActaRecibido.Id}` + this.translate.instant('GLOBAL.Acta_Recibido.RegistroActa.Registrada'),
         });
-        this.router.navigate(['/consulta-acta-recibido?']);
       } else {
         (Swal as any).fire({
           type: 'error',
