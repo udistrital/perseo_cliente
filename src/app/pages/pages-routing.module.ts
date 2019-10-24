@@ -21,6 +21,10 @@ const routes: Routes = [{
       loadChildren: './catalogo/catalogo.module#CatalogoModule',
     },
     {
+      path: 'grupo',
+      loadChildren: './grupo/grupo.module#GrupoModule',
+    },
+    {
       path: 'movimientos',
       loadChildren: './movimientos/movimientos.module#MovimientosModule',
     },
