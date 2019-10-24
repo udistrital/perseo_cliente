@@ -93,7 +93,7 @@ export class CrudMovimientoComponent implements OnInit, OnChanges {
       for (const k in Obj) {
         if (Obj.hasOwnProperty(k)) { // filter out another array's index
           buf[k] = this.clone(Obj[k]); // recursively clone the value
-        }  
+        }
       }
       return buf;
     } else {
@@ -141,7 +141,6 @@ export class CrudMovimientoComponent implements OnInit, OnChanges {
     return 0;
   }
   public loadCuentaGrupo(): void {
-    console.log(this.subgrupo_id.Id);
     if (this.subgrupo_id.Id !== undefined && this.subgrupo_id.Id !== 0) {
       // console.log(this.movimiento_id);
       this.catalogoElementosService.getMovimiento(this.subgrupo_id.Id, this.movimiento_id)
