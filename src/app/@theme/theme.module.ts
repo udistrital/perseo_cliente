@@ -252,7 +252,7 @@ const NB_THEME_PROVIDERS = [
 @NgModule({
   imports: [...BASE_MODULES, ...NB_MODULES, MAT_MODULES],
   exports: [...BASE_MODULES, ...NB_MODULES, MAT_MODULES, ...COMPONENTS, ...PIPES],
-  declarations: [...COMPONENTS, ...PIPES,   DinamicformComponent],
+  declarations: [...COMPONENTS, ...PIPES],
   entryComponents: [...ENTRY_COMPONENTS],
 })
 export class ThemeModule {

@@ -1,6 +1,7 @@
 import { Catalogo } from '../../../@core/data/models/catalogo/catalogo';
 import { Grupo, GrupoTransaccion } from '../../../@core/data/models/catalogo/grupo';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { TipoBien } from '../../../@core/data/models/acta_recibido/tipo_bien';
 import { FORM_GRUPO } from './form-grupo';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
@@ -65,13 +66,13 @@ export class CrudGrupoComponent implements OnInit {
   }
 
   loadOptionsCatalogo(): void {
-    let catalogo: Array<any> = [];
-    this.catalogoElementosService.getCatalogo()
+    let Tipo_Bien: Array<any> = [];
+    this.catalogoElementosService.getTipoBien()
       .subscribe(res => {
         if (res !== null) {
-          catalogo = <Array<Catalogo>>res;
+          Tipo_Bien = <Array<TipoBien>>res;
         }
-        this.formGrupo.campos[this.getIndexForm('Catalogo')].opciones = catalogo;
+        this.formGrupo.campos[this.getIndexForm('TipoBienId')].opciones = Tipo_Bien;
       });
   }
 
@@ -128,6 +129,7 @@ export class CrudGrupoComponent implements OnInit {
   }
 
   createGrupo(grupo: any): void {
+    console.log(grupo);
     const opt: any = {
       title: 'Create?',
       text: 'Create Grupo!',
@@ -142,6 +144,7 @@ export class CrudGrupoComponent implements OnInit {
           catalogo.Id = parseFloat(this.catalogoid);
           grupoPost.Catalogo = catalogo;
           grupoPost.Subgrupo = grupo;
+          console.log(grupoPost);
           this.catalogoElementosService.postGrupo(grupoPost)
             .subscribe(res => {
               this.info_grupo = <Grupo><unknown>res;
