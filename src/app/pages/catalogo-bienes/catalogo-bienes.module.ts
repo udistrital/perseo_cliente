@@ -13,14 +13,11 @@ import { ToasterModule } from 'angular2-toaster';
 import { CrudGrupoComponent } from './crud-grupo/crud-grupo.component';
 import { CrudSubgrupo1Component } from './crud-subgrupo_1/crud-subgrupo_1.component';
 import { RegistroCuentasCatalogoComponent } from './registro-cuentas-catalogo/registro-cuentas-catalogo.component';
-import { CrudEntradasComponent } from './crud-movimientos/entradas/crud-entradas.component';
-import { CrudSalidasComponent } from './crud-movimientos/salidas/crud-salidas.component';
-import { CrudDepreciacionComponent } from './crud-movimientos/depreciacion/crud-depreciacion.component';
+import { CrudMovimientoComponent } from './crud-movimientos/crud-movimiento.component';
 
 
 @NgModule({
   declarations: [
-    ...routedComponents,
     CatalogoBienesComponent,
     ConsultaCatalogoComponent,
     ArbolComponent,
@@ -28,9 +25,7 @@ import { CrudDepreciacionComponent } from './crud-movimientos/depreciacion/crud-
     RegistroCatalogoComponent,
     CrudGrupoComponent,
     CrudSubgrupo1Component,
-    CrudEntradasComponent,
-    CrudSalidasComponent,
-    CrudDepreciacionComponent,
+    CrudMovimientoComponent,
     RegistroCuentasCatalogoComponent,
   ],
   imports: [

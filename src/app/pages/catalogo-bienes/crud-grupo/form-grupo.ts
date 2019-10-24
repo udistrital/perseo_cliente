@@ -13,7 +13,7 @@ export let FORM_GRUPO = {
         label_i18n: 'id',
         placeholder_i18n: 'id',
         requerido: true,
-        tipo: 'text',
+        tipo: 'number',
     },
     {
         etiqueta: 'input',

@@ -1,13 +1,15 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Subgrupo} from '../../../@core/data/models/catalogo/subgrupo';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, QueryList, ViewChildren } from '@angular/core';
+import { Subgrupo } from '../../../@core/data/models/catalogo/subgrupo';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { CatalogoElementosHelper } from '../../../helpers/catalogo-elementos/catalogoElementosHelper';
-import { Grupo} from '../../../@core/data/models/catalogo/grupo';
+import { Grupo } from '../../../@core/data/models/catalogo/grupo';
 import { Catalogo } from '../../../@core/data/models/catalogo';
 import Swal from 'sweetalert2';
 import { Store } from '@ngrx/store';
 import { IAppState } from '../../../@core/store/app.state';
 import { ListService } from '../../../@core/store/services/list.service';
+import { CrudMovimientoComponent } from '../crud-movimientos/crud-movimiento.component';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'ngx-registro-cuentas-catalogo',
@@ -18,7 +20,7 @@ export class RegistroCuentasCatalogoComponent implements OnInit {
   grupo_id: number;
 
   @Output() eventChange = new EventEmitter();
-
+  @ViewChildren(CrudMovimientoComponent) ref: QueryList<CrudMovimientoComponent>;
   info_grupo: Grupo;
   formGrupo: any;
   regGrupo1: any;
@@ -33,6 +35,8 @@ export class RegistroCuentasCatalogoComponent implements OnInit {
   uid_3: Subgrupo;
   uid_4: Subgrupo;
   Movimiento: number;
+  movimiento: any = [1, 2, 3, 4];
+  selected = new FormControl(0);
 
 
   constructor(
@@ -90,7 +94,7 @@ export class RegistroCuentasCatalogoComponent implements OnInit {
     this.subgrupoPadre = event;
     this.catalogoElementosService.getSubgrupoById(event.Id).subscribe(
       res => {
-        //console.log(res[0]);
+        // console.log(res[0]);
         if (Object.keys(res[0]).length !== 0) {
           this.uid_1 = event;
           this.uid_2 = undefined;

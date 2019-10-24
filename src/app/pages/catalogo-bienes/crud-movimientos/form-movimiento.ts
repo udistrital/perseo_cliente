@@ -1,5 +1,5 @@
-export let FORM_ENTRADA = {
-    titulo: 'Depreciacion',
+export let FORM_MOVIMIENTO = {
+    titulo: 'Movimiento',
     tipo_formulario: 'mini',
     btn: 'Guardar',
     alertas: true,

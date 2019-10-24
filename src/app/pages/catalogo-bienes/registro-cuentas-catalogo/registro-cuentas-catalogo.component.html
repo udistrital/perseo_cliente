@@ -9,15 +9,49 @@
           <option disabled selected>{{'GLOBAL.seleccionar' | translate}}...</option>
           <option *ngFor="let item of catalogos" value="{{ item.Id }}">{{ item.Nombre }}</option>
         </select>
-        <ngx-arbol *ngIf="catalogoId !== 0" [catalogoId]="catalogoId" (grupo)="receiveMessage($event)" [updateSignal]="eventChange"></ngx-arbol>
+        <ngx-arbol *ngIf="catalogoId !== 0" [catalogoId]="catalogoId" (grupo)="receiveMessage($event)"
+          [updateSignal]="eventChange"></ngx-arbol>
       </div>
     </nb-card-body>
   </nb-card>
-  <div class="col-md-6 col-lg-6 col-xxxl-6">
-    <nb-card *ngIf="uid_1">
-      <!-- <ngx-crud-entradas [subgrupo_id]="uid_1" [movimiento_id]="1" (eventChange)="recargarCatalogo($event)" ></ngx-crud-entradas> -->
-      <ngx-crud-salidas [subgrupo_id]=uid_1 [movimiento_id]="2" (eventChange)="recargarCatalogo($event)"></ngx-crud-salidas>
-      <!-- <ngx-crud-depreciacion [subgrupo_id]=uid_1 [movimiento_id]="3" (eventChange)="recargarCatalogo($event)"></ngx-crud-depreciacion> -->
-    </nb-card>
+  <div class="col-md-6 col-lg-6 col-xxxl-6" *ngIf="uid_1">
+    <mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event)">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          {{'GLOBAL.Entradas' | translate}}
+        </ng-template>
+        <div *ngFor="let tab of movimiento">
+          <ngx-crud-movimiento [subgrupo_id]="uid_1" [movimiento_id]="tab" (eventChange)="recargarCatalogo($event)">
+          </ngx-crud-movimiento>
+        </div>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          {{'GLOBAL.Salidas' | translate}}
+        </ng-template>
+        <div *ngFor="let tab of [7]">
+          <ngx-crud-movimiento [subgrupo_id]="uid_1" [movimiento_id]="tab" (eventChange)="recargarCatalogo($event)">
+          </ngx-crud-movimiento>
+        </div>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          {{'GLOBAL.Depreciacion' | translate}}
+        </ng-template>
+        <div *ngFor="let tab of [8]">
+          <ngx-crud-movimiento [subgrupo_id]="uid_1" [movimiento_id]="tab" (eventChange)="recargarCatalogo($event)">
+          </ngx-crud-movimiento>
+        </div>
+      </mat-tab>
+      <mat-tab>
+          <ng-template mat-tab-label>
+            {{'GLOBAL.Valorizacion' | translate}}
+          </ng-template>
+          <div *ngFor="let tab of [9]">
+            <ngx-crud-movimiento [subgrupo_id]="uid_1" [movimiento_id]="tab" (eventChange)="recargarCatalogo($event)">
+            </ngx-crud-movimiento>
+          </div>
+        </mat-tab>
+    </mat-tab-group>
   </div>
 </div>

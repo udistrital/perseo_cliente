@@ -1,39 +1,41 @@
-import { Catalogo } from '../../../../@core/data/models/catalogo/catalogo';
-import { Grupo, GrupoTransaccion } from '../../../../@core/data/models/catalogo/grupo';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { TipoBien } from '../../../../@core/data/models/acta_recibido/tipo_bien';
-import { FORM_ENTRADA } from './form-depreciacion';
+import { Catalogo } from '../../../@core/data/models/catalogo/catalogo';
+import { Grupo, GrupoTransaccion } from '../../../@core/data/models/catalogo/grupo';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewInit, OnChanges } from '@angular/core';
+import { TipoBien } from '../../../@core/data/models/acta_recibido/tipo_bien';
+import { FORM_MOVIMIENTO } from './form-movimiento';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
-import { CatalogoElementosHelper } from '../../../../helpers/catalogo-elementos/catalogoElementosHelper';
-import { CuentaGrupo, CuentasFormulario } from '../../../../@core/data/models/catalogo/cuentas_grupo';
-import { Cuenta } from '../../../../@core/data/models/catalogo/cuenta_contable';
+import { CatalogoElementosHelper } from '../../../helpers/catalogo-elementos/catalogoElementosHelper';
+import { CuentaGrupo, CuentasFormulario } from '../../../@core/data/models/catalogo/cuentas_grupo';
+import { Cuenta } from '../../../@core/data/models/catalogo/cuenta_contable';
 import { Store } from '@ngrx/store';
-import { IAppState } from '../../../../@core/store/app.state';
-import { ListService } from '../../../../@core/store/services/list.service';
-import { Subgrupo } from '../../../../@core/data/models/catalogo/subgrupo';
+import { IAppState } from '../../../@core/store/app.state';
+import { ListService } from '../../../@core/store/services/list.service';
+import { Subgrupo } from '../../../@core/data/models/catalogo/subgrupo';
+import { DinamicformComponent } from '../../../@theme/components';
 
 
 @Component({
-  selector: 'ngx-crud-depreciacion',
-  templateUrl: './crud-depreciacion.component.html',
-  styleUrls: ['./crud-depreciacion.component.scss'],
+  selector: 'ngx-crud-movimiento',
+  templateUrl: './crud-movimiento.component.html',
+  styleUrls: ['./crud-movimiento.component.scss'],
 })
 
-export class CrudDepreciacionComponent implements OnInit {
+export class CrudMovimientoComponent implements OnInit, OnChanges {
+
   config: ToasterConfig;
   subgrupo_id: Subgrupo;
   movimiento_id: number;
   respuesta: CuentaGrupo;
   Subgrupo: Subgrupo;
+  
 
   @Input('subgrupo_id')
   set name(subgrupo_id: Subgrupo) {
     this.subgrupo_id = subgrupo_id;
     if (this.movimiento_id !== undefined) {
-      this.loadLists();
       this.loadCuentaGrupo();
     }
   }
@@ -57,7 +59,8 @@ export class CrudDepreciacionComponent implements OnInit {
     private store: Store<IAppState>,
     private listService: ListService,
   ) {
-    this.formMovimiento = FORM_ENTRADA;
+    let form = this.clone(FORM_MOVIMIENTO);
+    this.formMovimiento = form;
     this.listService.findPlanCuentasDebito();
     this.listService.findPlanCuentasCredito();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -69,6 +72,33 @@ export class CrudDepreciacionComponent implements OnInit {
     this.construirForm();
     this.loadLists();
     this.loadCuentaGrupo();
+  }
+  ngOnChanges(){
+    this.construirForm();
+    this.loadLists();
+    this.loadCuentaGrupo();
+  }
+
+  clone(Obj) {
+    let buf; // the cloned object
+    if (Obj instanceof Array) {
+      buf = []; // create an empty array
+      var i = Obj.length;
+      while (i --) {
+        buf[i] = this.clone(Obj[i]); // recursively clone the elements
+      }
+      return buf;
+    } else if (Obj instanceof Object) {
+      buf = {}; // create an empty object
+      for (const k in Obj) {
+        if (Obj.hasOwnProperty(k)) { // filter out another array's index
+          buf[k] = this.clone(Obj[k]); // recursively clone the value
+        }     
+      }
+      return buf;
+    } else {
+      return Obj;
+    }
   }
 
   public loadLists() {
@@ -83,15 +113,18 @@ export class CrudDepreciacionComponent implements OnInit {
   }
 
   construirForm() {
-
     if (this.movimiento_id !== undefined) {
+      
+      // this.formulario.normalform = {...this.formulario.normalform, ...{ titulo: this.translate.instant('GLOBAL.' + this.movimiento_id)}} ;
       this.formMovimiento.titulo = this.translate.instant('GLOBAL.' + this.movimiento_id);
+      // this.formMovimiento.btn = this.translate.instant('GLOBAL.guardar');
+      for (let i = 0; i < this.formMovimiento.campos.length; i++) {
+        this.formMovimiento.campos[i].label = this.translate.instant('GLOBAL.' + this.formMovimiento.campos[i].label_i18n);
+        this.formMovimiento.campos[i].placeholder = this.translate.instant('GLOBAL.placeholder_' + this.formMovimiento.campos[i].label_i18n);
+      }
     }
-    // this.formMovimiento.btn = this.translate.instant('GLOBAL.guardar');
-    for (let i = 0; i < this.formMovimiento.campos.length; i++) {
-      this.formMovimiento.campos[i].label = this.translate.instant('GLOBAL.' + this.formMovimiento.campos[i].label_i18n);
-      this.formMovimiento.campos[i].placeholder = this.translate.instant('GLOBAL.placeholder_' + this.formMovimiento.campos[i].label_i18n);
-    }
+
+
   }
 
   useLanguage(language: string) {
@@ -108,6 +141,7 @@ export class CrudDepreciacionComponent implements OnInit {
     return 0;
   }
   public loadCuentaGrupo(): void {
+    console.log(this.subgrupo_id.Id);
     if (this.subgrupo_id.Id !== undefined && this.subgrupo_id.Id !== 0) {
       // console.log(this.movimiento_id);
       this.catalogoElementosService.getMovimiento(this.subgrupo_id.Id, this.movimiento_id)
@@ -220,4 +254,5 @@ export class CrudDepreciacionComponent implements OnInit {
     };
     this.toasterService.popAsync(toast);
   }
+
 }
