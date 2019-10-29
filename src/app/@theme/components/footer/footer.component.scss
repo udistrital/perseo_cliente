@@ -1,6 +1,6 @@
-@import '../../styles/themes';
-@import '~@nebular/theme/styles/global/breakpoints';
-@import '~bootstrap/scss/mixins/breakpoints';
+@import "../../styles/themes";
+@import "~@nebular/theme/styles/global/breakpoints";
+@import "~bootstrap/scss/mixins/breakpoints";
 
 @include nb-install-component() {
   width: 100%;
@@ -20,6 +20,82 @@
         color: nb-theme(color-fg-heading);
       }
     }
+  }
+  .footer-g {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .logo {
+    padding: 5px 1.25rem;
+    font-size: 1.75rem;
+    // @include nb-ltr(border-left, 1px solid nb-theme(divider-color));
+    // @include nb-rtl(border-right, 1px solid nb-theme(divider-color));
+    white-space: nowrap;
+    text-decoration: none;
+  }
+  .logo-ud {
+    width: 240px; /* you can use % */
+    height: auto;
+  }
+  .row{
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+  }
+
+  .mat-icon {
+    font-size: 10px;
+    transform: scale(0.2);
+  }
+
+  .limit {
+    width: 100px;
+    word-wrap: break-word;
+  }
+  .limit_2 {
+    width: 160px;
+    display: block;
+    word-wrap: break-word;
+    margin: 10px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+
+  }
+  .widgets_div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+  }
+  .widgets_div .icon_div {
+    width: 50px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .widgets_div .icon_div mat-icon {
+    transform: scale(0.5);
+    color: #991c1a;
+  }
+
+  .widgets_div .text_div {
+    font-size: 0.9375rem;
+    display: inline-block flex;
+    margin-left: 1px;
+  }
+
+  .widgets_div .text_div span {
+    display: block;
+    text-align: center;
+    color: #58666e;
+    font-size: 12px;
+  }
+
+  .widgets_div .text_div span + span {
+    color: #747f85;
+    font-size: 12px;
   }
 
   @include media-breakpoint-down(is) {
