@@ -10,6 +10,7 @@ import {
 } from '@nebular/theme';
 
 import { StateService } from '../../../@core/utils';
+import { CatalogoService } from '../../../@core/data/catalogo.service';
 
 // TODO: move layouts into the framework
 @Component({
@@ -39,47 +40,7 @@ import { StateService } from '../../../@core/utils';
 })
 export class SampleLayoutComponent implements OnDestroy {
 
-  subMenu: NbMenuItem[] = [
-    {
-      title: 'PAGE LEVEL MENU',
-      group: true,
-    },
-    {
-      title: 'Buttons',
-      icon: 'ion ion-android-radio-button-off',
-      link: '/pages/ui-features/buttons',
-    },
-    {
-      title: 'Grid',
-      icon: 'ion ion-android-radio-button-off',
-      link: '/pages/ui-features/grid',
-    },
-    {
-      title: 'Icons',
-      icon: 'ion ion-android-radio-button-off',
-      link: '/pages/ui-features/icons',
-    },
-    {
-      title: 'Modals',
-      icon: 'ion ion-android-radio-button-off',
-      link: '/pages/ui-features/modals',
-    },
-    {
-      title: 'Typography',
-      icon: 'ion ion-android-radio-button-off',
-      link: '/pages/ui-features/typography',
-    },
-    {
-      title: 'Animated Searches',
-      icon: 'ion ion-android-radio-button-off',
-      link: '/pages/ui-features/search-fields',
-    },
-    {
-      title: 'Tabs',
-      icon: 'ion ion-android-radio-button-off',
-      link: '/pages/ui-features/tabs',
-    },
-  ];
+  
   layout: any = {};
   sidebar: any = {};
 
@@ -101,7 +62,6 @@ export class SampleLayoutComponent implements OnDestroy {
       .subscribe((sidebar: string) => {
         this.sidebar = sidebar;
       });
-
     const isBp = this.bpService.getByName('is');
     this.menuService.onItemSelect()
       .pipe(
@@ -110,12 +70,11 @@ export class SampleLayoutComponent implements OnDestroy {
         delay(20),
       )
       .subscribe(([item, [bpFrom, bpTo]]: [any, [NbMediaBreakpoint, NbMediaBreakpoint]]) => {
-
         if (bpTo.width <= isBp.width) {
           this.sidebarService.collapse('menu-sidebar');
+          
         }
       });
-
     this.themeService.getJsTheme()
       .pipe(takeWhile(() => this.alive))
       .subscribe(theme => {

@@ -1,19 +1,19 @@
 <div class="header-container" [class.left]="position === 'normal'" [class.right]="position === 'inverse'">
   <div class="logo-containter">
-    <a (click)="toggleSidebar()" href="#" class="navigation">
-        <img class="logo-kronos_2" src="../../../../assets/images/Arka_II_isotipo.svg">
+   
+    <a (click)="toggleSidebar()" href="#" class="navigation" >
+        <img class="logo-kronos" src="../../../../assets/images/isotipo arkaII.svg">
     </a>
-    
-    
-    <div class="logo" (click)="goToHome()">
-        <img class="logo-kronos" src="../../../../assets/images/Arka_II_logotipo.svg">
-    </div>
+    <a href="#" class="navigation">
+        <img class="logo-kronos_2" src="../../../../assets/images/Arka II Isotipo 2tipo.svg">
+    </a>
   </div>
+  
   <!-- <ngx-theme-switcher></ngx-theme-switcher> -->
 </div>
 
 <div class="header-container">
-  <ngx-layout-direction-switcher></ngx-layout-direction-switcher>
+  <!-- <ngx-layout-direction-switcher></ngx-layout-direction-switcher> -->
   <nb-actions size="medium" [class.right]="position === 'normal'" [class.left]="position === 'inverse'">
     <nb-action [hidden]="!liveTokenValue">
       <div class="dropdown ghost-dropdown" ngbDropdown>

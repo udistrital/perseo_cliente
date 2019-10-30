@@ -8,9 +8,10 @@ $nb-enabled-themes: (default, cosmic, corporate, arka2);
 
 $nb-themes: nb-register-theme((
  // app wise variables for each theme
-  sidebar-header-gap: 2rem,
+  sidebar-header-gap: 1rem,
   sidebar-header-height: initial,
-  layout-content-width: 1400px,
+  layout-content-width: 1000px,
+  footer-height: auto,
 
 
   font-main: Roboto,
@@ -193,11 +194,13 @@ $nb-themes: nb-register-theme((
   
   // General
   
+  // font-main: OpenSans,
+
   color-bg: #ffffff,
   color-bg-active: #A83121,
   color-fg: #991C1A,
   color-fg-heading: #6F613F,
-  color-fg-text: #ffffff,
+  color-fg-text: #000000,
   color-fg-highlight: #c2aa73,
   color-white: #ffffff,
   color-primary: #991C1A,
@@ -266,8 +269,10 @@ $nb-themes: nb-register-theme((
   // form-control-success-border-color: ,
   // form-control-danger-border-color: ,
   // form-control-warning-border-color: ,
-  // form-control-placeholder-color: ,
+  form-control-placeholder-color: #BA4A3A,
+  form-control-text-primary-color: #000000,
+  // form-control-focus-bg: #BA4A3A,
 
-
+  // footer-height: 25%,
 
 ), arka2 ,default);

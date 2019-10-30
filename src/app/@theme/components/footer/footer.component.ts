@@ -9,42 +9,41 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class FooterComponent {
 
+  universidad: any;
+  normatividad: any;
+  recomendados: any;
+  contactenos: any;
+  final: any;
+  copyright: any;
+  social: any;
+
   constructor(
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
   ) {
-    this.matIconRegistry.addSvgIcon(
-      'clock-outline',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../assets/images/clock-outline.svg'
-      )
-    );
-    this.matIconRegistry.addSvgIcon(
-      'globe-outline',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../assets/images/globe-outline.svg'
-      )
-    );
-    this.matIconRegistry.addSvgIcon(
-      'at-outline',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../assets/images/at-outline.svg'
-      )
-    );
-    this.matIconRegistry.addSvgIcon(
-      'phone-outline',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../assets/images/phone-outline.svg'
-      )
-    );
-
-    this.matIconRegistry.addSvgIcon(
-      'pin-outline',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../assets/images/pin-outline.svg'
-      )
-    );
-      }
-
-
+    this.social = {
+      list: [{
+        title: 'Horario',
+        class: 'fas fa-clock',
+        value: ['Lunes a viernes', '8am a 5pm'],
+      }, {
+        title: 'Nombre',
+        class: 'fas fa-globe-americas',
+        value: ['Sistema Integrado de informática y  Telecomunicaciones '],
+      }, {
+        title: 'Phone',
+        class: 'fas fa-phone',
+        value: ['323 93 00', 'Ext. 1112'],
+      }, {
+        title: 'Direccion',
+        class: 'fas fa-map-marker-alt',
+        value: ['Cra 8 # 40-78', 'Piso 1'],
+      }, {
+        title: 'mail',
+        class: 'fas fa-at',
+        value: ['computo@udistrital.edu.co'],
+      },
+    ],
+    }
+  }
 }

@@ -1,10 +1,10 @@
 import { NbMenuItem } from '@nebular/theme';
 
 export const MENU_ITEMS: NbMenuItem[] = [
-  {
-    title: 'ARKA II',
-    group: true,
-  },
+  // {
+  //   title: 'ARKA II',
+  //   group: true,
+  // },
   {
     title: 'Acta de Recibido',
     icon: 'nb-compose',

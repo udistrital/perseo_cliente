@@ -1,4 +1,4 @@
-<div class="footer-g row">
+<!-- <div class="footer-g row">
 
     <div class="row">
         <div class="logo-container">
@@ -11,11 +11,8 @@
         </div>
     </div>
 
-
-
-
-    <!-- <span class="created-by limit">Creado con ♥ by <b>Oficina Asesora de Sistemas</b></span> -->
-    <div class="items-footer row">
+    <span class="created-by limit">Creado con ♥ by <b>Oficina Asesora de Sistemas</b></span> 
+    <div class="row">
 
         <div class="col">
             <div class="widgets_div">
@@ -79,8 +76,30 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
+<!-- <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet"> -->
 
+<div class="footer-div">
+    <figure class="card-imageContainer">
+        <img src="../../../../assets/images/logo_universidad_acreditacion.png" class="card-image" alt="logo-udistrital">
+    </figure>
+    <div class="footer-column">
+        <div class="footer-title">
+            <h5>Oficina Asesora de Sistemas</h5>
+        </div>
+    </div>
+
+    <div class="footer-logos">
+        <div class="social" *ngFor="let lista of social.list">
+            <i class="icon {{lista.class}}"></i>
+            <div class="text-container">
+                <p *ngFor="let value of lista.value">
+                    {{value}}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <!-- <span class="created-by">Creado con ♥ por la
