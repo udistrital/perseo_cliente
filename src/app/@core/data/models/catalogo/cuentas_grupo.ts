@@ -16,7 +16,7 @@ export class CuentasFormulario {
     CuentaCreditoId: Cuenta;
     CuentaDebitoId: Cuenta;
 }
-export class Observable_Cuentas {
+export class ObservableCuentas {
     Movimiento: number;
     Cuentas: CuentasFormulario;
 }

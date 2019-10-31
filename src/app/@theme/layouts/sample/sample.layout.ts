@@ -40,7 +40,7 @@ import { CatalogoService } from '../../../@core/data/catalogo.service';
 })
 export class SampleLayoutComponent implements OnDestroy {
 
-  
+
   layout: any = {};
   sidebar: any = {};
 
@@ -72,7 +72,7 @@ export class SampleLayoutComponent implements OnDestroy {
       .subscribe(([item, [bpFrom, bpTo]]: [any, [NbMediaBreakpoint, NbMediaBreakpoint]]) => {
         if (bpTo.width <= isBp.width) {
           this.sidebarService.collapse('menu-sidebar');
-          
+
         }
       });
     this.themeService.getJsTheme()

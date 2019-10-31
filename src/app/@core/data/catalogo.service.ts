@@ -4,7 +4,7 @@ import { Subject } from 'rxjs/Subject';
 
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class CatalogoService {
     clientes$ = new Subject<boolean>();
@@ -14,7 +14,7 @@ export class CatalogoService {
         this.clientes = !this.clientes;
         this.clientes$.next(this.clientes);
       }
-    
+
     getEstado$(): Observable<boolean> {
         return this.clientes$.asObservable();
       }

@@ -12,7 +12,7 @@ import { MENU_ITEMS } from './pages-menu';
       <router-outlet></router-outlet>
       <footer></footer>
     </ngx-sample-layout>
-    
+
 
   `,
 })

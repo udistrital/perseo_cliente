@@ -44,6 +44,6 @@ export class FooterComponent {
         value: ['computo@udistrital.edu.co'],
       },
     ],
-    }
+    };
   }
 }

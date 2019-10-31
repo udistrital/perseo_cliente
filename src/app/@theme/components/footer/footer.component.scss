@@ -2,7 +2,7 @@
 @import "~@nebular/theme/styles/global/breakpoints";
 @import "~bootstrap/scss/mixins/breakpoints";
 
-.footer-div{
+.footer-div {
   background-color: white;
   width: 100%;
   display: flex;
@@ -11,21 +11,20 @@
   margin-top:1%;
 }
 
-.card-imageContainer{
+.card-imageContainer {
   padding-right: 2px;
   object-fit: cover;
-  margin: 0;
-  border-right: .1rem solid black;
+  border-right: 0.1rem solid black;
   align-self: center;
 }
-.text-container{
+.text-container {
   align-self: center;
 }
-.card-image{
+.card-image {
   width:230px;
 }
 
-.footer-column{
+.footer-column {
   color:black;
   width: 10%;
   margin-top:1%;
@@ -33,28 +32,28 @@
   margin-right: 3%;
 }
 
-.footer-title{
+.footer-title {
   text-align: center;
 }
-h3,h5{
+h3,h5 {
   // font-family: OpenSans !important;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   font-size: 1rem;
   font-family: Exo;
   margin-top:0;
-  color:black
+  color:black;
 }
 
-.footer-logos{
+.footer-logos {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   width:65%;
 }
-.nav{
+.nav {
   display: block;
 }
-.social{
+.social {
   display: flex;
   padding-left: 5px;
   padding-right: 5px;
@@ -63,69 +62,69 @@ h3,h5{
   width:147px;
   align-self: center;
 }
-.icon-container{
+.icon-container {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
 }
-.icon{
+.icon {
   font-size:26px;
   align-self: center;
   margin-right: 10px;
-  color: #991C1A;
+  color: #991c1a;
 }
-p{
+p {
   font-size:12px;
   text-align: center;
   margin: 0;
   // font-family: OpenSans;
 }
 
-@media screen and (max-width: 1132px){
-  .social{
+@media screen and (max-width: 1132px) {
+  .social {
       width:135px;
   }
-  p{
+  p {
       font-size:12px;
   }
-  .footer-column{
+  .footer-column {
       margin-right:0;
   }
 
 }
 
-@media screen and (max-width: 930px){
-  .social{
+@media screen and (max-width: 930px) {
+  .social {
       width:135px;
   }
-  .footer-logos{
+  .footer-logos {
       width:50%;
   }
 }
 
-@media screen and (max-width: 768px){
-  .social{
+@media screen and (max-width: 768px) {
+  .social {
       width:135px;
   }
 }
 
-@media screen and (max-width: 620px){
-  .social{
+@media screen and (max-width: 620px) {
+  .social {
       width:135px;
   }
-  .footer-logos{
+  .footer-logos {
       width:100%;
   }
-  .footer-column{
+  .footer-column {
       width:30%;
   }
 }
 
-@media screen and (max-width: 330px){
-  .card-image{
+@media screen and (max-width: 330px) {
+  .card-image {
       width: 200px;
   }
-  h5{
+  h5 {
       font-size:15px;
   }
 }

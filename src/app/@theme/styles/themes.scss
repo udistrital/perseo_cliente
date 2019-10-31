@@ -19,7 +19,7 @@ $nb-themes: nb-register-theme((
 
   switcher-background: #ebeff5,
   switcher-background-percentage: 50%,
-  drops-icon-line-gadient: -webkit-linear-gradient(#6F613F,  #991C1A),
+  drops-icon-line-gadient: -webkit-linear-gradient( #6f613f, #991c1a),
 
   list-item-border-width: 1px,
 
@@ -35,7 +35,7 @@ $nb-themes: nb-register-theme((
 
   ecommerce-card-border-width: 1px,
 
-  progress-bar-background: linear-gradient(90deg, #991C1A 0%, #A83121 100%),
+  progress-bar-background: linear-gradient(90deg, #991c1a 0%, #a83121 100%),
   layout-padding-top: 2.25rem,
 
   menu-item-icon-margin: 0 0.5rem 0 0,
@@ -197,31 +197,31 @@ $nb-themes: nb-register-theme((
   // font-main: OpenSans,
 
   color-bg: #ffffff,
-  color-bg-active: #A83121,
-  color-fg: #991C1A,
-  color-fg-heading: #6F613F,
+  color-bg-active: #a83121,
+  color-fg: #991c1a,
+  color-fg-heading: #6f613f,
   color-fg-text: #000000,
   color-fg-highlight: #c2aa73,
   color-white: #ffffff,
-  color-primary: #991C1A,
-  color-success: #A61E1C,
-  color-info: #A83121,
-  color-warning: #BA4A3A,
-  color-danger: #6F613F,
+  color-primary: #991c1a,
+  color-success: #a61e1c,
+  color-info: #a83121,
+  color-warning: #ba4a3a,
+  color-danger: #6f613f,
 
   // Scrollbar
-  scrollbar-fg: #6F613F,
+  scrollbar-fg: #6f613f,
   scrollbar-bg: #ffffff,
 
   // Card
   card-fg: #ffffff,
-  card-fg-text: #6F613F,
-  card-fg-heading: #6F613F,
+  card-fg-text: #6f613f,
+  card-fg-heading: #6f613f,
   card-bg: #ffffff,
-  card-border-color: #BA4A3A,
+  card-border-color: #ba4a3a,
   card-separator: #ffffff73,
-  card-header-fg: #6F613F,
-  card-header-fg-heading: #6F613F,
+  card-header-fg: #6f613f,
+  card-header-fg-heading: #6f613f,
   // card-header-active-bg: ,
   // card-header-active-fg: ,
   // card-header-primary-bg: ,
@@ -242,22 +242,22 @@ $nb-themes: nb-register-theme((
 
   // // Sidebar
   // sidebar-fg: ,
-  sidebar-bg: #991C1A,
+  sidebar-bg: #991c1a,
   // sidebar-shadow: ,
 
   // // Menu
   menu-fg: #ffffff73,
-  menu-bg: #991C1A,
+  menu-bg: #991c1a,
   menu-active-fg: #ffffff,
-  menu-active-bg: #991C1A,
-  menu-submenu-bg: #991C1A,
+  menu-active-bg: #991c1a,
+  menu-submenu-bg: #991c1a,
   menu-submenu-fg: #ffffff73,
   menu-submenu-active-fg: #ffffff,
-  menu-submenu-active-bg: #991C1A,
-  menu-submenu-active-border-color: #6F613F,
+  menu-submenu-active-bg: #991c1a,
+  menu-submenu-active-border-color: #6f613f,
   menu-submenu-hover-fg: #ffffff,
-  menu-submenu-hover-bg: #991C1A,
-  menu-group-fg: #991C1A,
+  menu-submenu-hover-bg: #991c1a,
+  menu-group-fg: #991c1a,
   menu-item-separator: #ffffff73,
   menu-icon-color: #ffffff73,
   menu-icon-active-color: #ffffff,
@@ -269,10 +269,6 @@ $nb-themes: nb-register-theme((
   // form-control-success-border-color: ,
   // form-control-danger-border-color: ,
   // form-control-warning-border-color: ,
-  form-control-placeholder-color: #BA4A3A,
-  form-control-text-primary-color: #000000,
-  // form-control-focus-bg: #BA4A3A,
-
-  // footer-height: 25%,
-
-), arka2 ,default);
+  form-control-placeholder-color: #ba4a3a,
+  form-control-text-primary-color: #000001,
+) , arka2 ,default);
