@@ -27,7 +27,6 @@ export class RegistroCuentasCatalogoComponent implements OnInit {
   clean: boolean;
   catalogos: Array<Catalogo>;
   catalogoId: number;
-  subgrupoPadre: Subgrupo;
   subgrupoHijo: Subgrupo;
   uid_1: Subgrupo;
   ModificarGrupo: boolean;
@@ -91,7 +90,6 @@ export class RegistroCuentasCatalogoComponent implements OnInit {
     this.uid_4 = undefined;
   }
   receiveMessage(event) {
-    this.subgrupoPadre = event;
     this.catalogoElementosService.getSubgrupoById(event.Id).subscribe(
       res => {
         // console.log(res[0]);
