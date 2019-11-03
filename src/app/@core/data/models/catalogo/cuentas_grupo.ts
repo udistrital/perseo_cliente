@@ -1,6 +1,7 @@
 import { Subgrupo } from './subgrupo';
 import { Cuenta } from './cuenta_contable';
 
+
 export class CuentaGrupo {
     Id: number;
     CuentaDebitoId: number;
@@ -14,4 +15,8 @@ export class CuentaGrupo {
 export class CuentasFormulario {
     CuentaCreditoId: Cuenta;
     CuentaDebitoId: Cuenta;
+}
+export class ObservableCuentas {
+    Movimiento: number;
+    Cuentas: CuentasFormulario;
 }
