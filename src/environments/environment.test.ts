@@ -17,6 +17,14 @@ export const environment = {
   ENTRADAS_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/entradas_crud/v1/',
   ARKA_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/arka_mid/v1/',
   UNIDADES_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/administrativa_amazon_api/v1/',
+  SPAGOBI: {
+    PROTOCOL: 'https',
+    HOST: 'intelligentia.udistrital.edu.co',
+    PORT: '8443',
+    CONTEXTPATH: 'SpagoBI',
+    USER: 'sergio_orjuela',
+    PASSWORD: 'sergio_orjuela',
+  },
   TOKEN: {
     AUTORIZATION_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oauth2/authorize',
     CLIENTE_ID: 'Bt3CUzvz_b1WD0vqSXJs_suMDvka',
