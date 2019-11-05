@@ -259,6 +259,7 @@
 
     },
     
+    "placeholder":"This field is mandatory",
     "search": "Search",
     "catalogo": "Catalogue",
     "grupo": "Group",

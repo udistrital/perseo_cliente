@@ -261,6 +261,7 @@
 
     },
 
+    "placeholder":"Este Campo es Obligatorio",
     "search": "Buscar",
     "catalogo": "Catálogo",
     "grupo": "Grupo",

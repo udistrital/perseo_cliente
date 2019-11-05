@@ -230,6 +230,13 @@ $nb-themes: nb-register-theme((
   // card-header-warning-bg: ,
   // card-header-danger-bg: ,
 
+  smart-table-bg-active: #ffecbf,
+  smart-table-bg-even: #ffffff79,
+  smart-table-header-fg: #991c1a,
+  // smart-table-header-bg:  #991c1a,
+  smart-table-fg: #000000,
+  // smart-table-separator: #c2aa73,
+  // smart-table-fg-secondary: #c2aa73,
   // header-fg: ,
   // header-bg: #ffffff00,
   // footer-fg: ,
@@ -269,6 +276,6 @@ $nb-themes: nb-register-theme((
   // form-control-success-border-color: ,
   // form-control-danger-border-color: ,
   // form-control-warning-border-color: ,
-  form-control-placeholder-color:#ba4a3a,
+  form-control-placeholder-color:#6f613f,
   form-control-text-primary-color:#000000,
 ) , arka2 ,default);
