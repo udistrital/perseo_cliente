@@ -271,6 +271,7 @@
     "placeholder_id": "ej: id",
     "nombre": "nombre",
     "placeholder_nombre": "ej: nombre",
+    "codigo": "Código",
     "codigo_abreviacion": "codigo_abreviacion",
     "placeholder_codigo_abreviacion": "ej: codigo_abreviacion",
     "descripcion": "Descripción",

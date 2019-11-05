@@ -352,7 +352,8 @@ export class CatalogoElementosHelper {
      */
     public getPlanCuentas(naturaleza) {
         this.rqManager.setPath('FINANCIERA_SERVICE');
-        return this.rqManager.get('cuenta_contable?query=Naturaleza:' + naturaleza + ',NivelClasificacion.Id:5&fields=Id,Nombre,Naturaleza,Descripcion,Codigo').pipe(
+        return this.rqManager.get('cuenta_contable?query=Naturaleza:' + naturaleza +
+        ',NivelClasificacion.Id:5&fields=Id,Nombre,Naturaleza,Descripcion,Codigo').pipe(
             map(
                 (res) => {
                     if (res === 'error') {

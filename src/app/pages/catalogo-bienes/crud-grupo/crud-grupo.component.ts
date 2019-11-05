@@ -49,7 +49,7 @@ export class CrudGrupoComponent implements OnInit {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.construirForm();
     });
-    this.loadOptionsCatalogo();
+    // this.loadOptionsCatalogo();
   }
 
   construirForm() {
@@ -129,7 +129,6 @@ export class CrudGrupoComponent implements OnInit {
   }
 
   createGrupo(grupo: any): void {
-    // console.log(grupo);
     const opt: any = {
       title: 'Create?',
       text: 'Create Grupo!',
@@ -144,7 +143,6 @@ export class CrudGrupoComponent implements OnInit {
           catalogo.Id = parseFloat(this.catalogoid);
           grupoPost.Catalogo = catalogo;
           grupoPost.Subgrupo = grupo;
-          // console.log(grupoPost);
           this.catalogoElementosService.postGrupo(grupoPost)
             .subscribe(res => {
               this.info_grupo = <Grupo><unknown>res;
