@@ -8,7 +8,7 @@ export class Grupo {
   Descripcion: string;
   Activo: boolean;
   Catalogo: Catalogo;
-  TipoBienId: TipoBien;
+  // TipoBienId: TipoBien;
 }
 
 export class GrupoTransaccion {
