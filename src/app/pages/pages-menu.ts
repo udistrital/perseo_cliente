@@ -10,10 +10,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'nb-compose',
     children: [
       {
-        title: 'Consulta de Actas',
-        link: '/pages/acta_recibido/consulta_acta_recibido',
-      },
-      {
         title: 'Registro de Acta',
         link: '/pages/acta_recibido/registro_acta_recibido',
       },
