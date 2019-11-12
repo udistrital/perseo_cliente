@@ -6,20 +6,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
   //   group: true,
   // },
   {
-    title: 'Entradas',
-    icon: 'nb-list',
-    children: [
-      {
-        title: 'Consultar Entradas',
-        link: '/pages/entradas/consulta_entrada',
-      },
-      {
-        title: 'Registrar Entrada',
-        link: '/pages/entradas/registro',
-      },
-    ],
-  },
-  {
     title: 'Salidas',
     icon: 'nb-paper-plane',
     children: [
