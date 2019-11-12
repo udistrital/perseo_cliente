@@ -37,10 +37,6 @@ const routes: Routes = [{
       loadChildren: './entradas/entradas.module#EntradasModule',
     },
     {
-      path: 'salidas',
-      loadChildren: './salidas/salidas.module#SalidasModule',
-    },
-    {
       path: 'reportes',
       loadChildren: './reportes/reportes.module#ReportesModule',
     },
