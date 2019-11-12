@@ -8,7 +8,7 @@ import { EvaluarProveedorComponent } from './evaluar-proveedor.component';
   declarations: [EvaluarProveedorComponent],
   imports: [
     CommonModule,
-    EvaluarProveedorRoutingModule
-  ]
+    EvaluarProveedorRoutingModule,
+  ],
 })
 export class EvaluarProveedorModule { }
