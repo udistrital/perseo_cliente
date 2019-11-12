@@ -12,10 +12,6 @@ const routes: Routes = [{
       path: 'dashboard',
       component: DashboardComponent,
     },
-    {
-      path: 'catalogo',
-      loadChildren: './catalogo/catalogo.module#CatalogoModule',
-      },
       {
       path: 'grupo',
       loadChildren: './grupo/grupo.module#GrupoModule',
