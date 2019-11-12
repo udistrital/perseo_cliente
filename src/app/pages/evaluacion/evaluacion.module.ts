@@ -8,7 +8,7 @@ import { EvaluacionComponent } from './evaluacion.component';
   declarations: [EvaluacionComponent],
   imports: [
     CommonModule,
-    EvaluacionRoutingModule
-  ]
+    EvaluacionRoutingModule,
+  ],
 })
 export class EvaluacionModule { }
