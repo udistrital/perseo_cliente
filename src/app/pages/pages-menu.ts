@@ -20,4 +20,14 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
+  {
+    title: 'Evaluación',
+    icon: 'nb-compose',
+    children: [
+      {
+        title: 'Evaluación',
+        link: '/pages/evaluacion/',
+      },
+    ],
+  },
 ];

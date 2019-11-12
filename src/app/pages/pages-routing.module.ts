@@ -29,6 +29,10 @@ const routes: Routes = [{
       loadChildren: './evaluar-proveedor/evaluar-proveedor.module#EvaluarProveedorModule',
     },
     {
+      path: 'evaluacion',
+      loadChildren: './evaluacion/evaluacion.module#EvaluacionModule',
+    },
+    {
       path: '',
       redirectTo: 'dashboard',
       pathMatch: 'full',
