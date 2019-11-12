@@ -6,16 +6,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
   //   group: true,
   // },
   {
-    title: 'Acta de Recibido',
-    icon: 'nb-compose',
-    children: [
-      {
-        title: 'Registro de Acta',
-        link: '/pages/acta_recibido/registro_acta_recibido',
-      },
-    ],
-  },
-  {
     title: 'Entradas',
     icon: 'nb-list',
     children: [
