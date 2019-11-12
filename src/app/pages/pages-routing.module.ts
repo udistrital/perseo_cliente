@@ -13,10 +13,6 @@ const routes: Routes = [{
       component: DashboardComponent,
     },
       {
-      path: 'grupo',
-      loadChildren: './grupo/grupo.module#GrupoModule',
-      },
-      {
       path: 'subgrupo_1',
       loadChildren: './subgrupo_1/subgrupo_1.module#Subgrupo1Module',
       },
@@ -25,16 +21,8 @@ const routes: Routes = [{
       loadChildren: './subgrupo_2/subgrupo_2.module#Subgrupo2Module',
       },
     {
-      path: 'entradas',
-      loadChildren: './entradas/entradas.module#EntradasModule',
-    },
-    {
       path: 'reportes',
       loadChildren: './reportes/reportes.module#ReportesModule',
-    },
-    {
-      path: 'catalogo_bienes',
-      loadChildren: './catalogo-bienes/catalogo-bienes.module#CatalogoBienesModule',
     },
     {
       path: '',
