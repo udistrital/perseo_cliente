@@ -6,29 +6,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
   //   group: true,
   // },
   {
-    title: 'Movimientos',
-    icon: 'nb-shuffle',
-    children: [
-      {
-        title: 'Consultar Baja de Bien',
-        link: '/pages/movimientos/consulta_baja_bien',
-      },
-      {
-        title: 'Solicitud de Baja de Bien',
-        link: '/pages/movimientos/solicitud_baja_bien',
-      },
-      {
-        title: 'Aprobación de Baja de Bien',
-        link: '/pages/movimientos/aprobacion_baja_bien',
-      },
-    ],
-  },
-  {
-    title: 'Reportes',
+    title: 'Evaluaciones',
     icon: 'nb-compose',
     children: [
       {
-        title: 'Entradas',
+        title: 'Consultar Evaluaciones',
         link: '/pages/reportes/registro-entradas',
       },
     ],
