@@ -13,10 +13,6 @@ const routes: Routes = [{
       component: DashboardComponent,
     },
     {
-      path: 'acta_recibido',
-      loadChildren: './acta-recibido/acta-recibido.module#ActaRecibidoModule',
-    },
-    {
       path: 'catalogo',
       loadChildren: './catalogo/catalogo.module#CatalogoModule',
       },
