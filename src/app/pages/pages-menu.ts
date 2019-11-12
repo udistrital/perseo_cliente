@@ -6,6 +6,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
   //   group: true,
   // },
   {
+    title: 'Home',
+    icon: 'nb-compose',
+    link: '/pages/dashboard',
+  },
+  {
     title: 'Evaluaciones',
     icon: 'nb-compose',
     children: [
@@ -15,5 +20,4 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
-
 ];
