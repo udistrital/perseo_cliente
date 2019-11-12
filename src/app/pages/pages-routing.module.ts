@@ -25,10 +25,15 @@ const routes: Routes = [{
       loadChildren: './reportes/reportes.module#ReportesModule',
     },
     {
+      path: 'evaluar_proveedor',
+      loadChildren: './evaluar-proveedor/evaluar-proveedor.module#EvaluarProveedorModule',
+    },
+    {
       path: '',
       redirectTo: 'dashboard',
       pathMatch: 'full',
-    }, {
+    },
+    {
       path: '**',
       component: NotFoundComponent,
     }],

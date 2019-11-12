@@ -15,8 +15,8 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'nb-compose',
     children: [
       {
-        title: 'Consultar Evaluaciones',
-        link: '/pages/reportes/registro-entradas',
+        title: 'Evaluar Proveedor',
+        link: '/pages/evaluar_proveedor/',
       },
     ],
   },
