@@ -40,4 +40,14 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
+  {
+    title: 'Administración plantillas',
+    icon: 'nb-compose',
+    children: [
+      {
+        title: 'Administración de plantillas',
+        link: '/pages/administracion_plantillas/',
+      },
+    ],
+  },
 ];

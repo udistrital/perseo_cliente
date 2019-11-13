@@ -37,6 +37,10 @@ const routes: Routes = [{
       loadChildren: './consulta-evaluacion/consulta-evaluacion.module#ConsultaEvaluacionModule',
     },
     {
+      path: 'administracion_plantillas',
+      loadChildren: './administracion-plantillas/administracion-plantillas.module#AdministracionPlantillasModule',
+    },
+    {
       path: '',
       redirectTo: 'dashboard',
       pathMatch: 'full',
