@@ -8,7 +8,7 @@ import { ConsultaEvaluacionComponent } from './consulta-evaluacion.component';
   declarations: [ConsultaEvaluacionComponent],
   imports: [
     CommonModule,
-    ConsultaEvaluacionRoutingModule
-  ]
+    ConsultaEvaluacionRoutingModule,
+  ],
 })
 export class ConsultaEvaluacionModule { }
