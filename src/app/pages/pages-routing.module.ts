@@ -33,6 +33,10 @@ const routes: Routes = [{
       loadChildren: './evaluacion/evaluacion.module#EvaluacionModule',
     },
     {
+      path: 'consulta_evaluacion',
+      loadChildren: './consulta-evaluacion/consulta-evaluacion.module#ConsultaEvaluacionModule',
+    },
+    {
       path: '',
       redirectTo: 'dashboard',
       pathMatch: 'full',
