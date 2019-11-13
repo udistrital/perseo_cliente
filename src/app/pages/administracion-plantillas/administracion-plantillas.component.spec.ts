@@ -8,7 +8,7 @@ describe('AdministracionPlantillasComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdministracionPlantillasComponent ]
+      declarations: [ AdministracionPlantillasComponent ],
     })
     .compileComponents();
   }));

@@ -8,7 +8,7 @@ import { AdministracionPlantillasComponent } from './administracion-plantillas.c
   declarations: [AdministracionPlantillasComponent],
   imports: [
     CommonModule,
-    AdministracionPlantillasRoutingModule
-  ]
+    AdministracionPlantillasRoutingModule,
+  ],
 })
 export class AdministracionPlantillasModule { }
