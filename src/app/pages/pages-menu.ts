@@ -1,18 +1,14 @@
 import { NbMenuItem } from '@nebular/theme';
 
 export const MENU_ITEMS: NbMenuItem[] = [
-  // {
-  //   title: 'ARKA II',
-  //   group: true,
-  // },
   {
     title: 'Home',
-    icon: 'nb-compose',
+    icon: 'nb-home',
     link: '/pages/dashboard',
   },
   {
     title: 'Evaluaciones',
-    icon: 'nb-compose',
+    icon: 'nb-edit',
     children: [
       {
         title: 'Evaluar Proveedor',
@@ -22,7 +18,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Evaluación',
-    icon: 'nb-compose',
+    icon: 'nb-checkmark',
     children: [
       {
         title: 'Evaluación',
@@ -32,7 +28,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Consulta Evaluación',
-    icon: 'nb-compose',
+    icon: 'nb-search',
     children: [
       {
         title: 'Evaluación',
