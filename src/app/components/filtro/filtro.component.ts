@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'filtro',
+  selector: 'ngx-filtro',
   templateUrl: './filtro.component.html',
-  styleUrls: ['./filtro.component.scss']
+  styleUrls: ['./filtro.component.scss',]
 })
 export class FiltroComponent implements OnInit {
 
