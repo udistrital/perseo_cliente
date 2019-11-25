@@ -131,6 +131,7 @@ import {
   ToggleSettingsButtonComponent,
   SelectComponent,
   NuxeoComponent,
+  FiltroComponent,
 } from './components';
 import {
   CapitalizePipe,
@@ -159,6 +160,8 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { SelectDirective } from './directives/mouse-over-tree';
 import { ARKAII_THEME } from './styles/theme.arka2';
+
+
 
 const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
 
@@ -218,6 +221,7 @@ const COMPONENTS = [
   SelectComponent,
   NuxeoComponent,
   SelectDirective,
+  FiltroComponent,
 ];
 
 const ENTRY_COMPONENTS = [
