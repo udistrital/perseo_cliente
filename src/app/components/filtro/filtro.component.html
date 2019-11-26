@@ -1,3 +1,36 @@
-<p>
-  filtro works!
-</p>
+<div class="container">
+  <div class="col-xl">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12">
+            <h2 class = "card-title">Lista de proveedores</h2>
+          </div>
+        </div>
+        <div class="row justify-content-md-center">
+          <div class="col-md-auto">
+            <form class="example-form">
+              <mat-form-field>
+                <input matInput placeholder="Identificación del proveedor">
+              </mat-form-field>
+            </form>
+          </div> 
+          <div class="col-md-auto">
+              <form class="example-form">
+                <mat-form-field>
+                  <input matInput placeholder="Numero de contrato">
+                </mat-form-field>
+              </form>
+          </div> 
+          <mat-form-field>
+              <mat-select placeholder="Vigencia">
+                <mat-option *ngFor="let vigencia of vigencias" [value]="vigencia">
+                  {{vigencia}}
+                </mat-option>
+              </mat-select>
+          </mat-form-field>
+        </div>       
+      </div>
+    </div>
+  </div>
+</div>
