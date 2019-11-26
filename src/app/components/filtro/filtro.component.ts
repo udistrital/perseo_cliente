@@ -22,7 +22,7 @@ export class FiltroComponent implements OnInit {
   ngOnInit() {
   }
 
-  filtro(){ 
+  filtro() {
     console.info( Number(this.numero_contrato) );
     this.openWindow('filtro ejecutado');
   }
