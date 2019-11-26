@@ -13,9 +13,9 @@ export class FiltroComponent implements OnInit {
 
   vigencias = ['2016', '2017', '2018', '2019', '2020'];
 
-  identificacion_proveedor : any;
-  numero_contrato : any;
-  vigencia : any;
+  identificacion_proveedor: any;
+  numero_contrato: any;
+  vigencia: any;
 
   constructor(private windowService: NbWindowService) { }
 
@@ -23,12 +23,8 @@ export class FiltroComponent implements OnInit {
   }
 
   filtro(){
-    //console.log(this.identificacion_proveedor)
-    //this.identificacion_proveedor = this.identificacion_proveedor + " :v"
-    //console.info( this.numero_contrato )
-
     console.info( Number(this.numero_contrato) )
-    this.openWindow("filtro ejecutado")
+    this.openWindow('filtro ejecutado')
   }
 
   openWindow(mensaje) {
