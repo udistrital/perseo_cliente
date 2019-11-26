@@ -9,28 +9,41 @@
         </div>
         <div class="row justify-content-md-center">
           <div class="col-md-auto">
-            <form class="example-form">
+            <div class="example-form">
               <mat-form-field>
-                <input matInput placeholder="Identificación del proveedor">
+                <input type="number" [(ngModel)]="identificacion_proveedor" matInput placeholder="Identificación del proveedor">
               </mat-form-field>
-            </form>
+            </div>
           </div> 
           <div class="col-md-auto">
-              <form class="example-form">
+              <div class="example-form">
                 <mat-form-field>
-                  <input matInput placeholder="Numero de contrato">
+                  <input type="number" [(ngModel)]="numero_contrato" matInput placeholder="Numero de contrato">
                 </mat-form-field>
-              </form>
+              </div>
+          </div>
+          <div class="col-md-auto"> 
+            <mat-form-field>
+                <mat-select placeholder="Vigencia">
+                  <mat-option *ngFor="let vigencia of vigencias" [value]="vigencia">
+                    {{vigencia}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row justify-content-md-center">
+          <div class="col-md-auto">
+            <button (click)="filtro()" nbButton>Filtrar</button>
           </div> 
-          <mat-form-field>
-              <mat-select placeholder="Vigencia">
-                <mat-option *ngFor="let vigencia of vigencias" [value]="vigencia">
-                  {{vigencia}}
-                </mat-option>
-              </mat-select>
-          </mat-form-field>
+          <div class="col-md-auto">
+            <button nbButton disabled>Limpiar Filtro</button>
+          </div>
         </div>       
       </div>
     </div>
   </div>
 </div>
+<ng-template #contentTemplate let-data>
+  <p>Here is the text provided via config: "{{ data.text }}"</p>
+</ng-template>

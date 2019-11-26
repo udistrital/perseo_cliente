@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,TemplateRef, ViewChild, OnInit } from '@angular/core';
+import { NbWindowService } from '@nebular/theme';
+
 
 @Component({
   selector: 'ngx-filtro',
@@ -7,11 +9,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FiltroComponent implements OnInit {
 
+  @ViewChild('contentTemplate', { read: false }) contentTemplate: TemplateRef<any>;
+
   vigencias = ['2016', '2017', '2018', '2019', '2020'];
 
-  constructor() { }
+  identificacion_proveedor : any;
+  numero_contrato : any;
+  vigencia : any;
+
+  constructor(private windowService: NbWindowService) { }
 
   ngOnInit() {
+  }
+
+  filtro(){
+    //console.log(this.identificacion_proveedor)
+    //this.identificacion_proveedor = this.identificacion_proveedor + " :v"
+    //console.info( this.numero_contrato )
+
+    console.info( Number(this.numero_contrato) )
+    this.openWindow("filtro ejecutado")
+  }
+
+  openWindow(mensaje) {
+    this.windowService.open(
+      this.contentTemplate,
+      { title: 'Window content from template', context: { text: mensaje } },
+    );
   }
 
 }
