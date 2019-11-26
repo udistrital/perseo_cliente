@@ -1,4 +1,4 @@
-import { Component,TemplateRef, ViewChild, OnInit } from '@angular/core';
+import { Component, TemplateRef, ViewChild, OnInit } from '@angular/core';
 import { NbWindowService } from '@nebular/theme';
 
 
@@ -22,9 +22,9 @@ export class FiltroComponent implements OnInit {
   ngOnInit() {
   }
 
-  filtro(){
-    console.info( Number(this.numero_contrato) )
-    this.openWindow('filtro ejecutado')
+  filtro(){ 
+    console.info( Number(this.numero_contrato) );
+    this.openWindow('filtro ejecutado');
   }
 
   openWindow(mensaje) {
