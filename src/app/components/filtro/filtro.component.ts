@@ -31,7 +31,7 @@ export class FiltroComponent implements OnInit {
       if ((isNaN(this.identificacion_proveedor) === true) || (this.identificacion_proveedor === 0) || (this.identificacion_proveedor === null)) {
         this.openWindow('Revise el número de identificación de proveedor. Número de identificación de proveedor no correcto');
       } else {
-        if((this.vigencia === null) || (this.vigencia === undefined)) {
+        if ((this.vigencia === null) || (this.vigencia === undefined)) {
           this.openWindow('Seleccione una vigencia');
         } else {
           this.RealizarPeticion();
