@@ -24,7 +24,7 @@
           </div>
           <div class="col-md-auto"> 
             <mat-form-field>
-                <mat-select placeholder="Vigencia">
+                <mat-select placeholder="Vigencia" [(ngModel)]="vigencia">
                   <mat-option *ngFor="let vigencia of vigencias" [value]="vigencia">
                     {{vigencia}}
                   </mat-option>
@@ -45,5 +45,5 @@
   </div>
 </div>
 <ng-template #contentTemplate let-data>
-  <p>Here is the text provided via config: "{{ data.text }}"</p>
+  <p>{{ data.text }}</p>
 </ng-template>
