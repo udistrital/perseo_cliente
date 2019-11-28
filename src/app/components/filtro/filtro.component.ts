@@ -25,13 +25,13 @@ export class FiltroComponent implements OnInit {
   filtro() {
     console.info( Number(this.numero_contrato) );
 
-    if ((isNaN(this.numero_contrato) == true)||(this.numero_contrato == 0)||(this.numero_contrato == null)) {
+    if ((isNaN(this.numero_contrato) === true)||(this.numero_contrato === 0)||(this.numero_contrato === null)) {
       this.openWindow('Revise el número de contrato. Número de contrato no correcto');
     } else {
-      if ((isNaN(this.identificacion_proveedor) == true)||(this.identificacion_proveedor == 0)||(this.identificacion_proveedor == null)) {
+      if ((isNaN(this.identificacion_proveedor) === true)||(this.identificacion_proveedor === 0)||(this.identificacion_proveedor === null)) {
         this.openWindow('Revise el número de identificación de proveedor. Número de identificación de proveedor no correcto');
       } else {
-        if((this.vigencia == null)||(this.vigencia == undefined)) {
+        if((this.vigencia === null)||(this.vigencia === undefined)) {
           this.openWindow('Seleccione una vigencia');
         } else {
           this.RealizarPeticion();
@@ -40,14 +40,14 @@ export class FiltroComponent implements OnInit {
     }
   }
 
-  RealizarPeticion(){
+  RealizarPeticion() {
 
   }
 
   openWindow(mensaje) {
     this.windowService.open(
       this.contentTemplate,
-      { title: 'Window content from template', context: { text: mensaje } },
+      { title: 'Alerta', context: { text: mensaje } },
     );
   }
 
