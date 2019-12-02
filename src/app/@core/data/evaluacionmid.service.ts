@@ -9,13 +9,13 @@ const httpOptions = {
   headers: new HttpHeaders({
       'Accept': 'application/json',
   }),
-}
+};
 
 const path = environment.EVALUACIONMID_SERVICE;
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EvaluacionmidService {
 

@@ -20,7 +20,7 @@ export class FiltroComponent implements OnInit {
 
   constructor(
     private windowService: NbWindowService, 
-    private evaluacionMidService: EvaluacionmidService,) { }
+    private evaluacionMidService: EvaluacionmidService) { }
 
   ngOnInit() {
   }
@@ -52,7 +52,8 @@ export class FiltroComponent implements OnInit {
         if ((this.identificacion_proveedor === undefined || this.identificacion_proveedor === null)
         && (this.numero_contrato !== undefined && this.numero_contrato != null) && (this.vigencia === undefined)) {
           console.info('petición por número de contrato');
-          this.evaluacionMidService.get('filtroContrato/?NumContrato='+this.identificacion_proveedor+'&Vigencia=0&SupID=19483708').subscribe((res) => {
+          this.evaluacionMidService.get('filtroContrato/?NumContrato='+this.identificacion_proveedor+'&Vigencia=0&SupID=19483708')
+          .subscribe((res) => {
             if (res !== null) {
               console.info(res);
             }
