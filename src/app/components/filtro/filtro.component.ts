@@ -1,5 +1,6 @@
 import { Component, TemplateRef, ViewChild, OnInit } from '@angular/core';
 import { NbWindowService } from '@nebular/theme';
+import { EvaluacionmidService } from '../../@core/data/evaluacionmid.service';
 
 
 @Component({
@@ -17,7 +18,9 @@ export class FiltroComponent implements OnInit {
   numero_contrato: any;
   vigencia: any;
 
-  constructor(private windowService: NbWindowService) { }
+  constructor(
+    private windowService: NbWindowService, 
+    private evaluacionMidService: EvaluacionmidService,) { }
 
   ngOnInit() {
   }
@@ -49,10 +52,23 @@ export class FiltroComponent implements OnInit {
         if ((this.identificacion_proveedor === undefined || this.identificacion_proveedor === null)
         && (this.numero_contrato !== undefined && this.numero_contrato != null) && (this.vigencia === undefined)) {
           console.info('petición por número de contrato');
+          this.evaluacionMidService.get('filtroContrato/?NumContrato='+this.identificacion_proveedor+'&Vigencia=0&SupID=19483708').subscribe((res) => {
+            if (res !== null) {
+              console.info(res);
+            }
+          });
         } else {
           if ((this.identificacion_proveedor === undefined || this.identificacion_proveedor === null)
           && (this.numero_contrato !== undefined && this.numero_contrato != null) && (this.vigencia !== undefined)) {
             console.info('peticion por número de contrato y vigencia');
+          } else {
+            if (((this.identificacion_proveedor !== undefined ) && (this.identificacion_proveedor != null)) && (this.numero_contrato !== undefined && this.numero_contrato != null)&& (this.vigencia === undefined)){
+              console.info ('peticion por proveedor y número de contrato')
+            } else {
+              if (((this.identificacion_proveedor !== undefined ) && (this.identificacion_proveedor != null)) && (this.numero_contrato !== undefined && this.numero_contrato != null)&& (this.vigencia !== undefined)){
+                console.info('peticion por proveedor, número de contrato y vigencia');
+              }
+            }
           }
         }
       }
