@@ -1,6 +1,7 @@
 import { Component, TemplateRef, ViewChild, OnInit } from '@angular/core';
 import { NbWindowService } from '@nebular/theme';
 import { EvaluacionmidService } from '../../@core/data/evaluacionmid.service';
+import { ImplicitAutenticationService } from '../../@core/utils/implicit_autentication.service';
 
 
 @Component({
@@ -17,15 +18,21 @@ export class FiltroComponent implements OnInit {
   identificacion_proveedor: any;
   numero_contrato: any;
   vigencia: any;
+  autentication_data: any;
 
   constructor(
     private windowService: NbWindowService,
-    private evaluacionMidService: EvaluacionmidService) { }
+    private evaluacionMidService: EvaluacionmidService,
+    private authService: ImplicitAutenticationService) { }
 
   ngOnInit() {
   }
 
   filtro() {
+
+    this.autentication_data = this.authService.getPayload();
+    console.info(this.autentication_data);
+
     console.info(isNaN(this.identificacion_proveedor));
     console.info(this.identificacion_proveedor);
     console.info(this.numero_contrato);
@@ -44,15 +51,27 @@ export class FiltroComponent implements OnInit {
     if ((this.identificacion_proveedor !== undefined ) && (this.identificacion_proveedor != null)
     && (this.numero_contrato === undefined || this.numero_contrato === null) && (this.vigencia === undefined)) {
       console.info('petición por proveedor');
+      this.evaluacionMidService.get('filtroProveedor/?ProvID='+ this.identificacion_proveedor +'&SupID=0')
+      .subscribe((res) => {
+        if (res !== null) {
+          console.info(res);
+        }
+      });
     } else {
       if ((this.identificacion_proveedor !== undefined ) && (this.identificacion_proveedor != null)
       && (this.numero_contrato === undefined || this.numero_contrato === null) && (this.vigencia !== undefined)) {
         console.info('peticion por proveedor y vigencia');
+        this.evaluacionMidService.get('filtroProveedor/?ProvID='+ this.identificacion_proveedor +'&SupID=0')
+        .subscribe((res) => {
+          if (res !== null) {
+            console.info(res);
+          }
+        });
       } else {
         if ((this.identificacion_proveedor === undefined || this.identificacion_proveedor === null)
         && (this.numero_contrato !== undefined && this.numero_contrato != null) && (this.vigencia === undefined)) {
           console.info('petición por número de contrato');
-          this.evaluacionMidService.get('filtroContrato/?NumContrato=' + this.identificacion_proveedor + '&Vigencia=0&SupID=19483708')
+          this.evaluacionMidService.get('filtroContrato/?NumContrato=' + this.numero_contrato + '&Vigencia=0&SupID=19483708')
           .subscribe((res) => {
             if (res !== null) {
               console.info(res);
@@ -62,14 +81,32 @@ export class FiltroComponent implements OnInit {
           if ((this.identificacion_proveedor === undefined || this.identificacion_proveedor === null)
           && (this.numero_contrato !== undefined && this.numero_contrato != null) && (this.vigencia !== undefined)) {
             console.info('peticion por número de contrato y vigencia');
+            this.evaluacionMidService.get('filtroContrato/?NumContrato=' + this.numero_contrato + '&Vigencia=' + String(this.vigencia) + '&SupID=19483708')
+            .subscribe((res) => {
+              if (res !== null) {
+                console.info(res);
+              }
+            });
           } else {
             if (((this.identificacion_proveedor !== undefined ) && (this.identificacion_proveedor != null))
             && (this.numero_contrato !== undefined && this.numero_contrato != null) && (this.vigencia === undefined)) {
               console.info ('peticion por proveedor y número de contrato');
+              this.evaluacionMidService.get('filtroMixto/?IdentProv=' + this.identificacion_proveedor + '&NumContrato=' + this.numero_contrato + '&Vigencia=0&SupID=19483708')
+              .subscribe((res) => {
+                if (res !== null) {
+                  console.info(res);
+                }
+              });
             } else {
               if (((this.identificacion_proveedor !== undefined ) && (this.identificacion_proveedor != null))
               && (this.numero_contrato !== undefined && this.numero_contrato != null) && (this.vigencia !== undefined)) {
                 console.info('peticion por proveedor, número de contrato y vigencia');
+                this.evaluacionMidService.get('filtroMixto/?IdentProv=' + this.identificacion_proveedor + '&NumContrato=' + this.numero_contrato + '&Vigencia=' + String(this.vigencia) + '&SupID=19483708')
+                .subscribe((res) => {
+                  if (res !== null) {
+                    console.info(res);
+                  }
+                });
               }
             }
           }
