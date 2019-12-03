@@ -37,7 +37,7 @@
             <button (click)="filtro()" nbButton>Filtrar</button>
           </div> 
           <div class="col-md-auto">
-            <button nbButton disabled>Limpiar Filtro</button>
+            <button (click)="limpiarfiltro()" nbButton>Limpiar Filtro</button>
           </div>
         </div>       
       </div>
@@ -45,5 +45,5 @@
   </div>
 </div>
 <ng-template #contentTemplate let-data>
-  <p>{{ data.text }}</p>
+  <h4>{{ data.text }}</h4>
 </ng-template>

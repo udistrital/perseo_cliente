@@ -51,7 +51,7 @@ export class FiltroComponent implements OnInit {
     if ((this.identificacion_proveedor !== undefined ) && (this.identificacion_proveedor != null)
     && (this.numero_contrato === undefined || this.numero_contrato === null) && (this.vigencia === undefined)) {
       console.info('petición por proveedor');
-      this.evaluacionMidService.get('filtroProveedor/?ProvID='+ this.identificacion_proveedor +'&SupID=0')
+      this.evaluacionMidService.get('filtroProveedor/?ProvID=' + this.identificacion_proveedor + '&SupID=0')
       .subscribe((res) => {
         if (res !== null) {
           console.info(res);
@@ -61,7 +61,7 @@ export class FiltroComponent implements OnInit {
       if ((this.identificacion_proveedor !== undefined ) && (this.identificacion_proveedor != null)
       && (this.numero_contrato === undefined || this.numero_contrato === null) && (this.vigencia !== undefined)) {
         console.info('peticion por proveedor y vigencia');
-        this.evaluacionMidService.get('filtroProveedor/?ProvID='+ this.identificacion_proveedor +'&SupID=0')
+        this.evaluacionMidService.get('filtroProveedor/?ProvID=' + this.identificacion_proveedor + '&SupID=0')
         .subscribe((res) => {
           if (res !== null) {
             console.info(res);
@@ -81,8 +81,8 @@ export class FiltroComponent implements OnInit {
           if ((this.identificacion_proveedor === undefined || this.identificacion_proveedor === null)
           && (this.numero_contrato !== undefined && this.numero_contrato != null) && (this.vigencia !== undefined)) {
             console.info('peticion por número de contrato y vigencia');
-            this.evaluacionMidService.get('filtroContrato/?NumContrato=' + this.numero_contrato + '&Vigencia=' + String(this.vigencia) + '&SupID=19483708')
-            .subscribe((res) => {
+            this.evaluacionMidService.get('filtroContrato/?NumContrato=' + this.numero_contrato + '&Vigencia='
+            + String(this.vigencia) + '&SupID=19483708').subscribe((res) => {
               if (res !== null) {
                 console.info(res);
               }
@@ -91,8 +91,8 @@ export class FiltroComponent implements OnInit {
             if (((this.identificacion_proveedor !== undefined ) && (this.identificacion_proveedor != null))
             && (this.numero_contrato !== undefined && this.numero_contrato != null) && (this.vigencia === undefined)) {
               console.info ('peticion por proveedor y número de contrato');
-              this.evaluacionMidService.get('filtroMixto/?IdentProv=' + this.identificacion_proveedor + '&NumContrato=' + this.numero_contrato + '&Vigencia=0&SupID=19483708')
-              .subscribe((res) => {
+              this.evaluacionMidService.get('filtroMixto/?IdentProv=' + this.identificacion_proveedor + '&NumContrato='
+              + this.numero_contrato + '&Vigencia=0&SupID=19483708').subscribe((res) => {
                 if (res !== null) {
                   console.info(res);
                 }
@@ -101,8 +101,8 @@ export class FiltroComponent implements OnInit {
               if (((this.identificacion_proveedor !== undefined ) && (this.identificacion_proveedor != null))
               && (this.numero_contrato !== undefined && this.numero_contrato != null) && (this.vigencia !== undefined)) {
                 console.info('peticion por proveedor, número de contrato y vigencia');
-                this.evaluacionMidService.get('filtroMixto/?IdentProv=' + this.identificacion_proveedor + '&NumContrato=' + this.numero_contrato + '&Vigencia=' + String(this.vigencia) + '&SupID=19483708')
-                .subscribe((res) => {
+                this.evaluacionMidService.get('filtroMixto/?IdentProv=' + this.identificacion_proveedor + '&NumContrato='
+                + this.numero_contrato + '&Vigencia=' + String(this.vigencia) + '&SupID=19483708').subscribe((res) => {
                   if (res !== null) {
                     console.info(res);
                   }
@@ -120,6 +120,12 @@ export class FiltroComponent implements OnInit {
       this.contentTemplate,
       { title: 'Alerta', context: { text: mensaje } },
     );
+  }
+
+  limpiarfiltro(){
+    this.identificacion_proveedor=null;
+    this.numero_contrato=null;
+    this.vigencia=undefined;
   }
 
 }
