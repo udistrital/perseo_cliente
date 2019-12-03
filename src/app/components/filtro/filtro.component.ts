@@ -122,10 +122,10 @@ export class FiltroComponent implements OnInit {
     );
   }
 
-  limpiarfiltro(){
-    this.identificacion_proveedor=null;
-    this.numero_contrato=null;
-    this.vigencia=undefined;
+  limpiarfiltro() {
+    this.identificacion_proveedor = null;
+    this.numero_contrato = null;
+    this.vigencia = undefined;
   }
 
 }
