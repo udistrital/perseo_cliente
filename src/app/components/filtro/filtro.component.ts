@@ -58,6 +58,9 @@ export class FiltroComponent implements OnInit {
         if (res !== null) {
           console.info(res);
         }
+      },(error_service) => {
+        console.info(error_service);
+        this.openWindow(error_service['message']);
       });
     } else {
       if ((this.identificacion_proveedor !== undefined ) && (this.identificacion_proveedor != null)
@@ -68,6 +71,9 @@ export class FiltroComponent implements OnInit {
           if (res !== null) {
             console.info(res);
           }
+        },(error_service) => {
+          console.info(error_service);
+          this.openWindow(error_service['message']);
         });
       } else {
         if ((this.identificacion_proveedor === undefined || this.identificacion_proveedor === null)
@@ -78,6 +84,9 @@ export class FiltroComponent implements OnInit {
             if (res !== null) {
               console.info(res);
             }
+          },(error_service) => {
+            console.info(error_service);
+            this.openWindow(error_service['message']);
           });
         } else {
           if ((this.identificacion_proveedor === undefined || this.identificacion_proveedor === null)
@@ -88,6 +97,9 @@ export class FiltroComponent implements OnInit {
               if (res !== null) {
                 console.info(res);
               }
+            },(error_service) => {
+              console.info(error_service);
+              this.openWindow(error_service['message']);
             });
           } else {
             if (((this.identificacion_proveedor !== undefined ) && (this.identificacion_proveedor != null))
@@ -98,6 +110,9 @@ export class FiltroComponent implements OnInit {
                 if (res !== null) {
                   console.info(res);
                 }
+              },(error_service) => {
+                console.info(error_service);
+                this.openWindow(error_service['message']);
               });
             } else {
               if (((this.identificacion_proveedor !== undefined ) && (this.identificacion_proveedor != null))
@@ -108,6 +123,9 @@ export class FiltroComponent implements OnInit {
                   if (res !== null) {
                     console.info(res);
                   }
+                },(error_service) => {
+                  console.info(error_service);
+                  this.openWindow(error_service['message']);
                 });
               }
             }
