@@ -58,7 +58,7 @@ export class FiltroComponent implements OnInit {
         if (res !== null) {
           console.info(res);
         }
-      },(error_service) => {
+      }, (error_service) => {
         console.info(error_service);
         this.openWindow(error_service['message']);
       });
@@ -71,7 +71,7 @@ export class FiltroComponent implements OnInit {
           if (res !== null) {
             console.info(res);
           }
-        },(error_service) => {
+        }, (error_service) => {
           console.info(error_service);
           this.openWindow(error_service['message']);
         });
@@ -84,7 +84,7 @@ export class FiltroComponent implements OnInit {
             if (res !== null) {
               console.info(res);
             }
-          },(error_service) => {
+          }, (error_service) => {
             console.info(error_service);
             this.openWindow(error_service['message']);
           });
@@ -97,7 +97,7 @@ export class FiltroComponent implements OnInit {
               if (res !== null) {
                 console.info(res);
               }
-            },(error_service) => {
+            }, (error_service) => {
               console.info(error_service);
               this.openWindow(error_service['message']);
             });
@@ -110,7 +110,7 @@ export class FiltroComponent implements OnInit {
                 if (res !== null) {
                   console.info(res);
                 }
-              },(error_service) => {
+              }, (error_service) => {
                 console.info(error_service);
                 this.openWindow(error_service['message']);
               });
@@ -123,7 +123,7 @@ export class FiltroComponent implements OnInit {
                   if (res !== null) {
                     console.info(res);
                   }
-                },(error_service) => {
+                }, (error_service) => {
                   console.info(error_service);
                   this.openWindow(error_service['message']);
                 });
