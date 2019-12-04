@@ -19,7 +19,7 @@ export class FiltroComponent implements OnInit {
   numero_contrato: any;
   vigencia: any;
   autentication_data: any;
-  documento : any;
+  documento: any;
 
   constructor(
     private windowService: NbWindowService,
