@@ -67,6 +67,7 @@ import { NbToastrModule } from '@nebular/theme';
 import { ListService } from './@core/store/services/list.service';
 import { Store, StoreModule } from '@ngrx/store';
 import { rootReducer } from './@core/store/rootReducer';
+// import { FiltroComponent } from './components/filtro/filtro.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -121,6 +122,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
+  ],
+  declarations: [
+    // FiltroComponent
   ],
 })
 export class MaterialModule {}
