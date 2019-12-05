@@ -44,7 +44,6 @@ export class FiltroComponent implements OnInit {
      this.openWindow('Debe ingresar almenos una Identificación de proveedor o un número de contrato');
     } else {
       this.RealizarPeticion();
-      
     }
   }
 
