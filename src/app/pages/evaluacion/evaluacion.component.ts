@@ -12,4 +12,7 @@ export class EvaluacionComponent implements OnInit {
   ngOnInit() {
   }
 
+  mostrar(data: any) {
+    console.info(data);
+  }
 }

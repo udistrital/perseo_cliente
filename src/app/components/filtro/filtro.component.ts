@@ -1,4 +1,4 @@
-import { Component, TemplateRef, ViewChild, OnInit } from '@angular/core';
+import { Component, TemplateRef, ViewChild, OnInit, Output, EventEmitter} from '@angular/core';
 import { NbWindowService } from '@nebular/theme';
 import { EvaluacionmidService } from '../../@core/data/evaluacionmid.service';
 import { ImplicitAutenticationService } from '../../@core/utils/implicit_autentication.service';
@@ -10,6 +10,8 @@ import { ImplicitAutenticationService } from '../../@core/utils/implicit_autenti
   styleUrls: ['./filtro.component.scss'],
 })
 export class FiltroComponent implements OnInit {
+
+  @Output() dataResponse: EventEmitter<any>;
 
   @ViewChild('contentTemplate', { read: false }) contentTemplate: TemplateRef<any>;
 
@@ -24,7 +26,10 @@ export class FiltroComponent implements OnInit {
   constructor(
     private windowService: NbWindowService,
     private evaluacionMidService: EvaluacionmidService,
-    private authService: ImplicitAutenticationService) { }
+    private authService: ImplicitAutenticationService,
+    ) {
+      this.dataResponse = new EventEmitter();
+    }
 
   ngOnInit() {
   }
@@ -33,19 +38,13 @@ export class FiltroComponent implements OnInit {
 
     this.autentication_data = this.authService.getPayload();
     this.documento = this.autentication_data.documento;
-    console.info(this.documento);
-
-    console.info(isNaN(this.identificacion_proveedor));
-    console.info(this.identificacion_proveedor);
-    console.info(this.numero_contrato);
-    console.info(this.vigencia);
-
     if (((isNaN(this.numero_contrato) === true) || (this.numero_contrato === 0) || (this.numero_contrato === null)
     || (this.numero_contrato === undefined)) && ((isNaN(this.identificacion_proveedor) === true) || (this.identificacion_proveedor === 0)
     || (this.identificacion_proveedor === null) || (this.identificacion_proveedor === undefined))) {
      this.openWindow('Debe ingresar almenos una Identificación de proveedor o un número de contrato');
     } else {
       this.RealizarPeticion();
+      
     }
   }
 
@@ -53,9 +52,10 @@ export class FiltroComponent implements OnInit {
     if ((this.identificacion_proveedor !== undefined ) && (this.identificacion_proveedor != null)
     && (this.numero_contrato === undefined || this.numero_contrato === null) && (this.vigencia === undefined)) {
       console.info('petición por proveedor');
-      this.evaluacionMidService.get('filtroProveedor/?ProvID=' + this.identificacion_proveedor + '&SupID=0')
+      this.evaluacionMidService.get('filtroProveedor/?ProvID=' + this.identificacion_proveedor + '&SupID=' + String(this.documento))
       .subscribe((res) => {
         if (res !== null) {
+          this.dataResponse.emit(res);
           console.info(res);
         }
       }, (error_service) => {
@@ -66,7 +66,7 @@ export class FiltroComponent implements OnInit {
       if ((this.identificacion_proveedor !== undefined ) && (this.identificacion_proveedor != null)
       && (this.numero_contrato === undefined || this.numero_contrato === null) && (this.vigencia !== undefined)) {
         console.info('peticion por proveedor y vigencia');
-        this.evaluacionMidService.get('filtroProveedor/?ProvID=' + this.identificacion_proveedor + '&SupID=0')
+        this.evaluacionMidService.get('filtroProveedor/?ProvID=' + this.identificacion_proveedor + '&SupID=' + String(this.documento))
         .subscribe((res) => {
           if (res !== null) {
             console.info(res);
