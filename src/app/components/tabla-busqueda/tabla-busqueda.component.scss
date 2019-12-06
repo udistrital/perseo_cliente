@@ -5,22 +5,17 @@
     width: 90%;
     margin: 30px auto;
 }
-
- /* Style buttons */
- .btn-i {
+.btn-i {
     background-color: transparent; 
     border: none; 
     color: #8c1a18;
     cursor: pointer;
     padding: 10px;
     border-radius: 5px 5px 5px 5px;
-
-  }
-  
-  /* Darker background on mouse-over */
-  .btn-i:hover {
+}
+.btn-i:hover {
     border: none; 
     background-color: #8c1a18;
     color: #ffffff;
     cursor: pointer;
-  } 
+}
