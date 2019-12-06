@@ -1,28 +1,35 @@
-<div class="card card-table" *ngIf="this.dataRequest.length>0">
-  <div class="card-body">
-    <div class="row" >
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Proveedor</th>
-            <th scope="col">Contrato</th>
-            <th scope="col">Vigencia</th>
-            <th scope="col">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of this.dataRequest; let i = index">
-            <th scope="row">{{i+1}}</th>
-            <td>{{item.NombreProveedor}}</td>
-            <td>{{item.ContratoSuscrito}}</td>
-            <td>{{item.Vigencia}}</td>
-            <td><i class="fas fa-edit"></i>
-              <i class="fas fa-eye"></i>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+<div class="card card-table" *ngIf="this.dataContratos.length>0">
+  <div class="card-body card-body-table">
+    <table class="table">
+      <thead>
+        <tr class="text-center">
+          <th scope="col">Proveedor</th>
+          <th scope="col">Contrato</th>
+          <th scope="col">Vigencia</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let contrato of this.dataContratos; let i=index">
+          <td>{{contrato.NombreProveedor}}</td>
+          <td class="text-center">{{contrato.ContratoSuscrito}}</td>
+          <td class="text-center">{{contrato.Vigencia}}</td>
+          <td>
+            <div class="row justify-content-md-center">
+              <div class="col-md-auto">
+                <button type="button"   (click)="editDataContrato(contrato)" class="btn-i">
+                  <i class="fas fa-edit"></i>
+                </button>
+              </div>
+              <div class="col-md-auto">
+                <button type="button" (click)="viewDataContrato(contrato)" class="btn-i">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

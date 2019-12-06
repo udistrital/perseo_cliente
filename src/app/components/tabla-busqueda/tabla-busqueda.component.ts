@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'ngx-tabla-busqueda',
@@ -6,16 +6,25 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./tabla-busqueda.component.scss'],
 })
 export class TablaBusquedaComponent implements OnInit {
-  @Input() dataRequest: any = [];
+  @Input() dataContratos: any = [];
+  @Output() dataEdit: any = {};
+  @Output() dataView: any = {};
+
 
   constructor() {
+    this.dataEdit = new EventEmitter();
+    this.dataView = new EventEmitter();
   }
 
   ngOnInit() {
   }
 
-  ngOnChanges() {
-    console.info(this.dataRequest);
+  editDataContrato(data: any) {
+    this.dataEdit.emit(data);
+  }
+
+  viewDataContrato(data: any) {
+    this.dataView.emit(data);
   }
 
 }

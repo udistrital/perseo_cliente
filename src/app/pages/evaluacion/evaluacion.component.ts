@@ -8,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class EvaluacionComponent implements OnInit {
 
   data: any;
+  dataContratoAEvaluar: any;
 
   constructor() {
     this.data = [];
+    this.dataContratoAEvaluar = [];
    }
 
   ngOnInit() {
@@ -18,5 +20,10 @@ export class EvaluacionComponent implements OnInit {
 
   sendData(data: any) {
     this.data = data;
+  }
+
+  editEvaluation(data: any) {
+    this.dataContratoAEvaluar = data;
+    console.info( this.dataContratoAEvaluar);
   }
 }
