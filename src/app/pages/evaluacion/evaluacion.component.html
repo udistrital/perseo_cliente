@@ -1,6 +1,7 @@
 <div class="container">
   <div class="col-xl">
     <ngx-filtro (dataResponse)="sendData($event)"></ngx-filtro>
-    <ngx-tabla-busqueda [dataContratos]="this.data"></ngx-tabla-busqueda>
+    <ngx-tabla-busqueda [dataContratos]="this.data" (dataView)="viewEvaluation($event)" (dataEdit)="editEvaluation($event)"></ngx-tabla-busqueda>
+    <ngx-ver-evaluacion></ngx-ver-evaluacion>
   </div>
 </div>

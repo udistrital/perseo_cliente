@@ -133,6 +133,7 @@ import {
   NuxeoComponent,
   FiltroComponent,
   TablaBusquedaComponent,
+  VerEvaluacionComponent,
 } from './components';
 import {
   CapitalizePipe,
@@ -224,6 +225,7 @@ const COMPONENTS = [
   SelectDirective,
   FiltroComponent,
   TablaBusquedaComponent,
+  VerEvaluacionComponent,
 ];
 
 const ENTRY_COMPONENTS = [
