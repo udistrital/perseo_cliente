@@ -12,8 +12,4 @@ export class VerEvaluacionComponent implements OnInit {
 
   ngOnInit() {
   }
-
- 
-
-
 }

@@ -68,7 +68,7 @@ export class FiltroComponent implements OnInit {
          + '&SupID=' + String(this.documento))
           .subscribe((res) => {
             if (res !== null) {
-              console.info(res)
+              console.info(res);
               this.dataResponse.emit(res);
             }
           }, (error_service) => {
