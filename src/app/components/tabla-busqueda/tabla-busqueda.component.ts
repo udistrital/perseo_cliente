@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'ngx-tabla-busqueda',
@@ -6,10 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tabla-busqueda.component.scss'],
 })
 export class TablaBusquedaComponent implements OnInit {
+  @Input() dataRequest: any = [];
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
+  }
+
+  ngOnChanges() {
+    console.info(this.dataRequest);
   }
 
 }

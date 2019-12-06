@@ -7,12 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EvaluacionComponent implements OnInit {
 
-  constructor() { }
+  data: any;
+
+  constructor() {
+    this.data = [];
+   }
 
   ngOnInit() {
   }
 
-  mostrar(data: any) {
-    console.info(data);
+  sendData(data: any) {
+    this.data = data;
   }
 }
