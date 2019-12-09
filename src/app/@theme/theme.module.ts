@@ -134,6 +134,7 @@ import {
   FiltroComponent,
   TablaBusquedaComponent,
   VerEvaluacionComponent,
+  PlantillaEvaluacionComponent,
 } from './components';
 import {
   CapitalizePipe,
@@ -226,6 +227,7 @@ const COMPONENTS = [
   FiltroComponent,
   TablaBusquedaComponent,
   VerEvaluacionComponent,
+  PlantillaEvaluacionComponent,
 ];
 
 const ENTRY_COMPONENTS = [

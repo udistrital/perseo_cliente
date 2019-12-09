@@ -14,3 +14,4 @@ export * from './toggle-settings-button/toggle-settings-button.component';
 export * from '../../components/filtro/filtro.component';
 export * from '../../components/tabla-busqueda/tabla-busqueda.component';
 export * from '../../components/ver-evaluacion/ver-evaluacion.component';
+export * from '../../components/plantilla-evaluacion/plantilla-evaluacion.component';
