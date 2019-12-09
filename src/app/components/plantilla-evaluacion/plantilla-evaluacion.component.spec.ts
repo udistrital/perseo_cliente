@@ -8,7 +8,7 @@ describe('PlantillaEvaluacionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PlantillaEvaluacionComponent ]
+      declarations: [ PlantillaEvaluacionComponent ],
     })
     .compileComponents();
   }));
