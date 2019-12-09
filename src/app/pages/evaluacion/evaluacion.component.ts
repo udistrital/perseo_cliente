@@ -7,12 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EvaluacionComponent implements OnInit {
   data: any;
-  datosEvaluacion: any;
+  datosContratoAVer: any;
   datosContratoAEvaluar: any;
 
   constructor() {
     this.data = [];
-    this.datosEvaluacion = [];
+    this.datosContratoAVer = [];
     this.datosContratoAEvaluar = [];
    }
 
@@ -23,17 +23,17 @@ export class EvaluacionComponent implements OnInit {
     this.data = data;
   }
 
-  viewEvaluation(data: any) {
-    this.datosEvaluacion[0] = data;
+  verEvaluacion(data: any) {
+    this.datosContratoAVer[0] = data;
   }
 
-  editEvaluation(data: any) {
+  relizarEvaluacion(data: any) {
     this.datosContratoAEvaluar = data;
   }
 
   mostrarFiltro(data: any) {
     if (data === true ) {
-      this.datosEvaluacion = [];
+      this.datosContratoAVer = [];
     }
   }
 }

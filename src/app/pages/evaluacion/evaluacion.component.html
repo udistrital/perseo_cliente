@@ -1,10 +1,10 @@
 <div class="container">
   <div class="col-xl">
-    <div *ngIf="this.datosEvaluacion.length==0">
+    <div *ngIf="this.datosContratoAVer.length==0">
       <ngx-filtro (dataResponse)="sendData($event)"></ngx-filtro>
-      <ngx-tabla-busqueda [dataContratos]="this.data" (dataView)="viewEvaluation($event)"
-        (dataEdit)="editEvaluation($event)"></ngx-tabla-busqueda>
+      <ngx-tabla-busqueda [dataContratos]="this.data" (dataView)="verEvaluacion($event)"
+        (dataEdit)="relizarEvaluacion($event)"></ngx-tabla-busqueda>
     </div>
-    <ngx-ver-evaluacion [dataContrato]="this.datosEvaluacion" (volverFiltro)="mostrarFiltro($event)"></ngx-ver-evaluacion>
+    <ngx-ver-evaluacion [dataContrato]="this.datosContratoAVer" (volverFiltro)="mostrarFiltro($event)"></ngx-ver-evaluacion>
   </div>
 </div>
