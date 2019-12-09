@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./evaluacion.component.scss'],
 })
 export class EvaluacionComponent implements OnInit {
-
   data: any;
   datosEvaluacion: any;
   datosContratoAEvaluar: any;
@@ -25,12 +24,16 @@ export class EvaluacionComponent implements OnInit {
   }
 
   viewEvaluation(data: any) {
-    this.datosEvaluacion = data;
-    console.info(this.datosEvaluacion);
+    this.datosEvaluacion[0] = data;
   }
 
   editEvaluation(data: any) {
     this.datosContratoAEvaluar = data;
-    console.info( this.datosContratoAEvaluar);
+  }
+
+  mostrarFiltro(data: any) {
+    if (data === true ) {
+      this.datosEvaluacion = [];
+    }
   }
 }
