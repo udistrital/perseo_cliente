@@ -6,9 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./evaluacion.component.scss'],
 })
 export class EvaluacionComponent implements OnInit {
+  /*Se guarda los datos que envía el componente filtro*/
   data: any;
+  /*Variables que guardan los datos que envía el componente tabla-busqueda*/
   datosContratoAVer: any;
   datosContratoAEvaluar: any;
+  /*Varible para saber si debe mostrar o no el componente ver*/
+  componenteVer: boolean;
+  /*Varible para saber si debe mostrar o no el componente ver*/
+  componenteRealizar: boolean;
 
   constructor() {
     this.data = [];
@@ -17,23 +23,34 @@ export class EvaluacionComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.componenteVer = false;
+    this.componenteRealizar = false;
   }
-
-  sendData(data: any) {
+  /*Guardo los datos de la consulta obtenida creada por el filtro*/
+  guardarDatosConsulta(data: any) {
     this.data = data;
   }
 
+  /*Guarda los datos de la fila selecionada en el componente tabla-busqueda en la variable datosContratoAVer
+   y habilita el componente ver-evaluacion*/
   verEvaluacion(data: any) {
     this.datosContratoAVer[0] = data;
+    this.componenteVer = true;
   }
 
+  /*Guarda los datos de la fila selecionada en el componente tabla-busqueda en la variable datosContratoAVer
+   y habilita el componente realizar-evaluacion*/
   relizarEvaluacion(data: any) {
-    this.datosContratoAEvaluar = data;
+    this.datosContratoAEvaluar[0] = data;
+    this.componenteRealizar = true;
   }
 
-  mostrarFiltro(data: any) {
+  /*Asigna a las variables componenteVer y componenteRealizar false para deshabilitar el componente ver-evaluacion
+   y realizar-evaluacion*/
+  habilitarFiltro(data: any) {
     if (data === true ) {
-      this.datosContratoAVer = [];
+      this.componenteVer = false;
+      this.componenteRealizar = false;
     }
   }
 }
