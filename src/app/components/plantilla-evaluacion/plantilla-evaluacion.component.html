@@ -1,3 +1,67 @@
-<p>
-  plantilla-evaluacion works!
-</p>
+<div *ngFor="let seccionPadre of json.Secciones; let i = index">
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-10">
+          <h2>{{seccionPadre.Nombre}}</h2>
+        </div>
+        <div class="col-2">
+          <p class="p-valor">Valor asignado</p>
+        </div>
+      </div>
+      <div class="row seccionHija" *ngFor="let seccionHija of seccionPadre.Seccion_hija_id; let j = index">
+        <div class="col-2">{{seccionHija['Item'][0]['Valor']}}</div>
+        <div class="col-6">{{seccionHija['Item'][1]['Valor']}}</div>
+
+        <div class="col-2">
+          <mat-form-field class="mat-select">
+            <mat-select [(ngModel)]="json.Secciones[i].Seccion_hija_id[j]['Item'][2].Nombre">
+              <mat-option *ngFor="let opcion of seccionHija['Item'][2]['Opcion_item']"
+                [value]="opcion['Id_opciones']['Nombre']">
+                {{opcion['Id_opciones']['Nombre']}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-2" [ngSwitch]="json.Secciones[i].Seccion_hija_id[j]['Item'][2].Nombre">
+
+          <p class="p-valor-item" *ngSwitchCase="'NO'">
+            {{seccionHija['Item'][2]['Opcion_item'][1].Id_opciones.Valor}}
+          </p>
+          <p class="p-valor-item" *ngSwitchCase="'SI'">
+              {{seccionHija['Item'][2]['Opcion_item'][0].Id_opciones.Valor}}
+          </p>
+        </div>
+      </div>
+      <hr />
+      <div class="row seccionHija">
+        <div class="col-8">
+        </div>
+        <div class="col-2">
+          <p>Puntaje total</p>
+        </div>
+        <div class="col-2">
+          <p class="p-valor-item">100</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+</div>
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-5">
+        <h2>Puntaje total de la evaluacion</h2>
+      </div>
+      <div class="col-2">
+        <p class="p-valor-item">100</p>
+      </div>
+      <div class="col-5">
+        <button (click)="realizarEvaluacion()" nbButton class="btn-evaluacion">
+          Enviar Evaluación
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

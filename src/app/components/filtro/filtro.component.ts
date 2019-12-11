@@ -50,7 +50,6 @@ export class FiltroComponent implements OnInit {
   RealizarPeticion() {
     if ((this.identificacion_proveedor !== undefined) && (this.identificacion_proveedor != null)
       && (this.numero_contrato === undefined || this.numero_contrato === null) && (this.vigencia === undefined)) {
-      console.info('petición por proveedor');
       this.evaluacionMidService.get('filtroProveedor/?ProvID=' + this.identificacion_proveedor + '&SupID=' + String(this.documento))
         .subscribe((res) => {
           if (res !== null) {
@@ -63,12 +62,10 @@ export class FiltroComponent implements OnInit {
     } else {
       if ((this.identificacion_proveedor !== undefined) && (this.identificacion_proveedor != null)
         && (this.numero_contrato === undefined || this.numero_contrato === null) && (this.vigencia !== undefined)) {
-        console.info('peticion por proveedor y vigencia');
         this.evaluacionMidService.get('filtroProveedor/?ProvID=' + this.identificacion_proveedor + '&Vigencia=' + this.vigencia
          + '&SupID=' + String(this.documento))
           .subscribe((res) => {
             if (res !== null) {
-              console.info(res);
               this.dataResponse.emit(res);
             }
           }, (error_service) => {
@@ -78,7 +75,6 @@ export class FiltroComponent implements OnInit {
       } else {
         if ((this.identificacion_proveedor === undefined || this.identificacion_proveedor === null)
           && (this.numero_contrato !== undefined && this.numero_contrato != null) && (this.vigencia === undefined)) {
-          console.info('petición por número de contrato');
           this.evaluacionMidService.get('filtroContrato/?NumContrato=' + this.numero_contrato + '&Vigencia=0&SupID=' + String(this.documento))
             .subscribe((res) => {
               if (res !== null) {
@@ -91,7 +87,6 @@ export class FiltroComponent implements OnInit {
         } else {
           if ((this.identificacion_proveedor === undefined || this.identificacion_proveedor === null)
             && (this.numero_contrato !== undefined && this.numero_contrato != null) && (this.vigencia !== undefined)) {
-            console.info('peticion por número de contrato y vigencia');
             this.evaluacionMidService.get('filtroContrato/?NumContrato=' + this.numero_contrato + '&Vigencia='
               + String(this.vigencia) + '&SupID=' + String(this.documento)).subscribe((res) => {
                 if (res !== null) {
@@ -104,7 +99,6 @@ export class FiltroComponent implements OnInit {
           } else {
             if (((this.identificacion_proveedor !== undefined) && (this.identificacion_proveedor != null))
               && (this.numero_contrato !== undefined && this.numero_contrato != null) && (this.vigencia === undefined)) {
-              console.info('peticion por proveedor y número de contrato');
               this.evaluacionMidService.get('filtroMixto/?IdentProv=' + this.identificacion_proveedor + '&NumContrato='
                 + this.numero_contrato + '&Vigencia=0&SupID=' + String(this.documento)).subscribe((res) => {
                   if (res !== null) {
@@ -117,7 +111,6 @@ export class FiltroComponent implements OnInit {
             } else {
               if (((this.identificacion_proveedor !== undefined) && (this.identificacion_proveedor != null))
                 && (this.numero_contrato !== undefined && this.numero_contrato != null) && (this.vigencia !== undefined)) {
-                console.info('peticion por proveedor, número de contrato y vigencia');
                 this.evaluacionMidService.get('filtroMixto/?IdentProv=' + this.identificacion_proveedor + '&NumContrato='
                   + this.numero_contrato + '&Vigencia=' + String(this.vigencia) + '&SupID=' + String(this.documento)).subscribe((res) => {
                     if (res !== null) {
