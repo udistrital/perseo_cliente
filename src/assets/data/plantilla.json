@@ -22,6 +22,7 @@
                             "Nombre": "",
                             "Valor": "RECLAMACIONES",
                             "Id_seccion": 20,
+                            "Tamano":2,
                             "Id_tipo_item": [
                                 {
                                     "Id": 1,
@@ -42,6 +43,7 @@
                             "Nombre": "texto reclamaciones",
                             "Valor": "¿Se han presentado reclamaciones al proveedor en calidad o gestión?",
                             "Id_seccion": 20,
+                            "Tamano":6,
                             "Id_tipo_item": [
                                 {
                                     "Id": 1,
@@ -60,8 +62,9 @@
                         {
                             "Id": 1,
                             "Nombre": "",
-                            "Valor": null,
+                            "Valor": "",
                             "Id_seccion": 20,
+                            "Tamano":2,
                             "Id_tipo_item": [
                                 {
                                     "Id": 1,
@@ -120,6 +123,7 @@
                             "Nombre": "",
                             "Valor": "RECLAMACIONES",
                             "Id_seccion": 21,
+                            "Tamano":2,
                             "Id_tipo_item": [
                                 {
                                     "Id": 1,
@@ -140,6 +144,7 @@
                             "Nombre": "texto reclamaciones",
                             "Valor": "¿El proveedor soluciona oportunamente las no conformidades de calidad y gestión de los bienes o servicios recibidos?",
                             "Id_seccion": 21,
+                            "Tamano":6,
                             "Id_tipo_item": [
                                 {
                                     "Id": 1,
@@ -158,8 +163,213 @@
                         {
                             "Id": 1,
                             "Nombre": "",
-                            "Valor": null,
+                            "Valor": "",
                             "Id_seccion": 21,
+                            "Tamano":2,
+                            "Id_tipo_item": [
+                                {
+                                    "Id": 1,
+                                    "Nombre": "select",
+                                    "Activo": true
+                                }
+                            ],
+                            "Estilo_pipe_id": {
+                                "Id": 1,
+                                "Nombre": "ngxCapitalize",
+                                "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                                "Activo": true
+                            },
+                            "Opcion_item": [
+                                {
+                                    "Id": 1,
+                                    "Nombre": "",
+                                    "Activo": true,
+                                    "Id_opciones": {
+                                        "Id": 1,
+                                        "Nombre": "SI",
+                                        "Valor": 12,
+                                        "Activo": true
+                                    }
+                                },
+                                {
+                                    "Id": 1,
+                                    "Nombre": "",
+                                    "Activo": true,
+                                    "Id_opciones": {
+                                        "Id": 1,
+                                        "Nombre": "NO",
+                                        "Valor": 0,
+                                        "Activo": true
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "Id": 1,
+            "Nombre": "pos contractual 1",
+            "Id_plantilla": 1,
+            "Dependencia": [],
+            "Seccion_hija_id": [
+                {
+                    "Id": 20,
+                    "Nombre": "Reclamaciones",
+                    "Id_plantilla": 1,
+                    "Dependencia": [],
+                    "Seccion_hija_id": [],
+                    "Item": [
+                        {
+                            "Id": 1,
+                            "Nombre": "",
+                            "Valor": "RECLAMACIONES",
+                            "Id_seccion": 20,
+                            "Tamano":2,
+                            "Id_tipo_item": [
+                                {
+                                    "Id": 1,
+                                    "Nombre": "label",
+                                    "Activo": true
+                                }
+                            ],
+                            "Estilo_pipe_id": {
+                                "Id": 1,
+                                "Nombre": "ngxCapitalize",
+                                "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                                "Activo": true
+                            },
+                            "Opcion_item": []
+                        },
+                        {
+                            "Id": 1,
+                            "Nombre": "texto reclamaciones",
+                            "Valor": "¿Se han presentado reclamaciones al proveedor en calidad o gestión?",
+                            "Id_seccion": 20,
+                            "Tamano":6,
+                            "Id_tipo_item": [
+                                {
+                                    "Id": 1,
+                                    "Nombre": "label",
+                                    "Activo": true
+                                }
+                            ],
+                            "Estilo_pipe_id": {
+                                "Id": 1,
+                                "Nombre": "ngxCapitalize",
+                                "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                                "Activo": true
+                            },
+                            "Opcion_item": []
+                        },
+                        {
+                            "Id": 1,
+                            "Nombre": "",
+                            "Valor": "",
+                            "Id_seccion": 20,
+                            "Tamano":2,
+                            "Id_tipo_item": [
+                                {
+                                    "Id": 1,
+                                    "Nombre": "select",
+                                    "Activo": true
+                                }
+                            ],
+                            "Estilo_pipe_id": {
+                                "Id": 1,
+                                "Nombre": "ngxCapitalize",
+                                "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                                "Activo": true
+                            },
+                            "Opcion_item": [
+                                {
+                                    "Id": 13,
+                                    "Nombre": "",
+                                    "Activo": true,
+                                    "Id_opciones": {
+                                        "Id": 1,
+                                        "Nombre": "SI",
+                                        "Valor": 0,
+                                        "Activo": true
+                                    }
+                                },
+                                {
+                                    "Id": 14,
+                                    "Nombre": "",
+                                    "Activo": true,
+                                    "Id_opciones": {
+                                        "Id": 1,
+                                        "Nombre": "NO",
+                                        "Valor": 12,
+                                        "Activo": true
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "Id": 21,
+                    "Nombre": "Reclamaciones",
+                    "Id_plantilla": 1,
+                    "Dependencia": [
+                        {
+                            "Id": 1,
+                            "seccion_dependencia_id": 20,
+                            "opcion_item_id": 13
+                        }
+                    ],
+                    "Seccion_hija_id": [],
+                    "Item": [
+                        {
+                            "Id": 1,
+                            "Nombre": "",
+                            "Valor": "RECLAMACIONES",
+                            "Id_seccion": 21,
+                            "Tamano":2,
+                            "Id_tipo_item": [
+                                {
+                                    "Id": 1,
+                                    "Nombre": "label",
+                                    "Activo": true
+                                }
+                            ],
+                            "Estilo_pipe_id": {
+                                "Id": 1,
+                                "Nombre": "ngxCapitalize",
+                                "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                                "Activo": true
+                            },
+                            "Opcion_item": []
+                        },
+                        {
+                            "Id": 1,
+                            "Nombre": "texto reclamaciones",
+                            "Valor": "¿El proveedor soluciona oportunamente las no conformidades de calidad y gestión de los bienes o servicios recibidos?",
+                            "Id_seccion": 21,
+                            "Tamano":6,
+                            "Id_tipo_item": [
+                                {
+                                    "Id": 1,
+                                    "Nombre": "label",
+                                    "Activo": true
+                                }
+                            ],
+                            "Estilo_pipe_id": {
+                                "Id": 1,
+                                "Nombre": "ngxCapitalize",
+                                "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                                "Activo": true
+                            },
+                            "Opcion_item": []
+                        },
+                        {
+                            "Id": 1,
+                            "Nombre": "",
+                            "Valor": "",
+                            "Id_seccion": 21,
+                            "Tamano":2,
                             "Id_tipo_item": [
                                 {
                                     "Id": 1,
