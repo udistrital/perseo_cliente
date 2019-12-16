@@ -14,7 +14,14 @@
           <textarea matInput placeholder="Item Evaluado"></textarea>
         </mat-form-field>
       </div>
+
       <div class="row" *ngIf="seccionHija['Item'][0].Tamano!=12">
+
+        <!-- <div *ngIf="seccionHija['Condicion'].length>0||seccionPadre.Seccion_hija_id[j-1]['Item'][2].Valor.Nombre==seccionHija['Condicion'][0]['Nombre']">
+          {{seccionHija['Condicion'][0]['Nombre']}}
+        </div> -->
+
+
         <div [ngClass]="'col-'+item['Tamano']" *ngFor="let item of seccionHija['Item']; let k = index"
           [ngSwitch]="item['Id_tipo_item'][0]['Nombre']">
           <p *ngSwitchCase="'label'">
@@ -34,6 +41,7 @@
             {{seccionHija['Item'][2].Valor.Valor}}
           </p>
         </div>
+
       </div>
     </div>
     <div *ngFor="let seccionHija of seccionPadre.Seccion_hija_id; let j = index">
