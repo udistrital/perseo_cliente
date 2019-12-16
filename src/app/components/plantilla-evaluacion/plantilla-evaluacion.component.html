@@ -15,33 +15,55 @@
         </mat-form-field>
       </div>
 
-      <div class="row" *ngIf="seccionHija['Item'][0].Tamano!=12">
-
-        <!-- <div *ngIf="seccionHija['Condicion'].length>0||seccionPadre.Seccion_hija_id[j-1]['Item'][2].Valor.Nombre==seccionHija['Condicion'][0]['Nombre']">
-          {{seccionHija['Condicion'][0]['Nombre']}}
-        </div> -->
-
-
-        <div [ngClass]="'col-'+item['Tamano']" *ngFor="let item of seccionHija['Item']; let k = index"
-          [ngSwitch]="item['Id_tipo_item'][0]['Nombre']">
-          <p *ngSwitchCase="'label'">
-            {{item['Valor']}}
-          </p>
-          <div class="mat-select" *ngSwitchCase="'select'">
-            <mat-select placeholder="Opcion" [(ngModel)]="json.Secciones[i].Seccion_hija_id[j]['Item'][2].Valor"
-              (selectionChange)="filterChanged(i)">
-              <mat-option *ngFor="let opcion of seccionHija['Item'][2]['Opcion_item']" [value]="opcion['Id_opciones']">
-                {{opcion['Id_opciones']['Nombre']}}
-              </mat-option>
-            </mat-select>
+      <div *ngIf="seccionHija['Item'][0].Tamano!=12">
+        <div *ngIf="seccionHija['Condicion'].length>0">
+          <div class="row"
+            *ngIf="seccionPadre.Seccion_hija_id[j-1]['Item'][2].Valor.Nombre==seccionHija['Condicion'][0]['Nombre']">
+            <div [ngClass]="'col-'+item['Tamano']" *ngFor="let item of seccionHija['Item']; let k = index"
+              [ngSwitch]="item['Id_tipo_item'][0]['Nombre']">
+              <p *ngSwitchCase="'label'">
+                {{item['Valor']}}
+              </p>
+              <div class="mat-select" *ngSwitchCase="'select'">
+                <mat-select placeholder="Opcion" [(ngModel)]="json.Secciones[i].Seccion_hija_id[j]['Item'][2].Valor"
+                  (selectionChange)="filterChanged(i)">
+                  <mat-option *ngFor="let opcion of seccionHija['Item'][2]['Opcion_item']"
+                    [value]="opcion['Id_opciones']">
+                    {{opcion['Id_opciones']['Nombre']}}
+                  </mat-option>
+                </mat-select>
+              </div>
+            </div>
+            <div class="col-2">
+              <p class="p-valor-item">
+                {{seccionHija['Item'][2].Valor.Valor}}
+              </p>
+            </div>
           </div>
         </div>
-        <div class="col-2">
-          <p class="p-valor-item">
-            {{seccionHija['Item'][2].Valor.Valor}}
-          </p>
-        </div>
 
+        <div class="row" *ngIf="seccionHija['Condicion'].length==0">
+          <div [ngClass]="'col-'+item['Tamano']" *ngFor="let item of seccionHija['Item']; let k = index"
+            [ngSwitch]="item['Id_tipo_item'][0]['Nombre']">
+            <p *ngSwitchCase="'label'">
+              {{item['Valor']}}
+            </p>
+            <div class="mat-select" *ngSwitchCase="'select'">
+              <mat-select placeholder="Opcion" [(ngModel)]="json.Secciones[i].Seccion_hija_id[j]['Item'][2].Valor"
+                (selectionChange)="filterChanged(i)">
+                <mat-option *ngFor="let opcion of seccionHija['Item'][2]['Opcion_item']"
+                  [value]="opcion['Id_opciones']">
+                  {{opcion['Id_opciones']['Nombre']}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div class="col-2">
+            <p class="p-valor-item">
+              {{seccionHija['Item'][2].Valor.Valor}}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
     <div *ngFor="let seccionHija of seccionPadre.Seccion_hija_id; let j = index">
