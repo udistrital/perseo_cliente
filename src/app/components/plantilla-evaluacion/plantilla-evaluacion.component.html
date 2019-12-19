@@ -26,7 +26,7 @@
               </p>
               <div class="mat-select" *ngSwitchCase="'select'">
                 <mat-select placeholder="Opcion" [(ngModel)]="json.Secciones[i].Seccion_hija_id[j]['Item'][2].Valor"
-                  (selectionChange)="filterChanged(i)">
+                  (selectionChange)="filterChanged(i, seccionHija['Condicion'][0]['Nombre'])">
                   <mat-option *ngFor="let opcion of seccionHija['Item'][2]['Opcion_item']"
                     [value]="opcion['Id_opciones']">
                     {{opcion['Id_opciones']['Nombre']}}
@@ -41,7 +41,6 @@
             </div>
           </div>
         </div>
-
         <div class="row" *ngIf="seccionHija['Condicion'].length==0">
           <div [ngClass]="'col-'+item['Tamano']" *ngFor="let item of seccionHija['Item']; let k = index"
             [ngSwitch]="item['Id_tipo_item'][0]['Nombre']">
@@ -50,7 +49,7 @@
             </p>
             <div class="mat-select" *ngSwitchCase="'select'">
               <mat-select placeholder="Opcion" [(ngModel)]="json.Secciones[i].Seccion_hija_id[j]['Item'][2].Valor"
-                (selectionChange)="filterChanged(i)">
+                (selectionChange)="filterChanged(i,'', seccionPadre.Seccion_hija_id[j]['Item'][2].Valor.Nombre)">
                 <mat-option *ngFor="let opcion of seccionHija['Item'][2]['Opcion_item']"
                   [value]="opcion['Id_opciones']">
                   {{opcion['Id_opciones']['Nombre']}}
