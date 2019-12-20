@@ -24,8 +24,7 @@ export class PlantillaEvaluacionComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.info(this.realizar)
-
+    console.info(this.realizar);
     this.evaluacionMidService.get('plantilla').subscribe((res) => {
       this.json = res;
     }, (error_service) => {
