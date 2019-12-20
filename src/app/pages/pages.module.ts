@@ -28,7 +28,7 @@ const PAGES_COMPONENTS = [
     MatTabsModule,
   ],
   declarations: [
-    ...PAGES_COMPONENTS,
+    PAGES_COMPONENTS,
   ],
 })
 export class PagesModule {

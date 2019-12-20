@@ -27,6 +27,7 @@ export class HttpErrorManager {
     return throwError({
       status: error.status,
       message: 'Something bad happened; please try again later.',
+      body: error.error['Body'],
     });
   }
 }

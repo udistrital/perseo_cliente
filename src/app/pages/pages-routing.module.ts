@@ -12,43 +12,40 @@ const routes: Routes = [{
       path: 'dashboard',
       component: DashboardComponent,
     },
-    {
-      path: 'acta_recibido',
-      loadChildren: './acta-recibido/acta-recibido.module#ActaRecibidoModule',
-    },
-    {
-      path: 'catalogo',
-      loadChildren: './catalogo/catalogo.module#CatalogoModule',
-    },
-    {
-      path: 'grupo',
-      loadChildren: './grupo/grupo.module#GrupoModule',
-    },
-    {
-      path: 'movimientos',
-      loadChildren: './movimientos/movimientos.module#MovimientosModule',
-    },
-    {
-      path: 'entradas',
-      loadChildren: './entradas/entradas.module#EntradasModule',
-    },
-    {
-      path: 'salidas',
-      loadChildren: './salidas/salidas.module#SalidasModule',
-    },
+      {
+      path: 'subgrupo_1',
+      loadChildren: './subgrupo_1/subgrupo_1.module#Subgrupo1Module',
+      },
+      {
+      path: 'subgrupo_2',
+      loadChildren: './subgrupo_2/subgrupo_2.module#Subgrupo2Module',
+      },
     {
       path: 'reportes',
       loadChildren: './reportes/reportes.module#ReportesModule',
     },
     {
-      path: 'catalogo_bienes',
-      loadChildren: './catalogo-bienes/catalogo-bienes.module#CatalogoBienesModule',
+      path: 'evaluar_proveedor',
+      loadChildren: './evaluar-proveedor/evaluar-proveedor.module#EvaluarProveedorModule',
+    },
+    {
+      path: 'evaluacion',
+      loadChildren: './evaluacion/evaluacion.module#EvaluacionModule',
+    },
+    {
+      path: 'consulta_evaluacion',
+      loadChildren: './consulta-evaluacion/consulta-evaluacion.module#ConsultaEvaluacionModule',
+    },
+    {
+      path: 'administracion_plantillas',
+      loadChildren: './administracion-plantillas/administracion-plantillas.module#AdministracionPlantillasModule',
     },
     {
       path: '',
       redirectTo: 'dashboard',
       pathMatch: 'full',
-    }, {
+    },
+    {
       path: '**',
       component: NotFoundComponent,
     }],

@@ -122,6 +122,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatTooltipModule,
     MatTreeModule,
   ],
+  declarations: [ ],
 })
 export class MaterialModule {}
 
@@ -141,7 +142,6 @@ export class MaterialModule {}
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
-    HttpClientModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
