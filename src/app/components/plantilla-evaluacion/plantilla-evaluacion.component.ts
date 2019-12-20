@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, Input } from '@angular/core';
 import { EvaluacionmidService } from '../../@core/data/evaluacionmid.service';
 import { NbWindowService } from '@nebular/theme';
 
@@ -10,6 +10,7 @@ import { NbWindowService } from '@nebular/theme';
 })
 export class PlantillaEvaluacionComponent implements OnInit {
 
+  @Input() realizar: any;
   @ViewChild('contentTemplate', { read: false }) contentTemplate: TemplateRef<any>;
 
   pipeprueba = 'algo';
@@ -23,6 +24,8 @@ export class PlantillaEvaluacionComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.info(this.realizar)
+
     this.evaluacionMidService.get('plantilla').subscribe((res) => {
       this.json = res;
     }, (error_service) => {
