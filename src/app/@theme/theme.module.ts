@@ -132,6 +132,10 @@ import {
   SelectComponent,
   NuxeoComponent,
   FiltroComponent,
+  TablaBusquedaComponent,
+  VerEvaluacionComponent,
+  PlantillaEvaluacionComponent,
+  RealizarEvaluacionComponent,
 } from './components';
 import {
   CapitalizePipe,
@@ -222,6 +226,10 @@ const COMPONENTS = [
   NuxeoComponent,
   SelectDirective,
   FiltroComponent,
+  TablaBusquedaComponent,
+  VerEvaluacionComponent,
+  PlantillaEvaluacionComponent,
+  RealizarEvaluacionComponent,
 ];
 
 const ENTRY_COMPONENTS = [

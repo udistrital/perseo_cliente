@@ -1,0 +1,959 @@
+{
+    "Activo": false,
+    "Descripcion": null,
+    "Usuario": "utest04",
+    "Secciones": [
+      {
+        "Nombre": "Item evaluado",
+        "Condicion": [],
+        "Seccion_hija_id": [
+          {
+            "Nombre": "Item evaluado",
+            "Condicion": [],
+            "Seccion_hija_id": [],
+            "Item": [
+              {
+                "Nombre": "",
+                "Valor": "",
+                "Tamano": 10,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "input",
+                    "CodigoAbreviacion": "inp",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Nombre": "Cumplimiento",
+        "Condicion": [],
+        "Seccion_hija_id": [
+          {
+            "Nombre": "Tiempos de Entrega ",
+            "Condicion": [],
+            "Seccion_hija_id": [],
+            "Item": [
+              {
+                "Nombre": "",
+                "Valor": "TIEMPOS DE ENTREGA",
+                "Tamano": 2,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "label",
+                    "CodigoAbreviacion": "lbl",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": []
+              },
+              {
+                "Nombre": "texto tiempos de entrega",
+                "Valor": "¿Se cumplieron los tiempos de entrega de bienes o la prestación del servicios ofertados por el proveedor?",
+                "Tamano": 6,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "label",
+                    "CodigoAbreviacion": "lbl",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": []
+              },
+              {
+                "Nombre": "",
+                "Valor": "",
+                "Tamano": 2,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "select",
+                    "CodigoAbreviacion": "slt",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": [
+                  {
+                    "Nombre": "",
+                    "Activo": true,
+                    "Id_opciones": {
+                      "Nombre": "SI",
+                      "Valor": 12,
+                      "Activo": true
+                    }
+                  },
+                  {
+                    "Nombre": "",
+                    "Activo": true,
+                    "Id_opciones": {
+                      "Nombre": "NO",
+                      "Valor": 0,
+                      "Activo": true
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Nombre": "CANTIDADES",
+            "Id_plantilla": 1,
+            "Condicion": [],
+            "Seccion_hija_id": [],
+            "Item": [
+              {
+                "Nombre": "",
+                "Valor": "CANTIDADES",
+                "Tamano": 2,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "label",
+                    "CodigoAbreviacion": "lbl",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": []
+              },
+              {
+                "Nombre": "texto CANTIDADES",
+                "Valor": "¿Se entregan las cantidades solicitadas?",
+                "Tamano": 6,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "label",
+                    "CodigoAbreviacion": "lbl",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": []
+              },
+              {
+                "Nombre": "",
+                "Valor": "",
+                "Tamano": 2,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "select",
+                    "CodigoAbreviacion": "slt",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": [
+                  {
+                    "Nombre": "",
+                    "Activo": true,
+                    "Id_opciones": {
+                      "Nombre": "SI",
+                      "Valor": 12,
+                      "Activo": true
+                    }
+                  },
+                  {
+                    "Nombre": "",
+                    "Activo": true,
+                    "Id_opciones": {
+                      "Nombre": "NO",
+                      "Valor": 0,
+                      "Activo": true
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Nombre": "Calidad",
+        "Condicion": [],
+        "Seccion_hija_id": [
+          {
+            "Nombre": "Conformidad",
+            "Condicion": [],
+            "Seccion_hija_id": [],
+            "Item": [
+              {
+                "Nombre": "",
+                "Valor": "CONFORMIDAD",
+                "Tamano": 2,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "label",
+                    "CodigoAbreviacion": "lbl",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": []
+              },
+              {
+                "Nombre": "texto CONFORMIDAD",
+                "Valor": "¿El bien o servicio cumplió con las especificaciones y requisitos pactados en el momento de entrega?",
+                "Tamano": 6,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "label",
+                    "CodigoAbreviacion": "lbl",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": []
+              },
+              {
+                "Nombre": "",
+                "Valor": "",
+                "Tamano": 2,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "select",
+                    "CodigoAbreviacion": "slt",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": [
+                  {
+                    "Nombre": "",
+                    "Activo": true,
+                    "Id_opciones": {
+                      "Nombre": "SI",
+                      "Valor": 20,
+                      "Activo": true
+                    }
+                  },
+                  {
+                    "Nombre": "",
+                    "Activo": true,
+                    "Id_opciones": {
+                      "Nombre": "NO",
+                      "Valor": 0,
+                      "Activo": true
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Nombre": "Funcionalidad AdicionaL ",
+            "Id_plantilla": 1,
+            "Condicion": [],
+            "Seccion_hija_id": [],
+            "Item": [
+              {
+                "Nombre": "",
+                "Valor": "FUNCIONALIDAD ADICIONAL",
+                "Tamano": 2,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "label",
+                    "CodigoAbreviacion": "lbl",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": []
+              },
+              {
+                "Nombre": "texto FUNCIONALIDAD ADICIONAL",
+                "Valor": "¿El producto comprado o el servicio prestado proporcionó más herramientas o funciones de las solicitadas originalmente?",
+                "Tamano": 6,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "label",
+                    "CodigoAbreviacion": "lbl",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": []
+              },
+              {
+                "Nombre": "",
+                "Valor": "",
+                "Id_seccion": 21,
+                "Tamano": 2,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "select",
+                    "CodigoAbreviacion": "slt",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": [
+                  {
+                    "Nombre": "",
+                    "Activo": true,
+                    "Id_opciones": {
+                      "Nombre": "SI",
+                      "Valor": 10,
+                      "Activo": true
+                    }
+                  },
+                  {
+                    "Id": 1,
+                    "Nombre": "",
+                    "Activo": true,
+                    "Id_opciones": {
+                      "Id": 1,
+                      "Nombre": "NO",
+                      "Valor": 0,
+                      "Activo": true
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Nombre": "pos contractual",
+        "Condicion": [],
+        "Seccion_hija_id": [
+          {
+            "Nombre": "Reclamaciones",
+            "Condicion": [],
+            "Seccion_hija_id": [],
+            "Item": [
+              {
+                "Nombre": "",
+                "Valor": "RECLAMACIONES",
+                "Tamano": 2,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "label",
+                    "CodigoAbreviacion": "lbl",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": []
+              },
+              {
+                "Nombre": "texto reclamaciones",
+                "Valor": "¿Se han presentado reclamaciones al proveedor en calidad o gestión?",
+                "Tamano": 6,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "label",
+                    "CodigoAbreviacion": "lbl",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": []
+              },
+              {
+                "Nombre": "",
+                "Valor": "",
+                "Tamano": 2,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "select",
+                    "CodigoAbreviacion": "slt",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": [
+                  {
+                    "Nombre": "",
+                    "Activo": true,
+                    "Id_opciones": {
+                      "Nombre": "SI",
+                      "Valor": 0,
+                      "Activo": true
+                    }
+                  },
+                  {
+                    "Nombre": "",
+                    "Activo": true,
+                    "Id_opciones": {
+                      "Nombre": "NO",
+                      "Valor": 12,
+                      "Activo": true
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Nombre": "Reclamaciones",
+            "Id_plantilla": 1,
+            "Condicion": [
+              {
+                "Nombre_seccion_condicion": "Reclamaciones",
+                "Nombre": "SI",
+                "Valor": 0
+              }
+            ],
+            "Seccion_hija_id": [],
+            "Item": [
+              {
+                "Nombre": "",
+                "Valor": "RECLAMACIONES",
+                "Tamano": 2,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "label",
+                    "CodigoAbreviacion": "lbl",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": []
+              },
+              {
+                "Nombre": "texto reclamaciones",
+                "Valor": "¿El proveedor soluciona oportunamente las no conformidades de calidad y gestión de los bienes o servicios recibidos?",
+                "Tamano": 6,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "label",
+                    "CodigoAbreviacion": "lbl",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": []
+              },
+              {
+                "Nombre": "",
+                "Valor": "",
+                "Id_seccion": 21,
+                "Tamano": 2,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "select",
+                    "CodigoAbreviacion": "slt",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": [
+                  {
+                    "Nombre": "",
+                    "Activo": true,
+                    "Id_opciones": {
+                      "Nombre": "SI",
+                      "Valor": 12,
+                      "Activo": true
+                    }
+                  },
+                  {
+                    "Id": 1,
+                    "Nombre": "",
+                    "Activo": true,
+                    "Id_opciones": {
+                      "Id": 1,
+                      "Nombre": "NO",
+                      "Valor": 0,
+                      "Activo": true
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Nombre": "Servicio Pos Venta",
+            "Id_plantilla": 1,
+            "Condicion": [],
+            "Seccion_hija_id": [],
+            "Item": [
+              {
+                "Nombre": "",
+                "Valor": "SERVICIO POS VENTA",
+                "Tamano": 2,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "label",
+                    "CodigoAbreviacion": "lbl",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": []
+              },
+              {
+                "Nombre": "texto SERVICIO POS VENTA",
+                "Valor": "¿El proveedor cumple con los compromisos pactados dentro del contrato u orden de servicio o compra?  (aplicación de garantías, mantenimiento, cambios,  reparaciones, capacitaciones, entre otras) ",
+                "Tamano": 6,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "label",
+                    "CodigoAbreviacion": "lbl",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": []
+              },
+              {
+                "Nombre": "",
+                "Valor": "",
+                "Tamano": 2,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "select",
+                    "CodigoAbreviacion": "slt",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": [
+                  {
+                    "Nombre": "",
+                    "Activo": true,
+                    "Id_opciones": {
+                      "Nombre": "SI",
+                      "Valor": 10,
+                      "Activo": true
+                    }
+                  },
+                  {
+                    "Id": 1,
+                    "Nombre": "",
+                    "Activo": true,
+                    "Id_opciones": {
+                      "Id": 1,
+                      "Nombre": "NO",
+                      "Valor": 0,
+                      "Activo": true
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Nombre": "Gestión",
+        "Condicion": [],
+        "Seccion_hija_id": [
+          {
+            "Nombre": "Procedimientos",
+            "Condicion": [],
+            "Seccion_hija_id": [],
+            "Item": [
+              {
+                "Nombre": "",
+                "Valor": "PROCEDIMIENTOS",
+                "Tamano": 2,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "label",
+                    "CodigoAbreviacion": "lbl",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": []
+              },
+              {
+                "Nombre": "texto PROCEDIMIENTOS",
+                "Valor": "¿El contrato es suscrito en el tiempo pactado, entrega las pólizas a tiempo, entrega de informes de la ejecución y  las facturas son radicadas en el tiempo indicado con las condiciones y soportes requeridos para su trámite contractual? ",
+                "Tamano": 6,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "label",
+                    "CodigoAbreviacion": "lbl",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": []
+              },
+              {
+                "Nombre": "",
+                "Valor": "",
+                "Tamano": 2,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "select",
+                    "CodigoAbreviacion": "slt",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": [
+                  {
+                    "Nombre": "",
+                    "Activo": true,
+                    "Id_opciones": {
+                      "Nombre": "EXCELENTE",
+                      "Valor": 9,
+                      "Activo": true
+                    }
+                  },
+                  {
+                    "Nombre": "",
+                    "Activo": true,
+                    "Id_opciones": {
+                      "Nombre": "BUENO",
+                      "Valor": 6,
+                      "Activo": true
+                    }
+                  },
+                  {
+                    "Nombre": "",
+                    "Activo": true,
+                    "Id_opciones": {
+                      "Nombre": "REGULAR",
+                      "Valor": 3,
+                      "Activo": true
+                    }
+                  },
+                  {
+                    "Nombre": "",
+                    "Activo": true,
+                    "Id_opciones": {
+                      "Nombre": "MALO",
+                      "Valor": 0,
+                      "Activo": true
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Nombre": "Garantía",
+            "Condicion": [],
+            "Seccion_hija_id": [],
+            "Item": [
+              {
+                "Nombre": "",
+                "Valor": "GARANTÍA",
+                "Tamano": 2,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "label",
+                    "CodigoAbreviacion": "lbl",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": []
+              },
+              {
+                "Nombre": "texto GARANTÍA",
+                "Valor": "¿Se requirió hacer uso de la garantía del producto o servicio?",
+                "Tamano": 6,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "label",
+                    "CodigoAbreviacion": "lbl",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": []
+              },
+              {
+                "Nombre": "",
+                "Valor": "",
+                "Tamano": 2,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "select",
+                    "CodigoAbreviacion": "slt",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": [
+                  {
+                    "Nombre": "",
+                    "Activo": true,
+                    "Id_opciones": {
+                      "Nombre": "SI",
+                      "Valor": 0,
+                      "Activo": true
+                    }
+                  },
+                  {
+                    "Nombre": "",
+                    "Activo": true,
+                    "Id_opciones": {
+                      "Nombre": "NO",
+                      "Valor": 15,
+                      "Activo": true
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Nombre": "Garantía",
+            "Id_plantilla": 1,
+            "Condicion": [
+              {
+                "Nombre_seccion_condicion": "Garantía",
+                "Nombre": "SI",
+                "Valor": 0
+              }
+            ],
+            "Seccion_hija_id": [],
+            "Item": [
+              {
+                "Nombre": "",
+                "Valor": "GARANTÍA",
+                "Tamano": 2,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "label",
+                    "CodigoAbreviacion": "lbl",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": []
+              },
+              {
+                "Nombre": "texto GARANTÍA",
+                "Valor": "¿El proveedor cumplió a satisfacción con la garantía pactada?",
+                "Tamano": 6,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "label",
+                    "CodigoAbreviacion": "lbl",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": []
+              },
+              {
+                "Nombre": "",
+                "Valor": "",
+                "Id_seccion": 21,
+                "Tamano": 2,
+                "Id_tipo_item": [
+                  {
+                    "Nombre": "select",
+                    "CodigoAbreviacion": "slt",
+                    "Activo": true
+                  }
+                ],
+                "Estilo_pipe_id": {
+                  "Nombre": "ngxCapitalize",
+                  "CodigoAbreviacion": "ngxcap",
+                  "Descripcion": "pipe que coloca la primeta letra en mayuscula y las demas en minuscula",
+                  "Activo": true
+                },
+                "Opcion_item": [
+                  {
+                    "Nombre": "",
+                    "Activo": true,
+                    "Id_opciones": {
+                      "Nombre": "SI",
+                      "Valor": 15,
+                      "Activo": true
+                    }
+                  },
+                  {
+                    "Id": 1,
+                    "Nombre": "",
+                    "Activo": true,
+                    "Id_opciones": {
+                      "Id": 1,
+                      "Nombre": "NO",
+                      "Valor": 0,
+                      "Activo": true
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "Clasificacion": [
+      {
+        "Nombre": "EXCELENTE",
+        "LimiteInferior": 80,
+        "LimiteSuperior": 100,
+        "Activo": true
+      },
+      {
+        "Nombre": "BUENO",
+        "LimiteInferior": 46,
+        "LimiteSuperior": 79,
+        "Activo": true
+      },
+      {
+        "Nombre": "MALO",
+        "LimiteInferior": 0,
+        "LimiteSuperior": 45,
+        "Activo": true
+      }
+    ]
+  }
