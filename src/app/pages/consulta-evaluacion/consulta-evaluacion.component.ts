@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'ngx-consulta-evaluacion',
@@ -7,7 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConsultaEvaluacionComponent implements OnInit {
 
-  constructor() { }
+  identificacionProveedor: any;
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    ) {
+      this.activatedRoute.params.subscribe( params => {
+        this.identificacionProveedor = params['IdentificacionProveedor'];
+      } );
+     }
 
   ngOnInit() {
   }
