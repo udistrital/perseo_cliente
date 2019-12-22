@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
 
-      let valid: boolean =  true;
+      const valid: boolean =  true;
       const roles = route.data['roles'] as Array<string>;
       console.info(`${route}`);
       console.info(`${state}`);
