@@ -20,7 +20,7 @@
           <div class="row"
             *ngIf="seccionPadre.Seccion_hija_id[j-1]['Item'][2].Valor.Nombre==seccionHija['Condicion'][0]['Nombre']">
             <div [ngClass]="'col-'+item['Tamano']" *ngFor="let item of seccionHija['Item']; let k = index"
-              [ngSwitch]="item['Id_tipo_item'][0]['Nombre']">
+              [ngSwitch]="item['IdTipoItem']['Nombre']">
               <p *ngSwitchCase="'label'">
                 {{item['Valor']}}
               </p>
@@ -28,8 +28,8 @@
                 <mat-select placeholder="Opcion" [(ngModel)]="json.Secciones[i].Seccion_hija_id[j]['Item'][2].Valor"
                   (selectionChange)="filterChanged(i, seccionHija['Condicion'][0]['Nombre'])">
                   <mat-option *ngFor="let opcion of seccionHija['Item'][2]['Opcion_item']"
-                    [value]="opcion['Id_opciones']">
-                    {{opcion['Id_opciones']['Nombre']}}
+                    [value]="opcion['IdOpciones']">
+                    {{opcion['IdOpciones']['Nombre']}}
                   </mat-option>
                 </mat-select>
               </div>
@@ -43,7 +43,7 @@
         </div>
         <div class="row" *ngIf="seccionHija['Condicion'].length==0">
           <div [ngClass]="'col-'+item['Tamano']" *ngFor="let item of seccionHija['Item']; let k = index"
-            [ngSwitch]="item['Id_tipo_item'][0]['Nombre']">
+            [ngSwitch]="item['IdTipoItem']['Nombre']">
             <p *ngSwitchCase="'label'">
               {{item['Valor']}}
             </p>
@@ -51,8 +51,8 @@
               <mat-select placeholder="Opcion" [(ngModel)]="json.Secciones[i].Seccion_hija_id[j]['Item'][2].Valor"
                 (selectionChange)="filterChanged(i,'', seccionPadre.Seccion_hija_id[j]['Item'][2].Valor.Nombre)">
                 <mat-option *ngFor="let opcion of seccionHija['Item'][2]['Opcion_item']"
-                  [value]="opcion['Id_opciones']">
-                  {{opcion['Id_opciones']['Nombre']}}
+                  [value]="opcion['IdOpciones']">
+                  {{opcion['IdOpciones']['Nombre']}}
                 </mat-option>
               </mat-select>
             </div>
@@ -90,7 +90,7 @@
         <p class="p-valor-item"> {{ valorTotal }}</p>
       </div>
       <div class="col-2">
-        <div *ngFor="let clasificador of json['Clasificacion']; let k = index">
+        <div *ngFor="let clasificador of json['Clasificaciones']; let k = index">
           <p class="p-valor-item"
             *ngIf="valorTotal >= clasificador.LimiteInferior && valorTotal <= clasificador.LimiteSuperior">
             {{ clasificador['Nombre']  }}</p>

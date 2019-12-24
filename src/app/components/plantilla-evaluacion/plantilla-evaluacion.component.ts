@@ -1,6 +1,7 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
-import { LeerJsonLocalService } from '../../services/leer-json-local.service';
-import { identifierModuleUrl } from '@angular/compiler';
+import { Component, OnInit, ViewChild, TemplateRef, Input } from '@angular/core';
+import { EvaluacionmidService } from '../../@core/data/evaluacionmid.service';
+import { NbWindowService } from '@nebular/theme';
+
 
 @Component({
   selector: 'ngx-plantilla-evaluacion',
@@ -8,21 +9,29 @@ import { identifierModuleUrl } from '@angular/compiler';
   styleUrls: ['./plantilla-evaluacion.component.scss'],
 })
 export class PlantillaEvaluacionComponent implements OnInit {
+
+  @Input() realizar: any;
+  @ViewChild('contentTemplate', { read: false }) contentTemplate: TemplateRef<any>;
+
   pipeprueba = 'algo';
   json: any = {};
   valorTotal: any;
   constructor(
-    private leerJsonService: LeerJsonLocalService,
+    private evaluacionMidService: EvaluacionmidService,
+    private windowService: NbWindowService,
   ) {
     this.valorTotal = 0;
   }
 
   ngOnInit() {
-    this.leerJsonService.get('plantilla').subscribe(dato => {
-      this.json = dato;
+    console.info(this.realizar);
+    this.evaluacionMidService.get('plantilla').subscribe((res) => {
+      this.json = res;
     }, (error_service) => {
-      console.info(error_service);
+      this.openWindow(error_service['body'][1]['Error']);
     });
+
+
   }
 
   realizarEvaluacion() {
@@ -36,7 +45,7 @@ export class PlantillaEvaluacionComponent implements OnInit {
       if (this.json.Secciones[i].Seccion_hija_id[k]['Item'][2].Valor.Valor !== undefined) {
         if (this.json.Secciones[i].Seccion_hija_id[k]['Condicion'].length > 0) {
           if (this.json.Secciones[i].Seccion_hija_id[k - 1]['Item'][2].Valor.Nombre ===
-          this.json.Secciones[i].Seccion_hija_id[k]['Condicion'][0]['Nombre']) {
+            this.json.Secciones[i].Seccion_hija_id[k]['Condicion'][0]['Nombre']) {
             this.json.Secciones[i].ValorSeccion += this.json.Secciones[i].Seccion_hija_id[k]['Item'][2].Valor.Valor;
           } else {
             //this.json.Secciones[i].Seccion_hija_id[k]['Item'][2].Valor = '';
@@ -51,5 +60,12 @@ export class PlantillaEvaluacionComponent implements OnInit {
         this.valorTotal += this.json.Secciones[k].ValorSeccion;
       }
     }
+  }
+
+  openWindow(mensaje) {
+    this.windowService.open(
+      this.contentTemplate,
+      { title: 'Alerta', context: { text: mensaje } },
+    );
   }
 }
