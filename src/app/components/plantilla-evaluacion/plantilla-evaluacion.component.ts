@@ -39,7 +39,7 @@ export class PlantillaEvaluacionComponent implements OnInit {
           this.json.Secciones[i].Seccion_hija_id[k]['Condicion'][0]['Nombre']) {
             this.json.Secciones[i].ValorSeccion += this.json.Secciones[i].Seccion_hija_id[k]['Item'][2].Valor.Valor;
           } else {
-            this.json.Secciones[i].Seccion_hija_id[k]['Item'][2].Valor = '';
+            //this.json.Secciones[i].Seccion_hija_id[k]['Item'][2].Valor = '';
           }
         } else {
           this.json.Secciones[i].ValorSeccion += this.json.Secciones[i].Seccion_hija_id[k]['Item'][2].Valor.Valor;
