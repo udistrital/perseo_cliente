@@ -13,31 +13,26 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
 
-      const valid: boolean =  true;
-      const roles = route.data['roles'] as Array<string>;
-      console.info(`${route}`);
-      console.info(`${state}`);
+      let valid: boolean =  false;
+      // const roles = route.data['roles'] as Array<string>;
+      // console.info(`${route}`);
+      // console.info(`${state}`);
       const id_token = window.localStorage.getItem('id_token').split('.');
       // console.info(id_token);
       const payload = JSON.parse(atob(id_token[1]));
-      console.info(payload);
+      // console.info(payload);
 
-      // if (payload && payload.role) {
-      //   for ( let i = 0; i < payload.role.length; i++) {
-      //     for ( let j = 0; j < roles.length; j++) {
-      //         if ( payload.role[i] === roles[j]) {
-      //             valid = true;
-      //             break;
-      //         }
-      //     }
-      //   }
-      // }
+      if (payload && payload.role) {
 
-      // if (!valid) {
-      //   // not logged in so redirect to login page with the return url
-      //   // or not exist role return url
-      //   this.router.navigate(['/']);
-      // }
+        for ( let i = 0; i < payload.role.length; i++) {
+
+            if ( (payload.role[i] === 'ORDENADOR_DEL_GASTO') || (payload.role[i] === 'SUPERVISOR')) {
+              console.info(payload.role[i]);
+                valid = true;
+                break;
+            }
+        }
+      }
 
       return Observable.of(valid);
       // return valid;
