@@ -13,7 +13,7 @@ if (environment.production) {
   enableProdMode();
 }
 const autenticacion = new ImplicitAutenticationService;
-const isButtonLogin = false;
+const isButtonLogin = true;
 if (!autenticacion.getAuthorizationUrl(isButtonLogin)) {
   // if(isButtonLogin){
   //   var button = document.createElement("button");
