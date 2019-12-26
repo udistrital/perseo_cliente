@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, TemplateRef, Input } from '@angular/core';
 import { EvaluacionmidService } from '../../@core/data/evaluacionmid.service';
 import { NbWindowService } from '@nebular/theme';
+import { LeerJsonLocalService } from '../../services/leer-json-local.service';
 
 
 @Component({
@@ -19,18 +20,23 @@ export class PlantillaEvaluacionComponent implements OnInit {
   constructor(
     private evaluacionMidService: EvaluacionmidService,
     private windowService: NbWindowService,
+    private leerJsonService: LeerJsonLocalService,
   ) {
     this.valorTotal = 0;
   }
 
   ngOnInit() {
     console.info(this.realizar);
-    this.evaluacionMidService.get('plantilla').subscribe((res) => {
+    /*this.evaluacionMidService.get('plantilla').subscribe((res) => {
       this.json = res;
     }, (error_service) => {
       this.openWindow(error_service['body'][1]['Error']);
+    });*/
+    this.leerJsonService.get('plantilla').subscribe(dato => {
+      this.json = dato['Body'];
+    }, (error_service) => {
+      console.info(error_service);
     });
-
 
   }
 
@@ -48,7 +54,7 @@ export class PlantillaEvaluacionComponent implements OnInit {
             this.json.Secciones[i].Seccion_hija_id[k]['Condicion'][0]['Nombre']) {
             this.json.Secciones[i].ValorSeccion += this.json.Secciones[i].Seccion_hija_id[k]['Item'][2].Valor.Valor;
           } else {
-            //this.json.Secciones[i].Seccion_hija_id[k]['Item'][2].Valor = '';
+            this.json.Secciones[i].Seccion_hija_id[k]['Item'][2].Valor = '';
           }
         } else {
           this.json.Secciones[i].ValorSeccion += this.json.Secciones[i].Seccion_hija_id[k]['Item'][2].Valor.Valor;
