@@ -51,7 +51,7 @@ export class PagesComponent implements OnInit {
             icon: 'nb-home',
             link: '/pages/dashboard',
           });
-          if (menuRespuesta !== null){
+          if (menuRespuesta !== null) {
             for (let i = 0; i < menuRespuesta.length; i++) {
               this.menuLogin.push({
                 title: menuRespuesta[i]['Nombre'],
