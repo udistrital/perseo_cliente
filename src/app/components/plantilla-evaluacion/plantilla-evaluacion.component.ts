@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, TemplateRef, Input } from '@angular/core';
 import { EvaluacionmidService } from '../../@core/data/evaluacionmid.service';
+import { EvaluacioncrudService } from '../../@core/data/evaluacioncrud.service';
 import { NbWindowService } from '@nebular/theme';
 import { LeerJsonLocalService } from '../../services/leer-json-local.service';
 
@@ -21,6 +22,7 @@ export class PlantillaEvaluacionComponent implements OnInit {
     private evaluacionMidService: EvaluacionmidService,
     private windowService: NbWindowService,
     private leerJsonService: LeerJsonLocalService,
+    private evaluacioncrudService: EvaluacioncrudService,
   ) {
     this.valorTotal = 0;
   }
@@ -34,6 +36,13 @@ export class PlantillaEvaluacionComponent implements OnInit {
     });*/
     this.leerJsonService.get('plantilla').subscribe(dato => {
       this.json = dato['Body'];
+    }, (error_service) => {
+      console.info(error_service);
+    });
+
+    this.evaluacioncrudService.get('item').subscribe(dato => {
+      // this.json = dato['Body'];
+      console.info(dato);
     }, (error_service) => {
       console.info(error_service);
     });

@@ -17,6 +17,7 @@ export const environment = {
   NOTIFICACION_SERVICE: 'ws://pruebasapi.intranetoas.udistrital.edu.co:8116/ws',
   CONF_MENU_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/configuracion_crud_api/v1/menu_opcion_padre/ArbolMenus/',
   EVALUACIONMID_SERVICE: 'http://localhost:8081/v1/',
+  EVALUACIONCRUD_SERVICE: 'http://3.14.12.127:8081/v1/',
   SPAGOBI: {
     PROTOCOL: 'https',
     HOST: 'intelligentia.udistrital.edu.co',
