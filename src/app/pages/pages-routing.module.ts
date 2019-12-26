@@ -33,7 +33,7 @@ const routes: Routes = [{
       loadChildren: './evaluacion/evaluacion.module#EvaluacionModule',
     },
     {
-      path: 'consulta_evaluacion',
+      path: 'consulta_evaluacion/:IdentificacionProveedor',
       loadChildren: './consulta-evaluacion/consulta-evaluacion.module#ConsultaEvaluacionModule',
     },
     {
