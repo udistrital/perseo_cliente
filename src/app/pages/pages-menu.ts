@@ -6,26 +6,26 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'nb-home',
     link: '/pages/dashboard',
   },
-  {
-    title: 'Evaluaciones',
-    icon: 'nb-edit',
-    children: [
-      {
-        title: 'Evaluar Proveedor',
-        link: '/pages/evaluar_proveedor/',
-      },
-    ],
-  },
-  {
-    title: 'Evaluación',
-    icon: 'nb-checkmark',
-    children: [
-      {
-        title: 'Evaluación',
-        link: '/pages/evaluacion/',
-      },
-    ],
-  },
+  // {
+  //   title: 'Evaluaciones',
+  //   icon: 'nb-edit',
+  //   children: [
+  //     {
+  //       title: 'Evaluar Proveedor',
+  //       link: '/pages/evaluar_proveedor/',
+  //     },
+  //   ],
+  // },
+  // {
+  //   title: 'Evaluación',
+  //   icon: 'nb-checkmark',
+  //   children: [
+  //     {
+  //       title: 'Evaluación',
+  //       link: '/pages/evaluacion/',
+  //     },
+  //   ],
+  // },
   {
     title: 'Consulta Evaluación',
     icon: 'nb-search',
@@ -36,14 +36,14 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
-  {
-    title: 'Administración plantillas',
-    icon: 'nb-compose',
-    children: [
-      {
-        title: 'Administración de plantillas',
-        link: '/pages/administracion_plantillas/',
-      },
-    ],
-  },
+  // {
+  //   title: 'Administración plantillas',
+  //   icon: 'nb-compose',
+  //   children: [
+  //     {
+  //       title: 'Administración de plantillas',
+  //       link: '/pages/administracion_plantillas/',
+  //     },
+  //   ],
+  // },
 ];
