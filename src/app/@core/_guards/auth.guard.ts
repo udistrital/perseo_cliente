@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate {
   constructor(private router: Router) {
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+  canActivate(route?: ActivatedRouteSnapshot, state?: RouterStateSnapshot): Observable<boolean> {
 
       let valid: boolean =  false;
       // const roles = route.data['roles'] as Array<string>;
