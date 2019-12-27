@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ImplicitAutenticationService } from '../../@core/utils/implicit_autentication.service';
 import { AuthGuard } from '../../@core/_guards/auth.guard';
 
 
@@ -16,7 +15,6 @@ export class TablaBusquedaComponent implements OnInit {
 
 
   constructor(
-    private implicitAutenticationService: ImplicitAutenticationService,
     private authGuard: AuthGuard,
   ) {
     this.dataToDo = new EventEmitter();
@@ -25,11 +23,9 @@ export class TablaBusquedaComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.implicitAutenticationService.live()) {
+    console.info(this.authGuard.validacion() );
+    if (this.authGuard.validacion()) {
       this.logueado = true;
-    }
-    if (this.authGuard.canActivate()) {
-      console.info('pasa los guard');
     }
   }
 
