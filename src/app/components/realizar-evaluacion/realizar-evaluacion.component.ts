@@ -9,6 +9,7 @@ export class RealizarEvaluacionComponent implements OnInit {
   @Input() dataContrato: any = [];
   @Output() volverFiltro: EventEmitter<Boolean>;
   realizar: boolean;
+  jsonEvaluacion: any;
 
   constructor() {
     this.volverFiltro = new EventEmitter();
@@ -16,9 +17,13 @@ export class RealizarEvaluacionComponent implements OnInit {
 
   ngOnInit() {
     this.realizar = true;
+    console.info(this.dataContrato)
   }
 
   regresarFiltro() {
     this.volverFiltro.emit(true);
+  }
+  realizarEvaluacion(data: any){
+    console.log(data)
   }
 }

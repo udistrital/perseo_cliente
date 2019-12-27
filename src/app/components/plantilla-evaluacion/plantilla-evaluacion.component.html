@@ -101,10 +101,13 @@
         </div>
       </div>
       <div class="col-3">
-        <button (click)="realizarEvaluacion()" nbButton class="btn-evaluacion">
+        <button (click)="realizarEvaluacion()" nbButton class="btn-evaluacion" *ngIf="this.realizar==true">
           Enviar Evaluación
         </button>
       </div>
     </div>
   </div>
 </div>
+<ng-template #contentTemplate let-data>
+  <h4>{{ data.text }}</h4>
+</ng-template>
