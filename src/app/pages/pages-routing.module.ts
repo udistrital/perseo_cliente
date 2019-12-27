@@ -33,6 +33,7 @@ const routes: Routes = [{
     {
       path: 'evaluacion',
       loadChildren: './evaluacion/evaluacion.module#EvaluacionModule',
+      canActivate: [AuthGuard],
     },
     {
       path: 'consulta_evaluacion/:IdentificacionProveedor',
