@@ -33,7 +33,7 @@ export class PlantillaEvaluacionComponent implements OnInit {
   ngOnInit() {
     this.evaluacionCompleta = true;
     this.evaluacionMidService.get('plantilla').subscribe((res) => {
-      console.info(res)
+      console.info(res);
       this.json = res;
     }, (error_service) => {
       this.openWindow(error_service['body'][1]['Error']);
