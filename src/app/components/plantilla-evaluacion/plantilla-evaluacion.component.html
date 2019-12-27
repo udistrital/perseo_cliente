@@ -91,12 +91,12 @@
         <h2>Puntaje total de la evaluacion</h2>
       </div>
       <div class="col-2">
-        <p class="p-valor-item"> {{ valorTotal }}</p>
+        <p class="p-valor-item"> {{ this.json.ValorFinal }}</p>
       </div>
       <div class="col-2">
         <div *ngFor="let clasificador of json['Clasificaciones']; let k = index">
           <p class="p-valor-item"
-            *ngIf="valorTotal >= clasificador.LimiteInferior && valorTotal <= clasificador.LimiteSuperior">
+            *ngIf="this.json.ValorFinal >= clasificador.LimiteInferior && valorTotal <= clasificador.LimiteSuperior">
             {{ clasificador['Nombre']  }}</p>
         </div>
       </div>

@@ -17,13 +17,15 @@ export class RealizarEvaluacionComponent implements OnInit {
 
   ngOnInit() {
     this.realizar = true;
-    console.info(this.dataContrato)
+    console.info(this.dataContrato);
   }
 
   regresarFiltro() {
     this.volverFiltro.emit(true);
   }
-  realizarEvaluacion(data: any){
-    console.log(data)
+
+  realizarEvaluacion(data: any) {
+    this.jsonEvaluacion = data;
+    console.info(  this.jsonEvaluacion );
   }
 }

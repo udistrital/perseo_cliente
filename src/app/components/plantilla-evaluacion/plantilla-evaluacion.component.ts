@@ -32,44 +32,46 @@ export class PlantillaEvaluacionComponent implements OnInit {
 
   ngOnInit() {
     this.evaluacionCompleta = true;
-   /* this.evaluacionMidService.get('plantilla').subscribe((res) => {
+    this.evaluacionMidService.get('plantilla').subscribe((res) => {
       console.info(res)
       this.json = res;
     }, (error_service) => {
       this.openWindow(error_service['body'][1]['Error']);
-    });*/
-    this.leerJsonService.get('plantilla').subscribe(dato => {
-      this.json = dato['Body'];
-    }, (error_service) => {
-      console.info(error_service);
     });
+    // this.leerJsonService.get('plantilla').subscribe(dato => {
+    //   this.json = dato['Body'];
+    // }, (error_service) => {
+    //   console.info(error_service);
+    // });
   }
 
   realizarEvaluacion() {
     this.evaluacionCompleta = true;
-    if (this.valorTotal < 0) {
+    if (this.json.ValorFinal < 0) {
       this.openWindow('Error en el valor total de la evaluación, es menor de cero.');
-    } else if (this.valorTotal > 100) {
+    } else if (this.json.ValorFinal > 100) {
       this.openWindow('Error en el valor total de la evaluación, es mayor a 100');
     } else {
       for (let i = 0; i < this.json.Secciones.length; i++) {
         for (let k = 0; k < this.json.Secciones[i].Seccion_hija_id.length; k++) {
-          if (this.json.Secciones[i].Seccion_hija_id[k]['Condicion'].length > 0) {
-            if (this.json.Secciones[i].Seccion_hija_id[k - 1]['Item'][2].Valor.Nombre ===
-              this.json.Secciones[i].Seccion_hija_id[k]['Condicion'][0]['Nombre']) {
-              if (this.json.Secciones[i].Seccion_hija_id[k]['Item'][2].Valor.Valor === undefined) {
-                this.evaluacionCompleta = false;
+          if (this.json.Secciones[i].Seccion_hija_id[k]['Item'][0].Tamano !== 12) {
+            if (this.json.Secciones[i].Seccion_hija_id[k]['Condicion'].length > 0) {
+              if (this.json.Secciones[i].Seccion_hija_id[k - 1]['Item'][2].Valor.Nombre ===
+                this.json.Secciones[i].Seccion_hija_id[k]['Condicion'][0]['Nombre']) {
+                if (this.json.Secciones[i].Seccion_hija_id[k]['Item'][2].Valor.Valor === undefined) {
+                  this.evaluacionCompleta = false;
+                }
               }
+            } else if (this.json.Secciones[i].Seccion_hija_id[k]['Item'][2].Valor.Valor === undefined) {
+              this.evaluacionCompleta = false;
             }
-          } else if (this.json.Secciones[i].Seccion_hija_id[k]['Item'][2].Valor.Valor === undefined) {
-            this.evaluacionCompleta = false;
           }
+
         }
       }
       if (this.evaluacionCompleta === false) {
         this.openWindow('Aun no se ha completado la evaluación');
       } else if (this.evaluacionCompleta === true) {
-        this.json.ValorFinal = this.valorTotal;
         this.jsonEvaluacion.emit(this.json);
       }
     }
@@ -77,7 +79,7 @@ export class PlantillaEvaluacionComponent implements OnInit {
 
 
   filterChanged(i: any) {
-    this.valorTotal = 0;
+    this.json.ValorFinal = 0;
     this.json.Secciones[i].ValorSeccion = 0;
     for (let k = 0; k < this.json.Secciones[i].Seccion_hija_id.length; k++) {
       if (this.json.Secciones[i].Seccion_hija_id[k]['Item'][2].Valor.Valor !== undefined) {
@@ -95,7 +97,7 @@ export class PlantillaEvaluacionComponent implements OnInit {
     }
     for (let k = 0; k < this.json.Secciones.length; k++) {
       if (this.json.Secciones[k].ValorSeccion !== undefined) {
-        this.valorTotal += this.json.Secciones[k].ValorSeccion;
+        this.json.ValorFinal += this.json.Secciones[k].ValorSeccion;
       }
     }
   }
