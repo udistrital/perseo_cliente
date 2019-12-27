@@ -12,26 +12,16 @@ export class AuthGuard implements CanActivate {
   }
 
   canActivate(route?: ActivatedRouteSnapshot, state?: RouterStateSnapshot): Observable<boolean> {
-
-      
       return Observable.of(this.validacion());
       // return valid;
   }
 
   validacion(): boolean {
     let valid: boolean =  false;
-    // const roles = route.data['roles'] as Array<string>;
-    // console.info(`${route}`);
-    // console.info(`${state}`);
     const id_token = window.localStorage.getItem('id_token').split('.');
-    // console.info(id_token);
     const payload = JSON.parse(atob(id_token[1]));
-    // console.info(payload);
-
     if (payload && payload.role) {
-
       for ( let i = 0; i < payload.role.length; i++) {
-
           if ( (payload.role[i] === 'ORDENADOR_DEL_GASTO') || (payload.role[i] === 'SUPERVISOR')) {
             console.info(payload.role[i]);
               valid = true;
@@ -40,7 +30,6 @@ export class AuthGuard implements CanActivate {
       }
     }
     return valid;
-
   }
 
   // canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
