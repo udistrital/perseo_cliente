@@ -15,9 +15,14 @@ export const environment = {
   },
   CONFIGURACION_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/configuracion_crud_api/v1/',
   NOTIFICACION_SERVICE: 'ws://pruebasapi.intranetoas.udistrital.edu.co:8116/ws',
+<<<<<<< HEAD
   CONF_MENU_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/configuracion_crud_api/v1/menu_opcion_padre/ArbolMenus/',
   EVALUACIONMID_SERVICE: 'http://pruebasapi.intranetoas.udistrital.edu.co:8507/v1/',
   EVALUACIONCRUD_SERVICE: 'http://pruebasapi.intranetoas.udistrital.edu.co:8506/v1/',
+=======
+  CONF_MENU_SERVICE: 'http://pruebasapi.intranetoas.udistrital.edu.co:8086/v1//menu_opcion_padre/ArbolMenus/',
+  EVALUACIONMID_SERVICE: 'http://localhost:8081/v1/',
+>>>>>>> 286544fd18d7a6d821c07f30e9cff96ab4294897
   SPAGOBI: {
     PROTOCOL: 'https',
     HOST: 'intelligentia.udistrital.edu.co',
