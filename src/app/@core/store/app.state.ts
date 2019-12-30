@@ -5,4 +5,5 @@ export interface IAppState {
   listProveedores: Proveedor[];
   listPlanCuentasCredito: Cuenta[];
   listPlanCuentasDebito: Cuenta[];
+  listPlantilla: any[];
 }
