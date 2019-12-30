@@ -12,8 +12,6 @@ export class LeerJsonLocalService {
 
   constructor(private http: HttpClient) {
     this.urlJson = '../../assets/data/plantilla.json';
-    console.info('localjson funcionando');
-
    }
 
    get(endpoint: string) {

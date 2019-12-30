@@ -6,12 +6,15 @@ import { ActaRecibidoHelper } from '../../../helpers/acta_recibido/actaRecibidoH
 import { Proveedor } from '../../../@core/data/models/acta_recibido/Proveedor';
 import { Observable } from 'rxjs';
 import { CatalogoElementosHelper } from '../../../helpers/catalogo-elementos/catalogoElementosHelper';
+import { EvaluacionmidService } from '../../data/evaluacionmid.service';
+
 @Injectable()
 export class ListService {
 
   constructor(
     private ActaRecibido: ActaRecibidoHelper,
     private CatalogoElementos: CatalogoElementosHelper,
+    private evaluacionmidService: EvaluacionmidService,
     private store: Store<IAppState>) {
   }
 
@@ -72,6 +75,26 @@ export class ListService {
               },
               error => {
                 this.addList(REDUCER_LIST.PlanCuentasDebito, []);
+              },
+            );
+        }
+      },
+    );
+  }
+
+  public findPlantilla() {
+
+    this.store.select(REDUCER_LIST.Plantilla).subscribe(
+      (list: any) => {
+        if (!list || list.length === 0) {
+          this.evaluacionmidService.get('plantilla')
+            .subscribe(
+              (res: any[]) => {
+
+                this.addList(REDUCER_LIST.Plantilla, res);
+              },
+              error => {
+                this.addList(REDUCER_LIST.Plantilla, []);
               },
             );
         }
