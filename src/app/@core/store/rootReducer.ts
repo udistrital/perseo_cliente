@@ -6,4 +6,5 @@ export const rootReducer: ActionReducerMap<IAppState> = {
   listProveedores: ListReducer.ListReducerProveedor,
   listPlanCuentasDebito: ListReducer.ListReducerPlanCuentasDebito,
   listPlanCuentasCredito: ListReducer.ListReducerPlanCuentasCredito,
+  listPlantilla: ListReducer.ListReducerPlantilla,
 };
