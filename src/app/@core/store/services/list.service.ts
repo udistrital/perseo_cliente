@@ -86,10 +86,13 @@ export class ListService {
 
     this.store.select(REDUCER_LIST.Plantilla).subscribe(
       (list: any) => {
+        console.info('REDUCER');
         if (!list || list.length === 0) {
+          console.info('se busca platilla');
           this.evaluacionmidService.get('plantilla')
             .subscribe(
               (res: any[]) => {
+                console.info('PLATILLA ENCONTRADA');
 
                 this.addList(REDUCER_LIST.Plantilla, res);
               },
