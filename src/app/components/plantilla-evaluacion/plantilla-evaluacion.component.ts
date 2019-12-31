@@ -3,6 +3,9 @@ import { EvaluacionmidService } from '../../@core/data/evaluacionmid.service';
 import { EvaluacioncrudService } from '../../@core/data/evaluacioncrud.service';
 import { NbWindowService } from '@nebular/theme';
 import { LeerJsonLocalService } from '../../services/leer-json-local.service';
+import { IAppState } from '../../@core/store/app.state';
+import { Store } from '@ngrx/store';
+import { ListService } from '../../@core/store/services/list.service';
 
 
 @Component({
@@ -25,24 +28,37 @@ export class PlantillaEvaluacionComponent implements OnInit {
     private windowService: NbWindowService,
     private leerJsonService: LeerJsonLocalService,
     private evaluacioncrudService: EvaluacioncrudService,
+    private store: Store < IAppState > ,
+    private listService: ListService,
   ) {
     this.valorTotal = 0;
     this.jsonEvaluacion = new EventEmitter();
+    this.listService.findPlantilla();
   }
 
   ngOnInit() {
     this.evaluacionCompleta = true;
-    this.evaluacionMidService.get('plantilla').subscribe((res) => {
-      console.info(res);
-      this.json = res;
-    }, (error_service) => {
-      this.openWindow(error_service['body'][1]['Error']);
-    });
+    console.info('plantilla reducer');
+    this.CargarUltimaPlantilla();
+    // console.info("plantilla nginit")
+    // this.evaluacionMidService.get('plantilla').subscribe((res) => {
+    //   console.info(res);
+    //   this.json = res;
+    // }, (error_service) => {
+    //   this.openWindow(error_service['body'][1]['Error']);
+    // });
     // this.leerJsonService.get('plantilla').subscribe(dato => {
     //   this.json = dato['Body'];
     // }, (error_service) => {
     //   console.info(error_service);
     // });
+  }
+
+  CargarUltimaPlantilla() {
+    this.store.select( (state) => state ).subscribe( list => {
+      console.info(list);
+      this.json = list.listPlantilla[0];
+    });
   }
 
   realizarEvaluacion() {
