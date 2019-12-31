@@ -96,7 +96,7 @@
       <div class="col-2">
         <div *ngFor="let clasificador of json['Clasificaciones']; let k = index">
           <p class="p-valor-item"
-            *ngIf="this.json.ValorFinal >= clasificador.LimiteInferior && valorTotal <= clasificador.LimiteSuperior">
+            *ngIf="json.ValorFinal >= clasificador.LimiteInferior && json.ValorFinal <= clasificador.LimiteSuperior">
             {{ clasificador['Nombre']  }}</p>
         </div>
       </div>
