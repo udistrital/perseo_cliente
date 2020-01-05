@@ -21,7 +21,6 @@ export class PlantillaEvaluacionComponent implements OnInit {
 
   pipeprueba = 'algo';
   json: any = {};
-  valorTotal: any;
   evaluacionCompleta: boolean;
   constructor(
     private evaluacionMidService: EvaluacionmidService,
@@ -31,32 +30,17 @@ export class PlantillaEvaluacionComponent implements OnInit {
     private store: Store < IAppState > ,
     private listService: ListService,
   ) {
-    this.valorTotal = 0;
     this.jsonEvaluacion = new EventEmitter();
     this.listService.findPlantilla();
   }
 
   ngOnInit() {
     this.evaluacionCompleta = true;
-    console.info('plantilla reducer');
     this.CargarUltimaPlantilla();
-    // console.info("plantilla nginit")
-    // this.evaluacionMidService.get('plantilla').subscribe((res) => {
-    //   console.info(res);
-    //   this.json = res;
-    // }, (error_service) => {
-    //   this.openWindow(error_service['body'][1]['Error']);
-    // });
-    // this.leerJsonService.get('plantilla').subscribe(dato => {
-    //   this.json = dato['Body'];
-    // }, (error_service) => {
-    //   console.info(error_service);
-    // });
   }
 
   CargarUltimaPlantilla() {
     this.store.select( (state) => state ).subscribe( list => {
-      console.info(list);
       this.json = list.listPlantilla[0];
     });
   }

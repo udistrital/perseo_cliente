@@ -23,7 +23,6 @@ export class TablaBusquedaComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.info(this.authGuard.validacion() );
     if (this.authGuard.validacion()) {
       this.logueado = true;
     }
