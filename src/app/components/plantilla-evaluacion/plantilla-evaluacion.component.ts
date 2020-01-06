@@ -35,6 +35,7 @@ export class PlantillaEvaluacionComponent implements OnInit {
     this.jsonEvaluacion = new EventEmitter();
     this.listService.findPlantilla();
     this.evaluacionRealizada = {};
+    this.json = {}
   }
 
   ngOnInit() {
@@ -47,8 +48,8 @@ export class PlantillaEvaluacionComponent implements OnInit {
     });
   }
 
-ngOnChanges() {
-   if (Object.keys(this.evaluacionRealizada).length !== 0) {
+  ngOnChanges() {
+    if (Object.keys(this.evaluacionRealizada).length !== 0) {
       this.json = this.evaluacionRealizada;
     } else {
       this.CargarUltimaPlantilla();
