@@ -62,7 +62,6 @@ export class RealizarEvaluacionComponent implements OnInit {
 
   realizarEvaluacion(data: any) {
     if (Object.keys(this.evaluacionRealizada).length === 0) {
-      console.info('Se procede a ingresar una nueva evaluacion')
       // Se verifica si hay una evalucion existente
       this.jsonEvaluacion = {
         'Activo': true,
@@ -77,7 +76,6 @@ export class RealizarEvaluacionComponent implements OnInit {
       this.evaluacionCrudService.post('evaluacion', this.jsonEvaluacion)
         .subscribe((res_evaluacion) => {
           if (res_evaluacion !== null) {
-
             this.jsonResultadoEvaluacion = {
               'Activo': true,
               'IdEvaluacion': res_evaluacion,
@@ -99,7 +97,6 @@ export class RealizarEvaluacionComponent implements OnInit {
           this.openWindow(error_service.message);
         });
     } else {
-      console.info('Se actualiza una evalaucion')
       this.evaluacionCrudService.get('resultado_evaluacion?query=Id:' + this.idResultadoEvalucion + ',Activo:true')
         .subscribe((res_resultado_eva) => {
           if (res_resultado_eva !== null) {
@@ -134,11 +131,6 @@ export class RealizarEvaluacionComponent implements OnInit {
 
     }
   }
-
-
-
-
-
 
   openWindow(mensaje) {
     this.windowService.open(

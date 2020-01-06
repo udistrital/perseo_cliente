@@ -35,7 +35,7 @@ export class PlantillaEvaluacionComponent implements OnInit {
     this.jsonEvaluacion = new EventEmitter();
     this.listService.findPlantilla();
     this.evaluacionRealizada = {};
-    this.json = {}
+    this.json = {};
   }
 
   ngOnInit() {
