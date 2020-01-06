@@ -106,7 +106,7 @@ export class RealizarEvaluacionComponent implements OnInit {
               if (res_resultado_eva !== null) {
                 this.openWindow('Se ha actualizado satisfactoriamente la evaluación del contrato ' + this.dataContrato[0].ContratoSuscrito +
                   ' de ' + this.dataContrato[0].Vigencia);
-                console.info(res_eva_actual);
+                this.regresarFiltro();
                 // this.jsonResultadoEvaluacion = {
                 //   'Activo': true,
                 //   'IdEvaluacion': res_eva_actual['IdEvaluacion'],
