@@ -6,21 +6,15 @@ import { LeerJsonLocalService } from '../../services/leer-json-local.service';
 import { IAppState } from '../../@core/store/app.state';
 import { Store } from '@ngrx/store';
 import { ListService } from '../../@core/store/services/list.service';
-import { MatFormFieldModule, MatInputModule } from '@angular/material';
 
-@NgModule({
-  imports: [
-    MatFormFieldModule,
-    MatInputModule,
-  ],
-})
+
 
 @Component({
   selector: 'ngx-plantilla-evaluacion',
   templateUrl: './plantilla-evaluacion.component.html',
   styleUrls: ['./plantilla-evaluacion.component.scss'],
 })
-export class PlantillaEvaluacionComponent implements OnInit, OnChanges {
+export class PlantillaEvaluacionComponent implements OnInit {
 
   @Input() realizar: any;
   @Input() evaluacionRealizada: any;
@@ -45,18 +39,16 @@ export class PlantillaEvaluacionComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.evaluacionCompleta = true;
-    this.CargarUltimaPlantilla();
   }
 
   CargarUltimaPlantilla() {
     this.store.select((state) => state).subscribe(list => {
       this.json = list.listPlantilla[0];
     });
-    console.info(this.json)
   }
 
-  ngOnChanges() {
-    if (Object.keys(this.evaluacionRealizada).length !== 0) {
+ngOnChanges() {
+   if (Object.keys(this.evaluacionRealizada).length !== 0) {
       this.json = this.evaluacionRealizada;
     } else {
       this.CargarUltimaPlantilla();

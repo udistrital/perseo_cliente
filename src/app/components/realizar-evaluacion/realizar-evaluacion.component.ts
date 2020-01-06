@@ -33,17 +33,16 @@ export class RealizarEvaluacionComponent implements OnInit {
 
 
   ngOnInit() {
+    this.realizar = true;
     // Se verifica si se ha realizado una evaluación
     this.evaluacionCrudService.get('evaluacion?query=ContratoSuscrito:' + this.dataContrato[0].ContratoSuscrito +
       '&Vigencia:' + this.dataContrato[0].Vigencia).subscribe((res_evaluacion) => {
         if (Object.keys(res_evaluacion[0]).length !== 0) {
-          this.openWindow('Ya hay una evaluación existente, usted procederá a modificarla.');
+          // this.openWindow('Ya hay una evaluación existente, usted procederá a modificarla.');
           this.evaluacionCrudService.get('resultado_evaluacion?query=IdEvaluacion:' + res_evaluacion[0].Id + '&Activo:true')
             .subscribe((res_resultado_eva) => {
               if (res_resultado_eva !== null) {
                 this.evaluacionRealizada = JSON.parse(res_resultado_eva[0].ResultadoEvaluacion);
-                this.realizar = true;
-                console.info(JSON.parse(res_resultado_eva[0].ResultadoEvaluacion));
               }
             }, (error_service) => {
               this.openWindow(error_service.message);

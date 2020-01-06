@@ -26,8 +26,8 @@
                 {{item['Valor']}}
               </p>
               <div class="mat-select" *ngSwitchCase="'select'">
-                <label matInput *ngIf="this.realizar===false">Respuesta ver evaluación</label>
-                <mat-select *ngIf="this.realizar===true" placeholder="Opcion"
+                <label matInput *ngIf="this.realizar===false">{{seccionHija['Item'][2].Valor.Nombre}}</label>
+                <mat-select *ngIf="this.realizar===true"
                   [(ngModel)]="json.Secciones[i].Seccion_hija_id[j]['Item'][2].Valor"
                   (selectionChange)="filterChanged(i, seccionHija['Condicion'][0]['Nombre'])">
                   <mat-option *ngFor="let opcion of seccionHija['Item'][2]['Opcion_item']"
@@ -51,8 +51,8 @@
               {{item['Valor']}}
             </p>
             <div class="mat-select" *ngSwitchCase="'select'">
-              <label matInput *ngIf="this.realizar===false">Respuesta ver evaluación</label>
-              <mat-select *ngIf="this.realizar===true" placeholder="Opcion"
+              <label matInput *ngIf="this.realizar===false">{{seccionHija['Item'][2].Valor.Nombre}}</label>
+              <mat-select *ngIf="this.realizar===true" 
                 [(ngModel)]="json.Secciones[i].Seccion_hija_id[j]['Item'][2].Valor"
                 (selectionChange)="filterChanged(i,'', seccionPadre.Seccion_hija_id[j]['Item'][2].Valor.Nombre)">
                 <mat-option *ngFor="let opcion of seccionHija['Item'][2]['Opcion_item']" [value]="opcion['IdOpciones']">
