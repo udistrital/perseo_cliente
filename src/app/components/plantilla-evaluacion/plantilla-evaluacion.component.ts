@@ -24,6 +24,7 @@ export class PlantillaEvaluacionComponent implements OnInit {
   pipeprueba = 'algo';
   json: any = {};
   evaluacionCompleta: boolean;
+  evaRealizada: boolean;
   constructor(
     private evaluacionMidService: EvaluacionmidService,
     private windowService: NbWindowService,
@@ -36,6 +37,7 @@ export class PlantillaEvaluacionComponent implements OnInit {
     this.listService.findPlantilla();
     this.evaluacionRealizada = {};
     this.json = {};
+    this.evaRealizada = false;
   }
 
   ngOnInit() {
@@ -50,6 +52,7 @@ export class PlantillaEvaluacionComponent implements OnInit {
 
   ngOnChanges() {
     if (Object.keys(this.evaluacionRealizada).length !== 0) {
+      this.evaRealizada = true;
       this.json = this.evaluacionRealizada;
     } else {
       this.CargarUltimaPlantilla();
