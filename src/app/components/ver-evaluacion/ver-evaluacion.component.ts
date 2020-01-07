@@ -14,13 +14,12 @@ export class VerEvaluacionComponent implements OnInit {
   realizar: boolean;
   evaluacionRealizada: any;
 
-
-
   constructor(
     private evaluacionCrudService: EvaluacioncrudService,
     private windowService: NbWindowService,
   ) {
     this.volverFiltro = new EventEmitter();
+    this.evaluacionRealizada = {};
   }
 
   ngOnInit() {
@@ -35,14 +34,15 @@ export class VerEvaluacionComponent implements OnInit {
                 this.evaluacionRealizada = JSON.parse(res_resultado_eva[0].ResultadoEvaluacion);
               }
             }, (error_service) => {
+              this.openWindow(error_service.message);
             });
         } else {
           this.regresarFiltro();
           this.openWindow('El contrato no ha sido evaluado.');
         }
       }, (error_service) => {
+        this.openWindow(error_service.message);
       });
-
   }
 
   regresarFiltro() {

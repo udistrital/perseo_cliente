@@ -7,8 +7,6 @@ import { IAppState } from '../../@core/store/app.state';
 import { Store } from '@ngrx/store';
 import { ListService } from '../../@core/store/services/list.service';
 
-
-
 @Component({
   selector: 'ngx-plantilla-evaluacion',
   templateUrl: './plantilla-evaluacion.component.html',
@@ -41,23 +39,39 @@ export class PlantillaEvaluacionComponent implements OnInit {
 
   ngOnInit() {
     this.evaluacionCompleta = true;
-    this.json = {};
-    this.CargarUltimaPlantilla();
   }
 
   CargarUltimaPlantilla() {
-    this.store.select((state) => state).subscribe(list => {
-      this.json = list.listPlantilla[0];
+    this.evaluacionMidService.get('plantilla').subscribe((res) => {
+      this.json = res;
+      console.info(res);
+    }, (error_service) => {
+      this.openWindow(error_service['body'][1]['Error']);
     });
+    // this.leerJsonService.get('plantilla').subscribe(dato => {
+    //   this.json = dato['Body'];
+    // }, (error_service) => {
+    //   console.info(error_service);
+    // });
+
+    // this.store.select((state) => state).subscribe(list => {
+    //    console.info(list.listPlantilla[0]);
+
+    //    this.json = list.listPlantilla[0];
+    //  });
   }
 
   ngOnChanges() {
-    if (Object.keys(this.evaluacionRealizada).length > 0) {
+    //this.json = {};
+    if (Object.keys(this.evaluacionRealizada).length !== 0) {
       this.evaRealizada = true;
       this.json = this.evaluacionRealizada;
+      console.info(this.json);
     } else {
       this.CargarUltimaPlantilla();
+      console.info(this.json);
     }
+
   }
 
   realizarEvaluacion() {
@@ -87,7 +101,6 @@ export class PlantillaEvaluacionComponent implements OnInit {
         this.openWindow('Aun no se ha completado la evaluación');
       } else if (this.evaluacionCompleta === true) {
         this.jsonEvaluacion.emit(this.json);
-        delete this.json;
       }
     }
   }

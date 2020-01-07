@@ -2,8 +2,6 @@ import { Component, OnInit, Input, Output, ViewChild, TemplateRef, EventEmitter 
 import { EvaluacioncrudService } from '../../@core/data/evaluacioncrud.service';
 import { NbWindowService } from '@nebular/theme';
 
-
-
 @Component({
   selector: 'ngx-realizar-evaluacion',
   templateUrl: './realizar-evaluacion.component.html',
@@ -12,10 +10,7 @@ import { NbWindowService } from '@nebular/theme';
 export class RealizarEvaluacionComponent implements OnInit {
   @Input() dataContrato: any = [];
   @Output() volverFiltro: EventEmitter<Boolean>;
-
-
   @ViewChild('contentTemplate', { read: false }) contentTemplate: TemplateRef<any>;
-
   realizar: boolean;
   evaluacionRealizada: any;
   jsonEvaluacion: any;
