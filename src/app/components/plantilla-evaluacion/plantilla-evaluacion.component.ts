@@ -36,12 +36,13 @@ export class PlantillaEvaluacionComponent implements OnInit {
     this.jsonEvaluacion = new EventEmitter();
     this.listService.findPlantilla();
     this.evaluacionRealizada = {};
-    this.json = {};
     this.evaRealizada = false;
   }
 
   ngOnInit() {
     this.evaluacionCompleta = true;
+    this.json = {};
+    this.CargarUltimaPlantilla();
   }
 
   CargarUltimaPlantilla() {
@@ -51,7 +52,7 @@ export class PlantillaEvaluacionComponent implements OnInit {
   }
 
   ngOnChanges() {
-    if (Object.keys(this.evaluacionRealizada).length !== 0) {
+    if (Object.keys(this.evaluacionRealizada).length > 0) {
       this.evaRealizada = true;
       this.json = this.evaluacionRealizada;
     } else {
@@ -80,13 +81,13 @@ export class PlantillaEvaluacionComponent implements OnInit {
               this.evaluacionCompleta = false;
             }
           }
-
         }
       }
       if (this.evaluacionCompleta === false) {
         this.openWindow('Aun no se ha completado la evaluación');
       } else if (this.evaluacionCompleta === true) {
         this.jsonEvaluacion.emit(this.json);
+        delete this.json;
       }
     }
   }
