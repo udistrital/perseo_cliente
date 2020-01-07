@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, Input, Output, EventEmitter, OnChanges, NgModule } from '@angular/core';
 import { EvaluacionmidService } from '../../@core/data/evaluacionmid.service';
 import { EvaluacioncrudService } from '../../@core/data/evaluacioncrud.service';
 import { NbWindowService } from '@nebular/theme';
@@ -6,6 +6,7 @@ import { LeerJsonLocalService } from '../../services/leer-json-local.service';
 import { IAppState } from '../../@core/store/app.state';
 import { Store } from '@ngrx/store';
 import { ListService } from '../../@core/store/services/list.service';
+
 
 
 @Component({
@@ -16,49 +17,46 @@ import { ListService } from '../../@core/store/services/list.service';
 export class PlantillaEvaluacionComponent implements OnInit {
 
   @Input() realizar: any;
+  @Input() evaluacionRealizada: any;
   @ViewChild('contentTemplate', { read: false }) contentTemplate: TemplateRef<any>;
   @Output() jsonEvaluacion: EventEmitter<any>;
 
   pipeprueba = 'algo';
   json: any = {};
-  valorTotal: any;
   evaluacionCompleta: boolean;
+  evaRealizada: boolean;
   constructor(
     private evaluacionMidService: EvaluacionmidService,
     private windowService: NbWindowService,
     private leerJsonService: LeerJsonLocalService,
     private evaluacioncrudService: EvaluacioncrudService,
-    private store: Store < IAppState > ,
+    private store: Store<IAppState>,
     private listService: ListService,
   ) {
-    this.valorTotal = 0;
     this.jsonEvaluacion = new EventEmitter();
     this.listService.findPlantilla();
+    this.evaluacionRealizada = {};
+    this.json = {};
+    this.evaRealizada = false;
   }
 
   ngOnInit() {
     this.evaluacionCompleta = true;
-    console.info('plantilla reducer');
-    this.CargarUltimaPlantilla();
-    // console.info("plantilla nginit")
-    // this.evaluacionMidService.get('plantilla').subscribe((res) => {
-    //   console.info(res);
-    //   this.json = res;
-    // }, (error_service) => {
-    //   this.openWindow(error_service['body'][1]['Error']);
-    // });
-    // this.leerJsonService.get('plantilla').subscribe(dato => {
-    //   this.json = dato['Body'];
-    // }, (error_service) => {
-    //   console.info(error_service);
-    // });
   }
 
   CargarUltimaPlantilla() {
-    this.store.select( (state) => state ).subscribe( list => {
-      console.info(list);
+    this.store.select((state) => state).subscribe(list => {
       this.json = list.listPlantilla[0];
     });
+  }
+
+  ngOnChanges() {
+    if (Object.keys(this.evaluacionRealizada).length !== 0) {
+      this.evaRealizada = true;
+      this.json = this.evaluacionRealizada;
+    } else {
+      this.CargarUltimaPlantilla();
+    }
   }
 
   realizarEvaluacion() {
