@@ -39,6 +39,7 @@ export class PlantillaEvaluacionComponent implements OnInit {
 
   ngOnInit() {
     this.evaluacionCompleta = true;
+    this.json = {};
   }
 
   CargarUltimaPlantilla() {
@@ -62,7 +63,6 @@ export class PlantillaEvaluacionComponent implements OnInit {
   }
 
   ngOnChanges() {
-    //this.json = {};
     if (Object.keys(this.evaluacionRealizada).length !== 0) {
       this.evaRealizada = true;
       this.json = this.evaluacionRealizada;
