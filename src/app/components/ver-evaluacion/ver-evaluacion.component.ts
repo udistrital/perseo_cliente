@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, TemplateRef } from '@angular/core';
 import { EvaluacioncrudService } from '../../@core/data/evaluacioncrud.service';
+import { ContratoService } from '../../@core/data/contratoservice.service';
 import { NbWindowService } from '@nebular/theme';
 
 @Component({
@@ -17,6 +18,7 @@ export class VerEvaluacionComponent implements OnInit {
   constructor(
     private evaluacionCrudService: EvaluacioncrudService,
     private windowService: NbWindowService,
+    private contratoServicio: ContratoService,
   ) {
     this.volverFiltro = new EventEmitter();
     this.evaluacionRealizada = {};
@@ -39,6 +41,17 @@ export class VerEvaluacionComponent implements OnInit {
         } else {
           this.regresarFiltro();
           this.openWindow('El contrato no ha sido evaluado.');
+        }
+      }, (error_service) => {
+        this.openWindow(error_service.message);
+      });
+    this.contratoServicio.get('contrato/' + this.dataContrato[0].ContratoSuscrito + '/' + this.dataContrato[0].Vigencia)
+      .subscribe((wso_response) => {
+        console.info(wso_response);
+
+        if (wso_response.data.contrato.numero_contrato_suscrito) {
+        console.info(wso_response.data.contrato);
+
         }
       }, (error_service) => {
         this.openWindow(error_service.message);
