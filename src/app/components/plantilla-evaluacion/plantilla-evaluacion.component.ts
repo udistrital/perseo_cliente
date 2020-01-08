@@ -45,7 +45,6 @@ export class PlantillaEvaluacionComponent implements OnInit {
   CargarUltimaPlantilla() {
     this.evaluacionMidService.get('plantilla').subscribe((res) => {
       this.json = res;
-      console.info(res);
     }, (error_service) => {
       this.openWindow(error_service['body'][1]['Error']);
     });
@@ -63,15 +62,16 @@ export class PlantillaEvaluacionComponent implements OnInit {
   }
 
   ngOnChanges() {
+    this.json = {};
     if (Object.keys(this.evaluacionRealizada).length !== 0) {
-      this.evaRealizada = true;
       this.json = this.evaluacionRealizada;
-      console.info(this.json);
+      this.evaRealizada = true;
     } else {
-      this.CargarUltimaPlantilla();
-      console.info(this.json);
+      if (Object.keys(this.json).length === 0) {
+        this.evaRealizada = false;
+        this.CargarUltimaPlantilla();
+      }
     }
-
   }
 
   realizarEvaluacion() {
