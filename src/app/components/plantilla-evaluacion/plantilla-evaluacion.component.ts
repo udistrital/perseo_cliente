@@ -63,6 +63,7 @@ export class PlantillaEvaluacionComponent implements OnInit {
 
   ngOnChanges() {
     this.json = {};
+    console.info(Object.keys(this.evaluacionRealizada).length)
     if (Object.keys(this.evaluacionRealizada).length !== 0) {
       this.json = this.evaluacionRealizada;
       this.evaRealizada = true;

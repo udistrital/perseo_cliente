@@ -49,6 +49,10 @@ export class VerEvaluacionComponent implements OnInit {
     this.volverFiltro.emit(true);
   }
 
+  imprimirEvalucion() {
+    console.info('Pa imprimir');
+  }
+
   openWindow(mensaje) {
     this.windowService.open(
       this.contentTemplate,

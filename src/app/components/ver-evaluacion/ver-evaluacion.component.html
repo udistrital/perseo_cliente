@@ -1,6 +1,47 @@
 <div>
-  <H1>Ver Evaluación</H1>
-  <ngx-plantilla-evaluacion [realizar]="this.realizar" [evaluacionRealizada]="this.evaluacionRealizada"></ngx-plantilla-evaluacion>
+  <div class="card card-margin">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-9">
+          <H1>Ver Evaluación</H1>
+        </div>
+        <div class="col-3">
+          <button (click)="imprimirEvalucion()" nbButton class="btn-right">
+            Imprimir Evaluación
+          </button>
+        </div>
+      </div>
+      <!-- Div para los datos del contrato   -->
+      <div class="row">
+        <div class="col-4">
+          <p>Puntaje Total de la evaluación</p>
+        </div>
+        <div class="col-4">
+          <p>Tipo de Proveedor</p>
+        </div>
+        <div class="col-4">
+        </div>
+        <div class="col-4">
+          <p>Dependencia que evalua</p>
+        </div>
+        <div class="col-4">
+          <p>Fecha de la evaluación</p>
+        </div>
+        <div class="col-4">
+          <p>Nombre del supervisor encargado de la evulacion</p>
+        </div>
+        <div class="col-4">
+          <p>Cargo</p>
+        </div>
+        <div class="col-8">
+          <p>Objeto del Contrato</p>
+          <label>sdadfasfa</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngx-plantilla-evaluacion [realizar]="this.realizar" [evaluacionRealizada]="this.evaluacionRealizada">
+  </ngx-plantilla-evaluacion>
   <button (click)="regresarFiltro()" nbButton status="warning" class="btn-flotante">
     <i class="fas fa-arrow-alt-circle-left"></i>
     Regresar
@@ -9,5 +50,3 @@
 <ng-template #contentTemplate let-data>
   <h4>{{ data.text }}</h4>
 </ng-template>
-
-
