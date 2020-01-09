@@ -14,7 +14,7 @@ import { ListService } from '../../@core/store/services/list.service';
   styleUrls: ['./plantilla-evaluacion.component.scss'],
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PlantillaEvaluacionComponent implements OnInit {
+export class PlantillaEvaluacionComponent implements OnInit, OnChanges {
 
   @Input() realizar: any;
   @Input() evaluacionRealizada: any;
@@ -34,6 +34,7 @@ export class PlantillaEvaluacionComponent implements OnInit {
     this.jsonEvaluacion = new EventEmitter();
     // this.listService.findPlantilla();
     this.evaRealizada = false;
+    this.CargarUltimaPlantilla();
   }
 
   ngOnInit() {
@@ -59,11 +60,7 @@ export class PlantillaEvaluacionComponent implements OnInit {
 
   ngOnChanges() {
     if (Object.keys(this.evaluacionRealizada).length !== 0) {
-      console.info('Entre 1');
       this.cargarEvaluacion();
-    } else {
-      console.info('Entre 2');
-      this.CargarUltimaPlantilla();
     }
   }
 
