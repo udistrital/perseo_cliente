@@ -6,11 +6,13 @@ import { LeerJsonLocalService } from '../../services/leer-json-local.service';
 import { IAppState } from '../../@core/store/app.state';
 import { Store } from '@ngrx/store';
 import { ListService } from '../../@core/store/services/list.service';
+// import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 
 @Component({
   selector: 'ngx-plantilla-evaluacion',
   templateUrl: './plantilla-evaluacion.component.html',
   styleUrls: ['./plantilla-evaluacion.component.scss'],
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlantillaEvaluacionComponent implements OnInit {
 
@@ -26,33 +28,27 @@ export class PlantillaEvaluacionComponent implements OnInit {
   constructor(
     private evaluacionMidService: EvaluacionmidService,
     private windowService: NbWindowService,
-    private leerJsonService: LeerJsonLocalService,
-    private evaluacioncrudService: EvaluacioncrudService,
-    private store: Store<IAppState>,
-    private listService: ListService,
+    // private store: Store<IAppState>,
+    // private listService: ListService,
   ) {
     this.jsonEvaluacion = new EventEmitter();
-    this.listService.findPlantilla();
-    this.evaluacionRealizada = {};
+    // this.listService.findPlantilla();
     this.evaRealizada = false;
   }
 
   ngOnInit() {
+    this.evaluacionRealizada = {};
     this.evaluacionCompleta = true;
     this.json = {};
   }
 
   CargarUltimaPlantilla() {
+    this.evaRealizada = false;
     this.evaluacionMidService.get('plantilla').subscribe((res) => {
       this.json = res;
     }, (error_service) => {
       this.openWindow(error_service['body'][1]['Error']);
     });
-    // this.leerJsonService.get('plantilla').subscribe(dato => {
-    //   this.json = dato['Body'];
-    // }, (error_service) => {
-    //   console.info(error_service);
-    // });
 
     // this.store.select((state) => state).subscribe(list => {
     //    console.info(list.listPlantilla[0]);
@@ -62,16 +58,18 @@ export class PlantillaEvaluacionComponent implements OnInit {
   }
 
   ngOnChanges() {
-    this.json = {};
     if (Object.keys(this.evaluacionRealizada).length !== 0) {
-      this.json = this.evaluacionRealizada;
-      this.evaRealizada = true;
+      console.info('Entre 1')
+      this.cargarEvaluacion();
     } else {
-      if (Object.keys(this.json).length === 0) {
-        this.evaRealizada = false;
-        this.CargarUltimaPlantilla();
-      }
+      console.info('Entre 2')
+      this.CargarUltimaPlantilla();
     }
+  }
+
+  cargarEvaluacion() {
+    this.evaRealizada = true;
+    this.json = this.evaluacionRealizada;
   }
 
   realizarEvaluacion() {
