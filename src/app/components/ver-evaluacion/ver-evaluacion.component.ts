@@ -15,6 +15,10 @@ export class VerEvaluacionComponent implements OnInit {
   realizar: boolean;
   evaluacionRealizada: any;
   contratoCompleto: any;
+  supervisor: any;
+  proveedor: any;
+  dependencia: String;
+  fechaEvaluacion: Date;
 
   constructor(
     private evaluacionCrudService: EvaluacioncrudService,
@@ -24,7 +28,12 @@ export class VerEvaluacionComponent implements OnInit {
     this.volverFiltro = new EventEmitter();
     this.evaluacionRealizada = {};
     this.contratoCompleto = {};
+    this.supervisor = {};
     this.realizar = true;
+    this.proveedor = {};
+    this.dependencia = '';
+    this.fechaEvaluacion = new Date();
+
   }
 
   ngOnInit() {
@@ -37,6 +46,33 @@ export class VerEvaluacionComponent implements OnInit {
             .subscribe((res_resultado_eva) => {
               if (res_resultado_eva !== null) {
                 this.evaluacionRealizada = JSON.parse(res_resultado_eva[0].ResultadoEvaluacion);
+                this.fechaEvaluacion = new Date(this.evaluacionRealizada.FechaCreacion.substr(0, 16));
+                // Se consulta los datos del contrato general.
+                this.administrativaAmazonService.get('contrato_general?query=ContratoSuscrito.NumeroContratoSuscrito:'
+                  + this.dataContrato[0].ContratoSuscrito + ',VigenciaContrato:' + this.dataContrato[0].Vigencia)
+                  .subscribe((res_admi_amazon) => {
+                    if (res_admi_amazon !== null) {
+                      this.contratoCompleto = res_admi_amazon[0];
+                      this.supervisor = res_admi_amazon[0].Supervisor;
+                      // Se consulta el nombre del Proveedor
+                      this.administrativaAmazonService.get('informacion_proveedor?query=Id:' + res_admi_amazon[0].Contratista)
+                        .subscribe((res_contratista) => {
+                          this.proveedor = res_contratista[0];
+                        }, (error_service) => {
+                          this.openWindow(error_service.message);
+                        });
+                      // Se consulta el nombre de la dependencia.
+                      this.administrativaAmazonService.get('dependencia_SIC?query=ESFCODIGODEP:' + res_admi_amazon[0].DependenciaSolicitante)
+                        .subscribe((res_dependencia) => {
+                          this.dependencia = res_dependencia[0].ESFDEPENCARGADA;
+                        }, (error_service) => {
+                          this.openWindow(error_service.message);
+                        });
+                    }
+                  }, (error_service) => {
+                    this.openWindow(error_service.message);
+                  });
+
               }
             }, (error_service) => {
               this.openWindow(error_service.message);
@@ -49,15 +85,7 @@ export class VerEvaluacionComponent implements OnInit {
         this.openWindow(error_service.message);
       });
 
-    this.administrativaAmazonService.get('contrato_general?query=ContratoSuscrito.NumeroContratoSuscrito:963,VigenciaContrato:2017')
-      .subscribe((res_admi_amazon) => {
-        if (res_admi_amazon !== null) {
-          console.info(res_admi_amazon[0]);
-          this.contratoCompleto = res_admi_amazon[0];
-        }
-      }, (error_service) => {
-        this.openWindow(error_service.message);
-      });
+
   }
 
   regresarFiltro() {
