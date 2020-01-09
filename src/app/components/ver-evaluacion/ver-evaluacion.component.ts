@@ -52,7 +52,7 @@ export class VerEvaluacionComponent implements OnInit {
     this.administrativaAmazonService.get('contrato_general?query=ContratoSuscrito.NumeroContratoSuscrito:963,VigenciaContrato:2017')
       .subscribe((res_admi_amazon) => {
         if (res_admi_amazon !== null) {
-          console.info(res_admi_amazon[0])
+          console.info(res_admi_amazon[0]);
           this.contratoCompleto = res_admi_amazon[0];
         }
       }, (error_service) => {
