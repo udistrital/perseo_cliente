@@ -11,31 +11,31 @@ const httpOptions = {
   }),
 };
 
-const path = environment.CONTRATO_SERVICE;
+const path = environment.ADMINISTRIVA_AMAZON;
 
 
 @Injectable({
   providedIn: 'root',
 })
-export class ContratoService {
+export class AdministrativaamazonService {
 
   constructor(private requestManager: RequestManager) {
-    this.requestManager.setPath('CONTRATO_SERVICE');
+    this.requestManager.setPath('ADMINISTRIVA_AMAZON');
   }
   get(endpoint) {
-    this.requestManager.setPath('CONTRATO_SERVICE');
+    this.requestManager.setPath('ADMINISTRIVA_AMAZON');
     return this.requestManager.get(endpoint);
   }
   post(endpoint, element) {
-    this.requestManager.setPath('CONTRATO_SERVICE');
+    this.requestManager.setPath('ADMINISTRIVA_AMAZON');
     return this.requestManager.post(endpoint, element);
   }
   put(endpoint, element) {
-    this.requestManager.setPath('CONTRATO_SERVICE');
+    this.requestManager.setPath('ADMINISTRIVA_AMAZON');
     return this.requestManager.put(endpoint, element);
   }
   delete(endpoint, element) {
-    this.requestManager.setPath('CONTRATO_SERVICE');
+    this.requestManager.setPath('ADMINISTRIVA_AMAZON');
     return this.requestManager.delete(endpoint, element.Id);
   }
 }

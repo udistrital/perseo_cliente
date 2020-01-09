@@ -1,5 +1,5 @@
 <div>
-  <div class="card card-margin">
+  <div class="card card-margin" *ngIf="realizar == false">
     <div class="card-body">
       <div class="row">
         <div class="col-9">
@@ -15,27 +15,39 @@
       <div class="row">
         <div class="col-4">
           <p>Puntaje Total de la evaluación</p>
+          <label>{{ this.evaluacionRealizada.ValorFinal}}</label>
         </div>
         <div class="col-4">
-          <p>Tipo de Proveedor</p>
-        </div>
-        <div class="col-4">
+          <p>Calificación</p>
+          <div *ngFor="let clasificador of evaluacionRealizada['Clasificaciones']; let k = index">
+              <label class="p-valor-item"
+                *ngIf="evaluacionRealizada.ValorFinal >= clasificador.LimiteInferior && evaluacionRealizada.ValorFinal <= clasificador.LimiteSuperior">
+                {{ clasificador['Nombre']  }}</label>
+          </div>
         </div>
         <div class="col-4">
           <p>Dependencia que evalua</p>
+          <label>{{this.contratoCompleto.DependenciaSolicitante}}</label>
         </div>
         <div class="col-4">
           <p>Fecha de la evaluación</p>
+          <label>{{ this.evaluacionRealizada.FechaCreacion }}</label>
         </div>
         <div class="col-4">
           <p>Nombre del supervisor encargado de la evulacion</p>
+          <label>{{this.contratoCompleto['Supervisor']['Nombre']}}</label>
         </div>
         <div class="col-4">
           <p>Cargo</p>
+          <label>{{this.contratoCompleto.Supervisor.Cargo}}</label>
+        </div>
+        <div class="col-4">
+          <p>Empresa o Provedor.</p>
+          <label>{{this.contratoCompleto.Contratista}}</label>
         </div>
         <div class="col-8">
           <p>Objeto del Contrato</p>
-          <label>sdadfasfa</label>
+          <label>{{this.contratoCompleto.ObjetoContrato}}</label>
         </div>
       </div>
     </div>

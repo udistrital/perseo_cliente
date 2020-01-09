@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, TemplateRef } from '@angular/core';
 import { EvaluacioncrudService } from '../../@core/data/evaluacioncrud.service';
-import { ContratoService } from '../../@core/data/contratoservice.service';
+import { AdministrativaamazonService } from '../../@core/data/admistrativaamazon.service';
 import { NbWindowService } from '@nebular/theme';
 
 @Component({
@@ -14,14 +14,17 @@ export class VerEvaluacionComponent implements OnInit {
   @Output() volverFiltro: EventEmitter<Boolean>;
   realizar: boolean;
   evaluacionRealizada: any;
+  contratoCompleto: any;
 
   constructor(
     private evaluacionCrudService: EvaluacioncrudService,
     private windowService: NbWindowService,
-    private contratoServicio: ContratoService,
+    private administrativaAmazonService: AdministrativaamazonService,
   ) {
     this.volverFiltro = new EventEmitter();
     this.evaluacionRealizada = {};
+    this.contratoCompleto = {};
+    this.realizar = true;
   }
 
   ngOnInit() {
@@ -45,13 +48,12 @@ export class VerEvaluacionComponent implements OnInit {
       }, (error_service) => {
         this.openWindow(error_service.message);
       });
-    this.contratoServicio.get('contrato/' + this.dataContrato[0].ContratoSuscrito + '/' + this.dataContrato[0].Vigencia)
-      .subscribe((wso_response) => {
-        console.info(wso_response);
 
-        if (wso_response.data.contrato.numero_contrato_suscrito) {
-        console.info(wso_response.data.contrato);
-
+    this.administrativaAmazonService.get('contrato_general?query=ContratoSuscrito.NumeroContratoSuscrito:963,VigenciaContrato:2017')
+      .subscribe((res_admi_amazon) => {
+        if (res_admi_amazon !== null) {
+          console.info(res_admi_amazon[0])
+          this.contratoCompleto = res_admi_amazon[0];
         }
       }, (error_service) => {
         this.openWindow(error_service.message);
