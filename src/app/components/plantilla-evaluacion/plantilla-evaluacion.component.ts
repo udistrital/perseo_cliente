@@ -59,10 +59,10 @@ export class PlantillaEvaluacionComponent implements OnInit {
 
   ngOnChanges() {
     if (Object.keys(this.evaluacionRealizada).length !== 0) {
-      console.info('Entre 1')
+      console.info('Entre 1');
       this.cargarEvaluacion();
     } else {
-      console.info('Entre 2')
+      console.info('Entre 2');
       this.CargarUltimaPlantilla();
     }
   }
