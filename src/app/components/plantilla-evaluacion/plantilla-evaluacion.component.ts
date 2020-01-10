@@ -14,10 +14,6 @@ export class PlantillaEvaluacionComponent {
   @Input() realizar: any;
   @ViewChild('contentTemplate', { read: false }) contentTemplate: TemplateRef<any>;
   @Output() jsonEvaluacion: EventEmitter<any>;
-
- 
-
-
   pipeprueba = 'algo';
   json: any = {};
   evaluacionCompleta: boolean;
@@ -41,8 +37,6 @@ export class PlantillaEvaluacionComponent {
         }
       });
   }
-
- 
 
   CargarUltimaPlantilla() {
     this.evaRealizada = false;
