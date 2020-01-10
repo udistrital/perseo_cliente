@@ -99,11 +99,11 @@ export class VerEvaluacionComponent implements OnInit {
 
   imprimirEvalucion() {
     // parentdiv is the html element which has to be converted to PDF
-    html2canvas(document.querySelector("#pdf")).then(canvas => {
+    html2canvas(document.querySelector('#pdf')).then(canvas => {
 
-      var pdf = new jsPDF('p', 'pt', [canvas.width, canvas.height]);
+      const pdf = new jsPDF('p', 'pt', [canvas.width, canvas.height]);
 
-      var imgData = canvas.toDataURL("image/jpeg", 1.0);
+      const imgData = canvas.toDataURL('image/jpeg', 1.0);
       pdf.addImage(imgData, 0, 0, canvas.width, canvas.height);
       pdf.save('converteddoc.pdf');
 
