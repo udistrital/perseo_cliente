@@ -1,7 +1,9 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, TemplateRef, ElementRef } from '@angular/core';
 import { EvaluacioncrudService } from '../../@core/data/evaluacioncrud.service';
 import { AdministrativaamazonService } from '../../@core/data/admistrativaamazon.service';
 import { NbWindowService } from '@nebular/theme';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'ngx-ver-evaluacion',
@@ -96,7 +98,17 @@ export class VerEvaluacionComponent implements OnInit {
   }
 
   imprimirEvalucion() {
-    console.info('Pa imprimir');
+    // parentdiv is the html element which has to be converted to PDF
+    html2canvas(document.querySelector("#pdf")).then(canvas => {
+
+      var pdf = new jsPDF('p', 'pt', [canvas.width, canvas.height]);
+
+      var imgData = canvas.toDataURL("image/jpeg", 1.0);
+      pdf.addImage(imgData, 0, 0, canvas.width, canvas.height);
+      pdf.save('converteddoc.pdf');
+
+    });
+
   }
 
   openWindow(mensaje) {

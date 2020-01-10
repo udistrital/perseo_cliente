@@ -1,24 +1,22 @@
-import { Component, OnInit, ViewChild, TemplateRef, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, Input, Output, EventEmitter } from '@angular/core';
 import { EvaluacionmidService } from '../../@core/data/evaluacionmid.service';
 import { EvaluacioncrudService } from '../../@core/data/evaluacioncrud.service';
 import { NbWindowService } from '@nebular/theme';
-import { LeerJsonLocalService } from '../../services/leer-json-local.service';
-import { IAppState } from '../../@core/store/app.state';
-import { Store } from '@ngrx/store';
-import { ListService } from '../../@core/store/services/list.service';
-// import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
+
 
 @Component({
   selector: 'ngx-plantilla-evaluacion',
   templateUrl: './plantilla-evaluacion.component.html',
   styleUrls: ['./plantilla-evaluacion.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlantillaEvaluacionComponent {
 
   @Input() realizar: any;
   @ViewChild('contentTemplate', { read: false }) contentTemplate: TemplateRef<any>;
   @Output() jsonEvaluacion: EventEmitter<any>;
+
+ 
+
 
   pipeprueba = 'algo';
   json: any = {};
@@ -43,6 +41,8 @@ export class PlantillaEvaluacionComponent {
         }
       });
   }
+
+ 
 
   CargarUltimaPlantilla() {
     this.evaRealizada = false;
