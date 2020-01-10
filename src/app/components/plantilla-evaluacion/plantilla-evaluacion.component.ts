@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef, Input, Output, EventEmitter, OnChanges, NgModule } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { EvaluacionmidService } from '../../@core/data/evaluacionmid.service';
 import { EvaluacioncrudService } from '../../@core/data/evaluacioncrud.service';
 import { NbWindowService } from '@nebular/theme';
@@ -14,10 +14,9 @@ import { ListService } from '../../@core/store/services/list.service';
   styleUrls: ['./plantilla-evaluacion.component.scss'],
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PlantillaEvaluacionComponent implements OnInit, OnChanges {
+export class PlantillaEvaluacionComponent {
 
   @Input() realizar: any;
-  @Input() evaluacionRealizada: any;
   @ViewChild('contentTemplate', { read: false }) contentTemplate: TemplateRef<any>;
   @Output() jsonEvaluacion: EventEmitter<any>;
 
@@ -27,20 +26,22 @@ export class PlantillaEvaluacionComponent implements OnInit, OnChanges {
   evaRealizada: boolean;
   constructor(
     private evaluacionMidService: EvaluacionmidService,
+    private evaluacioncrudService: EvaluacioncrudService,
     private windowService: NbWindowService,
-    // private store: Store<IAppState>,
-    // private listService: ListService,
   ) {
     this.jsonEvaluacion = new EventEmitter();
-    // this.listService.findPlantilla();
-    this.evaRealizada = false;
-    this.CargarUltimaPlantilla();
-  }
-
-  ngOnInit() {
-    this.evaluacionRealizada = {};
     this.evaluacionCompleta = true;
-    this.json = {};
+    this.evaluacioncrudService.evaluacionRealizada$
+      .subscribe((response: any) => {
+        if (response.length === 0) {
+          this.json = {};
+        } else if (Object.keys(response[0]).length === 0) {
+          this.CargarUltimaPlantilla();
+        } else if (response.length !== 0 && Object.keys(response[0]).length !== 0) {
+          this.json = JSON.parse(response[0].ResultadoEvaluacion);
+          this.evaRealizada = true;
+        }
+      });
   }
 
   CargarUltimaPlantilla() {
@@ -50,23 +51,6 @@ export class PlantillaEvaluacionComponent implements OnInit, OnChanges {
     }, (error_service) => {
       this.openWindow(error_service['body'][1]['Error']);
     });
-
-    // this.store.select((state) => state).subscribe(list => {
-    //    console.info(list.listPlantilla[0]);
-
-    //    this.json = list.listPlantilla[0];
-    //  });
-  }
-
-  ngOnChanges() {
-    if (Object.keys(this.evaluacionRealizada).length !== 0) {
-      this.cargarEvaluacion();
-    }
-  }
-
-  cargarEvaluacion() {
-    this.evaRealizada = true;
-    this.json = this.evaluacionRealizada;
   }
 
   realizarEvaluacion() {
@@ -99,7 +83,6 @@ export class PlantillaEvaluacionComponent implements OnInit, OnChanges {
       }
     }
   }
-
 
   filterChanged(i: any) {
     this.json.ValorFinal = 0;

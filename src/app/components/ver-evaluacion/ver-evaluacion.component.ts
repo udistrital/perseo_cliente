@@ -42,6 +42,7 @@ export class VerEvaluacionComponent implements OnInit {
     this.evaluacionCrudService.get('evaluacion?query=ContratoSuscrito:' + this.dataContrato[0].ContratoSuscrito +
       ',Vigencia:' + this.dataContrato[0].Vigencia).subscribe((res_evaluacion) => {
         if (Object.keys(res_evaluacion[0]).length !== 0) {
+          this.evaluacionCrudService.getEvaluacion('resultado_evaluacion?query=IdEvaluacion:' + res_evaluacion[0].Id + ',Activo:true');
           this.evaluacionCrudService.get('resultado_evaluacion?query=IdEvaluacion:' + res_evaluacion[0].Id + ',Activo:true')
             .subscribe((res_resultado_eva) => {
               if (res_resultado_eva !== null) {

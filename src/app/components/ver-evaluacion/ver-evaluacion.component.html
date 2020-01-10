@@ -31,7 +31,7 @@
         </div>
         <div class="col-4">
           <p>Fecha de la evaluación</p>
-          <label>{{ this.fechaEvaluacion  | date:'short' }}</label>
+          <label>{{ this.fechaEvaluacion  | date }}</label>
         </div>
         <div class="col-4">
           <p>Nombre del supervisor encargado de la evulacion</p>
@@ -52,7 +52,7 @@
       </div>
     </div>
   </div>
-  <ngx-plantilla-evaluacion [realizar]="this.realizar" [evaluacionRealizada]="this.evaluacionRealizada">
+  <ngx-plantilla-evaluacion [realizar]="this.realizar">
   </ngx-plantilla-evaluacion>
   <button (click)="regresarFiltro()" nbButton status="warning" class="btn-flotante">
     <i class="fas fa-arrow-alt-circle-left"></i>
