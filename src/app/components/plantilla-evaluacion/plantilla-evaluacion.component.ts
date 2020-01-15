@@ -1,12 +1,7 @@
-import { Component, OnInit, ViewChild, TemplateRef, Input, Output, EventEmitter, OnChanges, NgModule } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, Input, Output, EventEmitter } from '@angular/core';
 import { EvaluacionmidService } from '../../@core/data/evaluacionmid.service';
 import { EvaluacioncrudService } from '../../@core/data/evaluacioncrud.service';
 import { NbWindowService } from '@nebular/theme';
-import { LeerJsonLocalService } from '../../services/leer-json-local.service';
-import { IAppState } from '../../@core/store/app.state';
-import { Store } from '@ngrx/store';
-import { ListService } from '../../@core/store/services/list.service';
-
 
 
 @Component({
@@ -14,49 +9,42 @@ import { ListService } from '../../@core/store/services/list.service';
   templateUrl: './plantilla-evaluacion.component.html',
   styleUrls: ['./plantilla-evaluacion.component.scss'],
 })
-export class PlantillaEvaluacionComponent implements OnInit {
+export class PlantillaEvaluacionComponent {
 
   @Input() realizar: any;
-  @Input() evaluacionRealizada: any;
   @ViewChild('contentTemplate', { read: false }) contentTemplate: TemplateRef<any>;
   @Output() jsonEvaluacion: EventEmitter<any>;
-
   pipeprueba = 'algo';
   json: any = {};
   evaluacionCompleta: boolean;
   evaRealizada: boolean;
   constructor(
     private evaluacionMidService: EvaluacionmidService,
-    private windowService: NbWindowService,
-    private leerJsonService: LeerJsonLocalService,
     private evaluacioncrudService: EvaluacioncrudService,
-    private store: Store<IAppState>,
-    private listService: ListService,
+    private windowService: NbWindowService,
   ) {
     this.jsonEvaluacion = new EventEmitter();
-    this.listService.findPlantilla();
-    this.evaluacionRealizada = {};
-    this.json = {};
-    this.evaRealizada = false;
-  }
-
-  ngOnInit() {
     this.evaluacionCompleta = true;
+    this.evaluacioncrudService.evaluacionRealizada$
+      .subscribe((response: any) => {
+        if (response.length === 0) {
+          this.json = {};
+        } else if (Object.keys(response[0]).length === 0) {
+          this.CargarUltimaPlantilla();
+        } else if (response.length !== 0 && Object.keys(response[0]).length !== 0) {
+          this.json = JSON.parse(response[0].ResultadoEvaluacion);
+          this.evaRealizada = true;
+        }
+      });
   }
 
   CargarUltimaPlantilla() {
-    this.store.select((state) => state).subscribe(list => {
-      this.json = list.listPlantilla[0];
+    this.evaRealizada = false;
+    this.evaluacionMidService.get('plantilla').subscribe((res) => {
+      this.json = res;
+    }, (error_service) => {
+      this.openWindow(error_service['body'][1]['Error']);
     });
-  }
-
-  ngOnChanges() {
-    if (Object.keys(this.evaluacionRealizada).length !== 0) {
-      this.evaRealizada = true;
-      this.json = this.evaluacionRealizada;
-    } else {
-      this.CargarUltimaPlantilla();
-    }
   }
 
   realizarEvaluacion() {
@@ -80,7 +68,6 @@ export class PlantillaEvaluacionComponent implements OnInit {
               this.evaluacionCompleta = false;
             }
           }
-
         }
       }
       if (this.evaluacionCompleta === false) {
@@ -90,7 +77,6 @@ export class PlantillaEvaluacionComponent implements OnInit {
       }
     }
   }
-
 
   filterChanged(i: any) {
     this.json.ValorFinal = 0;
