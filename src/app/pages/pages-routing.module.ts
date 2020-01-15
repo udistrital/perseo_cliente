@@ -36,7 +36,7 @@ const routes: Routes = [{
       canActivate: [AuthGuard],
     },
     {
-      path: 'consulta_evaluacion/:IdentificacionProveedor',
+      path: 'consulta_evaluacion/:TipoDocumento/:IdentificacionProveedor',
       loadChildren: './consulta-evaluacion/consulta-evaluacion.module#ConsultaEvaluacionModule',
     },
     {
