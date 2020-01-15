@@ -9,12 +9,15 @@ import {ActivatedRoute} from '@angular/router';
 export class ConsultaEvaluacionComponent implements OnInit {
 
   identificacionProveedor: any;
+  tipodocumento: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     ) {
       this.activatedRoute.params.subscribe( params => {
         this.identificacionProveedor = params['IdentificacionProveedor'];
+        this.tipodocumento = params['TipoDocumento'];
+
       } );
      }
 
