@@ -59,8 +59,8 @@ export class RealizarEvaluacionComponent implements OnInit {
   }
 
   realizarEvaluacion(data: any) {
-    console.info(this.evaluacionRealizada)
-    console.info('tamaño: '+ Object.keys(this.evaluacionRealizada).length);
+    console.info(this.evaluacionRealizada);
+    console.info('tamaño: ' + Object.keys(this.evaluacionRealizada).length);
     if (Object.keys(this.evaluacionRealizada).length === 0) {
       // Se verifica si hay una evalucion existente
       this.jsonEvaluacion = {
