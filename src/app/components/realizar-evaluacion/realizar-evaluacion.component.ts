@@ -59,9 +59,9 @@ export class RealizarEvaluacionComponent implements OnInit {
   }
 
   realizarEvaluacion(data: any) {
-    console.info(this.evaluacionRealizada);
-    console.info('tamaño: ' + Object.keys(this.evaluacionRealizada).length);
-    if (Object.keys(this.evaluacionRealizada).length === 0) {
+    console.info(this.idResultadoEvalucion);
+    if (this.idResultadoEvalucion === 0) {
+      console.info('Nueva');
       // Se verifica si hay una evalucion existente
       this.jsonEvaluacion = {
         'Activo': true,
@@ -97,6 +97,7 @@ export class RealizarEvaluacionComponent implements OnInit {
           this.openWindow(error_service.message);
         });
     } else {
+      console.info('Modificada');
       this.evaluacionCrudService.get('resultado_evaluacion?query=Id:' + this.idResultadoEvalucion + ',Activo:true')
         .subscribe((res_resultado_eva) => {
           if (res_resultado_eva !== null) {
