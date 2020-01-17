@@ -40,6 +40,7 @@ export class RealizarEvaluacionComponent implements OnInit {
           this.evaluacionCrudService.get('resultado_evaluacion?query=IdEvaluacion:' + res_evaluacion[0].Id + ',Activo:true')
             .subscribe((res_resultado_eva) => {
               if (res_resultado_eva !== null) {
+                this.evaluacionRealizada = res_resultado_eva[0];
                 this.idResultadoEvalucion = res_resultado_eva[0].Id;
               }
             }, (error_service) => {
