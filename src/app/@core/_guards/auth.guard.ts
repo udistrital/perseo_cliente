@@ -23,7 +23,6 @@ export class AuthGuard implements CanActivate {
     if (payload && payload.role) {
       for ( let i = 0; i < payload.role.length; i++) {
           if ( (payload.role[i] === 'ORDENADOR_DEL_GASTO') || (payload.role[i] === 'SUPERVISOR')) {
-            console.info(payload.role[i]);
               valid = true;
               break;
           }

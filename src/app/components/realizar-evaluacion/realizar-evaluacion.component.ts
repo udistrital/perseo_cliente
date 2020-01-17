@@ -2,8 +2,6 @@ import { Component, OnInit, Input, Output, ViewChild, TemplateRef, EventEmitter 
 import { EvaluacioncrudService } from '../../@core/data/evaluacioncrud.service';
 import { NbWindowService } from '@nebular/theme';
 
-
-
 @Component({
   selector: 'ngx-realizar-evaluacion',
   templateUrl: './realizar-evaluacion.component.html',
@@ -12,10 +10,7 @@ import { NbWindowService } from '@nebular/theme';
 export class RealizarEvaluacionComponent implements OnInit {
   @Input() dataContrato: any = [];
   @Output() volverFiltro: EventEmitter<Boolean>;
-
-
   @ViewChild('contentTemplate', { read: false }) contentTemplate: TemplateRef<any>;
-
   realizar: boolean;
   evaluacionRealizada: any;
   jsonEvaluacion: any;
@@ -40,16 +35,19 @@ export class RealizarEvaluacionComponent implements OnInit {
     this.evaluacionCrudService.get('evaluacion?query=ContratoSuscrito:' + this.dataContrato[0].ContratoSuscrito +
       ',Vigencia:' + this.dataContrato[0].Vigencia).subscribe((res_evaluacion) => {
         if (Object.keys(res_evaluacion[0]).length !== 0) {
-          // this.openWindow('Ya hay una evaluación existente, usted procederá a modificarla.');
+          this.openWindow('Ya hay una evaluación existente, usted procederá a modificarla.');
+          this.evaluacionCrudService.getEvaluacion('resultado_evaluacion?query=IdEvaluacion:' + res_evaluacion[0].Id + ',Activo:true');
           this.evaluacionCrudService.get('resultado_evaluacion?query=IdEvaluacion:' + res_evaluacion[0].Id + ',Activo:true')
             .subscribe((res_resultado_eva) => {
               if (res_resultado_eva !== null) {
-                this.evaluacionRealizada = JSON.parse(res_resultado_eva[0].ResultadoEvaluacion);
+                this.evaluacionRealizada = res_resultado_eva[0];
                 this.idResultadoEvalucion = res_resultado_eva[0].Id;
               }
             }, (error_service) => {
               this.openWindow(error_service.message);
             });
+        } else {
+          this.evaluacionCrudService.getEvaluacion('nuevaEvaluacion');
         }
       }, (error_service) => {
         this.openWindow(error_service.message);
@@ -100,28 +98,24 @@ export class RealizarEvaluacionComponent implements OnInit {
       this.evaluacionCrudService.get('resultado_evaluacion?query=Id:' + this.idResultadoEvalucion + ',Activo:true')
         .subscribe((res_resultado_eva) => {
           if (res_resultado_eva !== null) {
-            res_resultado_eva[0].ResultadoEvaluacion = JSON.stringify(data);
-
+            res_resultado_eva[0].Activo = false;
             this.evaluacionCrudService.put('resultado_evaluacion', res_resultado_eva[0]).subscribe((res_eva_actual) => {
-              if (res_resultado_eva !== null) {
-                this.openWindow('Se ha actualizado satisfactoriamente la evaluación del contrato ' + this.dataContrato[0].ContratoSuscrito +
-                  ' de ' + this.dataContrato[0].Vigencia);
-                this.regresarFiltro();
-                // this.jsonResultadoEvaluacion = {
-                //   'Activo': true,
-                //   'IdEvaluacion': res_eva_actual['IdEvaluacion'],
-                //   'ResultadoEvaluacion': JSON.stringify(data),
-                // };
-                // // Se realiza el post del resultado de la evaluación.
-                // this.evaluacionCrudService.post('resultado_evaluacion', this.jsonResultadoEvaluacion).subscribe((res_res_eva) => {
-                //   if (res_res_eva !== null) {
-                //     this.openWindow('Se ha actualizado satisfactoriamente la evaluación del contrato ' + this.dataContrato[0].ContratoSuscrito +
-                //       ' de ' + this.dataContrato[0].Vigencia);
-                //     this.regresarFiltro();
-                //   }
-                // }, (error_service) => {
-                //   this.openWindow(error_service.message);
-                // });
+              if (res_eva_actual !== null) {
+                this.jsonResultadoEvaluacion = {
+                  'Activo': true,
+                  'IdEvaluacion': res_eva_actual['IdEvaluacion'],
+                  'ResultadoEvaluacion': JSON.stringify(data),
+                };
+                // Se realiza el post del resultado de la evaluación.
+                this.evaluacionCrudService.post('resultado_evaluacion', this.jsonResultadoEvaluacion).subscribe((res_res_eva) => {
+                  if (res_res_eva !== null) {
+                    this.regresarFiltro();
+                    this.openWindow('Se ha actualizado satisfactoriamente la evaluación del contrato ' + this.dataContrato[0].ContratoSuscrito +
+                      ' de ' + this.dataContrato[0].Vigencia);
+                  }
+                }, (error_service) => {
+                  this.openWindow(error_service.message);
+                });
               }
             }, (error_service) => {
             });
