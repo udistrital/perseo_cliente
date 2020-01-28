@@ -93,6 +93,7 @@
     "nuxeo": "^3.6.0",
     "oidc-auth": "^0.3.0",
     "pace-js": "1.0.2",
+    "pdfmake": "^0.1.63",
     "popper.js": "^1.14.7",
     "roboto-fontface": "0.8.0",
     "rxjs": "^6.4.0",
