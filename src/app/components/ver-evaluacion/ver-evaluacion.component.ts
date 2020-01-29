@@ -41,7 +41,7 @@ export class VerEvaluacionComponent implements OnInit {
     this.dependencia = '';
     this.fechaEvaluacion = new Date();
     this.labelAux = ['\n\n'];
-    this.jsonPDF = []
+    this.jsonPDF = [];
   }
 
   ngOnInit() {
@@ -77,7 +77,7 @@ export class VerEvaluacionComponent implements OnInit {
 
   crearJsonPDF() {
     let array: any;
-    let body: any = [];
+    const body: any = [];
     // animals.push('cows');
 
     // Se verifica si se existe un label, de ser así se crea el objeto para this.labelAux
@@ -96,7 +96,7 @@ export class VerEvaluacionComponent implements OnInit {
         body.push([this.evaluacionRealizada.Secciones[i].Seccion_hija_id[k].Item[0].Valor,
         this.evaluacionRealizada.Secciones[i].Seccion_hija_id[k].Item[1].Valor,
         this.evaluacionRealizada.Secciones[i].Seccion_hija_id[k].Item[2].Valor.Nombre,
-        this.evaluacionRealizada.Secciones[i].Seccion_hija_id[k].Item[2].Valor.Valor])
+        this.evaluacionRealizada.Secciones[i].Seccion_hija_id[k].Item[2].Valor.Valor]);
 
       }
       body.push(['', '', { text: 'Puntaje total', style: 'subtitle' }, '12']);
@@ -112,8 +112,8 @@ export class VerEvaluacionComponent implements OnInit {
         },
         layout: 'noBorders',
       },
-    ]]
-    this.jsonPDF.push(array)
+    ]];
+    this.jsonPDF.push(array);
 
   }
 
@@ -304,8 +304,7 @@ export class VerEvaluacionComponent implements OnInit {
                   {
                     text: '6',
                     alignment: 'center',
-                  }
-
+                  },
                 ],
                 ['CANTIDADES', '¿Se entregan las cantidades solicitadas?', 'SI', {
                   text: '6',
