@@ -1,14 +1,33 @@
+<div class="card card-margin" *ngIf="realizar == false">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-8">
+        <H2>Ver Evaluación</H2>
+      </div>
+      <div class="col-2">
+        <button (click)="imprimirEvalucion()" nbButton class="btn-right">
+          Imprimir Evaluación
+        </button>
+      </div>
+      <div class="col-2">
+        <button (click)="regresarFiltro()" nbButton status="warning">
+          <i class="fas fa-arrow-alt-circle-left"></i>
+          Regresar
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<br>
 <div class="font-black" id="pdf">
   <div class="card card-margin" *ngIf="realizar == false">
     <div class="card-body">
       <div class="row">
         <div class="col-9">
-          <H1>Ver Evaluación</H1>
+          <H1>EVALUACIÓN DEL PROVEEDOR</H1>
         </div>
         <div class="col-3">
-          <button (click)="imprimirEvalucion()" nbButton class="btn-right">
-            Imprimir Evaluación
-          </button>
         </div>
       </div>
       <!-- Div para los datos del contrato   -->
@@ -34,7 +53,7 @@
           <label>{{ this.fechaEvaluacion  | date }}</label>
         </div>
         <div class="col-4">
-          <p>Nombre del supervisor encargado de la evulacion</p>
+          <p>Nombre del supervisor encargado de la evaluación</p>
           <label>{{this.supervisor.Nombre}}</label>
         </div>
         <div class="col-4">
@@ -54,10 +73,6 @@
   </div>
   <ngx-plantilla-evaluacion [realizar]="this.realizar">
   </ngx-plantilla-evaluacion>
-  <button (click)="regresarFiltro()" nbButton status="warning" class="btn-flotante">
-    <i class="fas fa-arrow-alt-circle-left"></i>
-    Regresar
-  </button>
 </div>
 <ng-template #contentTemplate let-data>
   <h4>{{ data.text }}</h4>
