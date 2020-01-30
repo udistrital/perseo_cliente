@@ -69,52 +69,69 @@ export class VerEvaluacionComponent implements OnInit {
       }, (error_service) => {
         this.openWindow(error_service.message);
       });
+  }
 
-
-
-
+  getCalificacion() {
+    for (let i = 0; i < this.evaluacionRealizada.Clasificaciones.length; i++) {
+      if (this.evaluacionRealizada.ValorFinal >= this.evaluacionRealizada.Clasificaciones[i].LimiteInferior
+        && this.evaluacionRealizada.ValorFinal <= this.evaluacionRealizada.Clasificaciones[i].LimiteSuperior) {
+        return this.evaluacionRealizada.Clasificaciones[i].Nombre;
+      }
+    }
   }
 
   crearJsonPDF() {
     let array: any;
-    const body: any = [];
-    // animals.push('cows');
-
-    // Se verifica si se existe un label, de ser así se crea el objeto para this.labelAux
-    if (this.evaluacionRealizada.label !== '') {
-      this.labelAux = [
-        { text: '\n\nITEM EVALUADO', bold: true, style: 'title' },
-        { text: '\n' + this.evaluacionRealizada.label + '\n\n\n' },
-      ];
-    }
-
+    let bodyTableSeccion: any = [];
+    let valorSeccion: any;
     // Se crea el objeto que trae toda la calificación
     for (let i = 1; i < this.evaluacionRealizada.Secciones.length; i++) {
-      body.push([' ', ' ', ' ', { text: 'Valor Asignado', style: 'subtitle' }]);
-
+      bodyTableSeccion = [];
+      valorSeccion = 0;
+      bodyTableSeccion.push([' ', ' ', ' ', { text: 'Valor Asignado', style: 'subtitulo' }]);
       for (let k = 0; k < this.evaluacionRealizada.Secciones[i].Seccion_hija_id.length; k++) {
-        body.push([this.evaluacionRealizada.Secciones[i].Seccion_hija_id[k].Item[0].Valor,
-        this.evaluacionRealizada.Secciones[i].Seccion_hija_id[k].Item[1].Valor,
-        this.evaluacionRealizada.Secciones[i].Seccion_hija_id[k].Item[2].Valor.Nombre,
-        this.evaluacionRealizada.Secciones[i].Seccion_hija_id[k].Item[2].Valor.Valor]);
-
+        if (this.evaluacionRealizada.Secciones[i].Seccion_hija_id[k]['Condicion'].length > 0) {
+          if (this.evaluacionRealizada.Secciones[i].Seccion_hija_id[k - 1]['Item'][2].Valor.Nombre ===
+            this.evaluacionRealizada.Secciones[i].Seccion_hija_id[k]['Condicion'][0]['Nombre']) {
+            bodyTableSeccion.push([this.evaluacionRealizada.Secciones[i].Seccion_hija_id[k].Item[0].Valor,
+            this.evaluacionRealizada.Secciones[i].Seccion_hija_id[k].Item[1].Valor,
+            this.evaluacionRealizada.Secciones[i].Seccion_hija_id[k].Item[2].Valor.Nombre,
+            {
+              text: this.evaluacionRealizada.Secciones[i].Seccion_hija_id[k].Item[2].Valor.Valor,
+              alignment: 'center',
+            },
+            ]);
+            valorSeccion += this.evaluacionRealizada.Secciones[i].Seccion_hija_id[k].Item[2].Valor.Valor;
+          }
+        } else {
+          bodyTableSeccion.push([this.evaluacionRealizada.Secciones[i].Seccion_hija_id[k].Item[0].Valor,
+          this.evaluacionRealizada.Secciones[i].Seccion_hija_id[k].Item[1].Valor,
+          this.evaluacionRealizada.Secciones[i].Seccion_hija_id[k].Item[2].Valor.Nombre,
+          {
+            text: this.evaluacionRealizada.Secciones[i].Seccion_hija_id[k].Item[2].Valor.Valor,
+            alignment: 'center',
+          },
+          ]);
+          valorSeccion += this.evaluacionRealizada.Secciones[i].Seccion_hija_id[k].Item[2].Valor.Valor;
+        }
       }
-      body.push(['', '', { text: 'Puntaje total', style: 'subtitle' }, '12']);
-
-    }
-
-    console.info(this.evaluacionRealizada);
-    array = [[
-      { text: this.evaluacionRealizada.Secciones[1].Nombre, style: 'header' },
-      {
-        table: {
-          body: body,
+      bodyTableSeccion.push(['', '',
+        { text: 'Puntaje total', style: 'subtitulo' },
+        { text: valorSeccion, alignment: 'center' },
+      ]);
+      array = [[
+        { text: this.evaluacionRealizada.Secciones[i].Nombre, style: 'header' },
+        {
+          style: 'tableSeciones',
+          table: {
+            widths: [85, '*', 60, 60],
+            body: bodyTableSeccion,
+          },
+          layout: 'noBorders',
         },
-        layout: 'noBorders',
-      },
-    ]];
-    this.jsonPDF.push(array);
-
+      ]];
+      this.jsonPDF.push(array);
+    }
   }
 
   consultarDatosContrato() {
@@ -150,36 +167,8 @@ export class VerEvaluacionComponent implements OnInit {
   }
 
   imprimirEvalucion() {
-    // Convierte el html en imagen
-    /*html2canvas(document.querySelector('#pdf')).then(canvas => {
-      const pdf = new jsPDF('p', 'pt', 'letter');
-      pdf.page = 1;
-      // 'p', 'pt', [canvas.width, canvas.height]
-      const imgData = canvas.toDataURL('image/jpeg');
-      pdf.text(30, 20, 'Header');
-      pdf.addImage(imgData, 30, 50, canvas.width / 2, canvas.height / 2);
-      // Nueva Pagina
-      pdf.addPage();
-      pdf.fromHTML(document.querySelector('.table-header'), 30, 20);
-      pdf.addImage(imgData, 30, 100, canvas.width / 2, canvas.height / 2);
-      pdf.save('evaluacion_del_contrato' + this.dataContrato[0].ContratoSuscrito +
-        '-' + this.dataContrato[0].Vigencia + '.pdf');
-    });*/
-
-    // Convierte el html en texto plano.
-    // const pdf = new jsPDF('p', 'pt', 'letter');
-    // pdf.canvas.height = 72 * 11;
-    // pdf.canvas.width = 72 * 8.5;
-    // pdf.fromHTML(document.querySelector('#pdf'), 10, 10);
-    // pdf.save('test.pdf');
-
-    // Usando la librería pdfmake
     pdfMake.createPdf(this.makePdf2()).download('evaluacion_del_contrato' + this.dataContrato[0].ContratoSuscrito +
       '-' + this.dataContrato[0].Vigencia + '.pdf');
-
-
-
-
   }
 
   openWindow(mensaje) {
@@ -189,12 +178,16 @@ export class VerEvaluacionComponent implements OnInit {
     );
   }
 
+  formatDate(date) {
+    return date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear();
+  }
+
   makePdf2() {
     return {
       ageSize: 'LETTER',
-      pageMargins: [40, 110, 40, 50],
+      pageMargins: [40, 130, 40, 60],
       header: {
-        margin: [40, 30],
+        margin: [40, 50],
         columns: [
           {
             table: {
@@ -223,22 +216,21 @@ export class VerEvaluacionComponent implements OnInit {
         ],
       },
       content: [
-
         {
           style: 'table',
           table: {
-            widths: [121, '*', 105, 90],
+            widths: [136, '*', 113, 80],
             body: [
               [{ text: 'PUNTAJE DE LA EVALUACIÓN', bold: true },
               this.evaluacionRealizada.ValorFinal,
               { text: 'CALIFICACIÓN PROVEEDOR', bold: true },
-                '',
+              this.getCalificacion(),
               ],
               [
                 { text: 'DEPENDENCIA QUE EVALUA', bold: true },
                 this.dependencia,
-                'FECHA',
-                this.fechaEvaluacion,
+                { text: 'FECHA', bold: true },
+                this.formatDate(this.fechaEvaluacion),
               ],
             ],
           },
@@ -246,7 +238,7 @@ export class VerEvaluacionComponent implements OnInit {
         {
           style: 'table',
           table: {
-            widths: [121, '*', 24, 70, 24, 70],
+            widths: [136, '*', 27, 90, 27, 70],
             body: [
               [
                 { text: 'EMPRESA o PROVEEDOR', bold: true },
@@ -261,7 +253,7 @@ export class VerEvaluacionComponent implements OnInit {
               { text: this.evaluacionRealizada.label, style: 'tableHeader', colSpan: 5 },
                 '', '', '', '',
               ],
-              [{ text: 'NOMBRE DEL SUPERVISOR ENCARGADO DE LA EVALUACIÓN', bold: true },
+              [{ text: 'NOMBRE DEL SUPERVISOR ENCARGADO', bold: true },
               {
                 border: [false, true, false, true],
                 text: this.supervisor.Nombre,
@@ -273,11 +265,12 @@ export class VerEvaluacionComponent implements OnInit {
               },
               {
                 border: [false, true, false, true],
+                fontSize: 8,
                 text: this.supervisor.Cargo,
               },
               {
                 border: [false, true, false, true],
-                text: 'Firma:', bold: true,
+                text: 'Firma', bold: true,
               },
               {
                 border: [false, true, true, true],
@@ -287,41 +280,11 @@ export class VerEvaluacionComponent implements OnInit {
             ],
           },
         },
-        [
-          { text: '\nCumplimiento', style: 'header' },
-          {
-            style: 'table',
-            table: {
-              widths: [80, '*', 60, 60],
-              body: [
-                [' ',
-                  ' ',
-                  ' ',
-                  { text: 'Valor Asignado', style: 'subtitulo' }],
-                [' TIEMPOS DE ENTREGA ',
-                  '¿Se cumplieron los tiempos de entrega de bienes o la prestación del servicios ofertados por el proveedor? ',
-                  'No',
-                  {
-                    text: '6',
-                    alignment: 'center',
-                  },
-                ],
-                ['CANTIDADES', '¿Se entregan las cantidades solicitadas?', 'SI', {
-                  text: '6',
-                  alignment: 'center',
-                }],
-
-                ['', '', { text: '\nPuntaje total', style: 'subtitulo' }, {
-                  text: '\n12',
-                  alignment: 'center',
-                }],
-              ],
-            },
-            layout: 'noBorders',
-          },
-        ],
+        '\n\n',
+        this.jsonPDF,
+        '\n',
         {
-          style: 'table',
+          style: 'tableFooter',
           table: {
             widths: [51, 92, '*', 47],
             body: [
@@ -336,10 +299,18 @@ export class VerEvaluacionComponent implements OnInit {
                     'mediante oficio adjunto al presente formato.\n' +
                     'PROVEEDOR TIPO C: MALO. Puntaje inferior o igual a 45 puntos. La Universidad no debe contratar con este proveedor.',
                 },
-                {
-                  alignment: 'center',
-                  text: 'Puntaje Final\n' + this.evaluacionRealizada.ValorFinal,
-                },
+                [
+                  {
+                    alignment: 'center',
+                    text: 'Puntaje Final',
+                  },
+                  {
+                    alignment: 'center',
+                    text: this.evaluacionRealizada.ValorFinal,
+                    fontSize: 12,
+                    brold: true,
+                  },
+                ],
               ],
               [
                 '',
@@ -347,7 +318,7 @@ export class VerEvaluacionComponent implements OnInit {
                 '',
                 {
                   alignment: 'center',
-                  text: '\nExcelente',
+                  text: '\n\n' + this.getCalificacion(),
                 },
               ],
             ],
@@ -360,9 +331,15 @@ export class VerEvaluacionComponent implements OnInit {
       styles: {
         table: {
           margin: [0, 5, 0, 5],
+          fontSize: 9,
+        },
+        tableFooter: {
+          margin: [0, 5, 0, 5],
           fontSize: 8,
-          padding: [3, 3, 3, 3],
-
+        },
+        tableSeciones: {
+          margin: [0, 5, 0, 10],
+          fontSize: 10,
         },
         tableHeader: {
           bold: true,
