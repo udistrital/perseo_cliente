@@ -6,7 +6,7 @@
       </div>
       <div class="col-2">
         <button (click)="imprimirEvalucion()" nbButton class="btn-right">
-          Imprimir Evaluación
+          Descargar Evaluación
         </button>
       </div>
       <div class="col-2">
@@ -25,7 +25,7 @@
     <div class="card-body">
       <div class="row">
         <div class="col-9">
-          <H1>EVALUACIÓN DEL PROVEEDOR</H1>
+          <H1>Información General</H1>
         </div>
         <div class="col-3">
         </div>
@@ -45,12 +45,12 @@
           </div>
         </div>
         <div class="col-4">
-          <p>Dependencia que evalua</p>
+          <p>Dependencia que evalúa</p>
           <label>{{this.dependencia}}</label>
         </div>
         <div class="col-4">
           <p>Fecha de la evaluación</p>
-          <label>{{ this.fechaEvaluacion  | date }}</label>
+          <label>{{ this.formatDate(this.fechaEvaluacion) }}</label>
         </div>
         <div class="col-4">
           <p>Nombre del supervisor encargado de la evaluación</p>
@@ -61,7 +61,7 @@
           <label>{{this.supervisor.Cargo}}</label>
         </div>
         <div class="col-4">
-          <p>Empresa o Provedor.</p>
+          <p>Empresa o Provedor</p>
           <label>{{this.proveedor.NomProveedor}}</label>
         </div>
         <div class="col-8">
