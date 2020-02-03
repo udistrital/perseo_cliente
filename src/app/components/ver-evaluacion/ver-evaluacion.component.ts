@@ -56,7 +56,7 @@ export class VerEvaluacionComponent implements OnInit {
             .subscribe((res_resultado_eva) => {
               if (res_resultado_eva !== null) {
                 this.evaluacionRealizada = JSON.parse(res_resultado_eva[0].ResultadoEvaluacion);
-                this.fechaEvaluacion = new Date(this.evaluacionRealizada.FechaCreacion.substr(0, 16));
+                this.fechaEvaluacion = new Date(res_resultado_eva[0].FechaCreacion.substr(0, 16));
                 this.crearJsonPDF();
               }
             }, (error_service) => {
@@ -179,7 +179,7 @@ export class VerEvaluacionComponent implements OnInit {
   }
 
   formatDate(date) {
-    return date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear();
+    return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
   }
 
   makePdf2() {
