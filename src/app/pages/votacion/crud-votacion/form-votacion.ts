@@ -124,4 +124,4 @@ export let FORM_VOTACION = {
         tipo: 'checkbox',
     },
     ],
-}
+};

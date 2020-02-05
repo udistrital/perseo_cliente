@@ -56,7 +56,7 @@ export class CrudVotacionComponent implements OnInit {
     for (let index = 0; index < this.formVotacion.campos.length; index++) {
       const element = this.formVotacion.campos[index];
       if (element.nombre === nombre) {
-        return index
+        return index;
       }
     }
     return 0;
