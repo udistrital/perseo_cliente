@@ -51,6 +51,24 @@ export class PagesComponent implements OnInit {
             icon: 'nb-home',
             link: '/pages/dashboard',
           });
+          this.menuLogin.push({
+            title: 'Votacion',
+            icon: 'nb-compose',
+            link: '/pages/votacion',
+            // key: 'votacion',
+            children: [
+              {
+                title: 'Lista Votacion',
+                link: '/pages/votacion/list-votacion',
+                // key: 'lista_votacion',
+              },
+              {
+                title: 'CRUD Votacion',
+                link: '/pages/votacion/crud-votacion',
+                // key: 'crud_votacion',
+              },
+            ],
+          });
           if (menuRespuesta !== null) {
             for (let i = 0; i < menuRespuesta.length; i++) {
               this.menuLogin.push({

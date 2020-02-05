@@ -6,6 +6,24 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'nb-home',
     link: '/pages/dashboard',
   },
+  {
+    title: 'Votacion',
+    icon: 'nb-compose',
+    link: '/pages/votacion',
+    // key: 'votacion',
+    children: [
+      {
+        title: 'Lista Votacion',
+        link: '/pages/votacion/list-votacion',
+        // key: 'lista_votacion',
+      },
+      {
+        title: 'CRUD Votacion',
+        link: '/pages/votacion/crud-votacion',
+        // key: 'crud_votacion',
+      },
+    ],
+  },
   // {
   //   title: 'Consulta Evaluación',
   //   icon: 'nb-search',

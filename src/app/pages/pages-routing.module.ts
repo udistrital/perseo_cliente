@@ -24,6 +24,10 @@ const routes: Routes = [{
       loadChildren: './consulta-evaluacion/consulta-evaluacion.module#ConsultaEvaluacionModule',
     },
     {
+      path: 'votacion',
+      loadChildren: './votacion/votacion.module#VotacionModule',
+      },
+    {
       path: '',
       redirectTo: 'dashboard',
       pathMatch: 'full',
