@@ -43,7 +43,7 @@ export class PagesComponent implements OnInit {
         this.roles = (JSON.parse(atob(localStorage.getItem('id_token').split('.')[1])).role)
         .filter((data: any) => (data.indexOf('/') === -1));
         // console.info(this.roles);
-        this.menuService.get(this.roles + `/Evaluacion`).subscribe( menuResult => {
+        this.menuService.get(this.roles + `/Perseo`).subscribe( menuResult => {
           // console.info(menuResult);
           const menuRespuesta = <any>menuResult;
           this.menuLogin.push({
@@ -51,31 +51,53 @@ export class PagesComponent implements OnInit {
             icon: 'nb-home',
             link: '/pages/dashboard',
           });
-          this.menuLogin.push({
-            title: 'Votacion',
-            icon: 'nb-compose',
-            link: '/pages/votacion',
-            // key: 'votacion',
-            children: [
-              {
-                title: 'Lista Votacion',
-                link: '/pages/votacion/list-votacion',
-                // key: 'lista_votacion',
-              },
-              {
-                title: 'CRUD Votacion',
-                link: '/pages/votacion/crud-votacion',
-                // key: 'crud_votacion',
-              },
-            ],
-          });
+          // this.menuLogin.push({
+          //   title: 'Votacion',
+          //   icon: 'nb-compose',
+          //   link: '/pages/votacion',
+          //   // key: 'votacion',
+          //   children: [
+          //     {
+          //       title: 'Lista Votacion',
+          //       link: '/pages/votacion/list-votacion',
+          //       // key: 'lista_votacion',
+          //     },
+          //     {
+          //       title: 'CRUD Votacion',
+          //       link: '/pages/votacion/crud-votacion',
+          //       // key: 'crud_votacion',
+          //     },
+          //   ],
+          // });
           if (menuRespuesta !== null) {
             for (let i = 0; i < menuRespuesta.length; i++) {
-              this.menuLogin.push({
-                title: menuRespuesta[i]['Nombre'],
-                link: menuRespuesta[i]['Url'],
-                icon: 'nb-compose',
-              });
+              if ( menuRespuesta[i]['Opciones'] !== null ) {
+                let hijos: Hijo[] = [];
+                // this.menuLogin.push({
+                //   title: menuRespuesta[i]['Nombre'],
+                //   link: menuRespuesta[i]['Url'],
+                //   icon: 'nb-compose',
+                // });
+                for (let j = 0; j < menuRespuesta[i]['Opciones'].length; j++) {
+                  hijos.push({
+                    title: menuRespuesta[i]['Opciones'][j]['Nombre'],
+                    link: menuRespuesta[i]['Opciones'][j]['Url'],
+                  });
+                }
+                this.menuLogin.push({
+                  title: menuRespuesta[i]['Nombre'],
+                  link: menuRespuesta[i]['Url'],
+                  icon: 'nb-compose',
+                  children: hijos,
+                });
+              } else {
+                this.menuLogin.push({
+                  title: menuRespuesta[i]['Nombre'],
+                  link: menuRespuesta[i]['Url'],
+                  icon: 'nb-compose',
+                });
+              }
+
             }
             // console.info(this.menuLogin);
           }
@@ -87,3 +109,10 @@ export class PagesComponent implements OnInit {
       }
     }
 }
+
+
+
+interface Hijo {
+  title: string;
+  link: string;
+  }
