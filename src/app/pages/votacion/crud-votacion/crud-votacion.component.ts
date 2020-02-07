@@ -1,7 +1,7 @@
 
 import { Votacion } from './../../../@core/data/models/votacion';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-// import { VotoService } from '../../../@core/data/voto.service';
+import { PersepMidService } from '../../../@core/data/perseomid.service';
 import { FORM_VOTACION } from './form-votacion';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
@@ -31,7 +31,10 @@ export class CrudVotacionComponent implements OnInit {
   regVotacion: any;
   clean: boolean;
 
-  constructor(private translate: TranslateService, private toasterService: ToasterService) {
+  constructor(
+    private translate: TranslateService,
+    private perseomid: PersepMidService,
+    private toasterService: ToasterService) {
     this.formVotacion = FORM_VOTACION;
     this.construirForm();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -66,7 +69,7 @@ export class CrudVotacionComponent implements OnInit {
 
   public loadVotacion(): void {
     if (this.votacion_id !== undefined && this.votacion_id !== 0) {
-      // this.votoService.get('votacion/?query=id:' + this.votacion_id)
+      // this.perseomid.get('votacion/?query=id:' + this.votacion_id)
       //   .subscribe(res => {
       //     if (res !== null) {
       //       this.info_votacion = <Votacion>res[0];
@@ -93,7 +96,7 @@ export class CrudVotacionComponent implements OnInit {
       if (willDelete.value) {
         console.info('actualizar votacion');
         // this.info_votacion = <Votacion>votacion;
-        // this.votoService.put('votacion', this.info_votacion)
+        // this.perseomid.put('votacion', this.info_votacion)
         //   .subscribe(res => {
         //     this.loadVotacion();
         //     this.eventChange.emit(true);
@@ -117,7 +120,7 @@ export class CrudVotacionComponent implements OnInit {
       if (willDelete.value) {
         console.info(votacion);
         // this.info_votacion = <Votacion>votacion;
-        // this.votoService.post('votacion', this.info_votacion)
+        // this.perseomid.post('votacion', this.info_votacion)
         //   .subscribe(res => {
         //     this.info_votacion = <Votacion>res;
         //     this.eventChange.emit(true);
