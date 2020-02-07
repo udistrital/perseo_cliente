@@ -1,5 +1,5 @@
 
-// import { Votacion } from './../../../@core/data/models/votacion';
+import { Votacion } from './../../../@core/data/models/votacion';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 // import { VotoService } from '../../../@core/data/voto.service';
 import { FORM_VOTACION } from './form-votacion';
@@ -25,7 +25,8 @@ export class CrudVotacionComponent implements OnInit {
 
   @Output() eventChange = new EventEmitter();
 
-  // info_votacion: Votacion;
+  info_votacion: Votacion;
+  // info_votacion: any;
   formVotacion: any;
   regVotacion: any;
   clean: boolean;
@@ -64,17 +65,17 @@ export class CrudVotacionComponent implements OnInit {
 
 
   public loadVotacion(): void {
-    // if (this.votacion_id !== undefined && this.votacion_id !== 0) {
-    //   this.votoService.get('votacion/?query=id:' + this.votacion_id)
-    //     .subscribe(res => {
-    //       if (res !== null) {
-    //         this.info_votacion = <Votacion>res[0];
-    //       }
-    //     });
-    // } else  {
-    //   this.info_votacion = undefined;
-    //   this.clean = !this.clean;
-    // }
+    if (this.votacion_id !== undefined && this.votacion_id !== 0) {
+      // this.votoService.get('votacion/?query=id:' + this.votacion_id)
+      //   .subscribe(res => {
+      //     if (res !== null) {
+      //       this.info_votacion = <Votacion>res[0];
+      //     }
+      //   });
+    } else  {
+      this.info_votacion = undefined;
+      this.clean = !this.clean;
+    }
   }
 
   updateVotacion(votacion: any): void {
@@ -90,6 +91,7 @@ export class CrudVotacionComponent implements OnInit {
     Swal(opt)
     .then((willDelete) => {
       if (willDelete.value) {
+        console.info('actualizar votacion');
         // this.info_votacion = <Votacion>votacion;
         // this.votoService.put('votacion', this.info_votacion)
         //   .subscribe(res => {
@@ -113,6 +115,7 @@ export class CrudVotacionComponent implements OnInit {
     Swal(opt)
     .then((willDelete) => {
       if (willDelete.value) {
+        console.info(votacion);
         // this.info_votacion = <Votacion>votacion;
         // this.votoService.post('votacion', this.info_votacion)
         //   .subscribe(res => {
@@ -130,11 +133,13 @@ export class CrudVotacionComponent implements OnInit {
 
   validarForm(event) {
     if (event.valid) {
-      // if (this.info_votacion === undefined) {
-      //   this.createVotacion(event.data.Votacion);
-      // } else {
-      //   this.updateVotacion(event.data.Votacion);
-      // }
+      if (this.info_votacion === undefined) {
+        console.info('crear');
+        this.createVotacion(event.data.Votacion);
+      } else {
+        console.info('update');
+        this.updateVotacion(event.data.Votacion);
+      }
     }
   }
 
