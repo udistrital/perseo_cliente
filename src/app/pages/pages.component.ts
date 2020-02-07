@@ -72,7 +72,7 @@ export class PagesComponent implements OnInit {
           if (menuRespuesta !== null) {
             for (let i = 0; i < menuRespuesta.length; i++) {
               if ( menuRespuesta[i]['Opciones'] !== null ) {
-                let hijos: Hijo[] = [];
+                const hijos: Hijo[] = [];
                 // this.menuLogin.push({
                 //   title: menuRespuesta[i]['Nombre'],
                 //   link: menuRespuesta[i]['Url'],
