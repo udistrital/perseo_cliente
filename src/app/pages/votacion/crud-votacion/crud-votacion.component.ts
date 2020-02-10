@@ -69,12 +69,12 @@ export class CrudVotacionComponent implements OnInit {
 
   public loadVotacion(): void {
     if (this.votacion_id !== undefined && this.votacion_id !== 0) {
-      // this.perseomid.get('votacion/?query=id:' + this.votacion_id)
-      //   .subscribe(res => {
-      //     if (res !== null) {
-      //       this.info_votacion = <Votacion>res[0];
-      //     }
-      //   });
+      this.perseomid.get('votacion/' + this.votacion_id)
+        .subscribe(res => {
+          if (res !== null) {
+            this.info_votacion = <Votacion>res[0];
+          }
+        });
     } else  {
       this.info_votacion = undefined;
       this.clean = !this.clean;

@@ -148,10 +148,10 @@ export class ListVotacionComponent implements OnInit {
   }
 
   loadData(): void {
-    console.info('load"');
+    // console.info('load"');
     this.perseoMidService.get('votacion').subscribe(res => {
       if (res !== null) {
-        console.info('trajo algo');
+        // console.info('trajo algo');
         const data = <Array<any>>res;
         this.source.load(data);
           }
