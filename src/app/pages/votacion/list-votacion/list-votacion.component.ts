@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
-// import { VotoService } from '../../../@core/data/voto.service';
+import { PersepMidService } from '../../../@core/data/perseomid.service';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
@@ -19,7 +19,10 @@ export class ListVotacionComponent implements OnInit {
 
   source: LocalDataSource = new LocalDataSource();
 
-  constructor(private translate: TranslateService, private toasterService: ToasterService) {
+  constructor(
+    private translate: TranslateService,
+    private perseoMidService: PersepMidService,
+    private toasterService: ToasterService) {
     this.loadData();
     this.cargarCampos();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -145,12 +148,14 @@ export class ListVotacionComponent implements OnInit {
   }
 
   loadData(): void {
-    // this.votoService.get('votacion/?limit=0').subscribe(res => {
-    //   if (res !== null) {
-    //     const data = <Array<any>>res;
-    //     this.source.load(data);
-    //       }
-    // });
+    console.info('load"');
+    this.perseoMidService.get('votacion').subscribe(res => {
+      if (res !== null) {
+        console.info('trajo algo');
+        const data = <Array<any>>res;
+        this.source.load(data);
+          }
+    });
   }
 
   ngOnInit() {
