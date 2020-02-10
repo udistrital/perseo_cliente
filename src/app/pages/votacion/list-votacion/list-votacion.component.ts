@@ -43,8 +43,8 @@ export class ListVotacionComponent implements OnInit {
         cancelButtonContent: '<i class="nb-close"></i>',
       },
       delete: {
-        deleteButtonContent: '<i class="nb-trash"></i>',
-        confirmDelete: true,
+        deleteButtonContent: '<i class="nb-person"></i>', // este boton no elimina, sera usado para informacion
+        // confirmDelete: true,
       },
       mode: 'external',
       columns: {

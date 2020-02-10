@@ -119,13 +119,13 @@ export class CrudVotacionComponent implements OnInit {
     .then((willDelete) => {
       if (willDelete.value) {
         console.info(votacion);
-        // this.info_votacion = <Votacion>votacion;
-        // this.perseomid.post('votacion', this.info_votacion)
-        //   .subscribe(res => {
-        //     this.info_votacion = <Votacion>res;
-        //     this.eventChange.emit(true);
-        //     this.showToast('info', 'created', 'Votacion created');
-        //   });
+        this.info_votacion = <Votacion>votacion;
+        this.perseomid.post('votacion', this.info_votacion)
+          .subscribe(res => {
+            this.info_votacion = <any>res;
+            this.eventChange.emit(true);
+            this.showToast('info', 'created', 'Votacion created');
+          });
       }
     });
   }
