@@ -10,19 +10,21 @@ import 'style-loader!angular2-toaster/toaster.css';
   selector: 'ngx-list-votacion',
   templateUrl: './list-votacion.component.html',
   styleUrls: ['./list-votacion.component.scss'],
-  })
+})
 export class ListVotacionComponent implements OnInit {
   uid: number;
   cambiotab: boolean = false;
   config: ToasterConfig;
   settings: any;
-
+  /*Se guarda los datos que envía el componente filtro*/
+  data: any;
   source: LocalDataSource = new LocalDataSource();
 
   constructor(
     private translate: TranslateService,
     private perseoMidService: PersepMidService,
     private toasterService: ToasterService) {
+    this.data = [];
     this.loadData();
     this.cargarCampos();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -154,7 +156,7 @@ export class ListVotacionComponent implements OnInit {
         // console.info('trajo algo');
         const data = <Array<any>>res;
         this.source.load(data);
-          }
+      }
     });
   }
 
@@ -181,17 +183,17 @@ export class ListVotacionComponent implements OnInit {
       showCancelButton: true,
     };
     Swal(opt)
-    .then((willDelete) => {
+      .then((willDelete) => {
 
-      if (willDelete.value) {
-        // this.votoService.delete('votacion/', event.data).subscribe(res => {
-        //   if (res !== null) {
-        //     this.loadData();
-        //     this.showToast('info', 'deleted', 'Votacion deleted');
-        //     }
-        //  });
-      }
-    });
+        if (willDelete.value) {
+          // this.votoService.delete('votacion/', event.data).subscribe(res => {
+          //   if (res !== null) {
+          //     this.loadData();
+          //     this.showToast('info', 'deleted', 'Votacion deleted');
+          //     }
+          //  });
+        }
+      });
   }
 
   activetab(): void {
@@ -237,6 +239,11 @@ export class ListVotacionComponent implements OnInit {
       bodyOutputType: BodyOutputType.TrustedHtml,
     };
     this.toasterService.popAsync(toast);
+  }
+
+  /*Guardo los datos de la consulta obtenida creada por el filtro*/
+  guardarDatosConsulta(data: any) {
+    this.data = data;
   }
 
 }
