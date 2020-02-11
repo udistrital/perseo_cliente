@@ -2,44 +2,66 @@
   <div class="card-body">
     <div class="row">
       <div class="col-12">
-        <h2 class="card-title">Lista de proveedores</h2>
+        <h2 class="card-title">Votación</h2>
       </div>
     </div>
     <div class="row justify-content-md-center">
+
       <div class="col-md-auto">
-        <div class="example-form">
-          <mat-form-field>
-            <input type="number" [(ngModel)]="identificacion_proveedor" matInput
-              placeholder="Identificación del proveedor"
-              onkeypress="return (event.charCode == 8 || event.charCode == 0) ? undefined : event.charCode >= 48 && event.charCode <= 57">
-          </mat-form-field>
-        </div>
+        <mat-form-field class="example-full-width">
+          <mat-label>Fecha de Corte</mat-label>
+          <input matInput [matDatepicker]="picker" [formControl]="date">
+          <mat-datepicker-toggle matSuffix [for]="picker">
+            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
       </div>
-      <div class="col-md-auto">
-        <div class="example-form">
-          <mat-form-field>
-            <input type="number" [(ngModel)]="numero_contrato" matInput placeholder="Numero de contrato"
-              onkeypress="return (event.charCode == 8 || event.charCode == 0) ? undefined : event.charCode >= 48 && event.charCode <= 57">
-          </mat-form-field>
-        </div>
-      </div>
+      <!-- Select de tipo de filtro -->
       <div class="col-md-auto">
         <mat-form-field>
-          <mat-select placeholder="Vigencia" [(ngModel)]="vigencia">
-            <mat-option *ngFor="let vigencia of vigencias" [value]="vigencia">
-              {{vigencia}}
+          <mat-label>Tipo de Filtro</mat-label>
+          <mat-select (selectionChange)="filterChanged()" [(ngModel)]="filtroSelecionado" name="tipo Filtro">
+            <mat-option *ngFor="let filtro of filtros" [value]="filtro.viewValue">
+              {{filtro.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <!-- Select de Facultad -->
+      <div class="col-md-auto" *ngIf="filtroSelecionado=='Facultad'">
+        <mat-form-field>
+          <mat-label>Facultad</mat-label>
+          <mat-select [(ngModel)]="facultadSelecionada" name="tipo Filtro">
+            <mat-option *ngFor="let facultad of Facultades" [value]="facultad.viewValue">
+              {{facultad.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <!-- Select de Tipo Carrera -->
+      <div class="col-md-auto" *ngIf="filtroSelecionado=='Tipo Carrera'">
+        <mat-form-field>
+          <mat-label>Tipo Carrera</mat-label>
+          <mat-select [(ngModel)]="tipoCarreraSelecionada" name="tipo Filtro">
+            <mat-option *ngFor="let tipoCarrera of TiposCarreras" [value]="tipoCarrera.viewValue">
+              {{tipoCarrera.viewValue}}
             </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
     </div>
-    <div class="row justify-content-md-center">
-      <div class="col-md-auto">
-        <button (click)="filtro()"  (sendData)="filtro()" nbButton>Filtrar</button>
-      </div>
-      <div class="col-md-auto">
-        <button (click)="limpiarfiltro()" nbButton>Limpiar Filtro</button>
-      </div>
+    <div class="row">
+      <!-- List de Participantes -->
+      <div class="col-md-12">
+        <h4>Participantes</h4>
+        <mat-nav-list>
+          <mat-list-item *ngFor="let participante of participantesList"> {{ participante }} </mat-list-item>
+        </mat-nav-list>
+      </div>     
+    </div>
+    <div style="text-align: right">
+      <button (click)="filtro()" nbButton>Ejecución de script</button>
     </div>
   </div>
 </div>

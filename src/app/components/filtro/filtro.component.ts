@@ -1,8 +1,11 @@
 import { Component, TemplateRef, ViewChild, OnInit, Output, EventEmitter } from '@angular/core';
 import { NbWindowService } from '@nebular/theme';
-import { EvaluacionmidService } from '../../@core/data/evaluacionmid.service';
-import { ImplicitAutenticationService } from '../../@core/utils/implicit_autentication.service';
+import { FormControl } from '@angular/forms';
 
+interface Select {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'ngx-filtro',
@@ -11,22 +14,41 @@ import { ImplicitAutenticationService } from '../../@core/utils/implicit_autenti
 })
 export class FiltroComponent implements OnInit {
 
+  // Output para enviar los datos del filtro a otro componente
   @Output() dataResponse: EventEmitter<any>;
 
   @ViewChild('contentTemplate', { read: false }) contentTemplate: TemplateRef<any>;
 
-  vigencias = ['2016', '2017', '2018', '2019', '2020'];
+  filtros: Select[] = [
+    { value: '1', viewValue: 'Facultad' },
+    { value: '2', viewValue: 'Tipo Carrera' },
+  ];
 
-  identificacion_proveedor: any;
-  numero_contrato: any;
-  vigencia: any;
-  autentication_data: any;
-  documento: any;
+  // Facultades sacadas de https://www.udistrital.edu.co/facultades
+  Facultades: Select[] = [
+    { value: '1', viewValue: 'Facultad de Artes - ASAB' },
+    { value: '2', viewValue: 'Facultad de Ciencias y Educación' },
+    { value: '3', viewValue: 'Facultad de Ingeniería' },
+    { value: '4', viewValue: 'Facultad de Medio Ambiente y Recursos Naturales' },
+    { value: '5', viewValue: 'Facultad Tecnológica' },
+  ];
+
+  TiposCarreras: Select[] = [
+    { value: '1', viewValue: 'Pregrado' },
+    { value: '2', viewValue: 'Doctorado' },
+    { value: '3', viewValue: 'Maestría' },
+    { value: '4', viewValue: 'Especialización' },
+  ];
+
+  date = new FormControl(new Date());
+  datosFiltro: any;
+  participantesList: string[] = ['Estudiantes', 'Docentes de Planta', 'Docentes VE', 'Administrativo'];
+  filtroSelecionado: any;
+  facultadSelecionada: any;
+  tipoCarreraSelecionada: any;
 
   constructor(
     private windowService: NbWindowService,
-    private evaluacionMidService: EvaluacionmidService,
-    private authService: ImplicitAutenticationService,
   ) {
     this.dataResponse = new EventEmitter();
   }
@@ -34,98 +56,31 @@ export class FiltroComponent implements OnInit {
   ngOnInit() {
   }
 
+  // Verifica si el filtro está lleno, de ser así crea el objeto que se envía como output
   filtro() {
-
-    this.autentication_data = this.authService.getPayload();
-    this.documento = this.autentication_data.documento;
-    if (((isNaN(this.numero_contrato) === true) || (this.numero_contrato === 0) || (this.numero_contrato === null)
-      || (this.numero_contrato === undefined)) && ((isNaN(this.identificacion_proveedor) === true) || (this.identificacion_proveedor === 0)
-        || (this.identificacion_proveedor === null) || (this.identificacion_proveedor === undefined))) {
-      this.openWindow('Debe ingresar almenos una Identificación de proveedor o un número de contrato');
+    if (this.filtroSelecionado === undefined) {
+      this.openWindow('Se debe selecionar un tipo de filtro');
+    } if (this.filtroSelecionado === 'Facultad' && this.facultadSelecionada === undefined) {
+      this.openWindow('Se debe selecionar una Facultad');
+    } if (this.filtroSelecionado === 'Tipo Carrera' && this.tipoCarreraSelecionada === undefined) {
+      this.openWindow('Se debe selecionar un Tipo de Carrera');
     } else {
-      this.RealizarPeticion();
+      this.datosFiltro = {
+        'TipoFiltro': this.filtroSelecionado,
+        'Facultad': this.facultadSelecionada,
+        'TipoCarrera': this.tipoCarreraSelecionada,
+        'Participantes': this.participantesList,
+        'FechaCorte': this.date.value,
+      }
+      console.info(this.datosFiltro);
+      this.dataResponse.emit(this.datosFiltro);
     }
   }
 
-  RealizarPeticion() {
-    if ((this.identificacion_proveedor !== undefined) && (this.identificacion_proveedor != null)
-      && (this.numero_contrato === undefined || this.numero_contrato === null) && (this.vigencia === undefined)) {
-      this.evaluacionMidService.get('filtroProveedor?ProvID=' + this.identificacion_proveedor + '&SupID=' + String(this.documento))
-        .subscribe((res) => {
-          if (res !== null) {
-            this.dataResponse.emit(res);
-          }
-        }, (error_service) => {
-          this.openWindow(error_service['body'][1]['Error']);
-          this.dataResponse.emit([]);
-        });
-    } else {
-      if ((this.identificacion_proveedor !== undefined) && (this.identificacion_proveedor != null)
-        && (this.numero_contrato === undefined || this.numero_contrato === null) && (this.vigencia !== undefined)) {
-        this.evaluacionMidService.get('filtroProveedor?ProvID=' + this.identificacion_proveedor + '&Vigencia=' + this.vigencia
-         + '&SupID=' + String(this.documento))
-          .subscribe((res) => {
-            if (res !== null) {
-              this.dataResponse.emit(res);
-            }
-          }, (error_service) => {
-            this.openWindow(error_service['body'][1]['Error']);
-            this.dataResponse.emit([]);
-          });
-      } else {
-        if ((this.identificacion_proveedor === undefined || this.identificacion_proveedor === null)
-          && (this.numero_contrato !== undefined && this.numero_contrato != null) && (this.vigencia === undefined)) {
-          this.evaluacionMidService.get('filtroContrato?NumContrato=' + this.numero_contrato + '&Vigencia=0&SupID=' + String(this.documento))
-            .subscribe((res) => {
-              if (res !== null) {
-                this.dataResponse.emit(res);
-              }
-            }, (error_service) => {
-              this.openWindow(error_service['body'][1]['Error']);
-              this.dataResponse.emit([]);
-            });
-        } else {
-          if ((this.identificacion_proveedor === undefined || this.identificacion_proveedor === null)
-            && (this.numero_contrato !== undefined && this.numero_contrato != null) && (this.vigencia !== undefined)) {
-            this.evaluacionMidService.get('filtroContrato?NumContrato=' + this.numero_contrato + '&Vigencia='
-              + String(this.vigencia) + '&SupID=' + String(this.documento)).subscribe((res) => {
-                if (res !== null) {
-                  this.dataResponse.emit(res);
-                }
-              }, (error_service) => {
-                this.openWindow(error_service['body'][1]['Error']);
-                this.dataResponse.emit([]);
-              });
-          } else {
-            if (((this.identificacion_proveedor !== undefined) && (this.identificacion_proveedor != null))
-              && (this.numero_contrato !== undefined && this.numero_contrato != null) && (this.vigencia === undefined)) {
-              this.evaluacionMidService.get('filtroMixto?IdentProv=' + this.identificacion_proveedor + '&NumContrato='
-                + this.numero_contrato + '&Vigencia=0&SupID=' + String(this.documento)).subscribe((res) => {
-                  if (res !== null) {
-                    this.dataResponse.emit(res);
-                  }
-                }, (error_service) => {
-                  this.openWindow(error_service['body'][1]['Error']);
-                  this.dataResponse.emit([]);
-                });
-            } else {
-              if (((this.identificacion_proveedor !== undefined) && (this.identificacion_proveedor != null))
-                && (this.numero_contrato !== undefined && this.numero_contrato != null) && (this.vigencia !== undefined)) {
-                this.evaluacionMidService.get('filtroMixto?IdentProv=' + this.identificacion_proveedor + '&NumContrato='
-                  + this.numero_contrato + '&Vigencia=' + String(this.vigencia) + '&SupID=' + String(this.documento)).subscribe((res) => {
-                    if (res !== null) {
-                      this.dataResponse.emit(res);
-                    }
-                  }, (error_service) => {
-                    this.openWindow(error_service['body'][1]['Error']);
-                    this.dataResponse.emit([]);
-                  });
-              }
-            }
-          }
-        }
-      }
-    }
+  // función que está escuchando el select de "Tipo de filtro" para reiniciar los valor de this.facultadSelecionada y this.tipoCarreraSelecionada.
+  filterChanged() {
+    this.facultadSelecionada = undefined;
+    this.tipoCarreraSelecionada = undefined;
   }
 
   openWindow(mensaje) {
@@ -134,12 +89,4 @@ export class FiltroComponent implements OnInit {
       { title: 'Alerta', context: { text: mensaje } },
     );
   }
-
-  limpiarfiltro() {
-    this.identificacion_proveedor = null;
-    this.numero_contrato = null;
-    this.vigencia = undefined;
-    this.dataResponse.emit([]);
-  }
-
 }
