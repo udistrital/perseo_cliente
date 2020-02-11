@@ -71,7 +71,7 @@ export class FiltroComponent implements OnInit {
         'TipoCarrera': this.tipoCarreraSelecionada,
         'Participantes': this.participantesList,
         'FechaCorte': this.date.value,
-      }
+      };
       console.info(this.datosFiltro);
       this.dataResponse.emit(this.datosFiltro);
     }
