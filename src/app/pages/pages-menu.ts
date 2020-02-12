@@ -7,42 +7,30 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/dashboard',
   },
   // {
-  //   title: 'Evaluaciones',
-  //   icon: 'nb-edit',
+  //   title: 'Votacion',
+  //   icon: 'nb-compose',
+  //   link: '/pages/votacion',
+  //   // key: 'votacion',
   //   children: [
   //     {
-  //       title: 'Evaluar Proveedor',
-  //       link: '/pages/evaluar_proveedor/',
+  //       title: 'Lista Votacion',
+  //       link: '/pages/votacion/list-votacion',
+  //       // key: 'lista_votacion',
+  //     },
+  //     {
+  //       title: 'CRUD Votacion',
+  //       link: '/pages/votacion/crud-votacion',
+  //       // key: 'crud_votacion',
   //     },
   //   ],
   // },
   // {
-  //   title: 'Evaluación',
-  //   icon: 'nb-checkmark',
+  //   title: 'Consulta Evaluación',
+  //   icon: 'nb-search',
   //   children: [
   //     {
   //       title: 'Evaluación',
-  //       link: '/pages/evaluacion/',
-  //     },
-  //   ],
-  // },
-  {
-    title: 'Consulta Evaluación',
-    icon: 'nb-search',
-    children: [
-      {
-        title: 'Evaluación',
-        link: '/pages/consulta_evaluacion/',
-      },
-    ],
-  },
-  // {
-  //   title: 'Administración plantillas',
-  //   icon: 'nb-compose',
-  //   children: [
-  //     {
-  //       title: 'Administración de plantillas',
-  //       link: '/pages/administracion_plantillas/',
+  //       link: '/pages/consulta_evaluacion/',
   //     },
   //   ],
   // },
