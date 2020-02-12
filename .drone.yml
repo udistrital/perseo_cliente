@@ -80,7 +80,7 @@ steps:
       - test
       event:
       - push
-
+ 
   - name: publish-s3-master
     image: plugins/s3
     settings:
