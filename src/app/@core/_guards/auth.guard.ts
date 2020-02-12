@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
     const payload = JSON.parse(atob(id_token[1]));
     if (payload && payload.role) {
       for ( let i = 0; i < payload.role.length; i++) {
-          if ( (payload.role[i] === 'ORDENADOR_DEL_GASTO') || (payload.role[i] === 'SUPERVISOR')) {
+          if ( (payload.role[i] === 'ADMIN_PERSEO') ) {
               valid = true;
               break;
           }

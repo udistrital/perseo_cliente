@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { IAppState } from '../app.state';
 import { Store } from '@ngrx/store';
 import { REDUCER_LIST } from '../reducer.constants';
-import { ActaRecibidoHelper } from '../../../helpers/acta_recibido/actaRecibidoHelper';
-import { Proveedor } from '../../../@core/data/models/acta_recibido/Proveedor';
+// import { ActaRecibidoHelper } from '../../../helpers/acta_recibido/actaRecibidoHelper';
+// import { Proveedor } from '../../../@core/data/models/acta_recibido/Proveedor';
 import { Observable } from 'rxjs';
 import { CatalogoElementosHelper } from '../../../helpers/catalogo-elementos/catalogoElementosHelper';
 import { EvaluacionmidService } from '../../data/evaluacionmid.service';
@@ -12,7 +12,7 @@ import { EvaluacionmidService } from '../../data/evaluacionmid.service';
 export class ListService {
 
   constructor(
-    private ActaRecibido: ActaRecibidoHelper,
+    // private ActaRecibido: ActaRecibidoHelper,
     private CatalogoElementos: CatalogoElementosHelper,
     private evaluacionmidService: EvaluacionmidService,
     private store: Store<IAppState>) {
@@ -23,22 +23,22 @@ export class ListService {
     this.store.select(REDUCER_LIST.Proveedores).subscribe(
       (list: any) => {
         if (!list || list.length === 0) {
-          this.ActaRecibido.getProveedores()
-            .subscribe(
-              (res: any[]) => {
+          // this.ActaRecibido.getProveedores()
+          //   .subscribe(
+          //     (res: any[]) => {
 
-                for (const index in res) {
-                  if (res.hasOwnProperty(index)) {
-                    res[index].compuesto = res[index].NumDocumento + ' - ' + res[index].NomProveedor;
-                  }
-                }
-                this.addList(REDUCER_LIST.Proveedores, res);
+          //       for (const index in res) {
+          //         if (res.hasOwnProperty(index)) {
+          //           res[index].compuesto = res[index].NumDocumento + ' - ' + res[index].NomProveedor;
+          //         }
+          //       }
+          //       this.addList(REDUCER_LIST.Proveedores, res);
 
-              },
-              error => {
-                this.addList(REDUCER_LIST.Proveedores, []);
-              },
-            );
+          //     },
+          //     error => {
+          //       this.addList(REDUCER_LIST.Proveedores, []);
+          //     },
+          //   );
         }
       },
     );

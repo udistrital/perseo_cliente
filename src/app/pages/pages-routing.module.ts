@@ -14,22 +14,6 @@ const routes: Routes = [{
       path: 'dashboard',
       component: DashboardComponent,
     },
-      // {
-      // path: 'subgrupo_1',
-      // loadChildren: './subgrupo_1/subgrupo_1.module#Subgrupo1Module',
-      // },
-      // {
-      // path: 'subgrupo_2',
-      // loadChildren: './subgrupo_2/subgrupo_2.module#Subgrupo2Module',
-      // },
-    {
-      path: 'reportes',
-      loadChildren: './reportes/reportes.module#ReportesModule',
-    },
-    {
-      path: 'evaluar_proveedor',
-      loadChildren: './evaluar-proveedor/evaluar-proveedor.module#EvaluarProveedorModule',
-    },
     {
       path: 'evaluacion',
       loadChildren: './evaluacion/evaluacion.module#EvaluacionModule',
@@ -40,10 +24,9 @@ const routes: Routes = [{
       loadChildren: './consulta-evaluacion/consulta-evaluacion.module#ConsultaEvaluacionModule',
     },
     {
-      path: 'administracion_plantillas',
-      loadChildren: './administracion-plantillas/administracion-plantillas.module#AdministracionPlantillasModule',
-      canActivate: [AuthGuard],
-    },
+      path: 'votacion',
+      loadChildren: './votacion/votacion.module#VotacionModule',
+      },
     {
       path: '',
       redirectTo: 'dashboard',
