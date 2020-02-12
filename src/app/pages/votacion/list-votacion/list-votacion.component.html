@@ -1,4 +1,4 @@
-<div class="col-md-12 col-lg-12 ">
+<div *ngIf="!vistaScript" class="col-md-12 col-lg-12 ">
   <nb-card>
     <nb-card-body>
         <toaster-container [toasterconfig]="config"></toaster-container>
@@ -20,8 +20,8 @@
   </nb-card>
 </div>
 
-<div class="col-md-12 col-lg-12 ">
-  <ngx-filtro (dataResponse)="guardarDatosConsulta($event)"></ngx-filtro>
+<div *ngIf="vistaScript" class="col-md-12 col-lg-12 ">
+  <ngx-filtro (dataResponse)="guardarDatosConsulta($event)" (regreso)="ocultarVistaScript($event)" [datosVotacion]="datosFila"></ngx-filtro>
 </div>
 
 

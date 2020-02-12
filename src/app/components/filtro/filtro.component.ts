@@ -1,4 +1,4 @@
-import { Component, TemplateRef, ViewChild, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, TemplateRef, ViewChild, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { NbWindowService } from '@nebular/theme';
 import { FormControl } from '@angular/forms';
 
@@ -16,6 +16,8 @@ export class FiltroComponent implements OnInit {
 
   // Output para enviar los datos del filtro a otro componente
   @Output() dataResponse: EventEmitter<any>;
+  @Output() regreso: EventEmitter<boolean>;
+  @Input() datosVotacion: any = [];
 
   @ViewChild('contentTemplate', { read: false }) contentTemplate: TemplateRef<any>;
 
@@ -40,9 +42,10 @@ export class FiltroComponent implements OnInit {
     { value: '4', viewValue: 'Especialización' },
   ];
 
-  date = new FormControl(new Date());
+  date = new FormControl();
+  // date = new FormControl(new Date());
   datosFiltro: any;
-  participantesList: string[] = ['Estudiantes', 'Docentes de Planta', 'Docentes VE', 'Administrativo'];
+  participantesList: string[] = [];
   filtroSelecionado: any;
   facultadSelecionada: any;
   tipoCarreraSelecionada: any;
@@ -51,9 +54,36 @@ export class FiltroComponent implements OnInit {
     private windowService: NbWindowService,
   ) {
     this.dataResponse = new EventEmitter();
+    this.regreso = new EventEmitter();
   }
 
   ngOnInit() {
+    console.info(this.datosVotacion);
+    this.llenarParticipantes();
+  }
+
+  llenarParticipantes() {
+    if (this.datosVotacion['Contratistas'] === true) {
+      this.participantesList.push('Contratistas');
+    }
+    if (this.datosVotacion['DocentesPlanta'] === true) {
+      this.participantesList.push('Docentes de Planta');
+    }
+    if (this.datosVotacion['DocentesVe'] === true) {
+      this.participantesList.push('Docentes de Vinculacion Especial');
+    }
+    if (this.datosVotacion['Egresados'] === true) {
+      this.participantesList.push('Egresados');
+    }
+    if (this.datosVotacion['Estudiantes'] === true) {
+      this.participantesList.push('Estudiantes');
+    }
+    if (this.datosVotacion['Exrectores'] === true) {
+      this.participantesList.push('Exrectores');
+    }
+    if (this.datosVotacion['Funcionarios'] === true) {
+      this.participantesList.push('Funcionarios');
+    }
   }
 
   // Verifica si el filtro está lleno, de ser así crea el objeto que se envía como output
@@ -75,6 +105,10 @@ export class FiltroComponent implements OnInit {
       console.info(this.datosFiltro);
       this.dataResponse.emit(this.datosFiltro);
     }
+  }
+
+  regresar() {
+    this.regreso.emit(false);
   }
 
   // función que está escuchando el select de "Tipo de filtro" para reiniciar los valor de this.facultadSelecionada y this.tipoCarreraSelecionada.

@@ -60,9 +60,15 @@
         </mat-nav-list>
       </div>     
     </div>
-    <div style="text-align: right">
-      <button (click)="filtro()" nbButton>Ejecución de script</button>
+    <div class="row">
+      <div class="col-6" style="text-align: left">
+        <button (click)="regresar()" nbButton>Regresar</button>
+      </div>
+      <div class="col-6" style="text-align: right">
+        <button (click)="filtro()" nbButton>Ejecución de script</button>
+      </div>
     </div>
+    
   </div>
 </div>
 <ng-template #contentTemplate let-data>

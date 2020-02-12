@@ -18,13 +18,16 @@ export class ListVotacionComponent implements OnInit {
   settings: any;
   /*Se guarda los datos que envía el componente filtro*/
   data: any;
+  datosFila: any;
   source: LocalDataSource = new LocalDataSource();
+  vistaScript: boolean = false;
 
   constructor(
     private translate: TranslateService,
     private perseoMidService: PersepMidService,
     private toasterService: ToasterService) {
     this.data = [];
+    this.vistaScript = false;
     this.loadData();
     this.cargarCampos();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -174,26 +177,10 @@ export class ListVotacionComponent implements OnInit {
   }
 
   onDelete(event): void {
-    const opt: any = {
-      title: 'Deleting?',
-      text: 'Delete Votacion!',
-      icon: 'warning',
-      buttons: true,
-      dangerMode: true,
-      showCancelButton: true,
-    };
-    Swal(opt)
-      .then((willDelete) => {
-
-        if (willDelete.value) {
-          // this.votoService.delete('votacion/', event.data).subscribe(res => {
-          //   if (res !== null) {
-          //     this.loadData();
-          //     this.showToast('info', 'deleted', 'Votacion deleted');
-          //     }
-          //  });
-        }
-      });
+    this.vistaScript = true;
+    this.datosFila = {};
+    console.info(event.data);
+    this.datosFila = event.data;
   }
 
   activetab(): void {
@@ -244,6 +231,10 @@ export class ListVotacionComponent implements OnInit {
   /*Guardo los datos de la consulta obtenida creada por el filtro*/
   guardarDatosConsulta(data: any) {
     this.data = data;
+  }
+
+  ocultarVistaScript(mostar: boolean) {
+    this.vistaScript = mostar;
   }
 
 }
