@@ -167,7 +167,8 @@ export class ListVotacionComponent implements OnInit {
   }
 
   onEdit(event): void {
-    this.uid = event.data.Id;
+    console.info(event.data);
+    this.uid = event.data.TIV_CODIGO;
     this.activetab();
   }
 

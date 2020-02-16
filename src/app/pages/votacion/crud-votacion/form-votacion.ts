@@ -9,7 +9,7 @@ export let FORM_VOTACION = {
     // {
     //     etiqueta: 'input',
     //     claseGrid: 'col-6',
-    //     nombre: 'Id',
+    //     nombre: 'TIV_CODIGO',
     //     label_i18n: 'id',
     //     placeholder_i18n: 'id',
     //     requerido: true,
@@ -18,7 +18,7 @@ export let FORM_VOTACION = {
     {
         etiqueta: 'input',
         claseGrid: 'col-6',
-        nombre: 'Nombre',
+        nombre: 'TIV_NOMBRE',
         label_i18n: 'nombre',
         placeholder_i18n: 'nombre',
         requerido: true,
@@ -27,7 +27,7 @@ export let FORM_VOTACION = {
     {
         etiqueta: 'input',
         claseGrid: 'col-6',
-        nombre: 'Observacion',
+        nombre: 'TVI_OBSERVACION',
         label_i18n: 'observacion',
         placeholder_i18n: 'observacion',
         requerido: true,
@@ -36,7 +36,7 @@ export let FORM_VOTACION = {
     {
         etiqueta: 'mat-date',
         claseGrid: 'col-6',
-        nombre: 'Año',
+        nombre: 'TIV_ANO',
         label_i18n: 'año',
         placeholder_i18n: 'año',
         requerido: true,
@@ -45,7 +45,7 @@ export let FORM_VOTACION = {
     {
         etiqueta: 'mat-date',
         claseGrid: 'col-6',
-        nombre: 'Fechaejecucion',
+        nombre: 'TIV_FECHA_ELECCION',
         label_i18n: 'fechaejecucion',
         placeholder_i18n: 'fechaejecucion',
         requerido: true,
@@ -54,7 +54,7 @@ export let FORM_VOTACION = {
     {
         etiqueta: 'checkbox',
         claseGrid: 'col-6',
-        nombre: 'Estado',
+        nombre: 'TVI_ESTADO',
         label_i18n: 'estado',
         placeholder_i18n: 'estado',
         requerido: true,
@@ -63,7 +63,7 @@ export let FORM_VOTACION = {
     {
         etiqueta: 'checkbox',
         claseGrid: 'col-6',
-        nombre: 'DocentesPlanta',
+        nombre: 'TVI_DOCENTES_PLANTA',
         label_i18n: 'docentes_planta',
         placeholder_i18n: 'docentes_planta',
         requerido: true,
@@ -72,7 +72,7 @@ export let FORM_VOTACION = {
     {
         etiqueta: 'checkbox',
         claseGrid: 'col-6',
-        nombre: 'DocentesVe',
+        nombre: 'TVI_DOCENTES_VE',
         label_i18n: 'docentes_ve',
         placeholder_i18n: 'docentes_ve',
         requerido: true,
@@ -81,7 +81,7 @@ export let FORM_VOTACION = {
     {
         etiqueta: 'checkbox',
         claseGrid: 'col-6',
-        nombre: 'Funcionarios',
+        nombre: 'TVI_FUNCIONARIOS',
         label_i18n: 'funcionarios',
         placeholder_i18n: 'funcionarios',
         requerido: true,
@@ -90,7 +90,7 @@ export let FORM_VOTACION = {
     {
         etiqueta: 'checkbox',
         claseGrid: 'col-6',
-        nombre: 'Estudiantes',
+        nombre: 'TVI_ESTUDIANTES',
         label_i18n: 'estudiantes',
         placeholder_i18n: 'estudiantes',
         requerido: true,
@@ -99,7 +99,7 @@ export let FORM_VOTACION = {
     {
         etiqueta: 'checkbox',
         claseGrid: 'col-6',
-        nombre: 'Egresados',
+        nombre: 'TVI_EGRESADOS',
         label_i18n: 'egresados',
         placeholder_i18n: 'egresados',
         requerido: true,
@@ -108,7 +108,7 @@ export let FORM_VOTACION = {
     {
         etiqueta: 'checkbox',
         claseGrid: 'col-6',
-        nombre: 'Contratistas',
+        nombre: 'TVI_CONTRATISTAS',
         label_i18n: 'contratistas',
         placeholder_i18n: 'contratistas',
         requerido: true,
@@ -117,7 +117,7 @@ export let FORM_VOTACION = {
     {
         etiqueta: 'checkbox',
         claseGrid: 'col-6',
-        nombre: 'Exrectores',
+        nombre: 'TVI_EXRECTORES',
         label_i18n: 'exrectores',
         placeholder_i18n: 'exrectores',
         requerido: true,
