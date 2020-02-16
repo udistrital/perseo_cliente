@@ -53,91 +53,91 @@ export class ListVotacionComponent implements OnInit {
       },
       mode: 'external',
       columns: {
-        Id: {
+        TIV_CODIGO: { // Id
           title: this.translate.instant('GLOBAL.id'),
           // type: 'number;',
           valuePrepareFunction: (value) => {
             return value;
           },
         },
-        Nombre: {
+        TIV_NOMBRE: { // nombre
           title: this.translate.instant('GLOBAL.nombre'),
           // type: 'string;',
           valuePrepareFunction: (value) => {
             return value;
           },
         },
-        Observacion: {
+        TVI_OBSERVACION: {
           title: this.translate.instant('GLOBAL.observacion'),
           // type: 'string;',
           valuePrepareFunction: (value) => {
             return value;
           },
         },
-        Año: {
+        TIV_ANO: { // año
           title: this.translate.instant('GLOBAL.año'),
           // type: 'Date;',
           valuePrepareFunction: (value) => {
             return value;
           },
         },
-        Fechaejecucion: {
+        TIV_FECHA_ELECCION: {
           title: this.translate.instant('GLOBAL.fechaejecucion'),
           // type: 'Date;',
           valuePrepareFunction: (value) => {
             return value;
           },
         },
-        Estado: {
+        TVI_ESTADO: {
           title: this.translate.instant('GLOBAL.estado'),
           // type: 'boolean;',
           valuePrepareFunction: (value) => {
             return value;
           },
         },
-        DocentesPlanta: {
+        TVI_DOCENTES_PLANTA: {
           title: this.translate.instant('GLOBAL.docentes_planta'),
           // type: 'boolean;',
           valuePrepareFunction: (value) => {
             return value;
           },
         },
-        DocentesVe: {
+        TVI_DOCENTES_VE: {
           title: this.translate.instant('GLOBAL.docentes_ve'),
           // type: 'boolean;',
           valuePrepareFunction: (value) => {
             return value;
           },
         },
-        Funcionarios: {
+        TVI_FUNCIONARIOS: {
           title: this.translate.instant('GLOBAL.funcionarios'),
           // type: 'boolean;',
           valuePrepareFunction: (value) => {
             return value;
           },
         },
-        Estudiantes: {
+        TVI_ESTUDIANTES: {
           title: this.translate.instant('GLOBAL.estudiantes'),
           // type: 'boolean;',
           valuePrepareFunction: (value) => {
             return value;
           },
         },
-        Egresados: {
+        TVI_EGRESADOS: {
           title: this.translate.instant('GLOBAL.egresados'),
           // type: 'boolean;',
           valuePrepareFunction: (value) => {
             return value;
           },
         },
-        Contratistas: {
+        TVI_CONTRATISTAS: {
           title: this.translate.instant('GLOBAL.contratistas'),
           // type: 'boolean;',
           valuePrepareFunction: (value) => {
             return value;
           },
         },
-        Exrectores: {
+        TVI_EXRECTORES: {
           title: this.translate.instant('GLOBAL.exrectores'),
           // type: 'boolean;',
           valuePrepareFunction: (value) => {
