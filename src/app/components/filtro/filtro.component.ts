@@ -63,25 +63,25 @@ export class FiltroComponent implements OnInit {
   }
 
   llenarParticipantes() {
-    if (this.datosVotacion['Contratistas'] === true) {
+    if (this.datosVotacion['TVI_CONTRATISTAS'] === true) {
       this.participantesList.push('Contratistas');
     }
-    if (this.datosVotacion['DocentesPlanta'] === true) {
+    if (this.datosVotacion['TVI_DOCENTES_PLANTA'] === true) {
       this.participantesList.push('Docentes de Planta');
     }
-    if (this.datosVotacion['DocentesVe'] === true) {
+    if (this.datosVotacion['TVI_DOCENTES_VE'] === true) {
       this.participantesList.push('Docentes de Vinculacion Especial');
     }
-    if (this.datosVotacion['Egresados'] === true) {
+    if (this.datosVotacion['TVI_EGRESADOS'] === true) {
       this.participantesList.push('Egresados');
     }
-    if (this.datosVotacion['Estudiantes'] === true) {
+    if (this.datosVotacion['TVI_ESTUDIANTES'] === true) {
       this.participantesList.push('Estudiantes');
     }
-    if (this.datosVotacion['Exrectores'] === true) {
+    if (this.datosVotacion['TVI_EXRECTORES'] === true) {
       this.participantesList.push('Exrectores');
     }
-    if (this.datosVotacion['Funcionarios'] === true) {
+    if (this.datosVotacion['TVI_FUNCIONARIOS'] === true) {
       this.participantesList.push('Funcionarios');
     }
   }
