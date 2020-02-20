@@ -95,13 +95,13 @@ export class CrudVotacionComponent implements OnInit {
     .then((willDelete) => {
       if (willDelete.value) {
         console.info('actualizar votacion');
-        // this.info_votacion = <Votacion>votacion;
-        // this.perseomid.put('votacion', this.info_votacion)
-        //   .subscribe(res => {
-        //     this.loadVotacion();
-        //     this.eventChange.emit(true);
-        //     this.showToast('info', 'updated', 'Votacion updated');
-        //   });
+        this.info_votacion = <Votacion>votacion;
+        this.perseomid.put(`votacion/${this.info_votacion.TIV_CODIGO}`, this.info_votacion)
+          .subscribe(res => {
+            this.loadVotacion();
+            this.eventChange.emit(true);
+            this.showToast('info', 'updated', 'Votacion updated');
+          });
       }
     });
   }
