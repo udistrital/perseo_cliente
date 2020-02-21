@@ -35,7 +35,7 @@ export class PersepMidService {
   }
   put(endpoint, element) {
     this.requestManager.setPath('PERSEO_MID');
-    return this.requestManager.put(endpoint, element);
+    return this.requestManager.putPerseo(endpoint, element);
   }
   delete(endpoint, element) {
     this.requestManager.setPath('EVALUACIONCRUD_SERVICE');

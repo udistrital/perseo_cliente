@@ -106,6 +106,12 @@ export class RequestManager {
     );
   }
 
+  putPerseo(endpoint, element) {
+    return this.http.put<any>(`${this.path}${endpoint}`, element, this.httpOptions).pipe(
+      catchError(this.errManager.handleError),
+    );
+  }
+
   /**
    * Perform a PUT http request
    * @param endpoint service's end-point

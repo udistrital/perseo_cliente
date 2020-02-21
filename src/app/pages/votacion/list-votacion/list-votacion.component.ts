@@ -3,6 +3,7 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { PersepMidService } from '../../../@core/data/perseomid.service';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { DatePipe } from '@angular/common';
 import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
 
@@ -25,6 +26,7 @@ export class ListVotacionComponent implements OnInit {
   constructor(
     private translate: TranslateService,
     private perseoMidService: PersepMidService,
+    public datepipe: DatePipe,
     private toasterService: ToasterService) {
     this.data = [];
     this.vistaScript = false;
@@ -85,7 +87,8 @@ export class ListVotacionComponent implements OnInit {
           title: this.translate.instant('GLOBAL.fechaejecucion'),
           // type: 'Date;',
           valuePrepareFunction: (value) => {
-            return value;
+            return this.datepipe.transform(value, 'yyyy-MMM-dd');
+            // return value;
           },
         },
         TVI_ESTADO: {
@@ -167,7 +170,7 @@ export class ListVotacionComponent implements OnInit {
   }
 
   onEdit(event): void {
-    console.info(event.data);
+    // console.info(event.data);
     this.uid = event.data.TIV_CODIGO;
     this.activetab();
   }
@@ -180,7 +183,7 @@ export class ListVotacionComponent implements OnInit {
   onDelete(event): void {
     this.vistaScript = true;
     this.datosFila = {};
-    console.info(event.data);
+    // console.info(event.data);
     this.datosFila = event.data;
   }
 
