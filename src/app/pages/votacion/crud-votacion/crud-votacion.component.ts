@@ -94,7 +94,7 @@ export class CrudVotacionComponent implements OnInit {
     Swal(opt)
     .then((willDelete) => {
       if (willDelete.value) {
-        console.info('actualizar votacion');
+        // console.info('actualizar votacion');
         this.info_votacion = <Votacion>votacion;
         this.perseomid.put(`votacion/${this.info_votacion.TIV_CODIGO}`, this.info_votacion)
           .subscribe(res => {
@@ -118,7 +118,7 @@ export class CrudVotacionComponent implements OnInit {
     Swal(opt)
     .then((willDelete) => {
       if (willDelete.value) {
-        console.info(votacion);
+        // console.info(votacion);
         this.info_votacion = <Votacion>votacion;
         this.perseomid.post('votacion', this.info_votacion)
           .subscribe(res => {
@@ -137,10 +137,10 @@ export class CrudVotacionComponent implements OnInit {
   validarForm(event) {
     if (event.valid) {
       if (this.info_votacion === undefined) {
-        console.info('crear');
+        // console.info('crear');
         this.createVotacion(event.data.Votacion);
       } else {
-        console.info('update');
+        // console.info('update');
         this.updateVotacion(event.data.Votacion);
       }
     }
