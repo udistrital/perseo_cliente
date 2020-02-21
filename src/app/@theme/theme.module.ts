@@ -2,6 +2,8 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ToasterModule } from 'angular2-toaster';
+
 
 import {
   MatAutocompleteModule,
@@ -263,7 +265,7 @@ const NB_THEME_PROVIDERS = [
 ];
 
 @NgModule({
-  imports: [...BASE_MODULES, ...NB_MODULES, MAT_MODULES],
+  imports: [...BASE_MODULES, ...NB_MODULES, MAT_MODULES, ToasterModule],
   exports: [...BASE_MODULES, ...NB_MODULES, MAT_MODULES, ...COMPONENTS, ...PIPES],
   declarations: [...COMPONENTS, ...PIPES],
   entryComponents: [...ENTRY_COMPONENTS],
