@@ -199,12 +199,13 @@ export class FiltroComponent implements OnInit {
 
     // } else {
       this.datosFiltro = {
-        'TipoFiltro': this.filtroSelecionado,
-        'Facultad': this.facultadSelecionada,
-        'TipoCarrera': this.tipoCarreraSelecionada,
-        'Participantes': this.participantesList,
+        // 'TipoFiltro': this.filtroSelecionado,
+        // 'Facultad': this.facultadSelecionada,
+        // 'TipoCarrera': this.tipoCarreraSelecionada,
+        // 'Participantes': this.participantesList,
         'FechaCorte': this.date.value,
         'datosVotacion': this.datosVotacion,
+        'Id': this.datosVotacion['TIV_CODIGO'],
       };
 
       const opt: any = {
@@ -220,6 +221,15 @@ export class FiltroComponent implements OnInit {
       .then((willDelete) => {
         if (willDelete.value) {
           // console.info(votacion);
+          this.perseoMidService.delete(`script`, this.datosFiltro)
+          .subscribe(res => {
+            console.info(res);
+            this.openWindow(`Tardara un tiempo en llenarse las listas de ${res['Body']['lista']} , por favor revise mas tarde`, 'Success');
+
+          }, (error_service) => {
+            // console.info(error_service['body'][1]);
+            this.openWindow(error_service['body'][1]['Error'], 'Error');
+          });
               this.showToast('info', 'created', `Tardara un tiempo en llenarse las listas, por favor revise mas tarde`);
         }
       });
