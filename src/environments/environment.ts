@@ -21,14 +21,6 @@ export const environment = {
   ADMINISTRIVA_AMAZON: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/administrativa_amazon_api/v1/',
   PERSEO_MID: 'http://localhost:8080/v1/',
 
-  SPAGOBI: {
-    PROTOCOL: 'https',
-    HOST: 'intelligentia.udistrital.edu.co',
-    PORT: '8443',
-    CONTEXTPATH: 'SpagoBI',
-    USER: 'sergio_orjuela',
-    PASSWORD: 'sergio_orjuela',
-  },
   TOKEN: {
     AUTORIZATION_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oauth2/authorize',
     CLIENTE_ID: 'e36v1MPQk2jbz9KM4SmKhk8Cyw0a',
