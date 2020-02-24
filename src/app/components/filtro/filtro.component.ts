@@ -127,7 +127,7 @@ export class FiltroComponent implements OnInit {
     if (this.datosVotacion['TVI_FUNCIONARIOS'] === true) {
       this.participantesList.push({
         'nombre': 'Funcionarios',
-        'personas': this.cantidadPersonas[0]['administrativos'],
+        'personas': this.cantidadPersonas[0]['funcionarios'],
       });
     }
   }
@@ -142,16 +142,17 @@ export class FiltroComponent implements OnInit {
     //   this.openWindow('Se debe selecionar un Tipo de Carrera');
     // } else {
     if (this.date.value === null || this.date.value === undefined) {
-      this.openWindow('Por favor seleccione una fecha de corte');
+      this.openWindow('Por favor seleccione una fecha de corte', 'Alerta');
 
     } else {
       this.datosFiltro = {
         'TipoFiltro': this.filtroSelecionado,
         'Facultad': this.facultadSelecionada,
         'TipoCarrera': this.tipoCarreraSelecionada,
-        'Participantes': this.participantesList,
+        // 'Participantes': this.participantesList,
         'FechaCorte': this.date.value,
         'datosVotacion': this.datosVotacion,
+        'cantidadParticipantes': this.cantidadPersonas[0],
       };
 
       const opt: any = {
@@ -167,7 +168,15 @@ export class FiltroComponent implements OnInit {
       .then((willDelete) => {
         if (willDelete.value) {
           // console.info(votacion);
-              this.showToast('info', 'created', `Tardara un tiempo en llenarse las listas, por favor revise mas tarde`);
+          this.perseoMidService.post(`script`, this.datosFiltro)
+          .subscribe(res => {
+            console.info(res);
+            this.openWindow(`Tardara un tiempo en llenarse las listas de ${res['Body']['lista']} , por favor revise mas tarde`, 'Success');
+
+          }, (error_service) => {
+            // console.info(error_service['body'][1]);
+            this.openWindow(error_service['body'][1]['Error'], 'Error');
+          });
         }
       });
 
@@ -231,10 +240,10 @@ export class FiltroComponent implements OnInit {
     this.tipoCarreraSelecionada = undefined;
   }
 
-  openWindow(mensaje) {
+  openWindow(mensaje, titulo) {
     this.windowService.open(
       this.contentTemplate,
-      { title: 'Alerta', context: { text: mensaje } },
+      { title: titulo, context: { text: mensaje } },
     );
   }
 
