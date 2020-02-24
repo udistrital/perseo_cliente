@@ -15,23 +15,15 @@ export const environment = {
   EVALUACIONMID_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/evaluacion_mid/v1/',
   EVALUACIONCRUD_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/evaluacion_crud/v1/',
   ADMINISTRIVA_AMAZON: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/administrativa_amazon_api/v1/',
-  PERSEO_MID: 'localhost:8080/v1/',
+  PERSEO_MID: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/perseo_mid/v1/',
 
-  SPAGOBI: {
-    PROTOCOL: 'https',
-    HOST: 'intelligentia.udistrital.edu.co',
-    PORT: '8443',
-    CONTEXTPATH: 'SpagoBI',
-    USER: 'sergio_orjuela',
-    PASSWORD: 'sergio_orjuela',
-  },
   TOKEN: {
     AUTORIZATION_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oauth2/authorize',
-    CLIENTE_ID: '4Om0efBanbeWtSEgHGb0eCWpzl4a',
+    CLIENTE_ID: '67oeGvyGx98w3sDVETSZt9GQ7Ska',
     RESPONSE_TYPE: 'id_token token',
     SCOPE: 'openid email role documento',
-    REDIRECT_URL: 'https://pruebasevaluacion.portaloas.udistrital.edu.co',
+    REDIRECT_URL: 'https://pruebasperseo.portaloas.udistrital.edu.co',
     SIGN_OUT_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oidc/logout',
-    SIGN_OUT_REDIRECT_URL: 'https://pruebasevaluacion.portaloas.udistrital.edu.co',
+    SIGN_OUT_REDIRECT_URL: 'https://pruebasperseo.portaloas.udistrital.edu.co',
   },
 };

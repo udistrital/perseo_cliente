@@ -16,14 +16,6 @@ export const environment = {
   EVALUACIONCRUD_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/evaluacion_crud/v1/',
   ADMINISTRIVA_AMAZON: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/administrativa_amazon_api/v1/',
   PERSEO_MID: 'localhost:8080/v1/',
-  SPAGOBI: {
-    PROTOCOL: 'https',
-    HOST: 'intelligentia.udistrital.edu.co',
-    PORT: '8443',
-    CONTEXTPATH: 'SpagoBI',
-    USER: 'sergio_orjuela',
-    PASSWORD: 'sergio_orjuela',
-  },
   TOKEN: {
     AUTORIZATION_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oauth2/authorize',
     CLIENTE_ID: 'e36v1MPQk2jbz9KM4SmKhk8Cyw0a',
