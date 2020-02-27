@@ -31,15 +31,10 @@ npx ng serve --port {PORT}
 #### API CRUD
 - [Evaluacion CRUD](https://github.com/udistrital/evaluacion_crud)
 
-
-
-
 ### :writing_hand: Mockups
 Los siguientes mockups grafican la estructura general de la aplicación, como sus principales vistas.
 Para visualizar los mockups acceder a este enlace
 <a href="https://drive.google.com/file/d/1LR9DwzfaFSoEmWc4PWOIicGhS6XIxRrd/view?usp=sharing">Mockpup</a>
-
-<summary><h3> 🛠️ Configuracion del proyecto</h3></summary>
 
 
 ## Licencia
