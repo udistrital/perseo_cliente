@@ -8,7 +8,7 @@ Cliente para el Subsistema de Evaluacion de proveedores AGORA.
 
 ### Tecnologías Implementadas y Versiones
 
- * [Plantilla ngxAdmin](link_documentación](https://github.com/akveo/ngx-admin)
+ * [Plantilla ngxAdmin](https://github.com/akveo/ngx-admin)
  * [Angular 8.0]()
  * [Bootstrap 4]()
  * [Nebular 4]()
